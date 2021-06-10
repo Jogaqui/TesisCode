@@ -20,3 +20,13 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+
+// Unidades
+
+Route::resource('unidad', 'UnidadController');
+Route::get(('cancelarp'), function(){
+    return redirect()->route('unidad.index')->with('datos', 'Acción Cancelada');
+})->name('cancelarp');
+Route::get('unidad/{id}/confirmar','UnidadController@confirmar')->name('unidad.confirmar');
