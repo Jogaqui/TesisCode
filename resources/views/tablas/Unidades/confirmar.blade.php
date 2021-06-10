@@ -11,6 +11,8 @@
         </div>
         <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> SI</button>
         <a href="{{route('cancelarp')}}" class="btn btn-danger"><i class="fas fa-ban"></i> NO</a>
+        
     </form>
 </div>
+
 @endsection
