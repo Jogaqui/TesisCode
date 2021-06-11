@@ -2,45 +2,38 @@
 
 @section('contenido')
 
-<div class="container">
- 
-    <h3>NUESTRAS UNIDADES</h3>
 
-    <a href="{{route('unidad.create')}}" class="btn btn-primary"><i class="fas fa-plus"></i> Nuevo Registro</a>
+<div class="container-fluid">
+    <h3>GESTIÓN DE UNIDADES</h3>
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Listado de unidades</h3>
+            <a href="{{route('unidad.create')}}" class="btn btn-primary" style="float:right;"><i class="fas fa-plus"></i> Nuevo Registro</a>
+            <br><br>
+            @php
+            
+            @endphp
+            <h3 class="card-title" style="font-size: 15px;">Hasta el momento hay: '<b style="color: blue;"> @php echo $unidad->count(); @endphp</b>' unidades registradas.</h3>
 
-    <nav class="navbar float-right">
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Buscar por descripcion" aria-label="Search" id="buscarpor" name="buscarpor" value="{{$buscarpor}}">
-            <button class="btn btn-success my-2 my-sm-0" type="submit">Buscar</button>
-        </form>
-    </nav>
-
-    @if (session('datos'))
-    <div class="alert alert-warning alert-dismissible fade show mt-3" roles="alert">
-        {{ session('datos') }}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    @endif
-
-    <table class="table">
-        <thead class="thead-dark">
-            <tr>
-                <th scope="col">Código</th>
-                <th scope="col">Descripción</th>
-                <th scope="col">Opciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($unidad as $itemunidad)
+        </div>
+          <!-- /.card-header -->
+        <div class="card-body">
+            <table id="example1" class="table table-bordered table-striped">
+              <thead>
+              <tr>
+                <th>Código</th>
+                <th>Descripción</th>
+                <th>Opciones</th>
+              </tr>
+              </thead>
+              <tbody>
+              @foreach($unidad as $itemunidad)
             <tr>
                 <td>{{$itemunidad->idUnidad}}</td>
                 <td>{{$itemunidad->descripcion}}</td>
                 <td>
-                    <a href="{{route('unidad.edit',$itemunidad->idUnidad)}}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i>Editar</a>
+                    <a href="{{route('unidad.edit',$itemunidad->idUnidad)}}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i>Editar</a>
                     <a href="" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModalCenter{{$itemunidad->idUnidad}}"><i class="fas fa-edit"></i> Eliminar</a>
-                    <a href="" class="btn btn-success btn-sm"><i class="fas fa-list"></i>   Lista de Trabajadores</a>
                 </td>
             </tr>
             <!------ ESTE ES EL MODAL QUE SE MUESTRA AL DAR CLICK EN EL BOTON "ELIMINAR" ------>
@@ -67,8 +60,12 @@
             </div><!--fin modal-->
             
             @endforeach
-        </tbody>
-    </table>
-</div>
-{{$unidad->links()}}
+              
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+  </div>
+  <!-- /.container-fluid -->
+  {{$unidad->links()}}  
 @endsection
