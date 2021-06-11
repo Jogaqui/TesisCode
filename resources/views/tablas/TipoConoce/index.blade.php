@@ -38,7 +38,7 @@
                 <td>{{$itemtipoconoce->idConoce}}</td>
                 <td>{{$itemtipoconoce->nombre}}</td>
                 <td>
-                    <a href="{{route('tipoconoce.edit',$itemtipoconoce->idConoce)}}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i>Editar</a>
+                    <a href="{{route('tipoconoce.edit',$itemtipoconoce->idConoce)}}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i>Editar</a>
                     <a href="" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModalCenter{{$itemtipoconoce->idConoce}}"><i class="fas fa-edit"></i> Eliminar</a>
                 </td>
             </tr>
