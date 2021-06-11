@@ -10,8 +10,7 @@ class UnidadController extends Controller
     public function index(Request $request)
     {
         $buscarpor=$request->buscarpor;
-        $unidad = Unidad::where('estado','=','1')
-        ->where('descripcion', 'like', '%' .$buscarpor. '%')->paginate($this::PAGINATION);
+        $unidad = Unidad::where('estado','=','1')->where('descripcion', 'like', '%' .$buscarpor. '%')->paginate($this::PAGINATION);
         return view('tablas.unidades.index', compact('unidad','buscarpor'));
     }
 
@@ -48,7 +47,7 @@ class UnidadController extends Controller
             'descripcion'=>'required|max:40'
         ],
         [
-            'apellidos.required'=>'Ingrese Descripcion',
+            'descripcion.required'=>'Ingrese Descripcion',
         ]);
         $unidad = Unidad::findOrFail($id);
         $unidad->descripcion=$request->descripcion;

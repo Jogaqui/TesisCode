@@ -30,3 +30,11 @@ Route::get(('cancelarp'), function(){
     return redirect()->route('unidad.index')->with('datos', 'Acción Cancelada');
 })->name('cancelarp');
 Route::get('unidad/{id}/confirmar','UnidadController@confirmar')->name('unidad.confirmar');
+
+// TipoConoce
+
+Route::resource('tipoconoce', 'TipoConoceController');
+Route::get(('cancelart'), function(){
+    return redirect()->route('tipoconoce.index')->with('datos', 'Acción Cancelada');
+})->name('cancelart');
+//Route::get('tipoconoce/{id}/confirmar','TipoConoceController@confirmar')->name('tipoconoce.confirmar');

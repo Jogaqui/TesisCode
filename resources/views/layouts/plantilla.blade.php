@@ -89,10 +89,10 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{route('tipoconoce.index')}}" class="nav-link">
               <i class="nav-icon fab fa-audible"></i>
               <p>
-                Tablas
+                Tipos de Generalidades
               </p>
             </a>
           </li>
