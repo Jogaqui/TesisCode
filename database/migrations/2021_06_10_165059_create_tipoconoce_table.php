@@ -17,6 +17,7 @@ class CreateTipoconoceTable extends Migration
             $table->id('idConoce');
             $table->string('nombre');
             $table->tinyInteger('estado');
+            $table->timestamps();
         });
     }
 
