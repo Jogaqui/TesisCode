@@ -30,3 +30,16 @@ Route::get(('cancelarp'), function(){
     return redirect()->route('unidad.index')->with('datos', 'Acción Cancelada');
 })->name('cancelarp');
 Route::get('unidad/{id}/confirmar','UnidadController@confirmar')->name('unidad.confirmar');
+
+
+// Trabajadores
+
+Route::resource('trabajador','TrabajadorController');
+
+// Route::resource('/alumno', AlumnoController::class);
+
+
+Route::get(('cancelarT'), function(){
+    return redirect()->route('trabajador.index')->with('datos', 'Acción Cancelada');
+})->name('cancelarT');
+Route::get('trabajador/{id}/confirmar','TrabajadorController@confirmar')->name('trabajador.confirmar');

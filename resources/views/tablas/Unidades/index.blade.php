@@ -40,6 +40,7 @@
                 <td>
                     <a href="{{route('unidad.edit',$itemunidad->idUnidad)}}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i>Editar</a>
                     <a href="{{route('unidad.confirmar',$itemunidad->idUnidad)}}" class="btn btn-danger btn-sm"><i class="fas fa-edit"></i>Eliminar</a>
+                    <a href="" class="btn btn-success btn-sm"><i class="fas fa-list"></i>   Lista de Trabajadores</a>
                 </td>
             </tr>
             @endforeach
