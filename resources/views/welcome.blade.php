@@ -1,100 +1,260 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.guest')
+@section('styles')
+<link rel="stylesheet" type="text/css" href="{{ asset('plugins/OwlCarousel2-2.2.1/owl.carousel.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('plugins/OwlCarousel2-2.2.1/owl.theme.default.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('plugins/OwlCarousel2-2.2.1/animate.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/main_styles.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/responsive.css') }}">
+@endsection
+@section('contenido')
+<!-- Home -->
+<div class="home">
 
-        <title>Laravel</title>
-
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
-
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
-
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://vapor.laravel.com">Vapor</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
-            </div>
+  <!-- Hero Slider -->
+  <div class="hero_slider_container">
+    <div class="hero_slider owl-carousel">
+      <!-- Hero Slide -->
+      <div class="hero_slide">
+        <div class="hero_slide_background" style="background-image:url(images/slider_background.jpg)"></div>
+        <div class="hero_slide_container d-flex flex-column align-items-center justify-content-center">
+          <div class="hero_slide_content text-center">
+            <h1 data-animation-in="fadeInUp" data-animation-out="animate-out fadeOut">Get your <span>Education</span> today!</h1>
+          </div>
         </div>
-    </body>
-</html>
+      </div>
+      <!-- Hero Slide -->
+      <div class="hero_slide">
+        <div class="hero_slide_background" style="background-image:url(images/slider_background.jpg)"></div>
+        <div class="hero_slide_container d-flex flex-column align-items-center justify-content-center">
+          <div class="hero_slide_content text-center">
+            <h1 data-animation-in="fadeInUp" data-animation-out="animate-out fadeOut">Get your <span>Education</span> today!</h1>
+          </div>
+        </div>
+      </div>
+      <!-- Hero Slide -->
+      <div class="hero_slide">
+        <div class="hero_slide_background" style="background-image:url(images/slider_background.jpg)"></div>
+        <div class="hero_slide_container d-flex flex-column align-items-center justify-content-center">
+          <div class="hero_slide_content text-center">
+            <h1 data-animation-in="fadeInUp" data-animation-out="animate-out fadeOut">¡ La mejor <span>Education</span> !</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero_slider_left hero_slider_nav trans_200"><span class="trans_200"><</span></div>
+    <div class="hero_slider_right hero_slider_nav trans_200"><span class="trans_200">></span></div>
+  </div>
+
+</div>
+
+<!-- News -->
+<div class="news">
+  <div class="container">
+    <div class="row">
+
+      <!-- News Column -->
+
+      <div class="col-lg-8">
+
+        <div class="news_posts">
+          <!-- News Post -->
+          <div class="news_post">
+            <div class="news_post_image">
+              <img src="images/news_1.jpg" alt="https://unsplash.com/@dsmacinnes">
+            </div>
+            <div class="news_post_top d-flex flex-column flex-sm-row">
+              <div class="news_post_date_container">
+                <div class="news_post_date d-flex flex-column align-items-center justify-content-center">
+                  <div>18</div>
+                  <div>dec</div>
+                </div>
+              </div>
+              <div class="news_post_title_container">
+                <div class="news_post_title">
+                  <a href="news_post.html">Why do you need a qualification?</a>
+                </div>
+                <div class="news_post_meta">
+                  <span class="news_post_author"><a href="#">By Christian Smith</a></span>
+                  <span>|</span>
+                  <span class="news_post_comments"><a href="#">3 Comments</a></span>
+                </div>
+              </div>
+            </div>
+            <div class="news_post_text">
+              <p>In aliquam, augue a gravida rutrum, ante nisl fermentum nulla, vitae tempor nisl ligula vel nunc. Proin quis mi malesuada, finibus tortor fermentum. Etiam eu purus nec eros varius luctus. Praesent finibus risus facilisis ultricies.</p>
+            </div>
+            <div class="news_post_button text-center trans_200">
+              <a href="news_post.html">Read More</a>
+            </div>
+          </div>
+
+          <!-- News Post -->
+          <div class="news_post">
+            <div class="news_post_image">
+              <img src="images/news_2.jpg" alt="https://unsplash.com/@dsmacinnes">
+            </div>
+            <div class="news_post_top d-flex flex-column flex-sm-row">
+              <div class="news_post_date_container">
+                <div class="news_post_date d-flex flex-column align-items-center justify-content-center">
+                  <div>18</div>
+                  <div>dec</div>
+                </div>
+              </div>
+              <div class="news_post_title_container">
+                <div class="news_post_title">
+                  <a href="news_post.html">Our new courses just for you?</a>
+                </div>
+                <div class="news_post_meta">
+                  <span class="news_post_author"><a href="#">By Christian Smith</a></span>
+                  <span>|</span>
+                  <span class="news_post_comments"><a href="#">3 Comments</a></span>
+                </div>
+              </div>
+            </div>
+            <div class="news_post_text">
+              <p>In aliquam, augue a gravida rutrum, ante nisl fermentum nulla, vitae tempor nisl ligula vel nunc. Proin quis mi malesuada, finibus tortor fermentum. Etiam eu purus nec eros varius luctus. Praesent finibus risus facilisis ultricies.</p>
+            </div>
+            <div class="news_post_button text-center trans_200">
+              <a href="news_post.html">Read More</a>
+            </div>
+          </div>
+
+          <!-- News Post -->
+          <div class="news_post">
+            <div class="news_post_image">
+              <img src="images/news_3.jpg" alt="https://unsplash.com/@dsmacinnes">
+            </div>
+            <div class="news_post_top d-flex flex-column flex-sm-row">
+              <div class="news_post_date_container">
+                <div class="news_post_date d-flex flex-column align-items-center justify-content-center">
+                  <div>18</div>
+                  <div>dec</div>
+                </div>
+              </div>
+              <div class="news_post_title_container">
+                <div class="news_post_title">
+                  <a href="news_post.html">Why take our graduate program??</a>
+                </div>
+                <div class="news_post_meta">
+                  <span class="news_post_author"><a href="#">By Christian Smith</a></span>
+                  <span>|</span>
+                  <span class="news_post_comments"><a href="#">3 Comments</a></span>
+                </div>
+              </div>
+            </div>
+            <div class="news_post_text">
+              <p>In aliquam, augue a gravida rutrum, ante nisl fermentum nulla, vitae tempor nisl ligula vel nunc. Proin quis mi malesuada, finibus tortor fermentum. Etiam eu purus nec eros varius luctus. Praesent finibus risus facilisis ultricies.</p>
+            </div>
+            <div class="news_post_button text-center trans_200">
+              <a href="news_post.html">Read More</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Page Nav -->
+
+        <div class="news_page_nav">
+          <ul>
+            <li class="active text-center trans_200"><a href="#">01</a></li>
+            <li class="text-center trans_200"><a href="#">02</a></li>
+            <li class="text-center trans_200"><a href="#">03</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Sidebar Column -->
+
+      <div class="col-lg-4">
+        <div class="sidebar">
+
+          <!-- Archives -->
+          <div class="sidebar_section">
+            <div class="sidebar_section_title">
+              <h3>Archives</h3>
+            </div>
+            <ul class="sidebar_list">
+              <li class="sidebar_list_item"><a href="#">Design Courses</a></li>
+              <li class="sidebar_list_item"><a href="#">All you need to know</a></li>
+              <li class="sidebar_list_item"><a href="#">Uncategorized</a></li>
+              <li class="sidebar_list_item"><a href="#">About Our Departments</a></li>
+              <li class="sidebar_list_item"><a href="#">Choose the right course</a></li>
+            </ul>
+          </div>
+
+          <!-- Latest Posts -->
+
+          <div class="sidebar_section">
+            <div class="sidebar_section_title">
+              <h3>Latest posts</h3>
+            </div>
+
+            <div class="latest_posts">
+
+              <!-- Latest Post -->
+              <div class="latest_post">
+                <div class="latest_post_image">
+                  <img src="images/latest_1.jpg" alt="https://unsplash.com/@dsmacinnes">
+                </div>
+                <div class="latest_post_title"><a href="news_post.html">Why do you need a qualification?</a></div>
+                <div class="latest_post_meta">
+                  <span class="latest_post_author"><a href="#">By Christian Smith</a></span>
+                  <span>|</span>
+                  <span class="latest_post_comments"><a href="#">3 Comments</a></span>
+                </div>
+              </div>
+
+              <!-- Latest Post -->
+              <div class="latest_post">
+                <div class="latest_post_image">
+                  <img src="images/latest_2.jpg" alt="https://unsplash.com/@erothermel">
+                </div>
+                <div class="latest_post_title"><a href="news_post.html">Why do you need a qualification?</a></div>
+                <div class="latest_post_meta">
+                  <span class="latest_post_author"><a href="#">By Christian Smith</a></span>
+                  <span>|</span>
+                  <span class="latest_post_comments"><a href="#">3 Comments</a></span>
+                </div>
+              </div>
+
+              <!-- Latest Post -->
+              <div class="latest_post">
+                <div class="latest_post_image">
+                  <img src="images/latest_3.jpg" alt="https://unsplash.com/@element5digital">
+                </div>
+                <div class="latest_post_title"><a href="news_post.html">Why do you need a qualification?</a></div>
+                <div class="latest_post_meta">
+                  <span class="latest_post_author"><a href="#">By Christian Smith</a></span>
+                  <span>|</span>
+                  <span class="latest_post_comments"><a href="#">3 Comments</a></span>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- Tags -->
+
+          <div class="sidebar_section">
+            <div class="sidebar_section_title">
+              <h3>Tags</h3>
+            </div>
+            <div class="tags d-flex flex-row flex-wrap">
+              <div class="tag"><a href="#">Course</a></div>
+              <div class="tag"><a href="#">Design</a></div>
+              <div class="tag"><a href="#">FAQ</a></div>
+              <div class="tag"><a href="#">Teachers</a></div>
+              <div class="tag"><a href="#">School</a></div>
+              <div class="tag"><a href="#">Graduate</a></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+@endsection
