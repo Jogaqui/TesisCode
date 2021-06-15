@@ -69,20 +69,11 @@
             </div><!--fin modal-->
             
             @endforeach
-              </tbody>
-              <tfoot>
-              <tr>
-                <th>Código</th>
-                <th>Descripción</th>
-                <th>Opciones</th>
-              </tr>
-              </tfoot>
-            </table>
+              
           </div>
           <!-- /.card-body -->
         </div>
         <!-- /.card -->
   </div>
   <!-- /.container-fluid -->
-
 @endsection
