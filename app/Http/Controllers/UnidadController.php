@@ -6,12 +6,11 @@ use Illuminate\Http\Request;
 
 class UnidadController extends Controller
 {
-    const PAGINATION ='4';
+    
     public function index(Request $request)
     {
-        $buscarpor=$request->buscarpor;
-        $unidad = Unidad::where('estado','=','1')->where('descripcion', 'like', '%' .$buscarpor. '%')->paginate($this::PAGINATION);
-        return view('tablas.unidades.index', compact('unidad','buscarpor'));
+        $unidad = Unidad::get();
+        return view('tablas.unidades.index', compact('unidad'));
     }
 
     public function create()
@@ -59,9 +58,17 @@ class UnidadController extends Controller
     public function destroy($id)
     {
         $unidad=Unidad::findOrFail($id);
-        $unidad->estado='0';
-        $unidad->save();
-        return redirect()->route('unidad.index')->with('datos','Registro Eliminado!!');
+        if($unidad->estado==1){
+            $unidad->estado='0';
+            $unidad->save();
+            return redirect()->route('unidad.index')->with('datos','Registro Desactivado!!');
+        }else{
+            $unidad->estado='1';
+            $unidad->save();
+            return redirect()->route('unidad.index')->with('datos','Registro Activado!!');
+        }
+        // $unidad->estado='0';
+
     }
     public function confirmar($id)
     {

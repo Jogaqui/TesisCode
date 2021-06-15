@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Unidad;
 use App\Trabajador;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TrabajadorController extends Controller
 {
@@ -12,16 +13,19 @@ class TrabajadorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    const PAGINATION='4';
+
     public function index(Request $request)
     {
-        $buscarpor= $request->buscarpor;
-        $trabajador=Trabajador::where('estado','=','1')
-        ->where('apPaterno', 'like', '%' .$buscarpor. '%')
-        ->where('apMaterno', 'like', '%' .$buscarpor. '%')
-        ->where('nombres', 'like', '%' .$buscarpor. '%')
-        ->paginate($this::PAGINATION);
-        return view('tablas.trabajadores.index', compact('trabajador','buscarpor'));
+        // $curso=DB::table('secciones as s')->join('grados as g','g.idGrado','=','s.idGrado')  
+        // ->join('curso_grado as cg','g.idGrado','=','cg.idGrado')  
+        // ->join('cursos as c','c.idCurso','=','cg.idCurso')               
+        //  ->where('s.idSeccion','=',$id)
+        // ->select('*')->get();  
+
+        $trabajador=DB::table('trabajadores as t')
+        ->join('unidades as u','t.idUnidad','=','u.idUnidad')->where('t.estado','1')->select('*')->get();
+
+        return view('tablas.trabajadores.index', compact('trabajador'));
     }
 
     /**
@@ -31,7 +35,9 @@ class TrabajadorController extends Controller
      */
     public function create()
     {
-        return view('tablas.Trabajadores.create');
+        $unidad=Unidad::where('estado','=','1')->get();
+        // dd($unidad);
+        return view('tablas.Trabajadores.create',compact('unidad'));
     }
 
     /**
@@ -58,7 +64,7 @@ class TrabajadorController extends Controller
             $trabajador->puesto=$request->puesto;
             $trabajador->correo=$request->email;
             $trabajador->telefono=$request->telefono;
-            $trabajador->idUnidad='1';
+            $trabajador->idUnidad=$request->idUnidad;
             $trabajador->estado='1';
         }else{
             $trabajador->apPaterno=$request->apPaterno;
@@ -67,7 +73,7 @@ class TrabajadorController extends Controller
             $trabajador->dni=$request->dni;
             $trabajador->correo=$request->email;
             $trabajador->telefono=$request->telefono;
-            $trabajador->idUnidad='1';
+            $trabajador->idUnidad=$request->idUnidad;
             $trabajador->estado='1';
         }
 

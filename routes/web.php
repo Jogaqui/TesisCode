@@ -50,4 +50,29 @@ Route::resource('trabajador','TrabajadorController');
 Route::get(('cancelarT'), function(){
     return redirect()->route('trabajador.index')->with('datos', 'Acción Cancelada');
 })->name('cancelarT');
-Route::get('trabajador/{id}/confirmar','TrabajadorController@confirmar')->name('trabajador.confirmar');
+
+
+// Unidades
+
+Route::resource('publicacion', 'PublicacionController');
+
+Route::get(('cancelarPu'), function(){
+    return redirect()->route('publicacion.index')->with('datos', 'Acción Cancelada');
+})->name('cancelarPu');
+
+
+//Etiquetas
+Route::resource('etiqueta', 'EtiquetaController');
+
+Route::get(('cancelarE'), function(){
+    return redirect()->route('etiqueta.index')->with('datos', 'Acción Cancelada');
+})->name('cancelarE');
+
+
+//Etiquetas
+Route::resource('tramite', 'TramiteController');
+
+Route::get(('cancelarT'), function(){
+    return redirect()->route('tramite.index')->with('datos', 'Acción Cancelada');
+})->name('cancelarT');
+
