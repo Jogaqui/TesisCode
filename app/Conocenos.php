@@ -12,8 +12,8 @@ class Conocenos extends Model
     protected $fillable = [
         'tipo','descripcion','estado',
     ];
-    public function unidad()
+    public function tipoconoce()
     {
-        return $this->hasOne('App\Conocenos','tipo','idConoce');
+        return $this->hasOne('App\tipoconoce','idConoce','tipo');
     }
 }

@@ -8,6 +8,8 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="/adminlte/plugins/fontawesome-free/css/all.min.css">
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="/adminlte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- DataTables -->
   <link rel="stylesheet" href="/adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="/adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
@@ -15,9 +17,10 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="/adminlte/dist/css/adminlte.min.css">
 </head>
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
 <!-- Site wrapper -->
 <div class="wrapper">
+  
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-navy navbar-light">
     <!-- Left navbar links -->
@@ -36,7 +39,7 @@
         </a>
         <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           <!-- User image -->
-          <li class="user-header bg-primary">
+          <li class="user-header bg-navy">
             <img src="/adminlte/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
 
             <p>
@@ -63,7 +66,7 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="#" class="brand-link">
+    <a href="/home" class="brand-link">
       <img src="/adminlte/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">AdminLTE 3</span>
     </a>
@@ -71,7 +74,8 @@
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex" style="padding-top: 15px">
+        
         <div class="image">
           <img src="/adminlte/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
@@ -79,13 +83,14 @@
           <a href="#" class="d-block">{{ Auth::user()->name }}</a>
         </div>
       </div>
+
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="{{route('unidad.index')}}" class="nav-link">
+            <a href="{{route('unidad.index')}}" class="nav-link {{ Request::routeIs('unidad.index') ? 'active' : '' }}">
               <i class="nav-icon fab fa-audible"></i>
               <p>
                 Unidades
@@ -93,20 +98,28 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{route('tipoconoce.index')}}" class="nav-link">
+            <a href="{{route('tipoconoce.index')}}" class="nav-link {{ Request::routeIs('tipoconoce.index') ? 'active' : '' }}">
               <i class="nav-icon fab fa-audible"></i>
               <p>
                 Tipos de Generalidades
               </p>
             </a>
           </li>
-          <li>
-            <a href="{{route('trabajador.index')}}" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+          <li class="nav-item">
+            <a href="{{route('trabajador.index')}}" class="nav-link {{ Request::routeIs('trabajador.index') ? 'active' : '' }}">
+              <i class="nav-icon fab fa-audible"></i>
               <p>
                 Trabajadores
               </p>
             </a>    
+          </li>
+          <li class="nav-item">
+            <a href="{{route('contactanos.index')}}" class="nav-link {{ Request::routeIs('contactanos.index') ? 'active' : '' }}">
+              <i class="nav-icon fab fa-audible"></i>
+              <p>
+                Contactanos
+              </p>
+            </a>
           </li>
         </ul>
       </nav>
@@ -129,17 +142,18 @@
     <section class="content">
 
       @yield('contenido')
-
+      <br>
     </section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
+  
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
   </aside>
   <!-- /.control-sidebar -->
+  
 </div>
 <!-- ./wrapper -->
 
@@ -204,5 +218,73 @@ var table = $('#example1').DataTable({
     }
 });    
   </script>
+  <script src="sweetalert2.all.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @if (session('datos') == 'T')
+    <script>
+        Swal.fire(
+         '¡Actualizado!',
+         'Su registro ha sido actualizado correctamente.',
+         'success'
+        )
+    </script>
+    
+    @elseif (session('datos') == 'G')
+    <script>
+        Swal.fire(
+         '¡Guardado!',
+         'Su registro ha sido guardado correctamente.',
+         'success'
+        )
+    </script>
+
+    @elseif (session('datos') == 'E')
+    <script>
+        Swal.fire(
+         '¡Eliminado!',
+         'Su registro ha sido eliminado correctamente.',
+         'success'
+        )
+    </script>
+
+    @elseif (session('datos') == 'C')
+    <script>
+        Swal.fire(
+        '¡Cancelado!',
+        'Su registro ha sido cancelado correctamente.',
+        'error'
+        )
+    </script>
+
+    @elseif (session('datos') == 'A')
+    <script>
+        Swal.fire(
+        '¡Activado!',
+        'Su registro ha sido activado correctamente.',
+        'success'
+        )
+    </script>
+
+    @elseif (session('datos') == 'D')
+    <script>
+        Swal.fire(
+        '¡Desactivado!',
+        'Su registro ha sido desactivado correctamente.',
+        'success'
+        )
+    </script>
+    @endif
+
+    <script>
+      function cancel() {
+        Swal.fire({
+        icon: 'error',
+        title: 'Cancelado...',
+        text: 'Su registro ha sido cancelado correctamente.!',
+        showConfirmButton: false,
+        footer: '<a href="javascript: history.go(-1)" class="btn btn-primary">Ok</a>'
+      })
+    }
+    </script>
 </body>
 </html>

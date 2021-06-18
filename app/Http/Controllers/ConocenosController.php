@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Conocenos;
+use App\TipoConoce;
 use Illuminate\Http\Request;
 
 class ConocenosController extends Controller
@@ -11,9 +12,12 @@ class ConocenosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        //
+       /* dd($id);
+        //$id=$request->id;
+        $conocenos = Conocenos::where('estado','=','1')->where('tipo','=',$id)->get();
+        return view('tablas.conocenos.index', compact('conocenos'));*/
     }
 
     /**
@@ -23,62 +27,65 @@ class ConocenosController extends Controller
      */
     public function create()
     {
-        //
+        $tipoconoce = TipoConoce::select('idConoce','nombre')->get();
+        return view('tablas.conocenos.create',compact('tipoconoce'));
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function store(Request $request)
     {
-        //
+        $data=request()->validate([
+            'descripcion'=>'required|max:200'
+        ],
+        [
+            'descripcion.required'=>'Ingrese descripcion',
+        ]);
+        $conocenos = new Conocenos();
+        $conocenos->tipo=$request->tipo;
+        $conocenos->descripcion=$request->descripcion;
+        $conocenos->estado='1';
+        $conocenos->save();
+        return redirect()->route('TipoConoce.show',$conocenos->tipo)->with('datos', 'G');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        //
+        $conocenos = Conocenos::findOrFail($id);
+        return view('tablas.conocenos.edit',compact('conocenos'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        $data=request()->validate([
+            'descripcion'=>'required|max:200'
+        ],
+        [
+            'descripcion.required'=>'Ingrese descripcion',
+        ]);
+        $conocenos = Conocenos::findOrFail($id);
+        //$tipoconoce = Conocenos::findOrFail($id);
+        $conocenos->tipo=$request->tipo;
+        $conocenos->descripcion=$request->descripcion;
+        $conocenos->estado='1';
+        $conocenos->save();
+        return redirect()->route('TipoConoce.show',$conocenos->tipo)->with('datos', 'T');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
+        $conocenos=Conocenos::findOrFail($id);
+        if ($conocenos->estado==1) {
+            $conocenos->estado='0';
+            $conocenos->save();
+            return redirect()->route('tipoconoce.show',$conocenos->tipo)->with('datos','D');
+        }else {
+            $conocenos->estado='1';
+            $conocenos->save();
+            return redirect()->route('tipoconoce.show',$conocenos->tipo)->with('datos','A');
+        }
     }
 }

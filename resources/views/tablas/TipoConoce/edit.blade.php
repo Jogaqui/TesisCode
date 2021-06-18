@@ -5,7 +5,7 @@
         @method('put')
         @csrf
         <div class="card text-white bg-secondary mb-3" style="max-width: 40rem;">
-            <div class="card-header"><h1 style="font-weight: bold;text-align:center">Editar Tipo</h1></div>
+            <div class="card-header"><h1 style="font-weight: bold;text-align:center">Editar Generalidades</h1></div>
             <div class="card-body">
                 <div class="form-group">
                     <label for="nombre" style="float: left">Nombre</label>

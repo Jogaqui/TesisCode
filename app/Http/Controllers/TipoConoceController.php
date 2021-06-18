@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 use App\TipoConoce;
+use App\Conocenos;
 use Illuminate\Http\Request;
 
 class TipoConoceController extends Controller
 {
-    const PAGINATION ='4';
-    public function index(Request $request)
+    public function index()
     {
-        $buscarpor=$request->buscarpor;
-        $tipoconoce = TipoConoce::where('estado','=','1')->where('nombre', 'like', '%' .$buscarpor. '%')->paginate($this::PAGINATION);
-        return view('tablas.tipoconoce.index', compact('tipoconoce','buscarpor'));
+        $tipoconoce = TipoConoce::get();
+        $conocenos = Conocenos::where('estado','=','1');
+        return view('tablas.tipoconoce.index', compact('tipoconoce','buscarpor','conocenos'));
     }
 
     /**
@@ -24,6 +24,19 @@ class TipoConoceController extends Controller
         return view('tablas.tipoconoce.create');
     }
 
+    public function show($id)
+    {
+        //dd($id);
+        $conocenos = Conocenos::where('tipo','=',$id)->get();
+        return view('tablas.tipoconoce.show', compact('conocenos','id'));
+    }
+
+/*
+    public function show($id)
+    {
+        return view('tablas.tipoconoce.create',$id);
+    }
+*/
     public function store(Request $request)
     {
         $data=request()->validate([
@@ -36,7 +49,7 @@ class TipoConoceController extends Controller
         $tipoconoce->nombre=$request->nombre;
         $tipoconoce->estado='1';
         $tipoconoce->save();
-        return redirect()->route('tipoconoce.index')->with('datos', 'Registro Nuevo Guardado!!');
+        return redirect()->route('tipoconoce.index')->with('datos', 'G');
     }
 
     public function edit($id)
@@ -57,14 +70,20 @@ class TipoConoceController extends Controller
         $tipoconoce->nombre=$request->nombre;
         $tipoconoce->estado='1';
         $tipoconoce->save();
-        return redirect()->route('tipoconoce.index')->with('datos', 'Registro Actualizado!!');
+        return redirect()->route('tipoconoce.index')->with('datos', 'T');
     }
 
     public function destroy($id)
     {
         $tipoconoce=Tipoconoce::findOrFail($id);
-        $tipoconoce->estado='0';
-        $tipoconoce->save();
-        return redirect()->route('tipoconoce.index')->with('datos','Registro Eliminado!!');
+        if ($tipoconoce->estado==1) {
+            $tipoconoce->estado='0';
+            $tipoconoce->save();
+            return redirect()->route('tipoconoce.index')->with('datos','D');
+        }else {
+            $tipoconoce->estado='1';
+            $tipoconoce->save();
+            return redirect()->route('tipoconoce.index')->with('datos','A');
+        }  
     }
 }
