@@ -53,8 +53,33 @@ Route::get(('cancelart'), function(){
 // Trabajadores
 Route::resource('trabajador','TrabajadorController');
 // Route::resource('/alumno', AlumnoController::class);
-Route::get(('cancelarT'), function(){
+Route::get(('cancelarTr'), function(){
   return redirect()->route('trabajador.index')->with('datos', 'Acción Cancelada');
+})->name('cancelarTr');
+
+
+// Unidades
+
+Route::resource('publicacion', 'PublicacionController');
+
+Route::get(('cancelarPu'), function(){
+    return redirect()->route('publicacion.index')->with('datos', 'Acción Cancelada');
+})->name('cancelarPu');
+
+
+//Etiquetas
+Route::resource('etiqueta', 'EtiquetaController');
+
+Route::get(('cancelarE'), function(){
+    return redirect()->route('etiqueta.index')->with('datos', 'Acción Cancelada');
+})->name('cancelarE');
+
+
+//Tramite
+Route::resource('tramite', 'TramiteController');
+
+Route::get(('cancelarT'), function(){
+    return redirect()->route('tramite.index')->with('datos', 'Acción Cancelada');
 })->name('cancelarT');
 Route::get('trabajador/{id}/confirmar','TrabajadorController@confirmar')->name('trabajador.confirmar');
 
@@ -72,3 +97,20 @@ Route::resource('contactanos', 'ContactanosController');
 Route::get(('cancelars'), function(){
   return redirect()->route('contactanos.index')->with('datos', 'C');
 })->name('cancelars');
+
+
+//Ícono
+Route::resource('icono', 'IconoController');
+
+Route::get(('cancelarI'), function(){
+    return redirect()->route('icono.index')->with('datos', 'Acción Cancelada');
+})->name('cancelarI');
+
+
+//Ícono
+Route::resource('consulta', 'ConsultaController');
+
+Route::get(('cancelarC'), function(){
+    return redirect()->route('consulta.index')->with('datos', 'Acción Cancelada');
+})->name('cancelarC');
+

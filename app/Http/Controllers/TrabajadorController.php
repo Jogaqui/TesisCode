@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Unidad;
 use App\Trabajador;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TrabajadorController extends Controller
 {
@@ -12,16 +13,19 @@ class TrabajadorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    const PAGINATION='4';
+
     public function index(Request $request)
     {
-        $buscarpor= $request->buscarpor;
-        $trabajador=Trabajador::where('estado','=','1')
-        ->where('apPaterno', 'like', '%' .$buscarpor. '%')
-        ->where('apMaterno', 'like', '%' .$buscarpor. '%')
-        ->where('nombres', 'like', '%' .$buscarpor. '%')
-        ->paginate($this::PAGINATION);
-        return view('tablas.trabajadores.index', compact('trabajador','buscarpor'));
+        // $curso=DB::table('secciones as s')->join('grados as g','g.idGrado','=','s.idGrado')  
+        // ->join('curso_grado as cg','g.idGrado','=','cg.idGrado')  
+        // ->join('cursos as c','c.idCurso','=','cg.idCurso')               
+        //  ->where('s.idSeccion','=',$id)
+        // ->select('*')->get();  
+
+        $trabajador=DB::table('trabajadores as t')
+        ->join('unidades as u','t.idUnidad','=','u.idUnidad')->where('t.estado','1')->select('*')->get();
+
+        return view('tablas.trabajadores.index', compact('trabajador'));
     }
 
     /**
@@ -31,7 +35,9 @@ class TrabajadorController extends Controller
      */
     public function create()
     {
-        return view('tablas.Trabajadores.create');
+        $unidad=Unidad::where('estado','=','1')->get();
+        // dd($unidad);
+        return view('tablas.Trabajadores.create',compact('unidad'));
     }
 
     /**
@@ -49,30 +55,36 @@ class TrabajadorController extends Controller
         // [
         //     'descripcion.required'=>'Ingrese Descripción',
         // ]);
-        $trabajador = new Trabajador();
-        if(!empty($request->puesto)){
-            $trabajador->apPaterno=$request->apPaterno;
-            $trabajador->apMaterno=$request->apMaterno;
-            $trabajador->nombres=$request->nombres;
-            $trabajador->dni=$request->dni;
-            $trabajador->puesto=$request->puesto;
-            $trabajador->correo=$request->email;
-            $trabajador->telefono=$request->telefono;
-            $trabajador->idUnidad='1';
-            $trabajador->estado='1';
-        }else{
-            $trabajador->apPaterno=$request->apPaterno;
-            $trabajador->apMaterno=$request->apMaterno;
-            $trabajador->nombres=$request->nombres;
-            $trabajador->dni=$request->dni;
-            $trabajador->correo=$request->email;
-            $trabajador->telefono=$request->telefono;
-            $trabajador->idUnidad='1';
-            $trabajador->estado='1';
-        }
 
-        $trabajador->save();
-        return redirect()->route('trabajador.index')->with('datos', 'Registro Nuevo Guardado!!');
+        DB::beginTransaction();
+        try{
+            $trabajador = new Trabajador();
+            if(!empty($request->puesto)){
+                $trabajador->apPaterno=$request->apPaterno;
+                $trabajador->apMaterno=$request->apMaterno;
+                $trabajador->nombres=$request->nombres;
+                $trabajador->dni=$request->dni;
+                $trabajador->puesto=$request->puesto;
+                $trabajador->correo=$request->email;
+                $trabajador->telefono=$request->telefono;
+                $trabajador->idUnidad=$request->idUnidad;
+                $trabajador->estado='1';
+            }else{
+                $trabajador->apPaterno=$request->apPaterno;
+                $trabajador->apMaterno=$request->apMaterno;
+                $trabajador->nombres=$request->nombres;
+                $trabajador->dni=$request->dni;
+                $trabajador->correo=$request->email;
+                $trabajador->telefono=$request->telefono;
+                $trabajador->idUnidad=$request->idUnidad;
+                $trabajador->estado='1';
+            }
+            $trabajador->save();
+            DB::commit();
+            return redirect()->route('trabajador.index')->with('datos', 'Registro Nuevo Guardado!!');
+        }catch(Exception $e){
+            DB::rollback();
+        }       
     }
 
     /**
@@ -95,7 +107,10 @@ class TrabajadorController extends Controller
     public function edit($id)
     {
         $trabajador=Trabajador::findOrFail($id);
-        return view('tablas.Trabajadores.edit',compact('trabajador')); 
+        $idUnidad=$trabajador->idUnidad;
+        $unidad=Unidad::findOrFail($idUnidad);
+        $unidades=Unidad::get();
+        return view('tablas.Trabajadores.edit',compact('trabajador','unidad','unidades')); 
     }
 
     /**
@@ -113,29 +128,40 @@ class TrabajadorController extends Controller
         // [
         //     'apellidos.required'=>'Ingrese Descripcion',
         // ]);
-        $trabajador = Trabajador::findOrFail($id);
-        if(!empty($request->puesto)){
-            $trabajador->apPaterno=$request->apPaterno;
-            $trabajador->apMaterno=$request->apMaterno;
-            $trabajador->nombres=$request->nombres;
-            $trabajador->dni=$request->dni;
-            $trabajador->puesto=$request->puesto;
-            $trabajador->correo=$request->email;
-            $trabajador->telefono=$request->telefono;
-            $trabajador->idUnidad='1';
-            $trabajador->estado='1';
-        }else{
-            $trabajador->apPaterno=$request->apPaterno;
-            $trabajador->apMaterno=$request->apMaterno;
-            $trabajador->nombres=$request->nombres;
-            $trabajador->dni=$request->dni;
-            $trabajador->correo=$request->email;
-            $trabajador->telefono=$request->telefono;
-            $trabajador->idUnidad='1';
-            $trabajador->estado='1';
+
+        DB::beginTransaction();
+        try{
+            $trabajador = Trabajador::findOrFail($id);
+            if(!empty($request->puesto)){
+                $trabajador->apPaterno=$request->apPaterno;
+                $trabajador->apMaterno=$request->apMaterno;
+                $trabajador->nombres=$request->nombres;
+                $trabajador->dni=$request->dni;
+                $trabajador->idUnidad=$request->idUnidad;
+                $trabajador->puesto=$request->puesto;
+                $trabajador->correo=$request->email;
+                $trabajador->telefono=$request->telefono;
+                $trabajador->idUnidad='1';
+                $trabajador->estado='1';
+            }else{
+                $trabajador->apPaterno=$request->apPaterno;
+                $trabajador->apMaterno=$request->apMaterno;
+                $trabajador->nombres=$request->nombres;
+                $trabajador->dni=$request->dni;
+                $trabajador->idUnidad=$request->idUnidad;
+                $trabajador->correo=$request->email;
+                $trabajador->telefono=$request->telefono;
+                $trabajador->idUnidad='1';
+                $trabajador->estado='1';
+            }
+            $trabajador->save();
+            DB::commit();
+            return redirect()->route('trabajador.index')->with('datos', 'Registro Actualizado!!');
+        }catch(Exception $e){
+            DB::rollback();
         }
-        $trabajador->save();
-        return redirect()->route('trabajador.index')->with('datos', 'Registro Actualizado!!');
+
+
     }
 
     /**
@@ -146,14 +172,24 @@ class TrabajadorController extends Controller
      */
     public function destroy($id)
     {
-        $trabajador=Trabajador::findOrFail($id);
-        $trabajador->estado='0';
-        $trabajador->save();
-        return redirect()->route('trabajador.index')->with('datos','Registro Eliminado!!');
+        DB::beginTransaction();
+        try{
+            $trabajador=Trabajador::findOrFail($id);
+            $trabajador->estado='0';
+            $trabajador->save();
+            DB::commit();
+            return redirect()->route('trabajador.index')->with('datos','Registro Eliminado!!');
+        }catch(Exception $e){
+            DB::rollback();
+        }   
+
+
+
+        
     }
-    public function confirmar($id)
-    {
-        $trabajador=Trabajador::findOrFail($id);
-        return view('tablas.Trabajadores.confirmar',compact('trabajador'));
-    }    
+    // public function confirmar($id)
+    // {
+    //     $trabajador=Trabajador::findOrFail($id);
+    //     return view('tablas.Trabajadores.confirmar',compact('trabajador'));
+    // }    
 }

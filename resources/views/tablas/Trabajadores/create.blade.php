@@ -47,6 +47,20 @@
         </div>  
         
         <div class="form-group">
+            <label for="idUnidad">Unidad</label>
+            <select class="form-control @error('idUnidad') is-invalid @enderror" id="idUnidad" name="idUnidad" >
+                @foreach($unidad as $itemunidad)
+                    <option value="{{$itemunidad['idUnidad']}}">{{$itemunidad['descripcion']}}</option>
+                @endforeach
+            </select>
+            @error('idUnidad')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+            @enderror
+        </div>
+
+        <div class="form-group">
             <label for="puesto">Puesto</label>
             <input type="text" class="form-control @error('puesto') is-invalid @enderror" id="puesto" name="puesto">
             @error('puesto')
@@ -83,7 +97,7 @@
 
 
         <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>Grabar</button>
-        <a href="" class="btn btn-danger"><i class="fas fa-ban"></i>Cancelar</a>
+        <a href="{{route('cancelarTr')}}" class="btn btn-danger"><i class="fas fa-ban"></i>Cancelar</a>
     </form>
 </div>
 @endsection

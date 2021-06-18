@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers;
 use App\Unidad;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class UnidadController extends Controller
 {
-    const PAGINATION ='4';
+    
     public function index(Request $request)
     {
-        $buscarpor=$request->buscarpor;
-        $unidad = Unidad::where('estado','=','1')->where('descripcion', 'like', '%' .$buscarpor. '%')->paginate($this::PAGINATION);
-        return view('tablas.unidades.index', compact('unidad','buscarpor'));
+        $unidad = Unidad::get();
+        return view('tablas.unidades.index', compact('unidad'));
     }
 
-    public function create()
+    public function create() 
     {
         return view('tablas.Unidades.create');
     }
@@ -27,11 +27,17 @@ class UnidadController extends Controller
         [
             'descripcion.required'=>'Ingrese Descripción',
         ]);
-        $unidad = new Unidad();
-        $unidad->descripcion=$request->descripcion;
-        $unidad->estado='1';
-        $unidad->save();
-        return redirect()->route('unidad.index')->with('datos', 'Registro Nuevo Guardado!!');
+        DB::beginTransaction();
+        try{
+            $unidad = new Unidad();
+            $unidad->descripcion=$request->descripcion;
+            $unidad->estado='1';
+            $unidad->save();
+            DB::commit();
+            return redirect()->route('unidad.index')->with('datos', 'Registro Nuevo Guardado!!');
+        }catch(Exception $e){
+            DB::rollback();
+        }
     }
 
 
@@ -49,24 +55,46 @@ class UnidadController extends Controller
         [
             'descripcion.required'=>'Ingrese Descripcion',
         ]);
-        $unidad = Unidad::findOrFail($id);
-        $unidad->descripcion=$request->descripcion;
-        $unidad->estado='1';
-        $unidad->save();
-        return redirect()->route('unidad.index')->with('datos', 'Registro Actualizado!!');
+        
+        DB::beginTransaction();
+        try{
+            $unidad = Unidad::findOrFail($id);
+            $unidad->descripcion=$request->descripcion;
+            $unidad->estado='1';
+            $unidad->save();
+            DB::commit();
+            return redirect()->route('unidad.index')->with('datos', 'Registro Actualizado!!');
+        }catch(Exception $e){
+            DB::rollback();
+        }  
     }
 
     public function destroy($id)
     {
-        $unidad=Unidad::findOrFail($id);
-        $unidad->estado='0';
-        $unidad->save();
-        return redirect()->route('unidad.index')->with('datos','Registro Eliminado!!');
+
+        DB::beginTransaction();
+        try{
+            $unidad=Unidad::findOrFail($id);
+            if($unidad->estado==1){
+                $unidad->estado='0';
+                $unidad->save();
+                DB::commit();
+                return redirect()->route('unidad.index')->with('datos','Registro Desactivado!!');
+            }else{
+                $unidad->estado='1';
+                $unidad->save();
+                DB::commit();
+                return redirect()->route('unidad.index')->with('datos','Registro Activado!!');
+            }
+        }catch(Exception $e){
+            DB::rollback();
+        }  
+
     }
-    public function confirmar($id)
-    {
-        $unidad=Unidad::findOrFail($id);
-        return view('tablas.Unidades.confirmar',compact('unidad'));
-    }    
+    // public function confirmar($id)
+    // {
+    //     $unidad=Unidad::findOrFail($id);
+    //     return view('tablas.Unidades.confirmar',compact('unidad'));
+    // }    
 
 }

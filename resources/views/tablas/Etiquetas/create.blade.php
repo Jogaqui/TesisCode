@@ -1,9 +1,9 @@
-@extends('layouts.plantilla')  
+@extends('layouts.plantilla')
 
 @section('contenido')
 <div class="container" align="center">
     
-    <form method="POST" action="{{route('unidad.store')}}">
+    <form method="POST" action="{{route('etiqueta.store')}}">
         @csrf
         <div class="card text-white bg-secondary mb-3" style="max-width: 40rem;">
             <div class="card-header"><h1 style="font-weight: bold;text-align:center">Crear Registro</h1></div>
@@ -20,7 +20,7 @@
             </div>
             <div class="card-footer" style="text-align:center">
                 <button type="submit" class="btn btn-primary "><i class="fas fa-save"></i> Grabar</button>
-                <a href="{{route('cancelarp')}}" class="btn btn-danger"><i class="fas fa-ban"></i> Cancelar</a>
+                <a href="{{route('cancelarE')}}" class="btn btn-danger"><i class="fas fa-ban"></i> Cancelar</a>
             </div>
         </div>     
     </form>
