@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\TipoConoce;
 use App\Conocenos;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TipoConoceController extends Controller
 {
@@ -45,11 +46,21 @@ class TipoConoceController extends Controller
         [
             'nombre.required'=>'Ingrese Nombre',
         ]);
-        $tipoconoce = new Tipoconoce();
-        $tipoconoce->nombre=$request->nombre;
-        $tipoconoce->estado='1';
-        $tipoconoce->save();
-        return redirect()->route('tipoconoce.index')->with('datos', 'G');
+
+        DB::beginTransaction();
+        try{
+            $tipoconoce = new Tipoconoce();
+            $tipoconoce->nombre=$request->nombre;
+            $tipoconoce->estado='1';
+            $tipoconoce->save();
+            DB::commit();
+            return redirect()->route('tipoconoce.index')->with('datos', 'G');
+        }catch(Exception $e){
+            DB::rollback();
+        }
+
+
+        
     }
 
     public function edit($id)
@@ -66,24 +77,44 @@ class TipoConoceController extends Controller
         [
             'nombre.required'=>'Ingrese Nombre',
         ]);
-        $tipoconoce = Tipoconoce::findOrFail($id);
-        $tipoconoce->nombre=$request->nombre;
-        $tipoconoce->estado='1';
-        $tipoconoce->save();
-        return redirect()->route('tipoconoce.index')->with('datos', 'T');
+
+        DB::beginTransaction();
+        try{
+            $tipoconoce = Tipoconoce::findOrFail($id);
+            $tipoconoce->nombre=$request->nombre;
+            $tipoconoce->estado='1';
+            $tipoconoce->save();
+            DB::commit();
+            return redirect()->route('tipoconoce.index')->with('datos', 'T');
+        }catch(Exception $e){
+            DB::rollback();
+        }
+
+
+        
     }
 
     public function destroy($id)
     {
-        $tipoconoce=Tipoconoce::findOrFail($id);
-        if ($tipoconoce->estado==1) {
-            $tipoconoce->estado='0';
-            $tipoconoce->save();
-            return redirect()->route('tipoconoce.index')->with('datos','D');
-        }else {
-            $tipoconoce->estado='1';
-            $tipoconoce->save();
-            return redirect()->route('tipoconoce.index')->with('datos','A');
-        }  
+
+        DB::beginTransaction();
+        try{
+            $tipoconoce=Tipoconoce::findOrFail($id);
+            if ($tipoconoce->estado==1) {
+                $tipoconoce->estado='0';
+                $tipoconoce->save();
+                DB::commit();
+                return redirect()->route('tipoconoce.index')->with('datos','D');
+            }else {
+                $tipoconoce->estado='1';
+                $tipoconoce->save();
+                DB::commit();
+                return redirect()->route('tipoconoce.index')->with('datos','A');
+            } 
+        }catch(Exception $e){
+            DB::rollback();
+        }
+
+ 
     }
 }

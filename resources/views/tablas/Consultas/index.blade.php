@@ -21,6 +21,7 @@
                 <th>Nombre</th>
                 <th>Correo</th>
                 <th>Fecha</th>
+                <th>Estado</th>
                 <th>Opciones</th>
               </tr>
               </thead>
@@ -32,17 +33,24 @@
                     <td>{{$item->nombre}}</td>
                     <td>{{$item->correo}}</td>
                     <td>{{$item->fecha}}</td>
+                      @php
+                        if($item->estado==1){@endphp
+                          <td>Pendiente</td>
+                      @php
+                        }else{@endphp
+                          <td>Resuelto</td>
+                      @php
+                        }
+                      @endphp
                     <td>
-                    <a href="{{route('consulta.show',$item->idConsulta)}}" class="btn btn-success btn-sm"><i class="fas fa-eye"></i> Mensaje</a>
-                    @php
-                      if($item->estado==1){@endphp
-                        <a href="" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModalCenter{{$item->idConsulta}}"><i class="far fa-folder"></i></i> Pendiente</a>
-                    @php
-                      }else{@endphp
-                        <a href="" style="border: 1px solid black;" class="btn btn-light btn-sm" data-toggle="modal" data-target="#exampleModalCenter{{$item->idConsulta}}"><i class="far fa-folder-open"></i></i> Resuelto</a>
-                    @php
-                      }
-                    @endphp
+                      <a href="{{route('consulta.show',$item->idConsulta)}}" class="btn btn-success btn-sm"><i class="fas fa-eye"></i> Mensaje</a>
+                      @php
+                        if($item->estado==1){@endphp
+                          <a href="" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModalCenter{{$item->idConsulta}}"><i class="far fa-folder"></i></i> Resolver</a>
+                      @php
+                        }
+                      @endphp
+                    </td>
                 </tr>
             <!------ ESTE ES EL MODAL QUE SE MUESTRA AL DAR CLICK EN EL BOTON "ELIMINAR" ------>
             <div class="modal fade" id="exampleModalCenter{{$item->idConsulta}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -75,6 +83,7 @@
                 <th>Nombre</th>
                 <th>Correo</th>
                 <th>Fecha</th>
+                <th>Estado</th>
                 <th>Opciones</th>
               </tr>
               </tfoot>

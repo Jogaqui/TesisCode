@@ -50,14 +50,24 @@ class TramiteController extends Controller
         // [
         //     'descripcion.required'=>'Ingrese Descripción',
         // ]);
-        $tramite = new Tramite();
-        $tramite->titulo=$request->titulo;
-        $tramite->descripcion=$request->descripcion;
-        $tramite->ruta=$request->ruta;
-        $tramite->idIcono=$request->idIcono;
-        $tramite->estado='1';
-        $tramite->save();
-        return redirect()->route('tramite.index')->with('datos', 'Registro Nuevo Guardado!!');
+
+        DB::beginTransaction();
+        try{
+            $tramite = new Tramite();
+            $tramite->titulo=$request->titulo;
+            $tramite->descripcion=$request->descripcion;
+            $tramite->ruta=$request->ruta;
+            $tramite->idIcono=$request->idIcono;
+            $tramite->estado='1';
+            $tramite->save();
+            DB::commit();
+            return redirect()->route('tramite.index')->with('datos', 'Registro Nuevo Guardado!!');
+        }catch(Exception $e){
+            DB::rollback();
+        }
+
+
+        
     }
 
     /**
@@ -104,15 +114,21 @@ class TramiteController extends Controller
         // [
         //     'descripcion.required'=>'Ingrese Descripcion',
         // ]);
-        $tramite =Tramite::findOrFail($id);
-        $tramite->titulo=$request->titulo;
-        $tramite->descripcion=$request->descripcion;
-        $tramite->ruta=$request->ruta;
-        $tramite->idIcono=$request->idIcono;
-        $tramite->estado='1';
-        $tramite->save();
 
-        return redirect()->route('tramite.index')->with('datos', 'Registro Actualizado!!');
+        DB::beginTransaction();
+        try{
+            $tramite =Tramite::findOrFail($id);
+            $tramite->titulo=$request->titulo;
+            $tramite->descripcion=$request->descripcion;
+            $tramite->ruta=$request->ruta;
+            $tramite->idIcono=$request->idIcono;
+            $tramite->estado='1';
+            $tramite->save();
+            DB::commit();
+            return redirect()->route('tramite.index')->with('datos', 'Registro Actualizado!!');
+        }catch(Exception $e){
+            DB::rollback();
+        } 
     }
 
     /**
@@ -123,15 +139,23 @@ class TramiteController extends Controller
      */
     public function destroy($id)
     {
-        $tramite=Tramite::findOrFail($id);
-        if($tramite->estado==1){
-            $tramite->estado='0';
-            $tramite->save();
-            return redirect()->route('tramite.index')->with('datos','Registro Desactivado!!');
-        }else{
-            $tramite->estado='1';
-            $tramite->save();
-            return redirect()->route('tramite.index')->with('datos','Registro Activado!!');
+
+        DB::beginTransaction();
+        try{
+            $tramite=Tramite::findOrFail($id);
+            if($tramite->estado==1){
+                $tramite->estado='0';
+                $tramite->save();
+                DB::commit();
+                return redirect()->route('tramite.index')->with('datos','Registro Desactivado!!');
+            }else{
+                $tramite->estado='1';
+                $tramite->save();
+                DB::commit();
+                return redirect()->route('tramite.index')->with('datos','Registro Activado!!');
+            }
+        }catch(Exception $e){
+            DB::rollback();
         }
     }
 }

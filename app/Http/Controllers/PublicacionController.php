@@ -6,6 +6,7 @@ use App\Etiqueta;
 use App\Publicacion_Etiqueta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 class PublicacionController extends Controller
 {
@@ -170,7 +171,7 @@ class PublicacionController extends Controller
 
     }
 
-    public function cancelar(){
-        return redirect()->route('publicacion.index')->with('datos','Acción Cancelada!!');
-    }
+    // public function cancelar(){
+    //     return redirect()->route('publicacion.index')->with('datos','Acción Cancelada!!');
+    // }
 }

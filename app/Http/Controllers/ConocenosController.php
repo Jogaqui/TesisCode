@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Conocenos;
 use App\TipoConoce;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class ConocenosController extends Controller
@@ -39,12 +40,19 @@ class ConocenosController extends Controller
         [
             'descripcion.required'=>'Ingrese descripcion',
         ]);
-        $conocenos = new Conocenos();
-        $conocenos->tipo=$request->tipo;
-        $conocenos->descripcion=$request->descripcion;
-        $conocenos->estado='1';
-        $conocenos->save();
-        return redirect()->route('TipoConoce.show',$conocenos->tipo)->with('datos', 'G');
+
+        DB::beginTransaction();
+        try{
+            $conocenos = new Conocenos();
+            $conocenos->tipo=$request->tipo;
+            $conocenos->descripcion=$request->descripcion;
+            $conocenos->estado='1';
+            $conocenos->save();
+            DB::commit();
+            return redirect()->route('TipoConoce.show',$conocenos->tipo)->with('datos', 'G');
+        }catch(Exception $e){
+            DB::rollback();
+        }
     }
 
     public function show($id)
@@ -66,26 +74,43 @@ class ConocenosController extends Controller
         [
             'descripcion.required'=>'Ingrese descripcion',
         ]);
-        $conocenos = Conocenos::findOrFail($id);
-        //$tipoconoce = Conocenos::findOrFail($id);
-        $conocenos->tipo=$request->tipo;
-        $conocenos->descripcion=$request->descripcion;
-        $conocenos->estado='1';
-        $conocenos->save();
-        return redirect()->route('TipoConoce.show',$conocenos->tipo)->with('datos', 'T');
+
+        DB::beginTransaction();
+        try{
+            $conocenos = Conocenos::findOrFail($id);
+            //$tipoconoce = Conocenos::findOrFail($id);
+            $conocenos->tipo=$request->tipo;
+            $conocenos->descripcion=$request->descripcion;
+            $conocenos->estado='1';
+            $conocenos->save();
+            DB::commit();
+            return redirect()->route('TipoConoce.show',$conocenos->tipo)->with('datos', 'T');
+        }catch(Exception $e){
+            DB::rollback();
+        }
     }
 
     public function destroy($id)
     {
-        $conocenos=Conocenos::findOrFail($id);
-        if ($conocenos->estado==1) {
-            $conocenos->estado='0';
-            $conocenos->save();
-            return redirect()->route('tipoconoce.show',$conocenos->tipo)->with('datos','D');
-        }else {
-            $conocenos->estado='1';
-            $conocenos->save();
-            return redirect()->route('tipoconoce.show',$conocenos->tipo)->with('datos','A');
+
+        DB::beginTransaction();
+        try{
+            $conocenos=Conocenos::findOrFail($id);
+            if ($conocenos->estado==1) {
+                $conocenos->estado='0';
+                $conocenos->save();
+                DB::commit();
+                return redirect()->route('tipoconoce.show',$conocenos->tipo)->with('datos','D');
+            }else {
+                $conocenos->estado='1';
+                $conocenos->save();
+                DB::commit();
+                return redirect()->route('tipoconoce.show',$conocenos->tipo)->with('datos','A');
+            }
+        }catch(Exception $e){
+            DB::rollback();
         }
+
+
     }
 }

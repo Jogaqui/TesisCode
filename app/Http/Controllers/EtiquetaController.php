@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Etiqueta;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class EtiquetaController extends Controller
 {

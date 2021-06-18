@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Contactanos;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class ContactanosController extends Controller
@@ -25,13 +26,20 @@ class ContactanosController extends Controller
         [
             'telefono.required'=>'Ingrese telefono',
         ]);
-        $contactanos = new Contactanos();
-        $contactanos->correo=$request->correo;
-        $contactanos->telefono=$request->telefono;
-        $contactanos->direccion=$request->direccion;
-        $contactanos->estado='1';
-        $contactanos->save();
-        return redirect()->route('contactanos.index')->with('datos', 'G');
+
+        DB::beginTransaction();
+        try{
+            $contactanos = new Contactanos();
+            $contactanos->correo=$request->correo;
+            $contactanos->telefono=$request->telefono;
+            $contactanos->direccion=$request->direccion;
+            $contactanos->estado='1';
+            $contactanos->save();
+            DB::commit();
+            return redirect()->route('contactanos.index')->with('datos', 'G');
+        }catch(Exception $e){
+            DB::rollback();
+        }
     }
 
     public function show($id)
@@ -53,26 +61,43 @@ class ContactanosController extends Controller
         [
             'telefono.required'=>'Ingrese telefono',
         ]);
-        $contactanos = Contactanos::findOrFail($id);
-        $contactanos->correo=$request->correo;
-        $contactanos->telefono=$request->telefono;
-        $contactanos->direccion=$request->direccion;
-        $contactanos->estado='1';
-        $contactanos->save();
-        return redirect()->route('contactanos.index')->with('datos', 'T');
+
+        DB::beginTransaction();
+        try{
+            $contactanos = Contactanos::findOrFail($id);
+            $contactanos->correo=$request->correo;
+            $contactanos->telefono=$request->telefono;
+            $contactanos->direccion=$request->direccion;
+            $contactanos->estado='1';
+            $contactanos->save();
+            DB::commit();
+            return redirect()->route('contactanos.index')->with('datos', 'T');
+        }catch(Exception $e){
+            DB::rollback();
+        }
     }
 
     public function destroy($id)
     {
-        $contactanos=Contactanos::findOrFail($id);
-        if ($contactanos->estado==1) {
-            $contactanos->estado='0';
-            $contactanos->save();
-            return redirect()->route('contactanos.index')->with('datos','D');
-        }else {
-            $contactanos->estado='1';
-            $contactanos->save();
-            return redirect()->route('contactanos.index')->with('datos','A');
-        }  
+
+        DB::beginTransaction();
+        try{
+            $contactanos=Contactanos::findOrFail($id);
+            if ($contactanos->estado==1) {
+                $contactanos->estado='0';
+                $contactanos->save();
+                DB::commit();
+                return redirect()->route('contactanos.index')->with('datos','D');
+            }else {
+                $contactanos->estado='1';
+                $contactanos->save();
+                DB::commit();
+                return redirect()->route('contactanos.index')->with('datos','A');
+            } 
+        }catch(Exception $e){
+            DB::rollback();
+        }
+
+ 
     }
 }
