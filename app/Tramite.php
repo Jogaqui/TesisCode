@@ -10,6 +10,10 @@ class Tramite extends Model
     protected $primaryKey="idTramite";
     public $timestamps=false;
     protected $fillable = [
-        'icono', 'titulo','descripcion','ruta','estado',
+        'titulo','descripcion','ruta','estado','idIcono',
     ];
+    public function icono()
+    {
+        return $this->hasOne('App\Icono','idIcono','idIcono');
+    }
 }

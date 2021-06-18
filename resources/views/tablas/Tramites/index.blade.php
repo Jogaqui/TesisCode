@@ -34,7 +34,7 @@
               @foreach($tramite as $item) 
                 <tr>
                     <td>{{$item->idTramite}}</td>
-                    <td>{{$item->icono}}</td>
+                    <td>{{$item->nombre}}</td>
                     <td>{{$item->titulo}}</td>
                     <td>{{$item->descripcion}}</td>
                     <td>{{$item->ruta}}</td>

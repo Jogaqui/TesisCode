@@ -44,7 +44,7 @@
                 <td>{{$item->telefono}}</td>
                 <td>
                     <a href="{{route('trabajador.edit',$item->idTrabajador)}}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> </a>
-                    <a href="{{route('trabajador.confirmar',$item->idTrabajador)}}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> </a>
+                    <a href="" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModalCenter{{$item->idTrabajador}}"><i class="fas fa-trash"></i> </a>
                 </td>  
             </tr>
             <!------ ESTE ES EL MODAL QUE SE MUESTRA AL DAR CLICK EN EL BOTON "ELIMINAR" ------>
@@ -63,7 +63,7 @@
                                 @method('delete')
                                 @csrf
                                 <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> SI</button>
-                                <a href="{{route('cancelarp')}}" class="btn btn-danger"><i class="fas fa-ban"></i> NO</a>
+                                <a href="{{route('cancelarTr')}}" class="btn btn-danger"><i class="fas fa-ban"></i> NO</a>
                             </form>
                         </div>
                     </div>

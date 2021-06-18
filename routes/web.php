@@ -53,9 +53,9 @@ Route::get(('cancelart'), function(){
 // Trabajadores
 Route::resource('trabajador','TrabajadorController');
 // Route::resource('/alumno', AlumnoController::class);
-Route::get(('cancelarT'), function(){
+Route::get(('cancelarTr'), function(){
   return redirect()->route('trabajador.index')->with('datos', 'Acción Cancelada');
-})->name('cancelarT');
+})->name('cancelarTr');
 
 
 // Unidades
@@ -75,10 +75,26 @@ Route::get(('cancelarE'), function(){
 })->name('cancelarE');
 
 
-//Etiquetas
+//Tramite
 Route::resource('tramite', 'TramiteController');
 
 Route::get(('cancelarT'), function(){
     return redirect()->route('tramite.index')->with('datos', 'Acción Cancelada');
 })->name('cancelarT');
+
+
+//Ícono
+Route::resource('icono', 'IconoController');
+
+Route::get(('cancelarI'), function(){
+    return redirect()->route('icono.index')->with('datos', 'Acción Cancelada');
+})->name('cancelarI');
+
+
+//Ícono
+Route::resource('consulta', 'ConsultaController');
+
+Route::get(('cancelarC'), function(){
+    return redirect()->route('consulta.index')->with('datos', 'Acción Cancelada');
+})->name('cancelarC');
 

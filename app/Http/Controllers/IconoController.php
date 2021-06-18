@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Etiqueta;
 use Illuminate\Http\Request;
+use App\Icono;
 
-class EtiquetaController extends Controller
+class IconoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class EtiquetaController extends Controller
      */
     public function index()
     {
-        $etiqueta=Etiqueta::get();
-        return view('tablas.Etiquetas.index',compact('etiqueta'));
+        $icono = Icono::get();
+        return view('tablas.Iconos.index', compact('icono'));
     }
 
     /**
@@ -25,7 +25,7 @@ class EtiquetaController extends Controller
      */
     public function create()
     {
-        return view('tablas.Etiquetas.create');
+        return view('tablas.Iconos.create');
     }
 
     /**
@@ -37,21 +37,20 @@ class EtiquetaController extends Controller
     public function store(Request $request)
     {
         $data=request()->validate([
-            'descripcion'=>'required|max:40'
+            'nombre'=>'required|max:40'
         ],
         [
-            'descripcion.required'=>'Ingrese Descripción',
+            'nombre.required'=>'Ingrese Nombre',
         ]);
 
         DB::beginTransaction();
         try{
-
-            $etiqueta = new Etiqueta();
-            $etiqueta->descripcion=$request->descripcion;
-            $etiqueta->estado='1';
-            $etiqueta->save();
+            $icono = new Icono();
+            $icono->nombre=$request->nombre;
+            $icono->estado='1';
+            $icono->save();
             DB::commit();
-            return redirect()->route('etiqueta.index')->with('datos', 'Registro Nuevo Guardado!!');
+            return redirect()->route('icono.index')->with('datos', 'Registro Nuevo Guardado!!');
         }catch(Exception $e){
             DB::rollback();
         }
@@ -76,8 +75,8 @@ class EtiquetaController extends Controller
      */
     public function edit($id)
     {
-        $etiqueta=Etiqueta::findOrFail($id);
-        return view('tablas.Etiquetas.edit',compact('etiqueta')); 
+        $icono=Icono::findOrFail($id);
+        return view('tablas.Iconos.edit',compact('icono'));
     }
 
     /**
@@ -90,23 +89,23 @@ class EtiquetaController extends Controller
     public function update(Request $request, $id)
     {
         $data=request()->validate([
-            'descripcion'=>'required|max:40'
+            'nombre'=>'required|max:40'
         ],
         [
-            'descripcion.required'=>'Ingrese Descripcion',
+            'nombre.required'=>'Ingrese Nombre',
         ]);
 
         DB::beginTransaction();
         try{
-            $etiqueta = Etiqueta::findOrFail($id);
-            $etiqueta->descripcion=$request->descripcion;
-            $etiqueta->estado='1';
-            $etiqueta->save();
+            $icono = Icono::findOrFail($id);
+            $icono->nombre=$request->nombre;
+            $icono->estado='1';
+            $icono->save();
             DB::commit();
-            return redirect()->route('etiqueta.index')->with('datos', 'Registro Actualizado!!');
+            return redirect()->route('icono.index')->with('datos', 'Registro Actualizado!!');
         }catch(Exception $e){
             DB::rollback();
-        }
+        }  
     }
 
     /**
@@ -120,21 +119,21 @@ class EtiquetaController extends Controller
 
         DB::beginTransaction();
         try{
-            $etiqueta=Etiqueta::findOrFail($id);
-            if($etiqueta->estado==1){
-                $etiqueta->estado='0';
-                $etiqueta->save();
+            $icono=Icono::findOrFail($id);
+            if($icono->estado==1){
+                $icono->estado='0';
+                $icono->save();
                 DB::commit();
-                return redirect()->route('etiqueta.index')->with('datos','Registro Desactivado!!');
+                return redirect()->route('icono.index')->with('datos','Registro Desactivado!!');
             }else{
-                $etiqueta->estado='1';
-                $etiqueta->save();
+                $icono->estado='1';
+                $icono->save();
                 DB::commit();
-                return redirect()->route('etiqueta.index')->with('datos','Registro Activado!!');
+                return redirect()->route('icono.index')->with('datos','Registro Activado!!');
             }
         }catch(Exception $e){
             DB::rollback();
-        }
+        }  
 
 
     }

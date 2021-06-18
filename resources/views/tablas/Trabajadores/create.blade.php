@@ -97,7 +97,7 @@
 
 
         <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>Grabar</button>
-        <a href="" class="btn btn-danger"><i class="fas fa-ban"></i>Cancelar</a>
+        <a href="{{route('cancelarTr')}}" class="btn btn-danger"><i class="fas fa-ban"></i>Cancelar</a>
     </form>
 </div>
 @endsection

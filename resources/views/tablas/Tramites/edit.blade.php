@@ -7,18 +7,18 @@
         <div class="card text-white bg-secondary mb-3" style="max-width: 40rem;">
             <div class="card-header"><h1 style="font-weight: bold;text-align:center">Editar Trámite</h1></div>
             
-            <div class="card-body">
+            <!-- <div class="card-body">
                 <div class="form-group">
-                    <label for="icono" style="float: left">Ícono</label>
-                    <input type="text" class="form-control @error('icono') is-invalid @enderror" id="icono" name="icono" aria-describedby="descripcionHelp" placeholder="Ingrese Ícono" value="{{$tramite->icono}}">
+                    <label for="idIcono" style="float: left">Ícono</label>
+                    <input type="text" class="form-control @error('icono') is-invalid @enderror" id="idIcono" name="idIcono" aria-describedby="descripcionHelp" placeholder="Ingrese Ícono" value="{{$tramite->idIcono}}" style="content:'Hokla'">
                     <small id="descripcionHelp" class="form-text text-muted">Ingrese aquí el ícono</small>
-                    @error('icono')
+                    @error('idIcono')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{$message}}</strong>
                         </span>
                     @enderror
                 </div>
-            </div>
+            </div> -->
 
             <div class="card-body">
                 <div class="form-group">
@@ -57,6 +57,28 @@
                         </span>
                     @enderror
                 </div>
+            </div>
+
+            <div class="form-group">
+                <label for="idIcono" style="float:left;padding:20px">Ícono</label>
+                <select class="form-control @error('idIcono') is-invalid @enderror" id="idIcono" name="idIcono" style="width:95%;">
+                    <option value="" disable>Seleccionar un ícono</option>
+                    @foreach($iconos as $itemicono)
+                        @if($icono->idIcono!==$itemicono->idIcono)
+                            <option value="{{$itemicono->idIcono}}" >{{$itemicono->nombre}}</option>
+                        @else
+                        <option value="{{$itemicono->idIcono}}" selected>{{$itemicono->nombre}}</option>
+                        @endif
+                        <!-- if({{$icono->idIcono}}!={{$itemicono->idIcono}}){
+                            <option value="{{$itemicono->idIcono}}" >{{$itemicono->nombre}}</option>
+                        } -->
+                    @endforeach
+                </select>
+                @error('idIcono')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
             </div>
 
             <div class="card-footer" style="text-align:center">

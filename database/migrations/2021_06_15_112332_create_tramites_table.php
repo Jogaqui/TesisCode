@@ -15,11 +15,13 @@ class CreateTramitesTable extends Migration
     {
         Schema::create('tramites', function (Blueprint $table) {
             $table->id('idTramite');
-            $table->string('icono');
+            // $table->string('icono');
             $table->string('titulo');
             $table->string('descripcion');
             $table->string('ruta');
             $table->tinyInteger('estado');
+            $table->bigInteger('idIcono')->unsigned();
+            $table->foreign('idIcono')->references('idIcono')->on('iconos');
         });
     }
 

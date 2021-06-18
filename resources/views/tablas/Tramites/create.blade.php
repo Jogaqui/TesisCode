@@ -7,18 +7,7 @@
         @csrf
         <div class="card text-white bg-secondary mb-3" style="max-width: 40rem;">
             <div class="card-header"><h1 style="font-weight: bold;text-align:center">Crear Registro</h1></div>
-            
-            <div class="card-body">
-                <div class="form-group">
-                    <label for="icono" style="float: left">Ícono</label>
-                    <input type="text" class="form-control @error('icono') is-invalid @enderror" id="icono" name="icono">
-                    @error('icono')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-                </div>
-            </div>
+
             <div class="card-body">
                 <div class="form-group">
                     <label for="titulo" style="float: left">Título</label>
@@ -53,6 +42,19 @@
                 </div>
             </div>
 
+            <div class="form-group">
+                <label for="idIcono" style="float:left;padding:20px">Ícono</label>
+                <select class="form-control @error('idIcono') is-invalid @enderror" id="idIcono" name="idIcono" style="width:95%;">
+                    @foreach($icono as $itemicono)
+                        <option value="{{$itemicono->idIcono}}" >{{$itemicono->nombre}}</option>
+                    @endforeach
+                </select>
+                @error('idIcono')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+            </div>
 
             <div class="card-footer" style="text-align:center">
                 <button type="submit" class="btn btn-primary "><i class="fas fa-save"></i> Grabar</button>

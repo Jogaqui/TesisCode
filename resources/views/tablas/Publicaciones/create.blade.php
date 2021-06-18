@@ -8,8 +8,10 @@
 
         <div class="form-group">
             <label for="imagen">Imagen</label><br>
-            <!-- <input accept=".png, .jpg, .jpeg" enctype =" multipart / form-data " type="file"  id="imagen" name="imagen"> -->
-            <input type="text" class="form-control @error('imagen') is-invalid @enderror" id="imagen" name="imagen">
+            <!-- <input accept=".png, .jpg, .jpeg"  type="file"  id="imagen" name="imagen"> -->
+            <!-- <input type="file" class="form-control form-control-user"  id="archivo1" name="archivo1" accept="application/pdf"
+                  style="border-radius: 0 50px 50px 0;" required> -->
+           <input type="text" class="form-control @error('imagen') is-invalid @enderror" id="imagen" name="imagen">
             @error('imagen')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
@@ -29,7 +31,7 @@
 
         <div class="form-group">
             <label for="fecha">Fecha</label>
-            <input type="date" class="form-control @error('fecha') is-invalid @enderror" id="fecha" name="fecha">
+            <input type="date" class="form-control @error('fecha') is-invalid @enderror" id="fecha" name="fecha" style="width:50%">
             @error('fecha')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>

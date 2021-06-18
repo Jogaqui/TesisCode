@@ -169,6 +169,22 @@
               </p>
             </a>    
           </li>
+          <li>
+            <a href="{{route('icono.index')}}" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Íconos
+              </p>
+            </a>    
+          </li>
+          <li>
+            <a href="{{route('consulta.index')}}" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Consultas
+              </p>
+            </a>    
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

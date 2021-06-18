@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Tramite;
+use App\Icono;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TramiteController extends Controller
 {
@@ -14,8 +16,13 @@ class TramiteController extends Controller
      */
     public function index()
     {
-        $tramite=Tramite::get();
+
+        $tramite=DB::table('tramites as t')
+        ->join('iconos as i','t.idIcono','=','i.idIcono')->where('t.estado','1')->select('*')->get();
+        // $tramite=Tramite::get();
         return view('tablas.Tramites.index',compact('tramite'));
+
+
     }
 
     /**
@@ -25,7 +32,8 @@ class TramiteController extends Controller
      */
     public function create()
     {
-        return view('tablas.Tramites.create');
+        $icono=Icono::get();
+        return view('tablas.Tramites.create',compact('icono'));
     }
 
     /**
@@ -43,10 +51,10 @@ class TramiteController extends Controller
         //     'descripcion.required'=>'Ingrese Descripción',
         // ]);
         $tramite = new Tramite();
-        $tramite->icono=$request->icono;
         $tramite->titulo=$request->titulo;
         $tramite->descripcion=$request->descripcion;
         $tramite->ruta=$request->ruta;
+        $tramite->idIcono=$request->idIcono;
         $tramite->estado='1';
         $tramite->save();
         return redirect()->route('tramite.index')->with('datos', 'Registro Nuevo Guardado!!');
@@ -71,8 +79,14 @@ class TramiteController extends Controller
      */
     public function edit($id)
     {
+        // $tramite=DB::table('tramites as t')
+        // ->join('iconos as i','t.idIcono','=','i.idIcono')->where('t.idTramite',$id)->select('*')->get();
         $tramite=Tramite::findOrFail($id);
-        return view('tablas.Tramites.edit',compact('tramite'));
+        // dd($tramite);
+        $idIcono=$tramite->idIcono;
+        $icono=Icono::findOrFail($idIcono);
+        $iconos=Icono::get();
+        return view('tablas.Tramites.edit',compact('tramite','icono','iconos'));
     }
 
     /**
@@ -91,10 +105,10 @@ class TramiteController extends Controller
         //     'descripcion.required'=>'Ingrese Descripcion',
         // ]);
         $tramite =Tramite::findOrFail($id);
-        $tramite->icono=$request->icono;
         $tramite->titulo=$request->titulo;
         $tramite->descripcion=$request->descripcion;
         $tramite->ruta=$request->ruta;
+        $tramite->idIcono=$request->idIcono;
         $tramite->estado='1';
         $tramite->save();
 

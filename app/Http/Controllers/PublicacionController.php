@@ -47,28 +47,42 @@ class PublicacionController extends Controller
         // [
         //     'descripcion.required'=>'Ingrese Descripción',
         // ]);
-        $publicacion = new Publicacion();
-        // $img = $request->file('imagen');
-        // $nombre=$img->getClientOriginalName();
-        // $img->move('/uploads/', $nombre);
-        $publicacion->imagen=$request->imagen;
-        $publicacion->titulo=$request->titulo;
-        $publicacion->fecha=$request->fecha;  
-        $publicacion->creador=$request->creador; 
-        $publicacion->texto=$request->texto;
-        $publicacion->archivo=$request->archivo;
 
-        // bucle para guardar la relacion Publicacion/Etiqueta
-        $etiquetas=$request->idUnidad;
-        // dd( $etiquetas);
-        foreach($etiquetas as $item){
-
+        DB::beginTransaction();
+        try{
+            $publicacion = new Publicacion();
+            // $img = $request->hasFile('archivo1');
+            // dd($img);
+            // $nombre=$img->getClientOriginalName();
+            // $img->move('/uploads/', $nombre);
+            $publicacion->imagen=$request->imagen;
+            $publicacion->titulo=$request->titulo;
+            $publicacion->fecha=$request->fecha;  
+            $publicacion->creador=$request->creador; 
+            $publicacion->texto=$request->texto;
+            $publicacion->archivo=$request->archivo;
+            $publicacion->estado='1';
+            $publicacion->save();
+    
+    
+            // bucle para guardar la relacion Publicacion/Etiqueta
+            $publicacion= Publicacion::all();
+            $lastPublicacion=$publicacion->last();
+            $id=$lastPublicacion->idPublicacion;
+            $etiquetas=$request->etiquetas;
+            // dd( $etiquetas);
+            for($i = 0; $i < sizeof($etiquetas); $i++){
+                $publicacion_etiqueta=new Publicacion_Etiqueta();
+                $publicacion_etiqueta->idPublicacion=$id;
+                $publicacion_etiqueta->idEtiqueta=$etiquetas[$i];
+                $publicacion_etiqueta->save();
+            }
+            //fin de bucle
+            DB::commit();
+            return redirect()->route('publicacion.index')->with('datos', 'Registro Nuevo Guardado!!');
+        }catch(Exception $e){
+            DB::rollback();
         }
-        //fin de bucle
-
-        $publicacion->estado='1';
-        $publicacion->save();
-        return redirect()->route('publicacion.index')->with('datos', 'Registro Nuevo Guardado!!');
     }
 
     /**
@@ -109,13 +123,21 @@ class PublicacionController extends Controller
         // [
         //     'descripcion.required'=>'Ingrese Descripcion',
         // ]);
-        $publicacion = Publicacion::findOrFail($id);
-        $publicacion->imagen=$request->imagen;
-        $publicacion->titulo=$request->titulo;
-        $publicacion->texto=$request->texto;
-        $publicacion->estado='1';
-        $publicacion->save();
-        return redirect()->route('publicacion.index')->with('datos', 'Registro Actualizado!!');
+
+        DB::beginTransaction();
+        try{
+
+            $publicacion = Publicacion::findOrFail($id);
+            $publicacion->imagen=$request->imagen;
+            $publicacion->titulo=$request->titulo;
+            $publicacion->texto=$request->texto;
+            $publicacion->estado='1';
+            $publicacion->save();
+            DB::commit();
+            return redirect()->route('publicacion.index')->with('datos', 'Registro Actualizado!!');
+        }catch(Exception $e){
+            DB::rollback();
+        }   
     }
 
     /**
@@ -126,18 +148,27 @@ class PublicacionController extends Controller
      */
     public function destroy($id)
     {
-        $publicacion=Publicacion::findOrFail($id);
-        if($publicacion->estado==1){
-            $publicacion->estado='0';
-            $publicacion->save();
-            return redirect()->route('publicacion.index')->with('datos','Registro Desactivado!!');
-        }else{
-            $publicacion->estado='1';
-            $publicacion->save();
-            return redirect()->route('publicacion.index')->with('datos','Registro Activado!!');
-        }
-    }
 
+        DB::beginTransaction();
+        try{
+            $publicacion=Publicacion::findOrFail($id);
+            if($publicacion->estado==1){
+                $publicacion->estado='0';
+                $publicacion->save();
+                DB::commit();
+                return redirect()->route('publicacion.index')->with('datos','Registro Desactivado!!');
+            }else{
+                $publicacion->estado='1';
+                $publicacion->save();
+                DB::commit();
+                return redirect()->route('publicacion.index')->with('datos','Registro Activado!!');
+            }
+        }catch(Exception $e){
+            DB::rollback();
+        }
+
+
+    }
 
     public function cancelar(){
         return redirect()->route('publicacion.index')->with('datos','Acción Cancelada!!');
