@@ -12,7 +12,7 @@ class TipoConoceController extends Controller
     {
         $tipoconoce = TipoConoce::get();
         $conocenos = Conocenos::where('estado','=','1');
-        return view('tablas.tipoconoce.index', compact('tipoconoce','buscarpor','conocenos'));
+        return view('tablas.tipoconoce.index', compact('tipoconoce','conocenos'));
     }
 
     /**

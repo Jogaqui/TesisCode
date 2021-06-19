@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Unidad;
+use App\Trabajador;
 
 class UnitController extends Controller
 {
@@ -13,7 +15,10 @@ class UnitController extends Controller
      */
     public function index()
     {
-      return view('unit');
+      $unidad=Unidad::where('estado','1')->get();
+      $trabajador=Trabajador::where('estado','1')->get();
+    //   dd($unidad);
+      return view('unit',compact('unidad','trabajador'));
     }
 
     /**

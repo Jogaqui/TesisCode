@@ -37,7 +37,21 @@ class ConsultaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->correo);
+        DB::beginTransaction();
+        try{
+            $consulta = new Consulta();
+            $consulta->nombre=$request->nombre;
+            $consulta->correo=$request->correo;
+            $consulta->mensaje=$request->mensaje;
+            $consulta->fecha=date('Y-m-d H:i:s');
+            $consulta->estado='1';
+            $consulta->save();
+            DB::commit();
+            return redirect()->route('contact.index')->with('datos', 'Registro Nuevo Guardado!!');
+        }catch(Exception $e){
+            DB::rollback();
+        }
     }
 
     /**
