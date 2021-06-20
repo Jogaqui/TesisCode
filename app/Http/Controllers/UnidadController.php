@@ -34,7 +34,7 @@ class UnidadController extends Controller
             $unidad->estado='1';
             $unidad->save();
             DB::commit();
-            return redirect()->route('unidad.index')->with('datos', 'Registro Nuevo Guardado!!');
+            return redirect()->route('unidad.index')->with('datos', 'G');
         }catch(Exception $e){
             DB::rollback();
         }
@@ -63,7 +63,7 @@ class UnidadController extends Controller
             $unidad->estado='1';
             $unidad->save();
             DB::commit();
-            return redirect()->route('unidad.index')->with('datos', 'Registro Actualizado!!');
+            return redirect()->route('unidad.index')->with('datos', 'T');
         }catch(Exception $e){
             DB::rollback();
         }  
@@ -79,22 +79,16 @@ class UnidadController extends Controller
                 $unidad->estado='0';
                 $unidad->save();
                 DB::commit();
-                return redirect()->route('unidad.index')->with('datos','Registro Desactivado!!');
+                return redirect()->route('unidad.index')->with('datos','D');
             }else{
                 $unidad->estado='1';
                 $unidad->save();
                 DB::commit();
-                return redirect()->route('unidad.index')->with('datos','Registro Activado!!');
+                return redirect()->route('unidad.index')->with('datos','A');
             }
         }catch(Exception $e){
             DB::rollback();
         }  
 
     }
-    // public function confirmar($id)
-    // {
-    //     $unidad=Unidad::findOrFail($id);
-    //     return view('tablas.Unidades.confirmar',compact('unidad'));
-    // }    
-
 }

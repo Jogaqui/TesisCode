@@ -6,11 +6,11 @@
     <form method="POST" action="{{route('icono.store')}}">
         @csrf
         <div class="card text-white bg-secondary mb-3" style="max-width: 40rem;">
-            <div class="card-header"><h1 style="font-weight: bold;text-align:center">Crear Registro</h1></div>
+            <div class="card-header"><h1 style="font-weight: bold;text-align:center">Crear Icono</h1></div>
             <div class="card-body">
                 <div class="form-group">
                     <label for="nombre" style="float: left">Nombre</label>
-                    <input type="text" class="form-control @error('nombre') is-invalid @enderror" id="nombre" name="nombre">
+                    <input type="text" class="form-control @error('nombre') is-invalid @enderror" id="nombre" name="nombre" required>
                     @error('nombre')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>

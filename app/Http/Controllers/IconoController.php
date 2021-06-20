@@ -51,7 +51,7 @@ class IconoController extends Controller
             $icono->estado='1';
             $icono->save();
             DB::commit();
-            return redirect()->route('icono.index')->with('datos', 'Registro Nuevo Guardado!!');
+            return redirect()->route('icono.index')->with('datos', 'G');
         }catch(Exception $e){
             DB::rollback();
         }
@@ -103,7 +103,7 @@ class IconoController extends Controller
             $icono->estado='1';
             $icono->save();
             DB::commit();
-            return redirect()->route('icono.index')->with('datos', 'Registro Actualizado!!');
+            return redirect()->route('icono.index')->with('datos', 'T');
         }catch(Exception $e){
             DB::rollback();
         }  
@@ -125,12 +125,12 @@ class IconoController extends Controller
                 $icono->estado='0';
                 $icono->save();
                 DB::commit();
-                return redirect()->route('icono.index')->with('datos','Registro Desactivado!!');
+                return redirect()->route('icono.index')->with('datos','D');
             }else{
                 $icono->estado='1';
                 $icono->save();
                 DB::commit();
-                return redirect()->route('icono.index')->with('datos','Registro Activado!!');
+                return redirect()->route('icono.index')->with('datos','A');
             }
         }catch(Exception $e){
             DB::rollback();

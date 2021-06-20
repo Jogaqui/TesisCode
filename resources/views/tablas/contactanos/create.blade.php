@@ -6,7 +6,7 @@
     <form method="POST" action="{{route('contactanos.store')}}">
         @csrf
         <div class="card text-white bg-secondary mb-3" style="max-width: 40rem;">
-            <div class="card-header"><h1 style="font-weight: bold;text-align:center">Crear Registro</h1></div>
+            <div class="card-header"><h1 style="font-weight: bold;text-align:center">Crear Contacto</h1></div>
             <div class="card-body">
                 <div class="form-group">
                     <label for="correo" style="float: left">Correo</label>
@@ -20,7 +20,6 @@
                     <input type="tel" class="form-control" name="telefono" id="telefono" pattern="[0-9]{3}-[0-9]{6}" required title="XXX-XXXXXX">
                     <label for="direccion" style="float: left">Dirección</label>
                     <input type="text" class="form-control" name="direccion" id="direccion" required>
-                    <label for="correo" style="float: left">Correo</label>
                 </div>
             </div>
             <div class="card-footer" style="text-align:center">

@@ -12,7 +12,7 @@ class TipoConoceController extends Controller
     {
         $tipoconoce = TipoConoce::get();
         $conocenos = Conocenos::where('estado','=','1');
-        return view('tablas.tipoconoce.index', compact('tipoconoce','buscarpor','conocenos'));
+        return view('tablas.tipoconoce.index', compact('tipoconoce','conocenos'));
     }
 
     /**
@@ -28,8 +28,10 @@ class TipoConoceController extends Controller
     public function show($id)
     {
         //dd($id);
+        $tipoconoce = Tipoconoce::findOrFail($id);
+        //dd($tipoconoce);
         $conocenos = Conocenos::where('tipo','=',$id)->get();
-        return view('tablas.tipoconoce.show', compact('conocenos','id'));
+        return view('tablas.tipoconoce.show', compact('conocenos','tipoconoce'));
     }
 
 /*
@@ -57,10 +59,7 @@ class TipoConoceController extends Controller
             return redirect()->route('tipoconoce.index')->with('datos', 'G');
         }catch(Exception $e){
             DB::rollback();
-        }
-
-
-        
+        }    
     }
 
     public function edit($id)

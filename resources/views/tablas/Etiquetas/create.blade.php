@@ -6,11 +6,11 @@
     <form method="POST" action="{{route('etiqueta.store')}}">
         @csrf
         <div class="card text-white bg-secondary mb-3" style="max-width: 40rem;">
-            <div class="card-header"><h1 style="font-weight: bold;text-align:center">Crear Registro</h1></div>
+            <div class="card-header"><h1 style="font-weight: bold;text-align:center">Crear Etiqueta</h1></div>
             <div class="card-body">
                 <div class="form-group">
                     <label for="descripcion" style="float: left">Descripción</label>
-                    <input type="text" class="form-control @error('descripcion') is-invalid @enderror" id="descripcion" name="descripcion">
+                    <input type="text" class="form-control @error('descripcion') is-invalid @enderror" id="descripcion" name="descripcion" required>
                     @error('descripcion')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>

@@ -91,12 +91,12 @@ class ConsultaController extends Controller
                 $consulta->estado='0';
                 $consulta->save();
                 DB::commit();
-                return redirect()->route('consulta.index')->with('datos','Registro Desactivado!!');
+                return redirect()->route('consulta.index')->with('datos','D');
             }else{
                 $consulta->estado='1';
                 $consulta->save();
                 DB::commit();
-                return redirect()->route('consulta.index')->with('datos','Registro Activado!!');
+                return redirect()->route('consulta.index')->with('datos','A');
             }
         }catch(Exception $e){
             DB::rollback();

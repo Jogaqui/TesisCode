@@ -4,7 +4,6 @@
 
 <div class="container-fluid">
     <h3>NUESTROS TIPOS DE GENERALIDADES</h3>
-    
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">Listado de generalidades</h3>
@@ -14,7 +13,6 @@
             
             @endphp
             <h3 class="card-title" style="font-size: 15px;">Hasta el momento hay: '<b style="color: blue;"> @php echo $tipoconoce->count(); @endphp</b>' generalidades registradas.</h3>
-
         </div>
           <!-- /.card-header -->
         <div class="card-body">
@@ -74,7 +72,16 @@
                     </div>
                 </div>
             </div><!--fin modal-->
-            @endforeach   
+            @endforeach
+              </tbody>
+              <tfoot>
+              <tr>
+                <th>Código</th>
+                <th>Nombre</th>
+                <th>Opciones</th>
+              </tr>
+              </tfoot>
+            </table>  
         </div>
         <!-- /.card-body -->
     </div>

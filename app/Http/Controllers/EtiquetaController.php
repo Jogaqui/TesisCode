@@ -52,7 +52,7 @@ class EtiquetaController extends Controller
             $etiqueta->estado='1';
             $etiqueta->save();
             DB::commit();
-            return redirect()->route('etiqueta.index')->with('datos', 'Registro Nuevo Guardado!!');
+            return redirect()->route('etiqueta.index')->with('datos', 'G');
         }catch(Exception $e){
             DB::rollback();
         }
@@ -104,7 +104,7 @@ class EtiquetaController extends Controller
             $etiqueta->estado='1';
             $etiqueta->save();
             DB::commit();
-            return redirect()->route('etiqueta.index')->with('datos', 'Registro Actualizado!!');
+            return redirect()->route('etiqueta.index')->with('datos', 'T');
         }catch(Exception $e){
             DB::rollback();
         }
@@ -126,12 +126,12 @@ class EtiquetaController extends Controller
                 $etiqueta->estado='0';
                 $etiqueta->save();
                 DB::commit();
-                return redirect()->route('etiqueta.index')->with('datos','Registro Desactivado!!');
+                return redirect()->route('etiqueta.index')->with('datos','D');
             }else{
                 $etiqueta->estado='1';
                 $etiqueta->save();
                 DB::commit();
-                return redirect()->route('etiqueta.index')->with('datos','Registro Activado!!');
+                return redirect()->route('etiqueta.index')->with('datos','A');
             }
         }catch(Exception $e){
             DB::rollback();

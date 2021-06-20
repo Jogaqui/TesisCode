@@ -38,17 +38,13 @@
   <link rel="stylesheet" href="/adminlte/plugins/bs-stepper/css/bs-stepper.min.css">
   <!-- dropzonejs -->
   <link rel="stylesheet" href="/adminlte/plugins/dropzone/min/dropzone.min.css">
-
-
-
-
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
 <!-- Site wrapper -->
 <div class="wrapper">
   
   <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-navy navbar-light">
+  <nav class="main-header navbar navbar-expand" style="background: rgb(3, 15, 54)">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item">
@@ -90,11 +86,11 @@
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+  <aside class="main-sidebar sidebar-dark-primary elevation-4" style="background: rgb(3, 15, 54)">
     <!-- Brand Logo -->
-    <a href="/home" class="brand-link">
-      <img src="/adminlte/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">AdminLTE 3</span>
+    <a href="/home" class="brand-link" style="background: rgb(3, 15, 54)">
+      <img src="/adminlte/dist/img/unt1.jpg" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <span class="brand-text font-weight-bold">Registro Técnico</span>
     </a>
 
     <!-- Sidebar -->
@@ -106,7 +102,7 @@
           <img src="/adminlte/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">{{ Auth::user()->name }}</a>
+          <a href="#" style="font-weight: bold" class="d-block">{{ Auth::user()->name }}</a>
         </div>
       </div>
 
@@ -116,15 +112,15 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="{{route('unidad.index')}}" class="nav-link {{ Request::routeIs('unidad.index') ? 'active' : '' }}">
-              <i class="nav-icon fab fa-audible"></i>
+            <a href="{{route('unidad.index')}}" class="nav-link {{ Request::routeIs('unidad.index','unidad.create','unidad.edit') ? 'active' : '' }}">
+              <i class="nav-icon far fa-id-badge"></i>
               <p>
                 Unidades
               </p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{route('tipoconoce.index')}}" class="nav-link {{ Request::routeIs('tipoconoce.index') ? 'active' : '' }}">
+            <a href="{{route('tipoconoce.index')}}" class="nav-link {{ Request::routeIs('tipoconoce.index','tipoconoce.create','tipoconoce.edit','tipoconoce.show','conocenos.create','conocenos.edit') ? 'active' : '' }}">
               <i class="nav-icon fab fa-audible"></i>
               <p>
                 Tipos de Generalidades
@@ -132,56 +128,56 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{route('trabajador.index')}}" class="nav-link {{ Request::routeIs('trabajador.index') ? 'active' : '' }}">
-              <i class="nav-icon fab fa-audible"></i>
+            <a href="{{route('trabajador.index')}}" class="nav-link {{ Request::routeIs('trabajador.index','trabajador.create','trabajador.edit') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-users"></i>
               <p>
                 Trabajadores
               </p>
             </a>    
           </li>
           <li class="nav-item">
-            <a href="{{route('contactanos.index')}}" class="nav-link {{ Request::routeIs('contactanos.index') ? 'active' : '' }}">
-              <i class="nav-icon fab fa-audible"></i>
+            <a href="{{route('contactanos.index')}}" class="nav-link {{ Request::routeIs('contactanos.index','contactanos.create','contactanos.edit') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-at"></i>
               <p>
-                Contactanos
+                Informacion de Contacto
               </p>
             </a>
           </li>
-          <li>
-            <a href="{{route('publicacion.index')}}" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                Publicaciones
-              </p>
-            </a>    
-          </li>
-          <li>
-            <a href="{{route('etiqueta.index')}}" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+          <li class="nav-item">
+            <a href="{{route('etiqueta.index')}}" class="nav-link {{ Request::routeIs('etiqueta.index','etiqueta.create','etiqueta.edit') ? 'active' : '' }}">
+              <i class="nav-icon fab fa-buffer"></i>
               <p>
                 Etiquetas
               </p>
             </a>    
           </li>
-          <li>
-            <a href="{{route('tramite.index')}}" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+          <li class="nav-item">
+            <a href="{{route('publicacion.index')}}" class="nav-link {{ Request::routeIs('publicacion.index','publicacion.delet','publicacion.create','publicacion.edit') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-chart-line"></i>
               <p>
-                Trámites
+                Publicaciones
               </p>
             </a>    
           </li>
-          <li>
-            <a href="{{route('icono.index')}}" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+          <li class="nav-item">
+            <a href="{{route('icono.index')}}" class="nav-link {{ Request::routeIs('icono.index','icono.create','icono.edit') ? 'active' : '' }}">
+              <i class="nav-icon fab fa-font-awesome-alt"></i>
               <p>
                 Íconos
               </p>
             </a>    
           </li>
-          <li>
-            <a href="{{route('consulta.index')}}" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+          <li class="nav-item">
+            <a href="{{route('tramite.index')}}" class="nav-link {{ Request::routeIs('tramite.index','tramite.create','tramite.edit') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-envelope-open-text"></i>
+              <p>
+                Trámites
+              </p>
+            </a>    
+          </li>
+          <li class="nav-item">
+            <a href="{{route('consulta.index')}}" class="nav-link {{ Request::routeIs('consulta.index','consulta.show') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-book-reader"></i>
               <p>
                 Consultas
               </p>
@@ -248,8 +244,6 @@
 <script src="/adminlte/dist/js/demo.js"></script>
 <!-- Page specific script -->
 
-
-
 <!-- Bootstrap4 Duallistbox -->
 <script src="/adminlte/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
 <!-- InputMask -->
@@ -268,9 +262,6 @@
 <!-- dropzonejs -->
 <script src="/adminlte/plugins/dropzone/min/dropzone.min.js"></script>
 
-
-
-
 <script>
     $(function () {
       $('#example1').DataTable();
@@ -283,8 +274,6 @@
         "autoWidth": false,
       });
     });
-
-
 
 var table = $('#example1').DataTable({
     "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "todo"]],
@@ -314,56 +303,68 @@ var table = $('#example1').DataTable({
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @if (session('datos') == 'T')
     <script>
-        Swal.fire(
-         '¡Actualizado!',
-         'Su registro ha sido actualizado correctamente.',
-         'success'
-        )
+        Swal.fire({
+        title: '¡Actualizado!',
+        text: 'Su registro ha sido actualizado correctamente.',
+        icon: 'success',
+        showConfirmButton: false,
+        footer: '<a href="javascript:location.reload()" class="btn btn-primary">Ok</a>'
+      })
     </script>
     
     @elseif (session('datos') == 'G')
     <script>
-        Swal.fire(
-         '¡Guardado!',
-         'Su registro ha sido guardado correctamente.',
-         'success'
-        )
+        Swal.fire({
+        title: '¡Guardado!',
+        text: 'Su registro ha sido guardado correctamente.',
+        icon: 'success',
+        showConfirmButton: false,
+        footer: '<a href="javascript:location.reload()" class="btn btn-primary">Ok</a>'
+      })
     </script>
 
     @elseif (session('datos') == 'E')
     <script>
-        Swal.fire(
-         '¡Eliminado!',
-         'Su registro ha sido eliminado correctamente.',
-         'success'
-        )
+        Swal.fire({
+        title: '¡Eliminado!',
+        text: 'Su registro ha sido eliminado correctamente.',
+        icon: 'success',
+        showConfirmButton: false,
+        footer: '<a href="javascript:location.reload()" class="btn btn-primary">Ok</a>'
+      })
     </script>
 
     @elseif (session('datos') == 'C')
     <script>
-        Swal.fire(
-        '¡Cancelado!',
-        'Su registro ha sido cancelado correctamente.',
-        'error'
-        )
+        Swal.fire({
+        title: '¡Cancelado!',
+        text: 'Su registro ha sido cancelado correctamente.',
+        icon: 'error',
+        showConfirmButton: false,
+        footer: '<a href="javascript:location.reload()" class="btn btn-primary">Ok</a>'
+      })
     </script>
 
     @elseif (session('datos') == 'A')
     <script>
-        Swal.fire(
-        '¡Activado!',
-        'Su registro ha sido activado correctamente.',
-        'success'
-        )
+        Swal.fire({
+        title: '¡Activado!',
+        text: 'Su registro ha sido activado correctamente.',
+        icon: 'success',
+        showConfirmButton: false,
+        footer: '<a href="javascript:location.reload()" class="btn btn-primary">Ok</a>'
+      })
     </script>
 
     @elseif (session('datos') == 'D')
     <script>
-        Swal.fire(
-        '¡Desactivado!',
-        'Su registro ha sido desactivado correctamente.',
-        'success'
-        )
+        Swal.fire({
+        title: '¡Desactivado!',
+        text: 'Su registro ha sido desactivado correctamente.',
+        icon: 'success',
+        showConfirmButton: false,
+        footer: '<a href="javascript:location.reload()" class="btn btn-primary">Ok</a>'
+      })
     </script>
     @endif
 

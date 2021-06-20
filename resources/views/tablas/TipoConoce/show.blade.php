@@ -3,15 +3,15 @@
 @section('contenido')
 
 <div class="container-fluid">
+
+    <h3>NUESTROS TIPOS DE {{$tipoconoce->nombre}}</h3>
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Listado de generalidades</h3>
+            <h3 class="card-title">Listado del tipo "{{$tipoconoce->nombre}}"</h3>
             <a href="{{route('conocenos.create')}}" class="btn btn-success" style="float:right;"><i class="fas fa-plus"></i> Nuevo Registro</a>
             <a href="{{route('tipoconoce.index')}}" class="btn btn-info" style="float:right;"><i class="fas fa-arrow-circle-left"></i> Volver</a>
             <br><br>
-            @php
-                //dd($id);
-            @endphp
+            
             <h3 class="card-title" style="font-size: 15px;">Hasta el momento hay: '<b style="color: blue;"> @php echo $conocenos->count(); @endphp</b>' generalidades registradas.</h3>
 
         </div>
@@ -73,7 +73,16 @@
                     </div>
                 </div>
             </div><!--fin modal-->
-            @endforeach   
+            @endforeach
+              </tbody>
+              <tfoot>
+              <tr>
+                <th>Código</th>
+                <th>Descripción</th>
+                <th>Opciones</th>
+              </tr>
+              </tfoot>
+            </table>   
         </div>
         <!-- /.card-body -->
     </div>

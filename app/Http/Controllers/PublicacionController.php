@@ -80,7 +80,7 @@ class PublicacionController extends Controller
             }
             //fin de bucle
             DB::commit();
-            return redirect()->route('publicacion.index')->with('datos', 'Registro Nuevo Guardado!!');
+            return redirect()->route('publicacion.index')->with('datos', 'G');
         }catch(Exception $e){
             DB::rollback();
         }
@@ -94,7 +94,7 @@ class PublicacionController extends Controller
      */
     public function show($id)
     {
-        return redirect()->route('publicacion.index')->with('datos','Acción Cancelada!!');
+        return redirect()->route('publicacion.index')->with('datos','C');
     }
 
     /**
@@ -135,7 +135,7 @@ class PublicacionController extends Controller
             $publicacion->estado='1';
             $publicacion->save();
             DB::commit();
-            return redirect()->route('publicacion.index')->with('datos', 'Registro Actualizado!!');
+            return redirect()->route('publicacion.index')->with('datos', 'T');
         }catch(Exception $e){
             DB::rollback();
         }   
@@ -157,12 +157,12 @@ class PublicacionController extends Controller
                 $publicacion->estado='0';
                 $publicacion->save();
                 DB::commit();
-                return redirect()->route('publicacion.index')->with('datos','Registro Desactivado!!');
+                return redirect()->route('publicacion.index')->with('datos','D');
             }else{
                 $publicacion->estado='1';
                 $publicacion->save();
                 DB::commit();
-                return redirect()->route('publicacion.index')->with('datos','Registro Activado!!');
+                return redirect()->route('publicacion.index')->with('datos','A');
             }
         }catch(Exception $e){
             DB::rollback();

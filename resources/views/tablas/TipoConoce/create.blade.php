@@ -6,11 +6,11 @@
     <form method="POST" action="{{route('tipoconoce.store')}}">
         @csrf
         <div class="card text-white bg-secondary mb-3" style="max-width: 40rem;">
-            <div class="card-header"><h1 style="font-weight: bold;text-align:center">Crear Registro</h1></div>
+            <div class="card-header"><h1 style="font-weight: bold;text-align:center">Crear Generalidad</h1></div>
             <div class="card-body">
                 <div class="form-group">
                     <label for="nombre" style="float: left">Nombre</label>
-                    <input type="text" style="text-transform:uppercase;" class="form-control @error('nombre') is-invalid @enderror" id="nombre" name="nombre" onkeyup="javascript:this.value=this.value.toUpperCase();">
+                    <input type="text" style="text-transform:uppercase;" class="form-control @error('nombre') is-invalid @enderror" id="nombre" name="nombre" onkeyup="javascript:this.value=this.value.toUpperCase();" required>
                     @error('nombre')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>

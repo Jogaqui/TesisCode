@@ -16,13 +16,11 @@ class TramiteController extends Controller
      */
     public function index()
     {
-
         $tramite=DB::table('tramites as t')
-        ->join('iconos as i','t.idIcono','=','i.idIcono')->where('t.estado','1')->select('*')->get();
+        ->join('iconos as i','t.idIcono','=','i.idIcono')->select('t.idTramite','t.titulo','t.descripcion','t.ruta','t.estado','i.nombre')->get();
         // $tramite=Tramite::get();
+        
         return view('tablas.Tramites.index',compact('tramite'));
-
-
     }
 
     /**
@@ -64,10 +62,7 @@ class TramiteController extends Controller
             return redirect()->route('tramite.index')->with('datos', 'Registro Nuevo Guardado!!');
         }catch(Exception $e){
             DB::rollback();
-        }
-
-
-        
+        }    
     }
 
     /**
@@ -125,7 +120,7 @@ class TramiteController extends Controller
             $tramite->estado='1';
             $tramite->save();
             DB::commit();
-            return redirect()->route('tramite.index')->with('datos', 'Registro Actualizado!!');
+            return redirect()->route('tramite.index')->with('datos', 'T');
         }catch(Exception $e){
             DB::rollback();
         } 
@@ -147,12 +142,12 @@ class TramiteController extends Controller
                 $tramite->estado='0';
                 $tramite->save();
                 DB::commit();
-                return redirect()->route('tramite.index')->with('datos','Registro Desactivado!!');
+                return redirect()->route('tramite.index')->with('datos','D');
             }else{
                 $tramite->estado='1';
                 $tramite->save();
                 DB::commit();
-                return redirect()->route('tramite.index')->with('datos','Registro Activado!!');
+                return redirect()->route('tramite.index')->with('datos','A');
             }
         }catch(Exception $e){
             DB::rollback();

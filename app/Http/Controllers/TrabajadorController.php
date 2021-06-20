@@ -8,12 +8,6 @@ use Illuminate\Support\Facades\DB;
 
 class TrabajadorController extends Controller
 {
-    /**
-     * Display a listing of the resource. 
-     *
-     * @return \Illuminate\Http\Response
-     */
-
     public function index(Request $request)
     {
         // $curso=DB::table('secciones as s')->join('grados as g','g.idGrado','=','s.idGrado')  
@@ -28,11 +22,6 @@ class TrabajadorController extends Controller
         return view('tablas.trabajadores.index', compact('trabajador'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $unidad=Unidad::where('estado','=','1')->get();
@@ -40,12 +29,6 @@ class TrabajadorController extends Controller
         return view('tablas.Trabajadores.create',compact('unidad'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         
@@ -81,29 +64,17 @@ class TrabajadorController extends Controller
             }
             $trabajador->save();
             DB::commit();
-            return redirect()->route('trabajador.index')->with('datos', 'Registro Nuevo Guardado!!');
+            return redirect()->route('trabajador.index')->with('datos', 'G');
         }catch(Exception $e){
             DB::rollback();
         }       
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $trabajador=Trabajador::findOrFail($id);
@@ -113,13 +84,6 @@ class TrabajadorController extends Controller
         return view('tablas.Trabajadores.edit',compact('trabajador','unidad','unidades')); 
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         // $data=request()->validate([
@@ -141,7 +105,6 @@ class TrabajadorController extends Controller
                 $trabajador->puesto=$request->puesto;
                 $trabajador->correo=$request->email;
                 $trabajador->telefono=$request->telefono;
-                $trabajador->idUnidad='1';
                 $trabajador->estado='1';
             }else{
                 $trabajador->apPaterno=$request->apPaterno;
@@ -151,25 +114,16 @@ class TrabajadorController extends Controller
                 $trabajador->idUnidad=$request->idUnidad;
                 $trabajador->correo=$request->email;
                 $trabajador->telefono=$request->telefono;
-                $trabajador->idUnidad='1';
                 $trabajador->estado='1';
             }
             $trabajador->save();
             DB::commit();
-            return redirect()->route('trabajador.index')->with('datos', 'Registro Actualizado!!');
+            return redirect()->route('trabajador.index')->with('datos', 'T');
         }catch(Exception $e){
             DB::rollback();
         }
-
-
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         DB::beginTransaction();
@@ -178,18 +132,9 @@ class TrabajadorController extends Controller
             $trabajador->estado='0';
             $trabajador->save();
             DB::commit();
-            return redirect()->route('trabajador.index')->with('datos','Registro Eliminado!!');
+            return redirect()->route('trabajador.index')->with('datos','E');
         }catch(Exception $e){
             DB::rollback();
-        }   
-
-
-
-        
-    }
-    // public function confirmar($id)
-    // {
-    //     $trabajador=Trabajador::findOrFail($id);
-    //     return view('tablas.Trabajadores.confirmar',compact('trabajador'));
-    // }    
+        }    
+    }   
 }

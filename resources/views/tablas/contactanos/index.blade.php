@@ -76,6 +76,17 @@
                 </div>
             </div><!--fin modal-->
             @endforeach
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Código</th>
+                    <th>Correo</th>
+                    <th>Télefono</th>
+                    <th>Dirección</th>
+                    <th>Opciones</th>
+                </tr>
+            </tfoot>
+            </table>  
           </div>
           <!-- /.card-body -->
         </div>
