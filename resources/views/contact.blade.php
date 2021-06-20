@@ -1,4 +1,4 @@
-@extends('layouts.guest')
+@extends('layouts.guest') 
 @section('styles')
 <link rel="stylesheet" type="text/css" href="{{ asset('css/contact_styles.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('css/contact_responsive.css') }}">
@@ -14,6 +14,8 @@
   </div>
 </div>
 
+
+
 <!-- Contact -->
 <div class="contact">
   <div class="container">
@@ -25,11 +27,12 @@
           <div class="contact_title">Ponerse en contacto</div>
 
           <div class="contact_form_container">
-            <form action="post">
-              <input id="contact_form_name" class="input_field contact_form_name" type="text" placeholder="Nombre" required="required" data-error="El nombre es requerido.">
-              <input id="contact_form_email" class="input_field contact_form_email" type="email" placeholder="Correo electrónico" required="required" data-error="Correo válido es requerido.">
-              <textarea id="contact_form_message" class="text_field contact_form_message" name="message" placeholder="Mensaje" required="required" data-error="Por favor, escríbenos un mensaje."></textarea>
-              <button id="contact_send_btn" type="button" class="contact_send_btn trans_200" value="Submit">enviar mensaje</button>
+            <form method="post" action="{{route('consulta.store')}}">
+            @csrf
+              <input name="nombre" id="nombre" class="input_field contact_form_name" type="text" placeholder="Nombre" required="required" data-error="El nombre es requerido.">
+              <input name="correo" id="correo" class="input_field contact_form_email" type="email" placeholder="Correo electrónico" required="required" data-error="Correo válido es requerido.">
+              <textarea name="mensaje" id="mensaje" class="text_field contact_form_message" name="message" placeholder="Mensaje" required="required" data-error="Por favor, escríbenos un mensaje."></textarea>
+              <button id="contact_send_btn" type="Submit" class="contact_send_btn trans_200" >enviar mensaje</button>
             </form>
           </div>
         </div>
@@ -47,18 +50,19 @@
                 <div class="contact_info_icon">
                   <img src="images/placeholder.svg" alt="https://www.flaticon.com/authors/lucy-g">
                 </div>
-                Av. Juan Pablo II 3° Puerta
+                {{$contactanos['0']->direccion}}    
               </li>
               <li class="contact_info_item">
                 <div class="contact_info_icon">
                   <img src="images/smartphone.svg" alt="https://www.flaticon.com/authors/lucy-g">
                 </div>
-                (044) 205377
+                {{$contactanos['0']->telefono}}
               </li>
               <li class="contact_info_item">
                 <div class="contact_info_icon">
                   <img src="images/envelope.svg" alt="https://www.flaticon.com/authors/lucy-g">
-                </div>ort@unitru.edu.pe
+                </div>
+                {{$contactanos['0']->correo}}
               </li>
             </ul>
           </div>

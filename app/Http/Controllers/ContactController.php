@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Contactanos;
 
 class ContactController extends Controller
 {
@@ -13,7 +14,9 @@ class ContactController extends Controller
      */
     public function index()
     {
-      return view('contact');
+      $contactanos=Contactanos::where('estado','1')->get();  
+    //   dd($contactanos);
+      return view('contact',compact('contactanos'));
     }
 
     /**
