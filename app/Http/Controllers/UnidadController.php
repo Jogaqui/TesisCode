@@ -22,7 +22,7 @@ class UnidadController extends Controller
     public function store(Request $request)
     {
         $data=request()->validate([
-            'descripcion'=>'required|max:40'
+            'descripcion'=>'required|unique:unidades'
         ],
         [
             'descripcion.required'=>'Ingrese Descripción',
@@ -50,10 +50,7 @@ class UnidadController extends Controller
     public function update(Request $request, $id)
     {
         $data=request()->validate([
-            'descripcion'=>'required|max:40'
-        ],
-        [
-            'descripcion.required'=>'Ingrese Descripcion',
+            'descripcion'=>'unique:unidades'
         ]);
         
         DB::beginTransaction();

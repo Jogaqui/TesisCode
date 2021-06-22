@@ -27,7 +27,7 @@
                 <th scope="col">Unidad</th>
                 <th scope="col">Puesto</th>
                 <th scope="col">Correo</th>
-                <th scope="col">Telefono</th>
+                <th scope="col">Celular</th>
                 <th scope="col">Opciones</th>
               </tr>
               </thead>
@@ -80,7 +80,7 @@
                 <th scope="col">Unidad</th>
                 <th scope="col">Puesto</th>
                 <th scope="col">Correo</th>
-                <th scope="col">Telefono</th>
+                <th scope="col">Celular</th>
                 <th scope="col">Opciones</th>
               </tr>
               </tfoot>

@@ -9,8 +9,7 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="descripcion" style="float: left">Descripción</label>
-                    <input type="text" class="form-control @error('descripcion') is-invalid @enderror" id="descripcion" name="descripcion" aria-describedby="descripcionHelp" placeholder="Ingrese Descripción" value="{{$unidad->descripcion}}">
-                    <small id="descripcionHelp" class="form-text text-muted">Ingrese aquí la descripción</small>
+                    <input type="text" class="form-control @error('descripcion') is-invalid @enderror" id="descripcion" name="descripcion" aria-describedby="descripcionHelp" placeholder="Ingrese Descripción" value="{{$unidad->descripcion}}" pattern="^(?!.* (?: |$))[A-Z][A-Za-záéíóú ]+$" title="Debe poner solo palabras con la primera letra en Mayuscula" required>
                     @error('descripcion')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{$message}}</strong>

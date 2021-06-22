@@ -9,7 +9,7 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="apPaterno" style="float: left">Apellido Paterno</label>
-                    <input type="text" class="form-control @error('apPaterno') is-invalid @enderror" id="apPaterno" name="apPaterno">
+                    <input type="text" class="form-control @error('apPaterno') is-invalid @enderror" id="apPaterno" name="apPaterno" required>
                     @error('apellidos')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -19,7 +19,7 @@
 
                 <div class="form-group">
                     <label for="apMaterno" style="float: left">Apellido Materno</label>
-                    <input type="text" class="form-control @error('apMaterno') is-invalid @enderror" id="apMaterno" name="apMaterno">
+                    <input type="text" class="form-control @error('apMaterno') is-invalid @enderror" id="apMaterno" name="apMaterno" required>
                     @error('apellidos')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -29,7 +29,7 @@
 
                 <div class="form-group">
                     <label for="nombres" style="float: left">Nombres</label>
-                    <input type="text" class="form-control @error('nombres') is-invalid @enderror" id="nombres" name="nombres">
+                    <input type="text" class="form-control @error('nombres') is-invalid @enderror" id="nombres" name="nombres" required>
                     @error('nombres')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -39,7 +39,7 @@
 
                 <div class="form-group">
                     <label for="dni" style="float: left">DNI</label>
-                    <input type="text" class="form-control @error('dni') is-invalid @enderror" id="dni" name="dni" maxlength="8">
+                    <input type="text" class="form-control @error('dni') is-invalid @enderror" id="dni" name="dni" maxlength="8" pattern="[1-9][0-9]{7}" title="Ingrese sólo números" required>
                     @error('dni')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -64,7 +64,7 @@
 
                 <div class="form-group">
                     <label for="puesto" style="float: left">Puesto</label>
-                    <input type="text" class="form-control @error('puesto') is-invalid @enderror" id="puesto" name="puesto">
+                    <input type="text" class="form-control @error('puesto') is-invalid @enderror" id="puesto" name="puesto" required>
                     @error('puesto')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -73,10 +73,9 @@
                 </div>      
                 
                 <div class="form-group">
-                    <label for="email" style="float: left">Email</label>
-                    <input type="text" class="form-control @error('email') is-invalid @enderror" id="email" name="email">
-                    
-                    @error('email')
+                    <label for="correo" style="float: left">Correo</label>
+                    <input type="email" class="form-control @error('correo') is-invalid @enderror" id="correo" name="correo" required pattern="^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$">
+                    @error('correo')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
@@ -84,8 +83,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="telefono" style="float: left">Telefono</label>
-                    <input type="text" class="form-control @error('telefono') is-invalid @enderror" id="telefono" name="telefono">
+                    <label for="telefono" style="float: left">Celular</label>
+                    <input type="text" class="form-control @error('telefono') is-invalid @enderror" id="telefono" name="telefono" minlength="9" pattern="[1-9][0-9]{8}" required>
                     @error('telefono')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>

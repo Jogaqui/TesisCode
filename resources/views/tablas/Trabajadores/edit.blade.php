@@ -9,7 +9,7 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="apPaterno" style="float: left">Apellido Paterno</label>
-                    <input type="text" class="form-control @error('apPaterno') is-invalid @enderror" id="apPaterno" name="apPaterno" aria-describedby="descripcionHelp" placeholder="Ingrese Descripción" value="{{$trabajador->apPaterno}}">
+                    <input type="text" class="form-control @error('apPaterno') is-invalid @enderror" id="apPaterno" name="apPaterno" aria-describedby="descripcionHelp" placeholder="Ingrese Descripción" value="{{$trabajador->apPaterno}}" required>
                     @error('apellidos')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -39,7 +39,7 @@
 
                 <div class="form-group">
                     <label for="dni" style="float: left">DNI</label>
-                    <input type="text" class="form-control @error('dni') is-invalid @enderror" id="dni" name="dni" minlength="8"  aria-describedby="descripcionHelp" placeholder="Ingrese DNI" value="{{$trabajador->dni}}">
+                    <input type="text" class="form-control @error('dni') is-invalid @enderror" id="dni" name="dni" minlength="8"  aria-describedby="descripcionHelp" placeholder="Ingrese DNI" value="{{$trabajador->dni}}" pattern="[1-9][0-9]{7}">
                     @error('dni')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -75,10 +75,9 @@
                 </div>      
                 
                 <div class="form-group">
-                    <label for="email" style="float: left">Email</label>
-                    <input type="text" class="form-control @error('email') is-invalid @enderror" id="email" name="email" aria-describedby="descripcionHelp" placeholder="Ingrese Email" value="{{$trabajador->correo}}">
-                    
-                    @error('email')
+                    <label for="correo" style="float: left">Correo</label>
+                    <input type="email" class="form-control @error('correo') is-invalid @enderror" id="correo" name="correo" aria-describedby="descripcionHelp" placeholder="Ingrese correo" value="{{$trabajador->correo}}">
+                    @error('correo')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
@@ -86,8 +85,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="telefono" style="float: left">Telefono</label>
-                    <input type="text" class="form-control @error('telefono') is-invalid @enderror" id="telefono" name="telefono" aria-describedby="descripcionHelp" placeholder="Ingrese Teléfono" value="{{$trabajador->telefono}}">
+                    <label for="telefono" style="float: left">Celular</label>
+                    <input type="text" class="form-control @error('telefono') is-invalid @enderror" id="telefono" name="telefono" aria-describedby="descripcionHelp" placeholder="Ingrese Teléfono" value="{{$trabajador->telefono}}" minlength="9" pattern="[1-9][0-9]{8}">
                     @error('telefono')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>

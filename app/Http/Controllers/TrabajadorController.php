@@ -31,13 +31,10 @@ class TrabajadorController extends Controller
 
     public function store(Request $request)
     {
-        
-        // $data=request()->validate([
-        //     'descripcion'=>'required|max:40'
-        // ],
-        // [
-        //     'descripcion.required'=>'Ingrese Descripción',
-        // ]);
+        $data=request()->validate([
+            'dni'=>'unique:trabajadores',
+            'correo'=>'unique:trabajadores'
+        ]);
 
         DB::beginTransaction();
         try{
@@ -48,7 +45,7 @@ class TrabajadorController extends Controller
                 $trabajador->nombres=$request->nombres;
                 $trabajador->dni=$request->dni;
                 $trabajador->puesto=$request->puesto;
-                $trabajador->correo=$request->email;
+                $trabajador->correo=$request->correo;
                 $trabajador->telefono=$request->telefono;
                 $trabajador->idUnidad=$request->idUnidad;
                 $trabajador->estado='1';
@@ -57,7 +54,7 @@ class TrabajadorController extends Controller
                 $trabajador->apMaterno=$request->apMaterno;
                 $trabajador->nombres=$request->nombres;
                 $trabajador->dni=$request->dni;
-                $trabajador->correo=$request->email;
+                $trabajador->correo=$request->correo;
                 $trabajador->telefono=$request->telefono;
                 $trabajador->idUnidad=$request->idUnidad;
                 $trabajador->estado='1';
@@ -86,12 +83,10 @@ class TrabajadorController extends Controller
 
     public function update(Request $request, $id)
     {
-        // $data=request()->validate([
-        //     'descripcion'=>'required|max:40'
-        // ],
-        // [
-        //     'apellidos.required'=>'Ingrese Descripcion',
-        // ]);
+        $data=request()->validate([
+            'dni'=>'unique:trabajadores',
+            'correo'=>'unique:trabajadores'
+        ]);
 
         DB::beginTransaction();
         try{
@@ -103,7 +98,7 @@ class TrabajadorController extends Controller
                 $trabajador->dni=$request->dni;
                 $trabajador->idUnidad=$request->idUnidad;
                 $trabajador->puesto=$request->puesto;
-                $trabajador->correo=$request->email;
+                $trabajador->correo=$request->correo;
                 $trabajador->telefono=$request->telefono;
                 $trabajador->estado='1';
             }else{
@@ -112,7 +107,7 @@ class TrabajadorController extends Controller
                 $trabajador->nombres=$request->nombres;
                 $trabajador->dni=$request->dni;
                 $trabajador->idUnidad=$request->idUnidad;
-                $trabajador->correo=$request->email;
+                $trabajador->correo=$request->correo;
                 $trabajador->telefono=$request->telefono;
                 $trabajador->estado='1';
             }
