@@ -83,33 +83,113 @@ class TrabajadorController extends Controller
 
     public function update(Request $request, $id)
     {
-        $data=request()->validate([
-            'dni'=>'unique:trabajadores',
-            'correo'=>'unique:trabajadores'
-        ]);
-
         DB::beginTransaction();
         try{
             $trabajador = Trabajador::findOrFail($id);
             if(!empty($request->puesto)){
-                $trabajador->apPaterno=$request->apPaterno;
-                $trabajador->apMaterno=$request->apMaterno;
-                $trabajador->nombres=$request->nombres;
-                $trabajador->dni=$request->dni;
-                $trabajador->idUnidad=$request->idUnidad;
-                $trabajador->puesto=$request->puesto;
-                $trabajador->correo=$request->correo;
-                $trabajador->telefono=$request->telefono;
-                $trabajador->estado='1';
+                if ($trabajador->dni==$request->dni && $trabajador->correo==$request->correo) {
+                    $trabajador->apPaterno=$request->apPaterno;
+                    $trabajador->apMaterno=$request->apMaterno;
+                    $trabajador->nombres=$request->nombres;
+                    $trabajador->idUnidad=$request->idUnidad;
+                    $trabajador->puesto=$request->puesto;
+                    $trabajador->telefono=$request->telefono;
+                    $trabajador->estado='1';
+                }
+                elseif ($trabajador->dni==$request->dni && $trabajador->correo!=$request->correo) {
+                    $data=request()->validate([
+                        'correo'=>'unique:trabajadores'
+                    ]);
+                    $trabajador->apPaterno=$request->apPaterno;
+                    $trabajador->apMaterno=$request->apMaterno;
+                    $trabajador->nombres=$request->nombres;
+                    $trabajador->idUnidad=$request->idUnidad;
+                    $trabajador->puesto=$request->puesto;
+                    $trabajador->correo=$request->correo;
+                    $trabajador->telefono=$request->telefono;
+                    $trabajador->estado='1';
+                }
+                elseif ($trabajador->dni!=$request->dni && $trabajador->correo==$request->correo) {
+                    $data=request()->validate([
+                        'dni'=>'unique:trabajadores'
+                    ]);
+                    $trabajador->apPaterno=$request->apPaterno;
+                    $trabajador->apMaterno=$request->apMaterno;
+                    $trabajador->nombres=$request->nombres;
+                    $trabajador->dni=$request->dni;
+                    $trabajador->idUnidad=$request->idUnidad;
+                    $trabajador->puesto=$request->puesto;
+                    $trabajador->correo=$request->correo;
+                    $trabajador->telefono=$request->telefono;
+                    $trabajador->estado='1';
+                }
+                else {
+                    $data=request()->validate([
+                        'dni'=>'unique:trabajadores',
+                        'correo'=>'unique:trabajadores'
+                    ]);
+                    $trabajador->apPaterno=$request->apPaterno;
+                    $trabajador->apMaterno=$request->apMaterno;
+                    $trabajador->nombres=$request->nombres;
+                    $trabajador->dni=$request->dni;
+                    $trabajador->idUnidad=$request->idUnidad;
+                    $trabajador->puesto=$request->puesto;
+                    $trabajador->correo=$request->correo;
+                    $trabajador->telefono=$request->telefono;
+                    $trabajador->estado='1';
+                }
             }else{
-                $trabajador->apPaterno=$request->apPaterno;
-                $trabajador->apMaterno=$request->apMaterno;
-                $trabajador->nombres=$request->nombres;
-                $trabajador->dni=$request->dni;
-                $trabajador->idUnidad=$request->idUnidad;
-                $trabajador->correo=$request->correo;
-                $trabajador->telefono=$request->telefono;
-                $trabajador->estado='1';
+                if ($trabajador->dni==$request->dni && $trabajador->correo==$request->correo) {
+                    $trabajador->apPaterno=$request->apPaterno;
+                    $trabajador->apMaterno=$request->apMaterno;
+                    $trabajador->nombres=$request->nombres;
+                    $trabajador->idUnidad=$request->idUnidad;
+                    $trabajador->puesto=$request->puesto;
+                    $trabajador->telefono=$request->telefono;
+                    $trabajador->estado='1';
+                }
+                elseif ($trabajador->dni==$request->dni && $trabajador->correo!=$request->correo) {
+                    $data=request()->validate([
+                        'correo'=>'unique:trabajadores'
+                    ]);
+                    $trabajador->apPaterno=$request->apPaterno;
+                    $trabajador->apMaterno=$request->apMaterno;
+                    $trabajador->nombres=$request->nombres;
+                    $trabajador->idUnidad=$request->idUnidad;
+                    $trabajador->puesto=$request->puesto;
+                    $trabajador->correo=$request->correo;
+                    $trabajador->telefono=$request->telefono;
+                    $trabajador->estado='1';
+                }
+                elseif ($trabajador->dni!=$request->dni && $trabajador->correo==$request->correo) {
+                    $data=request()->validate([
+                        'dni'=>'unique:trabajadores'
+                    ]);
+                    $trabajador->apPaterno=$request->apPaterno;
+                    $trabajador->apMaterno=$request->apMaterno;
+                    $trabajador->nombres=$request->nombres;
+                    $trabajador->dni=$request->dni;
+                    $trabajador->idUnidad=$request->idUnidad;
+                    $trabajador->puesto=$request->puesto;
+                    $trabajador->correo=$request->correo;
+                    $trabajador->telefono=$request->telefono;
+                    $trabajador->estado='1';
+                }
+                else {
+                    $data=request()->validate([
+                        'dni'=>'unique:trabajadores',
+                        'correo'=>'unique:trabajadores'
+                    ]);
+                    $trabajador->apPaterno=$request->apPaterno;
+                    $trabajador->apMaterno=$request->apMaterno;
+                    $trabajador->nombres=$request->nombres;
+                    $trabajador->dni=$request->dni;
+                    $trabajador->idUnidad=$request->idUnidad;
+                    $trabajador->puesto=$request->puesto;
+                    $trabajador->correo=$request->correo;
+                    $trabajador->telefono=$request->telefono;
+                    $trabajador->estado='1';
+                }
             }
             $trabajador->save();
             DB::commit();

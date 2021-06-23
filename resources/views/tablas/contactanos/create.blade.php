@@ -10,14 +10,14 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="correo" style="float: left">Correo</label>
-                    <input type="email" class="form-control @error('correo') is-invalid @enderror" id="correo" name="correo" required title="correo@unitru.edu.pe">
+                    <input type="email" class="form-control @error('correo') is-invalid @enderror" id="correo" name="correo" required pattern="^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$" title="correo@unitru.edu.pe">
                     @error('correo')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
                     @enderror
                     <label for="telefono" style="float: left">Teléfono</label>
-                    <input type="tel" class="form-control" name="telefono" id="telefono" pattern="[0-9]{3}-[0-9]{6}" required title="XXX-XXXXXX">
+                    <input type="tel" class="form-control" maxlength="10" name="telefono" id="telefono" pattern="[0-9]{3}-[0-9]{6}" required title="XXX-XXXXXX">
                     <label for="direccion" style="float: left">Dirección</label>
                     <input type="text" class="form-control" name="direccion" id="direccion" required>
                 </div>
