@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Publicacion;
+use App\Etiqueta;
+use App\Contactanos;
 
 class WelcomeController extends Controller
 {
@@ -13,7 +16,11 @@ class WelcomeController extends Controller
      */
     public function index()
     {
-      return view('welcome');
+      $publicaciones = Publicacion::orderBy('fecha', 'DESC')->where('estado', 1)->get();
+      $top = Publicacion::orderBy('fecha', 'DESC')->where('estado', 1)->skip(0)->take(5)->get();
+      $etiquetas = Etiqueta::all();
+      $info = Contactanos::where('estado',1)->first();
+      return view('welcome') -> with(compact('publicaciones', 'top', 'etiquetas', 'info'));
     }
 
     /**

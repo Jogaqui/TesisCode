@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Contactanos;
 
 class ProcedureController extends Controller
 {
@@ -13,7 +14,8 @@ class ProcedureController extends Controller
      */
     public function index()
     {
-      return view('procedure');
+      $info = Contactanos::where('estado',1)->first();
+      return view('procedure') -> with(compact('info'));
     }
 
     /**

@@ -35,7 +35,7 @@
   </div>
   <div class="header_side d-flex flex-row justify-content-center align-items-center">
     <img src="images/phone-call.svg" alt="">
-    <span>(044) 205377</span>
+    <span>{{$info -> telefono}}</span>
   </div>
 
   <!-- Hamburger -->

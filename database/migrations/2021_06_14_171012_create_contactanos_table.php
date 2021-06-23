@@ -16,7 +16,7 @@ class CreateContactanosTable extends Migration
         Schema::create('contactanos', function (Blueprint $table) {
             $table->id('idContacto');
             $table->string('correo');
-            $table->char('telefono',10);
+            $table->char('telefono',20);
             $table->string('direccion');
             $table->tinyInteger('estado');
         });

@@ -1,9 +1,9 @@
 <?php
 
+// use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+// use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 use App\User;
 
 class UserSeeder extends Seeder
@@ -16,8 +16,8 @@ class UserSeeder extends Seeder
     public function run()
     {
         User::create([
-            'name' => 'Kevin Juárez',
-            'email' => 'kevinkjjuarez@gmail.com',
+            'name' => 'César Urbina',
+            'email' => 'csaun_98@hotmail.com',
             'password' => Hash::make('12345678'),
         ]);
     }

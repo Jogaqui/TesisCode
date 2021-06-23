@@ -24,11 +24,21 @@
         <div class="footer_column_title">Menu</div>
         <div class="footer_column_content">
           <ul>
-            <li class="footer_list_item"><a href="#">Home</a></li>
-            <li class="footer_list_item"><a href="#">About Us</a></li>
-            <li class="footer_list_item"><a href="courses.html">Courses</a></li>
-            <li class="footer_list_item"><a href="news.html">News</a></li>
-            <li class="footer_list_item"><a href="contact.html">Contact</a></li>
+            <li class="footer_list_item"><a href="{{ url('welcome') }}">Inicio</a></li>
+            <li class="footer_list_item"><a href="{{ url('procedure') }}">Trámites</a></li>
+            <li class="footer_list_item"><a href="{{ url('unit') }}">Unidades</a></li>
+            @if (Route::has('login'))
+              @auth
+              <li class="footer_list_item"><a href="{{ url('home') }}">Intranet</a></li>
+              @else
+              <li class="footer_list_item"><a href="{{ url('login') }}">Intranet</a></li>
+                @if (Route::has('register'))
+                <!-- <li class="main_nav_item"><a href="{{ url('register') }}">Registrar</a></li> -->
+                @endif
+              @endauth
+            @endif
+            <li class="footer_list_item"><a href="{{ url('aboutus') }}">Conócenos</a></li>
+            <li class="footer_list_item"><a href="{{ url('contact') }}">Contáctanos</a></li>
           </ul>
         </div>
       </div>
@@ -42,18 +52,19 @@
               <div class="footer_contact_icon">
                 <img src="images/placeholder.svg" alt="https://www.flaticon.com/authors/lucy-g">
               </div>
-              Blvd Libertad, 34 m05200 Arévalo
+              {{$info -> direccion}}
             </li>
             <li class="footer_contact_item">
               <div class="footer_contact_icon">
                 <img src="images/smartphone.svg" alt="https://www.flaticon.com/authors/lucy-g">
               </div>
-              0034 37483 2445 322
+              {{$info -> telefono}}
             </li>
             <li class="footer_contact_item">
               <div class="footer_contact_icon">
                 <img src="images/envelope.svg" alt="https://www.flaticon.com/authors/lucy-g">
-              </div>hello@company.com
+              </div>
+              {{$info -> correo}}
             </li>
           </ul>
         </div>

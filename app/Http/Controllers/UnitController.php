@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Unidad;
 use App\Trabajador;
+use App\Contactanos;
 
 class UnitController extends Controller
 {
@@ -17,8 +18,8 @@ class UnitController extends Controller
     {
       $unidad=Unidad::where('estado','1')->get();
       $trabajador=Trabajador::where('estado','1')->get();
-    //   dd($unidad);
-      return view('unit',compact('unidad','trabajador'));
+      $info = Contactanos::where('estado',1)->first();
+      return view('unit') -> with(compact('info', 'unidad', 'trabajador'));
     }
 
     /**
