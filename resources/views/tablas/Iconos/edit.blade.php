@@ -9,7 +9,8 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="nombre" style="float: left">Nombre</label>
-                    <input type="text" class="form-control @error('nombre') is-invalid @enderror" id="nombre" name="nombre" aria-describedby="descripcionHelp" placeholder="Ingrese Nombre" value="{{$icono->nombre}}" required>
+                    <input type="text" class="form-control @error('nombre') is-invalid @enderror" id="nombre" name="nombre" aria-describedby="descripcionHelp" placeholder="Ingrese Nombre" value="{{$icono->nombre}}" 
+                    pattern="^(?!.* (?: |$))[A-Z][A-Za-záéíóú1-9 ]+$" title="Debe poner solo palabras con la primera letra en Mayuscula" required>
                     @error('nombre')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{$message}}</strong>

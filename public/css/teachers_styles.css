@@ -1020,8 +1020,8 @@ section
 
 .footer_content
 {
-	padding-top: 80px;
-	padding-bottom: 83px;
+	/* padding-top: 80px; */
+	padding-bottom: 53px;
 	border-bottom: solid 2px #4d4e4e;
 }
 .footer_content .logo_container

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers; 
+namespace App\Http\Controllers;
 use App\Publicacion;
 use App\Etiqueta;
 use App\Publicacion_Etiqueta;
@@ -17,8 +17,7 @@ class PublicacionController extends Controller
      */
     public function index()
     {
-        $publicacion=Publicacion::get();
-        // dd($publicacion);
+        $publicacion = Publicacion::all();
         return view('tablas.Publicaciones.index',compact('publicacion'));
     }
 
@@ -42,12 +41,12 @@ class PublicacionController extends Controller
      */
     public function store(Request $request)
     {
-        // $data=request()->validate([
-        //     'descripcion'=>'required|max:40'
-        // ],
-        // [
-        //     'descripcion.required'=>'Ingrese Descripción',
-        // ]);
+        $data=request()->validate([
+            'titulo'=>'required|unique:publicaciones',
+        ],
+        [
+            'titulo.required'=>'Ingrese título',
+        ]);
 
         DB::beginTransaction();
         try{
@@ -58,14 +57,14 @@ class PublicacionController extends Controller
             // $img->move('/uploads/', $nombre);
             $publicacion->imagen=$request->imagen;
             $publicacion->titulo=$request->titulo;
-            $publicacion->fecha=$request->fecha;  
-            $publicacion->creador=$request->creador; 
+            $publicacion->fecha=$request->fecha;
+            $publicacion->creador=$request->creador;
             $publicacion->texto=$request->texto;
             $publicacion->archivo=$request->archivo;
             $publicacion->estado='1';
             $publicacion->save();
-    
-    
+
+
             // bucle para guardar la relacion Publicacion/Etiqueta
             $publicacion= Publicacion::all();
             $lastPublicacion=$publicacion->last();
@@ -106,7 +105,7 @@ class PublicacionController extends Controller
     public function edit($id)
     {
         $publicacion=Publicacion::findOrFail($id);
-        return view('tablas.Publicaciones.edit',compact('publicacion')); 
+        return view('tablas.Publicaciones.edit',compact('publicacion'));
     }
 
     /**
@@ -118,12 +117,12 @@ class PublicacionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // $data=request()->validate([
-        //     'descripcion'=>'required|max:40'
-        // ],
-        // [
-        //     'descripcion.required'=>'Ingrese Descripcion',
-        // ]);
+        $data=request()->validate([
+            'titulo'=>'required|unique:publicaciones',
+        ],
+        [
+            'titulo.required'=>'Ingrese título',
+        ]);
 
         DB::beginTransaction();
         try{
@@ -138,7 +137,7 @@ class PublicacionController extends Controller
             return redirect()->route('publicacion.index')->with('datos', 'T');
         }catch(Exception $e){
             DB::rollback();
-        }   
+        }
     }
 
     /**

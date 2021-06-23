@@ -1,4 +1,4 @@
-@extends('layouts.guest') 
+@extends('layouts.guest')
 @section('styles')
 <link rel="stylesheet" type="text/css" href="{{ asset('css/contact_styles.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('css/contact_responsive.css') }}">
@@ -50,19 +50,19 @@
                 <div class="contact_info_icon">
                   <img src="images/placeholder.svg" alt="https://www.flaticon.com/authors/lucy-g">
                 </div>
-                {{$contactanos['0']->direccion}}    
+                {{$info->direccion}}
               </li>
               <li class="contact_info_item">
                 <div class="contact_info_icon">
                   <img src="images/smartphone.svg" alt="https://www.flaticon.com/authors/lucy-g">
                 </div>
-                {{$contactanos['0']->telefono}}
+                {{$info->telefono}}
               </li>
               <li class="contact_info_item">
                 <div class="contact_info_icon">
                   <img src="images/envelope.svg" alt="https://www.flaticon.com/authors/lucy-g">
                 </div>
-                {{$contactanos['0']->correo}}
+                {{$info->correo}}
               </li>
             </ul>
           </div>
