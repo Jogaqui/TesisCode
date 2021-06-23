@@ -20,7 +20,8 @@
 
                 <div class="form-group">
                     <label for="titulo" style="float: left">Título</label>
-                    <input type="text" class="form-control @error('titulo') is-invalid @enderror" id="titulo" name="titulo" value="{{$publicacion->titulo}}">
+                    <input type="text" class="form-control @error('titulo') is-invalid @enderror" id="titulo" name="titulo" value="{{$publicacion->titulo}}"
+                    pattern="^(?!.* (?: |$))[A-Z][A-Za-záéíóú1-9 ]+$" title="Debe poner solo palabras con la primera letra en Mayúscula" required>
                     @error('titulo')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -30,7 +31,8 @@
 
                 <div class="form-group">
                     <label for="texto" style="float: left">Texto</label>
-                    <textarea rows="5" class="form-control @error('texto') is-invalid @enderror" id="texto" name="texto">{{$publicacion->texto}}</textarea>
+                    <textarea rows="5" class="form-control @error('texto') is-invalid @enderror" id="texto" name="texto" 
+                    pattern="^(?!.* (?: |$))[A-Z][A-Za-záéíóú1-9]+$" title="Debe poner solo palabras con la primera letra en Mayúscula" required>{{$publicacion->texto}}</textarea>
                     @error('texto')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>

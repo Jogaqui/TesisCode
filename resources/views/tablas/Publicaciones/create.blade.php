@@ -22,7 +22,8 @@
 
                 <div class="form-group">
                     <label for="titulo" style="float: left">Título</label>
-                    <input type="text" class="form-control @error('titulo') is-invalid @enderror" id="titulo" name="titulo">
+                    <input type="text" class="form-control @error('titulo') is-invalid @enderror" id="titulo" name="titulo"
+                    pattern="^(?!.* (?: |$))[A-Z][A-Za-záéíóú1-9 ]+$" title="Debe poner solo palabras con la primera letra en Mayúscula" required>
                     @error('titulo')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -36,7 +37,7 @@
                             <label for="fecha" style="float: left">Fecha</label>
                         </div>
                         <div class="col-9">
-                            <input type="date" class="form-control @error('fecha') is-invalid @enderror" id="fecha" name="fecha" >
+                            <input type="date" class="form-control @error('fecha') is-invalid @enderror" id="fecha" name="fecha" required>
                             @error('fecha')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -48,7 +49,8 @@
 
                 <div class="form-group">
                     <label for="creador" style="float: left">Información del usuario</label>
-                    <input type="text" class="form-control @error('creador') is-invalid @enderror" id="creador" name="creador" >
+                    <input type="text" class="form-control @error('creador') is-invalid @enderror" id="creador" name="creador" 
+                    pattern="^(?!.* (?: |$))[A-Z][A-Za-záéíóú ]+$" title="Ingrese el nombre de usuario con la primera letra en Mayúscula" required>
                     @error('creador')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -58,7 +60,8 @@
                 
                 <div class="form-group">
                     <label for="texto" style="float: left">Texto</label>
-                    <textarea rows="5" class="form-control @error('texto') is-invalid @enderror" id="texto" name="texto" ></textarea>
+                    <textarea rows="5" class="form-control @error('texto') is-invalid @enderror" id="texto" name="texto" 
+                    pattern="^(?!.* (?: |$))[A-Z][A-Za-záéíóú1-9]+$" title="Debe poner solo palabras con la primera letra en Mayúscula" required></textarea>
                     @error('texto')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>

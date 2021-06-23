@@ -42,12 +42,13 @@ class TramiteController extends Controller
      */
     public function store(Request $request)
     {
-        // $data=request()->validate([
-        //     'descripcion'=>'required|max:40'
-        // ],
-        // [
-        //     'descripcion.required'=>'Ingrese Descripción',
-        // ]);
+        $data=request()->validate([
+            'titulo'=>'required|unique:tramites'
+        ],
+        [
+            'titulo.required'=>'Ingrese Título',
+        ]);
+
 
         DB::beginTransaction();
         try{

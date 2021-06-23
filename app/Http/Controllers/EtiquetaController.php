@@ -38,7 +38,7 @@ class EtiquetaController extends Controller
     public function store(Request $request)
     {
         $data=request()->validate([
-            'descripcion'=>'required|max:40'
+            'descripcion'=>'required|unique:etiquetas'
         ],
         [
             'descripcion.required'=>'Ingrese Descripción',
@@ -91,10 +91,10 @@ class EtiquetaController extends Controller
     public function update(Request $request, $id)
     {
         $data=request()->validate([
-            'descripcion'=>'required|max:40'
+            'descripcion'=>'required|unique:etiquetas'
         ],
         [
-            'descripcion.required'=>'Ingrese Descripcion',
+            'descripcion.required'=>'Ingrese Descripción',
         ]);
 
         DB::beginTransaction();
