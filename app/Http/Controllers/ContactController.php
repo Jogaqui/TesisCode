@@ -14,9 +14,8 @@ class ContactController extends Controller
      */
     public function index()
     {
-      $contactanos=Contactanos::where('estado','1')->get();  
-    //   dd($contactanos);
-      return view('contact',compact('contactanos'));
+      $info = Contactanos::where('estado',1)->first();
+      return view('contact')->with(compact('info'));
     }
 
     /**
