@@ -1,8 +1,9 @@
 @extends('layouts.plantilla')
 
 @section('contenido')
+<!-- <img src="public/uploads/imagen.jpg" alt=""> -->
 <div class="container" align="center">
-    <form method="POST" action="{{route('trabajador.store')}}">
+    <form method="POST" action="{{route('trabajador.store')}}" enctype="multipart/form-data">
         @csrf
         <div class="card text-white bg-secondary mb-3" style="max-width: 40rem;">
             <div class="card-header"><h1 style="font-weight: bold;text-align:center">Crear Trabajador</h1></div>
@@ -104,16 +105,24 @@
                         <strong>{{ $message }}</strong>
                     </span>
                     @enderror
-                </div>      
+                </div>  
+
+
+                
                 <div class="form-group">
-                    <label for="imagen" style="float: left">Imagen</label>
-                    <input type="text" class="form-control @error('imagen') is-invalid @enderror" id="imagen" name="imagen">
+                    <label for="imagen" style="float: left">Imagen</label><br><br>
+                    <input accept=".png, .jpg, .jpeg"  type="file"  id="imagen" name="imagen">
+                    <!-- <input type="text" class="form-control @error('imagen') is-invalid @enderror" id="imagen" name="imagen"> -->
                     @error('imagen')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
                     @enderror
-                </div>    
+                </div>
+                <!-- <script src="imagen.js"></script> -->
+
+                
+
             </div>
             <div class="card-footer" style="text-align:center">
                 <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>Grabar</button>
