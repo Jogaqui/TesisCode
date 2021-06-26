@@ -21,10 +21,7 @@ class ContactanosController extends Controller
     public function store(Request $request)
     {
         $data=request()->validate([
-            'telefono'=>'required|max:10'
-        ],
-        [
-            'telefono.required'=>'Ingrese telefono',
+            'correo'=>'unique:contactanos'
         ]);
 
         DB::beginTransaction();
@@ -55,20 +52,22 @@ class ContactanosController extends Controller
 
     public function update(Request $request, $id)
     {
-        $data=request()->validate([
-            'telefono'=>'required|max:10'
-        ],
-        [
-            'telefono.required'=>'Ingrese telefono',
-        ]);
-
         DB::beginTransaction();
         try{
             $contactanos = Contactanos::findOrFail($id);
-            $contactanos->correo=$request->correo;
-            $contactanos->telefono=$request->telefono;
-            $contactanos->direccion=$request->direccion;
-            $contactanos->estado='1';
+            if ($contactanos->correo==$request->correo) {
+                $contactanos->telefono=$request->telefono;
+                $contactanos->direccion=$request->direccion;
+                $contactanos->estado='1';
+            }else {
+                $data=request()->validate([
+                    'correo'=>'unique:contactanos'
+                ]);
+                $contactanos->correo=$request->correo;
+                $contactanos->telefono=$request->telefono;
+                $contactanos->direccion=$request->direccion;
+                $contactanos->estado='1';
+            }
             $contactanos->save();
             DB::commit();
             return redirect()->route('contactanos.index')->with('datos', 'T');
