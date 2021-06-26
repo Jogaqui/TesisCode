@@ -44,9 +44,11 @@ class TrabajadorController extends Controller
                 $trabajador->apMaterno=$request->apMaterno;
                 $trabajador->nombres=$request->nombres;
                 $trabajador->dni=$request->dni;
+                $trabajador->abrevGrado=$request->grado;
                 $trabajador->puesto=$request->puesto;
                 $trabajador->correo=$request->correo;
                 $trabajador->telefono=$request->telefono;
+                $trabajador->imagen=$request->imagen;
                 $trabajador->idUnidad=$request->idUnidad;
                 $trabajador->estado='1';
             }else{
@@ -54,8 +56,10 @@ class TrabajadorController extends Controller
                 $trabajador->apMaterno=$request->apMaterno;
                 $trabajador->nombres=$request->nombres;
                 $trabajador->dni=$request->dni;
+                $trabajador->abrevGrado=$request->grado;
                 $trabajador->correo=$request->correo;
                 $trabajador->telefono=$request->telefono;
+                $trabajador->imagen=$request->imagen;
                 $trabajador->idUnidad=$request->idUnidad;
                 $trabajador->estado='1';
             }
@@ -97,9 +101,11 @@ class TrabajadorController extends Controller
                 $trabajador->nombres=$request->nombres;
                 $trabajador->dni=$request->dni;
                 $trabajador->idUnidad=$request->idUnidad;
+                $trabajador->abrevGrado=$request->grado;
                 $trabajador->puesto=$request->puesto;
                 $trabajador->correo=$request->correo;
                 $trabajador->telefono=$request->telefono;
+                $trabajador->imagen=$request->imagen;
                 $trabajador->estado='1';
             }else{
                 $trabajador->apPaterno=$request->apPaterno;
@@ -107,8 +113,10 @@ class TrabajadorController extends Controller
                 $trabajador->nombres=$request->nombres;
                 $trabajador->dni=$request->dni;
                 $trabajador->idUnidad=$request->idUnidad;
+                $trabajador->abrevGrado=$request->grado;
                 $trabajador->correo=$request->correo;
                 $trabajador->telefono=$request->telefono;
+                $trabajador->imagen=$request->imagen;
                 $trabajador->estado='1';
             }
             $trabajador->save();

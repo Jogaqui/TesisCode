@@ -19,9 +19,11 @@ class CreateTrabajadoresTable extends Migration
             $table->string('apMaterno');
             $table->string('nombres');
             $table->char('dni',8);
+            $table->char('abrevGrado');
             $table->string('puesto')->nullable();
             $table->string('correo');
             $table->char('telefono',9);
+            $table->string('imagen');
             $table->tinyInteger('estado');
             $table->bigInteger('idUnidad')->unsigned();
             $table->foreign('idUnidad')->references('idUnidad')->on('unidades');

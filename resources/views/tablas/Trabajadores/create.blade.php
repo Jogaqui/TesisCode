@@ -63,6 +63,20 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="grado" style="float: left">Grado</label>
+                    <select class="form-control @error('grado') is-invalid @enderror" id="grado" name="grado" required>
+                        <option value="">Seleccionar Grado</option>
+                        <option value="Dr.">Doctor</option>
+                    </select>
+                    @error('grado')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+
+
+                <div class="form-group">
                     <label for="puesto" style="float: left">Puesto</label>
                     <input type="text" class="form-control @error('puesto') is-invalid @enderror" id="puesto" name="puesto" required>
                     @error('puesto')
@@ -91,6 +105,15 @@
                     </span>
                     @enderror
                 </div>      
+                <div class="form-group">
+                    <label for="imagen" style="float: left">Imagen</label>
+                    <input type="text" class="form-control @error('imagen') is-invalid @enderror" id="imagen" name="imagen">
+                    @error('imagen')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>    
             </div>
             <div class="card-footer" style="text-align:center">
                 <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>Grabar</button>

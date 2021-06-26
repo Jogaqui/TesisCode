@@ -19,6 +19,7 @@ class CreatePublicacionesTable extends Migration
             $table->string('titulo');
             $table->date('fecha');
             $table->string('creador');
+            $table->text('resumen');
             $table->text('texto');
             $table->string('archivo');
             $table->tinyInteger('estado');
