@@ -1,7 +1,7 @@
 @extends('layouts.plantilla')
 @section('contenido')
 <div class="container" align="center">
-    <form method="POST" action="{{route('trabajador.update',$trabajador->idTrabajador)}}">
+    <form method="POST" action="{{route('trabajador.update',$trabajador->idTrabajador)}}"  enctype="multipart/form-data">
         @method('put')
         @csrf
         <div class="card text-white bg-secondary mb-3" style="max-width: 40rem;">
@@ -108,15 +108,20 @@
                     @enderror
                 </div> 
 
+
                 <div class="form-group">
-                    <label for="imagen" style="float: left">Imagen</label>
-                    <input type="text" class="form-control @error('imagen') is-invalid @enderror" id="imagen" name="imagen" aria-describedby="descripcionHelp" placeholder="Ingrese Imagen" value="{{$trabajador->imagen}}">
+                    <label for="imagen" style="float: left">Imagen</label><br><br>
+                    <img src="{{$trabajador->imagen}}" alt="" style="border-radius:50%;width:200px;height:200px;"><br><br>
+                    <input accept=".png, .jpg, .jpeg"  type="file"  id="imagen" name="imagen">
+                    <!-- <input type="text" class="form-control @error('imagen') is-invalid @enderror" id="imagen" name="imagen"> -->
                     @error('imagen')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
                     @enderror
-                </div> 
+                </div>
+
+
             </div> 
             <div class="card-footer" style="text-align:center">
                 <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Grabar</button>

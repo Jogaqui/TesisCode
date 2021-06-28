@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Contactanos;
+use App\Unidad;
+use App\Consulta;
+use Illuminate\Support\Facades\DB;
 
 class ContactController extends Controller
 {
@@ -15,7 +18,9 @@ class ContactController extends Controller
     public function index()
     {
       $info = Contactanos::where('estado',1)->first();
-      return view('contact')->with(compact('info'));
+      $unidad = Unidad::where('estado',1)->get();
+    //   dd($unidad);
+      return view('contact')->with(compact('info','unidad'));
     }
 
     /**
@@ -36,7 +41,21 @@ class ContactController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        DB::beginTransaction();
+        try{
+            $consulta = new Consulta();
+            $consulta->nombre=$request->nombre;
+            $consulta->correo=$request->correo;
+            $consulta->mensaje=$request->mensaje;
+            $consulta->idUnidad=$request->idUnidad;
+            $consulta->fecha=date('Y-m-d H:i:s');
+            $consulta->estado='1';
+            $consulta->save();
+            DB::commit();
+            return redirect()->route('contact.index')->with('datos', 'Registro Nuevo Guardado!!');
+        }catch(Exception $e){
+            DB::rollback();
+        }
     }
 
     /**

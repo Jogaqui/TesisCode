@@ -19,7 +19,9 @@ class CreateConsultasTable extends Migration
             $table->string('correo');
             $table->text('mensaje');
             $table->date('fecha');
+            $table->bigInteger('idUnidad')->unsigned();
             $table->tinyInteger('estado');
+            $table->foreign('idUnidad')->references('idUnidad')->on('unidades');
         });
     }
 

@@ -51,31 +51,10 @@ class TrabajadorController extends Controller
                 $trabajador->puesto=$request->puesto;
                 $trabajador->correo=$request->correo;
                 $trabajador->telefono=$request->telefono;
-
-                // $img = $request->file('imagen');
-                // $nombre=$img->getClientOriginalName();
-                // $ruta= public_path("public/uploads/");
-                // $img->move($ruta, $nombre);
-
-
                 $img = $request->file('imagen');
-                // $nombre = Str::slug($request->imagen).".".$img->guessExtension();
                 $nombre=$img->getClientOriginalName();
-                $nombreBD="/storage/trabajadores".$nombre;
-                // dd($nombre);
-                // $ruta= public_path("storage/trabajadores");
-                // dd($ruta);
-                $img->storeAs("public/trabajadores/", $nombre);
-                // copy($img->getRealPath(),$ruta.$nombre);
-                // $imagen = $request->file('imagen');
-                // // dd($imagen);
-                // $nombreimagen   = $request->imagen.".".$imagen->guessExtension();
-                // $nombreimagen = $imagen->getClientOriginalName();
-                // dd($nombreimagen);
-                
-                // $ruta           = public_path('/uploads/');
-                // $imagen->move($ruta,$nombreimagen);   
-                
+                $nombreBD="/storage/trabajadores/".$nombre;
+                $img->storeAs("public/trabajadores", $nombre);
                 $trabajador->imagen=$nombreBD;
                 $trabajador->idUnidad=$request->idUnidad;
                 $trabajador->estado='1';
@@ -87,7 +66,11 @@ class TrabajadorController extends Controller
                 $trabajador->abrevGrado=$request->grado;
                 $trabajador->correo=$request->correo;
                 $trabajador->telefono=$request->telefono;
-                $trabajador->imagen=$request->imagen;
+                $img = $request->file('imagen');
+                $nombre=$img->getClientOriginalName();
+                $nombreBD="/storage/trabajadores/".$nombre;
+                $img->storeAs("public/trabajadores", $nombre);
+                $trabajador->imagen=$nombreBD;
                 $trabajador->idUnidad=$request->idUnidad;
                 $trabajador->estado='1';
             }
@@ -126,7 +109,18 @@ class TrabajadorController extends Controller
                     $trabajador->idUnidad=$request->idUnidad;
                     $trabajador->puesto=$request->puesto;
                     $trabajador->telefono=$request->telefono;
-                    $trabajador->imagen=$request->imagen;
+                    if(!empty($request->imagen)){
+                        $img = $request->file('imagen');
+                        $nombre=$img->getClientOriginalName();
+                        $nombreBD="/storage/trabajadores/".$nombre;
+                        $img->storeAs("public/trabajadores", $nombre);
+                        $trabajador->imagen=$nombreBD;
+                    }
+                    // $img = $request->file('imagen');
+                    // $nombre=$img->getClientOriginalName();
+                    // $nombreBD="/storage/trabajadores/".$nombre;
+                    // $img->storeAs("public/trabajadores", $nombre);
+                    // $trabajador->imagen=$nombreBD;
                     $trabajador->estado='1';
                 }
                 elseif ($trabajador->dni==$request->dni && $trabajador->correo!=$request->correo) {
@@ -140,7 +134,13 @@ class TrabajadorController extends Controller
                     $trabajador->puesto=$request->puesto;
                     $trabajador->correo=$request->correo;
                     $trabajador->telefono=$request->telefono;
-                    $trabajador->imagen=$request->imagen;
+                    if(!empty($request->imagen)){
+                        $img = $request->file('imagen');
+                        $nombre=$img->getClientOriginalName();
+                        $nombreBD="/storage/trabajadores/".$nombre;
+                        $img->storeAs("public/trabajadores", $nombre);
+                        $trabajador->imagen=$nombreBD;
+                    }
                     $trabajador->estado='1';
                 }
                 elseif ($trabajador->dni!=$request->dni && $trabajador->correo==$request->correo) {
@@ -155,7 +155,13 @@ class TrabajadorController extends Controller
                     $trabajador->puesto=$request->puesto;
                     $trabajador->correo=$request->correo;
                     $trabajador->telefono=$request->telefono;
-                    $trabajador->imagen=$request->imagen;
+                    if(!empty($request->imagen)){
+                        $img = $request->file('imagen');
+                        $nombre=$img->getClientOriginalName();
+                        $nombreBD="/storage/trabajadores/".$nombre;
+                        $img->storeAs("public/trabajadores", $nombre);
+                        $trabajador->imagen=$nombreBD;
+                    }
                     $trabajador->estado='1';
                 }
                 else {
@@ -171,7 +177,13 @@ class TrabajadorController extends Controller
                     $trabajador->puesto=$request->puesto;
                     $trabajador->correo=$request->correo;
                     $trabajador->telefono=$request->telefono;
-                    $trabajador->imagen=$request->imagen;
+                    if(!empty($request->imagen)){
+                        $img = $request->file('imagen');
+                        $nombre=$img->getClientOriginalName();
+                        $nombreBD="/storage/trabajadores/".$nombre;
+                        $img->storeAs("public/trabajadores", $nombre);
+                        $trabajador->imagen=$nombreBD;
+                    }
                     $trabajador->estado='1';
                 }
             }else{
@@ -182,7 +194,13 @@ class TrabajadorController extends Controller
                     $trabajador->idUnidad=$request->idUnidad;
                     $trabajador->puesto=$request->puesto;
                     $trabajador->telefono=$request->telefono;
-                    $trabajador->imagen=$request->imagen;
+                    if(!empty($request->imagen)){
+                        $img = $request->file('imagen');
+                        $nombre=$img->getClientOriginalName();
+                        $nombreBD="/storage/trabajadores/".$nombre;
+                        $img->storeAs("public/trabajadores", $nombre);
+                        $trabajador->imagen=$nombreBD;
+                    }
                     $trabajador->estado='1';
                 }
                 elseif ($trabajador->dni==$request->dni && $trabajador->correo!=$request->correo) {
@@ -196,7 +214,13 @@ class TrabajadorController extends Controller
                     $trabajador->puesto=$request->puesto;
                     $trabajador->correo=$request->correo;
                     $trabajador->telefono=$request->telefono;
-                    $trabajador->imagen=$request->imagen;
+                    if(!empty($request->imagen)){
+                        $img = $request->file('imagen');
+                        $nombre=$img->getClientOriginalName();
+                        $nombreBD="/storage/trabajadores/".$nombre;
+                        $img->storeAs("public/trabajadores", $nombre);
+                        $trabajador->imagen=$nombreBD;
+                    }
                     $trabajador->estado='1';
                 }
                 elseif ($trabajador->dni!=$request->dni && $trabajador->correo==$request->correo) {
@@ -211,7 +235,13 @@ class TrabajadorController extends Controller
                     $trabajador->puesto=$request->puesto;
                     $trabajador->correo=$request->correo;
                     $trabajador->telefono=$request->telefono;
-                    $trabajador->imagen=$request->imagen;
+                    if(!empty($request->imagen)){
+                        $img = $request->file('imagen');
+                        $nombre=$img->getClientOriginalName();
+                        $nombreBD="/storage/trabajadores/".$nombre;
+                        $img->storeAs("public/trabajadores", $nombre);
+                        $trabajador->imagen=$nombreBD;
+                    }
                     $trabajador->estado='1';
                 }
                 else {
@@ -227,7 +257,13 @@ class TrabajadorController extends Controller
                     $trabajador->puesto=$request->puesto;
                     $trabajador->correo=$request->correo;
                     $trabajador->telefono=$request->telefono;
-                    $trabajador->imagen=$request->imagen;
+                    if(!empty($request->imagen)){
+                        $img = $request->file('imagen');
+                        $nombre=$img->getClientOriginalName();
+                        $nombreBD="/storage/trabajadores/".$nombre;
+                        $img->storeAs("public/trabajadores", $nombre);
+                        $trabajador->imagen=$nombreBD;
+                    }
                     $trabajador->estado='1';
                 }
             }

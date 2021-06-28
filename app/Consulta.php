@@ -10,6 +10,10 @@ class Consulta extends Model
     protected $primaryKey="idConsulta";
     public $timestamps=false;
     protected $fillable = [
-        'nombre','correo','mensaje','fecha','estado',
+        'nombre','correo','mensaje','fecha','estado','idUnidad',
     ];
+    public function unidad()
+    {
+        return $this->hasOne('App\Unidad','idUnidad','idUnidad');
+    }
 }

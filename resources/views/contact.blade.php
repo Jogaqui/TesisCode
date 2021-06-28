@@ -27,8 +27,22 @@
           <div class="contact_title">Ponerse en contacto</div>
 
           <div class="contact_form_container">
-            <form method="post" action="{{route('consulta.store')}}">
+            <form method="post" action="{{route('contact.store')}}">
             @csrf
+            <div class="form-group">
+                    <!-- <label for="idUnidad" style="float: left">Unidad</label> -->
+                    <select class="form-control @error('idUnidad') is-invalid @enderror" id="idUnidad" name="idUnidad" required >
+                        <option value="">Seleccionar Unidad</option>
+                        @foreach($unidad as $itemunidad)
+                            <option value="{{$itemunidad['idUnidad']}}">{{$itemunidad['descripcion']}}</option>
+                        @endforeach
+                    </select>
+                    @error('idUnidad')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
               <input name="nombre" id="nombre" class="input_field contact_form_name" type="text" placeholder="Nombre" required="required" data-error="El nombre es requerido.">
               <input name="correo" id="correo" class="input_field contact_form_email" type="email" placeholder="Correo electrónico" required="required" data-error="Correo válido es requerido.">
               <textarea name="mensaje" id="mensaje" class="text_field contact_form_message" name="message" placeholder="Mensaje" required="required" data-error="Por favor, escríbenos un mensaje."></textarea>

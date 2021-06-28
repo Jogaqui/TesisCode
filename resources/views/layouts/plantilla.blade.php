@@ -4,6 +4,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AdminLTE 3 | Blank Page</title>
 
+
+
+
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
@@ -180,6 +183,14 @@
               <i class="nav-icon fas fa-book-reader"></i>
               <p>
                 Consultas
+              </p>
+            </a>    
+          </li>
+          <li class="nav-item">
+            <a href="{{route('portada.index')}}" class="nav-link {{ Request::routeIs('portada.index','portada.show') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-book-reader"></i>
+              <p>
+                Portadas
               </p>
             </a>    
           </li>
@@ -509,6 +520,10 @@ var table = $('#example1').DataTable({
   };
   // DropzoneJS Demo Code End
 </script>
+
+
+
+
 
 </body>
 </html>

@@ -2,17 +2,16 @@
 
 @section('contenido')
 <div class="container" align="center">
-    <form method="POST" action="{{route('publicacion.store')}}">
+    <form method="POST" action="{{route('publicacion.store')}}" enctype="multipart/form-data">
         @csrf
         <div class="card text-white bg-secondary mb-3" style="max-width: 40rem;">
             <div class="card-header"><h1 style="font-weight: bold;text-align:center">Crear Publicación</h1></div>
             <div class="card-body">
+
                 <div class="form-group">
-                    <label for="imagen" style="float: left">Imagen</label><br>
-                    <!-- <input accept=".png, .jpg, .jpeg"  type="file"  id="imagen" name="imagen"> -->
-                    <!-- <input type="file" class="form-control form-control-user"  id="archivo1" name="archivo1" accept="application/pdf"
-                        style="border-radius: 0 50px 50px 0;" required> -->
-                <input type="text" class="form-control @error('imagen') is-invalid @enderror" id="imagen" name="imagen">
+                    <label for="imagen" style="float: left">Imagen</label><br><br>
+                    <input accept=".png, .jpg, .jpeg"  type="file"  id="imagen" name="imagen">
+                    <!-- <input type="text" class="form-control @error('imagen') is-invalid @enderror" id="imagen" name="imagen"> -->
                     @error('imagen')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>

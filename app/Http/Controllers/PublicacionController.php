@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Post;
 
 class PublicacionController extends Controller
 {
@@ -56,11 +57,16 @@ class PublicacionController extends Controller
             // dd($img);
             // $nombre=$img->getClientOriginalName();
             // $img->move('/uploads/', $nombre);
-            $nombre=Auth::user()->name;
-            $publicacion->imagen=$request->imagen;
+            $nombreUsuario=Auth::user()->name;
+            $img = $request->file('imagen');
+            $nombre=$img->getClientOriginalName();
+            // dd($nombre);
+            $nombreBD="/storage/publicaciones/".$nombre;
+            $img->storeAs("public/publicaciones", $nombre);
+            $publicacion->imagen=$nombreBD;
             $publicacion->titulo=$request->titulo;
             $publicacion->fecha=date('Y-m-d H:i:s');
-            $publicacion->creador=$nombre;
+            $publicacion->creador=$nombreUsuario;
             $publicacion->resumen=$request->resumen;
             $publicacion->texto=$request->texto;
             $publicacion->archivo=$request->archivo;
@@ -141,7 +147,19 @@ class PublicacionController extends Controller
         try{
 
             $publicacion = Publicacion::findOrFail($id);
-            $publicacion->imagen=$request->imagen;
+            if(!empty($request->imagen)){
+                $img = $request->file('imagen');
+                // dd($img);
+                $nombre=$img->getClientOriginalName();
+                $nombreBD="/storage/publicaciones/".$nombre;
+                $img->storeAs("public/publicaciones", $nombre);
+                $publicacion->imagen=$nombreBD;
+            }
+            // $img = $request->file('imagen');
+            // $nombre=$img->getClientOriginalName();
+            // $nombreBD="/storage/publicaciones/".$nombre;
+            // $img->storeAs("public/publicaciones", $nombre);
+            // $publicacion->imagen=$nombreBD;
             $publicacion->titulo=$request->titulo;
             $publicacion->resumen=$request->resumen;
             $publicacion->texto=$request->texto;

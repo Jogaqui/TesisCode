@@ -103,4 +103,12 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get(('cancelarC'), function(){
       return redirect()->route('consulta.index')->with('datos', 'C');
   })->name('cancelarC');
+
+
+  //Consulta
+  Route::resource('portada', 'PortadaController');
+  Route::get(('cancelarPor'), function(){
+      return redirect()->route('portada.index')->with('datos', 'C');
+  })->name('cancelarPor');
+
 });

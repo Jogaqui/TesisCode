@@ -24,9 +24,9 @@
                 <th scope="col">Apellidos</th>
                 <th scope="col">Nombres</th>
                 <th scope="col">DNI</th>
-                <th scope="col">Unidad</th>
+                <!-- <th scope="col">Unidad</th> -->
                 <th scope="col">Puesto</th>
-                <th scope="col">Correo</th>
+                <!-- <th scope="col">Correo</th> -->
                 <th scope="col">Celular</th>
                 <th scope="col">Foto</th>
                 <th scope="col">Opciones</th>
@@ -39,12 +39,12 @@
                 <td>{{$item->apPaterno}} {{$item->apMaterno}}</td>
                 <td>{{$item->nombres}}</td>
                 <td>{{$item->dni}}</td>
-                <td>{{$item->descripcion}}</td>
+                <!-- <td>{{$item->descripcion}}</td> -->
                 <td>{{$item->puesto}}</td>
-                <td>{{$item->correo}}</td>
+                <!-- <td>{{$item->correo}}</td> -->
                 <td>{{$item->telefono}}</td>
                 <!-- <td><img src="\uploads\{{$item->imagen}}" alt=""></td> -->
-                <td><img src="{{$item->imagen}}" alt=""></td>
+                <td><img src="{{$item->imagen}}" alt="" style="border-radius:50%;width:50px;height:50px;"></td>
                 
                 <td>
                     <a href="{{route('trabajador.edit',$item->idTrabajador)}}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> </a>
@@ -81,9 +81,9 @@
                 <th scope="col">Apellidos</th>
                 <th scope="col">Nombres</th>
                 <th scope="col">DNI</th>
-                <th scope="col">Unidad</th>
+                <!-- <th scope="col">Unidad</th> -->
                 <th scope="col">Puesto</th>
-                <th scope="col">Correo</th>
+                <!-- <th scope="col">Correo</th> -->
                 <th scope="col">Celular</th>
                 <th scope="col">Foto</th>
                 <th scope="col">Opciones</th>

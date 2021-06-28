@@ -16,6 +16,8 @@ class ConsultaController extends Controller
     public function index()
     {
         $consulta=Consulta::get();
+        $trabajador=DB::table('consultas as c')
+        ->join('unidades as u','c.idUnidad','=','u.idUnidad')->where('c.estado','1')->select('*')->get();
         return view('tablas.Consultas.index',compact('consulta'));
     }
 
@@ -38,20 +40,21 @@ class ConsultaController extends Controller
     public function store(Request $request)
     {
         // dd($request->correo);
-        DB::beginTransaction();
-        try{
-            $consulta = new Consulta();
-            $consulta->nombre=$request->nombre;
-            $consulta->correo=$request->correo;
-            $consulta->mensaje=$request->mensaje;
-            $consulta->fecha=date('Y-m-d H:i:s');
-            $consulta->estado='1';
-            $consulta->save();
-            DB::commit();
-            return redirect()->route('contact.index')->with('datos', 'Registro Nuevo Guardado!!');
-        }catch(Exception $e){
-            DB::rollback();
-        }
+        // DB::beginTransaction();
+        // try{
+        //     $consulta = new Consulta();
+        //     $consulta->nombre=$request->nombre;
+        //     $consulta->correo=$request->correo;
+        //     $consulta->mensaje=$request->mensaje;
+        //     $consulta->idUnidad=$request->idUnidad;
+        //     $consulta->fecha=date('Y-m-d H:i:s');
+        //     $consulta->estado='1';
+        //     $consulta->save();
+        //     DB::commit();
+        //     return redirect()->route('contact.index')->with('datos', 'Registro Nuevo Guardado!!');
+        // }catch(Exception $e){
+        //     DB::rollback();
+        // }
     }
 
     /**

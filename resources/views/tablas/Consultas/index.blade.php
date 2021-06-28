@@ -21,6 +21,7 @@
                 <th>Nombre</th>
                 <th>Correo</th>
                 <th>Fecha</th>
+                <th>Unidad</th>
                 <th>Estado</th>
                 <th>Opciones</th>
               </tr>
@@ -33,6 +34,7 @@
                     <td>{{$item->nombre}}</td>
                     <td>{{$item->correo}}</td>
                     <td>{{$item->fecha}}</td>
+                    <td>{{$item->unidad->descripcion}}</td>
                       @if ($item->estado==1)
                         <td>Pendiente</td>                          
                       @else
@@ -75,6 +77,7 @@
                 <th>Nombre</th>
                 <th>Correo</th>
                 <th>Fecha</th>
+                <th>Unidad</th>
                 <th>Estado</th>
                 <th>Opciones</th>
               </tr>
