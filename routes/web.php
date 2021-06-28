@@ -105,10 +105,16 @@ Route::group(['middleware' => 'auth'], function () {
   })->name('cancelarC');
 
 
-  //Consulta
+  //Portada
   Route::resource('portada', 'PortadaController');
   Route::get(('cancelarPor'), function(){
       return redirect()->route('portada.index')->with('datos', 'C');
   })->name('cancelarPor');
 
+  // Funciones
+  Route::resource('funciones', 'FuncionesController');
+  Route::get('Unidad/{id}','UnidadController@show')->name('Unidad.show');
+  Route::get(('cancelarf/{id}'), function($tipo){
+    return redirect()->route('Unidad.show',$tipo)->with('datos', 'C');
+  })->name('cancelarf');
 });

@@ -35,6 +35,7 @@
                     @if ($itemunidad->estado == 1)
                       <a href="{{route('unidad.edit',$itemunidad->idUnidad)}}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i>Editar</a>
                       <a href="" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModalCenter{{$itemunidad->idUnidad}}"><i class="fas fa-times"></i> Desactivar</a>
+                      <a href="{{route('unidad.show',$itemunidad->idUnidad)}}" class="btn btn-info btn-sm"><i class="fas fa-info"></i> Funciones</a>
                     @else
                       <a href="" style="border: 1px solid black;" class="btn btn-light btn-sm" data-toggle="modal" data-target="#exampleModalCenter{{$itemunidad->idUnidad}}"><i class="fas fa-check"></i> Activar</a>
                     @endif

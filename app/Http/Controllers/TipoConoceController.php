@@ -43,10 +43,7 @@ class TipoConoceController extends Controller
     public function store(Request $request)
     {
         $data=request()->validate([
-            'nombre'=>'required|max:70'
-        ],
-        [
-            'nombre.required'=>'Ingrese Nombre',
+            'nombre'=>'unique:tipoconoce'
         ]);
 
         DB::beginTransaction();
@@ -71,10 +68,7 @@ class TipoConoceController extends Controller
     public function update(Request $request, $id)
     {
         $data=request()->validate([
-            'nombre'=>'required|max:70'
-        ],
-        [
-            'nombre.required'=>'Ingrese Nombre',
+            'nombre'=>'unique:tipoconoce'
         ]);
 
         DB::beginTransaction();
