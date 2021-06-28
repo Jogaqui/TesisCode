@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Unidad;
+use App\Funciones;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -40,6 +41,16 @@ class UnidadController extends Controller
         }
     }
 
+    public function show($id)
+    {
+        //dd($id);
+        $unidad = Unidad::findOrFail($id);
+        //dd($tipoconoce);
+        //$conocenos = Conocenos::where('tipo','=',$id)->get();
+        $funciones = Funciones::where('unidad','=',$id)->get();
+        //return view('tablas.funciones.index', compact('funciones'));
+        return view('tablas.Unidades.show', compact('funciones','unidad'));
+    }
 
     public function edit($id)
     {

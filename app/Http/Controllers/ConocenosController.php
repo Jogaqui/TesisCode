@@ -35,10 +35,7 @@ class ConocenosController extends Controller
     public function store(Request $request)
     {
         $data=request()->validate([
-            'descripcion'=>'required|max:200'
-        ],
-        [
-            'descripcion.required'=>'Ingrese descripcion',
+            'descripcion'=>'unique:conocenos'
         ]);
 
         DB::beginTransaction();
@@ -69,10 +66,7 @@ class ConocenosController extends Controller
     public function update(Request $request, $id)
     {
         $data=request()->validate([
-            'descripcion'=>'required|max:200'
-        ],
-        [
-            'descripcion.required'=>'Ingrese descripcion',
+            'descripcion'=>'unique:conocenos'
         ]);
 
         DB::beginTransaction();
