@@ -11,6 +11,7 @@ $factory->define(Publicacion::class, function (Faker $faker) {
       'titulo' => $faker->sentence(),
       'fecha' => $faker->date(),
       'creador' => $faker->name(),
+      'resumen' => $faker->paragraph(),
       'texto' => $faker->paragraph(),
       'archivo' => '',
       'estado' => 1,

@@ -50,12 +50,26 @@
                 <div class="form-group">
                     <label for="idUnidad" style="float: left">Unidad</label>
                     <select class="form-control @error('idUnidad') is-invalid @enderror" id="idUnidad" name="idUnidad" required>
-                        <option value="{{$unidad->idUnidad}}">{{$unidad->descripcion}}
+                        <option value="{{$unidad->idUnidad}}">{{$unidad->descripcion}}</option>
                         @foreach($unidades as $itemunidad)
                             @if($unidad->idUnidad!==$itemunidad->idUnidad)
                                 <option value="{{$itemunidad->idUnidad}}" >{{$itemunidad->descripcion}}</option>
                             @endif
                         @endforeach
+                    </select>
+                    @error('idIcono')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+
+
+                <div class="form-group">
+                    <label for="grado" style="float: left">Grado</label>
+                    <select class="form-control @error('grado') is-invalid @enderror" id="grado" name="grado" required>
+                        <option value="">Selecciona una opción</option>
+                        <option value="{{$trabajador->abrevGrado}}" selected>{{$trabajador->abrevGrado}}</option>
                     </select>
                     @error('idIcono')
                     <span class="invalid-feedback" role="alert">
@@ -88,6 +102,16 @@
                     <label for="telefono" style="float: left">Celular</label>
                     <input type="text" class="form-control @error('telefono') is-invalid @enderror" id="telefono" name="telefono" aria-describedby="descripcionHelp" placeholder="Ingrese Teléfono" value="{{$trabajador->telefono}}" maxlength="9" pattern="[1-9][0-9]{8}">
                     @error('telefono')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div> 
+
+                <div class="form-group">
+                    <label for="imagen" style="float: left">Imagen</label>
+                    <input type="text" class="form-control @error('imagen') is-invalid @enderror" id="imagen" name="imagen" aria-describedby="descripcionHelp" placeholder="Ingrese Imagen" value="{{$trabajador->imagen}}">
+                    @error('imagen')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>

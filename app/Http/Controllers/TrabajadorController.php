@@ -5,6 +5,8 @@ use App\Unidad;
 use App\Trabajador;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use App\Models\Post;
 
 class TrabajadorController extends Controller
 {
@@ -31,6 +33,7 @@ class TrabajadorController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request->imagen);
         $data=request()->validate([
             'dni'=>'unique:trabajadores',
             'correo'=>'unique:trabajadores'
@@ -44,9 +47,36 @@ class TrabajadorController extends Controller
                 $trabajador->apMaterno=$request->apMaterno;
                 $trabajador->nombres=$request->nombres;
                 $trabajador->dni=$request->dni;
+                $trabajador->abrevGrado=$request->grado;
                 $trabajador->puesto=$request->puesto;
                 $trabajador->correo=$request->correo;
                 $trabajador->telefono=$request->telefono;
+
+                // $img = $request->file('imagen');
+                // $nombre=$img->getClientOriginalName();
+                // $ruta= public_path("public/uploads/");
+                // $img->move($ruta, $nombre);
+
+
+                $img = $request->file('imagen');
+                // $nombre = Str::slug($request->imagen).".".$img->guessExtension();
+                $nombre=$img->getClientOriginalName();
+                $nombreBD="/storage/trabajadores".$nombre;
+                // dd($nombre);
+                // $ruta= public_path("storage/trabajadores");
+                // dd($ruta);
+                $img->storeAs("public/trabajadores/", $nombre);
+                // copy($img->getRealPath(),$ruta.$nombre);
+                // $imagen = $request->file('imagen');
+                // // dd($imagen);
+                // $nombreimagen   = $request->imagen.".".$imagen->guessExtension();
+                // $nombreimagen = $imagen->getClientOriginalName();
+                // dd($nombreimagen);
+                
+                // $ruta           = public_path('/uploads/');
+                // $imagen->move($ruta,$nombreimagen);   
+                
+                $trabajador->imagen=$nombreBD;
                 $trabajador->idUnidad=$request->idUnidad;
                 $trabajador->estado='1';
             }else{
@@ -54,8 +84,10 @@ class TrabajadorController extends Controller
                 $trabajador->apMaterno=$request->apMaterno;
                 $trabajador->nombres=$request->nombres;
                 $trabajador->dni=$request->dni;
+                $trabajador->abrevGrado=$request->grado;
                 $trabajador->correo=$request->correo;
                 $trabajador->telefono=$request->telefono;
+                $trabajador->imagen=$request->imagen;
                 $trabajador->idUnidad=$request->idUnidad;
                 $trabajador->estado='1';
             }
@@ -94,6 +126,7 @@ class TrabajadorController extends Controller
                     $trabajador->idUnidad=$request->idUnidad;
                     $trabajador->puesto=$request->puesto;
                     $trabajador->telefono=$request->telefono;
+                    $trabajador->imagen=$request->imagen;
                     $trabajador->estado='1';
                 }
                 elseif ($trabajador->dni==$request->dni && $trabajador->correo!=$request->correo) {
@@ -107,6 +140,7 @@ class TrabajadorController extends Controller
                     $trabajador->puesto=$request->puesto;
                     $trabajador->correo=$request->correo;
                     $trabajador->telefono=$request->telefono;
+                    $trabajador->imagen=$request->imagen;
                     $trabajador->estado='1';
                 }
                 elseif ($trabajador->dni!=$request->dni && $trabajador->correo==$request->correo) {
@@ -121,6 +155,7 @@ class TrabajadorController extends Controller
                     $trabajador->puesto=$request->puesto;
                     $trabajador->correo=$request->correo;
                     $trabajador->telefono=$request->telefono;
+                    $trabajador->imagen=$request->imagen;
                     $trabajador->estado='1';
                 }
                 else {
@@ -136,6 +171,7 @@ class TrabajadorController extends Controller
                     $trabajador->puesto=$request->puesto;
                     $trabajador->correo=$request->correo;
                     $trabajador->telefono=$request->telefono;
+                    $trabajador->imagen=$request->imagen;
                     $trabajador->estado='1';
                 }
             }else{
@@ -146,6 +182,7 @@ class TrabajadorController extends Controller
                     $trabajador->idUnidad=$request->idUnidad;
                     $trabajador->puesto=$request->puesto;
                     $trabajador->telefono=$request->telefono;
+                    $trabajador->imagen=$request->imagen;
                     $trabajador->estado='1';
                 }
                 elseif ($trabajador->dni==$request->dni && $trabajador->correo!=$request->correo) {
@@ -159,6 +196,7 @@ class TrabajadorController extends Controller
                     $trabajador->puesto=$request->puesto;
                     $trabajador->correo=$request->correo;
                     $trabajador->telefono=$request->telefono;
+                    $trabajador->imagen=$request->imagen;
                     $trabajador->estado='1';
                 }
                 elseif ($trabajador->dni!=$request->dni && $trabajador->correo==$request->correo) {
@@ -173,6 +211,7 @@ class TrabajadorController extends Controller
                     $trabajador->puesto=$request->puesto;
                     $trabajador->correo=$request->correo;
                     $trabajador->telefono=$request->telefono;
+                    $trabajador->imagen=$request->imagen;
                     $trabajador->estado='1';
                 }
                 else {
@@ -188,6 +227,7 @@ class TrabajadorController extends Controller
                     $trabajador->puesto=$request->puesto;
                     $trabajador->correo=$request->correo;
                     $trabajador->telefono=$request->telefono;
+                    $trabajador->imagen=$request->imagen;
                     $trabajador->estado='1';
                 }
             }

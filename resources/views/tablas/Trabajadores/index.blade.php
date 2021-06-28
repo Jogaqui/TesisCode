@@ -28,6 +28,7 @@
                 <th scope="col">Puesto</th>
                 <th scope="col">Correo</th>
                 <th scope="col">Celular</th>
+                <th scope="col">Foto</th>
                 <th scope="col">Opciones</th>
               </tr>
               </thead>
@@ -42,6 +43,9 @@
                 <td>{{$item->puesto}}</td>
                 <td>{{$item->correo}}</td>
                 <td>{{$item->telefono}}</td>
+                <!-- <td><img src="\uploads\{{$item->imagen}}" alt=""></td> -->
+                <td><img src="{{$item->imagen}}" alt=""></td>
+                
                 <td>
                     <a href="{{route('trabajador.edit',$item->idTrabajador)}}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> </a>
                     <a href="" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModalCenter{{$item->idTrabajador}}"><i class="fas fa-trash"></i> </a>
@@ -81,6 +85,7 @@
                 <th scope="col">Puesto</th>
                 <th scope="col">Correo</th>
                 <th scope="col">Celular</th>
+                <th scope="col">Foto</th>
                 <th scope="col">Opciones</th>
               </tr>
               </tfoot>

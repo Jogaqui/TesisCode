@@ -10,7 +10,7 @@ class Trabajador extends Model
     protected $primaryKey="idTrabajador";
     public $timestamps=false;
     protected $fillable = [
-        'apPaterno', 'apMaterno','Nombres','dni','puesto','correo','telefono','estado','idUnidad',
+        'apPaterno', 'apMaterno','Nombres','dni','abrevGrado','puesto','correo','telefono','imagen','estado','idUnidad',
     ];
     public function unidad()
     {

@@ -7,6 +7,7 @@ use App\Publicacion_Etiqueta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class PublicacionController extends Controller
 {
@@ -55,10 +56,12 @@ class PublicacionController extends Controller
             // dd($img);
             // $nombre=$img->getClientOriginalName();
             // $img->move('/uploads/', $nombre);
+            $nombre=Auth::user()->name;
             $publicacion->imagen=$request->imagen;
             $publicacion->titulo=$request->titulo;
-            $publicacion->fecha=$request->fecha;
-            $publicacion->creador=$request->creador;
+            $publicacion->fecha=date('Y-m-d H:i:s');
+            $publicacion->creador=$nombre;
+            $publicacion->resumen=$request->resumen;
             $publicacion->texto=$request->texto;
             $publicacion->archivo=$request->archivo;
             $publicacion->estado='1';
@@ -105,7 +108,17 @@ class PublicacionController extends Controller
     public function edit($id)
     {
         $publicacion=Publicacion::findOrFail($id);
-        return view('tablas.Publicaciones.edit',compact('publicacion'));
+        $idPublicacion=$publicacion->idPublicacion;
+        // dd($idPublicacion);
+        // $etiquetas=Publicacion_Etiqueta::where('idPublicacion',$idPublicacion)->get();
+        
+        
+        $etiquetas=DB::table('publicacion_etiqueta as pe')
+        ->join('etiquetas as e','pe.idEtiqueta','=','e.idEtiqueta')->where('e.estado','1')->select('*')->get();
+        
+        $etiqueta=Etiqueta::get();
+        // dd($etiquetas);
+        return view('tablas.Publicaciones.edit',compact('publicacion','etiquetas','etiqueta'));
     }
 
     /**
@@ -130,6 +143,7 @@ class PublicacionController extends Controller
             $publicacion = Publicacion::findOrFail($id);
             $publicacion->imagen=$request->imagen;
             $publicacion->titulo=$request->titulo;
+            $publicacion->resumen=$request->resumen;
             $publicacion->texto=$request->texto;
             $publicacion->estado='1';
             $publicacion->save();
