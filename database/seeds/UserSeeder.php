@@ -21,13 +21,13 @@ class UserSeeder extends Seeder
             'password' => Hash::make('12345678'),
         ]);
         User::create([
-            'name' => 'Kevin Juárez',
-            'email' => 'kevinkjjuarez@gmail.com',
+            'name' => 'José Mantilla',
+            'email' => 'jmantillas@unitru.edu.pe',
             'password' => Hash::make('12345678'),
         ]);
         User::create([
-            'name' => 'José Mantilla',
-            'email' => 'jmantillas@unitru.edu.pe',
+            'name' => 'Kevin Juárez',
+            'email' => 'kevinkjjuarez@gmail.com',
             'password' => Hash::make('12345678'),
         ]);
     }

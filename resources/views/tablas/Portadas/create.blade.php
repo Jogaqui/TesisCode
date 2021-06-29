@@ -2,6 +2,7 @@
 
 @section('contenido')
 <style>
+#imagenPrevia h2 { display:inline-block; }
 /* .texto-encima{
     position: absolute;
     top: 10px;
@@ -65,7 +66,7 @@
                     @enderror
                 </div>
 
-                <div style="position: relative;display: inline-block;text-align: center;" id="imagenPrevia">
+                <div align="center" style="position: relative;display: inline;text-align: center;" id="imagenPrevia">
                     <!-- <h1  style="position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);" id="inicial"></h1> -->
                     <!-- <div  style="" id="intermedio">intermedio</div> -->
                     <!-- <div class="centrado" id="Final">Final</div> -->
@@ -80,10 +81,10 @@
                                 var reader = new FileReader();
                                 reader.onload=function(e){
                                     $('#imagenPrevia').html("<img src='"+e.target.result+"' style='width:500px'/>"+
-                                    `<div style="position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);"><h5>`
-                                    +$('#inicial').val()+` `
-                                    +$('#intermedia').val()+` `
-                                    +$('#final').val()+`</h5></div>`);
+                                    `<div style="position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);"><h2 >`
+                                    +$('#inicial').val()+`</h2> <h2 style="background:#ffb606"> `
+                                    +$('#intermedia').val()+`</h2> <h2> `
+                                    +$('#final').val()+`!</h2></div>`);
                                     // $('#imagenPrevia').html("<h1>Hola</h1>");
                                     // $('#inicial').html("Inicial");
                                     // $('#imagenPrevia').html("<img src='"+e.target.result+"'/>");
