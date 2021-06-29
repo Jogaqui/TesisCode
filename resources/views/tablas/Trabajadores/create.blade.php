@@ -107,8 +107,6 @@
                     @enderror
                 </div>  
 
-
-                
                 <div class="form-group">
                     <label for="imagen" style="float: left">Imagen</label><br><br>
                     <input accept=".png, .jpg, .jpeg"  type="file"  id="imagen" name="imagen">
@@ -119,10 +117,6 @@
                     </span>
                     @enderror
                 </div>
-                <!-- <script src="imagen.js"></script> -->
-
-                
-
             </div>
             <div class="card-footer" style="text-align:center">
                 <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>Grabar</button>
