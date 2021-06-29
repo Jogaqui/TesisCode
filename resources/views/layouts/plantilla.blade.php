@@ -64,18 +64,23 @@
         </a>
         <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           <!-- User image -->
-          <li class="user-header bg-navy">
+          <li class="user-header" style="background: rgb(3, 15, 54);color: white">
             <img src="/adminlte/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
 
             <p>
               {{ Auth::user()->name }} - Web Developer
-              <small>Member since Nov. 2012</small>
+              <small>@php
+                $fecha = Auth::user()->created_at;
+                $date = strtotime($fecha);
+                  echo date("d/m/Y", $date);
+              @endphp</small>
             </p>
           </li>
           <!-- Menu Body -->
           
           <!-- Menu Footer-->
           <li class="user-footer">
+            <a href="/welcome" class="btn btn-default btn-flat float-left">Welcome</a>
             <a href="{{ route('logout') }}"
             onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="btn btn-default btn-flat float-right">{{ __('Logout') }}</a>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -202,20 +207,12 @@
   </aside>
 
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-        </div>
-      </div><!-- /.container-fluid -->
-    </section>
-
+  <div class="content-wrapper" style="background-color: #f8f9fa;">
     <!-- Main content -->
-    <section class="content">
-
-      @yield('contenido')
+    <section class="content" style="background-color: #f8f9fa;">
       <br>
+      @yield('contenido')
+      <br><br><br>
     </section>
     <!-- /.content -->
   </div>
@@ -226,7 +223,6 @@
     <!-- Control sidebar content goes here -->
   </aside>
   <!-- /.control-sidebar -->
-  
 </div>
 <!-- ./wrapper -->
 
@@ -234,6 +230,13 @@
 <script src="/adminlte/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- overlayScrollbars -->
+<script src="/adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<!-- jQuery Mapael -->
+<script src="/adminlte/plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
+<script src="/adminlte/plugins/raphael/raphael.min.js"></script>
+<script src="/adminlte/plugins/jquery-mapael/jquery.mapael.min.js"></script>
+<script src="/adminlte/plugins/jquery-mapael/maps/usa_states.min.js"></script>
 <!-- DataTables  & Plugins -->
 <script src="/adminlte/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="/adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
@@ -254,7 +257,7 @@
 <!-- AdminLTE for demo purposes -->
 <script src="/adminlte/dist/js/demo.js"></script>
 <!-- Page specific script -->
-
+<script src="/adminlte/dist/js/pages/dashboard2.js"></script>
 <!-- Bootstrap4 Duallistbox -->
 <script src="/adminlte/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
 <!-- InputMask -->
@@ -520,10 +523,5 @@ var table = $('#example1').DataTable({
   };
   // DropzoneJS Demo Code End
 </script>
-
-
-
-
-
 </body>
 </html>

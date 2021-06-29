@@ -15,6 +15,7 @@
     transform: translate(-50%, -50%);
 } */
 </style>
+
 <div class="container" align="center">
     <form method="POST" action="{{route('portada.store')}}" enctype="multipart/form-data">
         @csrf
@@ -80,10 +81,10 @@
                                 var inicial= document.getElementById('.inicial');
                                 var reader = new FileReader();
                                 reader.onload=function(e){
-                                    $('#imagenPrevia').html("<img src='"+e.target.result+"' style='width:500px'/>"+
-                                    `<div style="position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);"><h2 >`
-                                    +$('#inicial').val()+`</h2> <h2 style="background:#ffb606"> `
-                                    +$('#intermedia').val()+`</h2> <h2> `
+                                    $('#imagenPrevia').html("<div style='position: relative;display: inline-block;text-align: center'><img src='"+e.target.result+"' style='width:500px'/>"+
+                                    `<div style="position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);width:900px"><h2 style='display: inline-block'>`
+                                    +$('#inicial').val()+`</h2> <h2 style="background:#ffb606;display: inline-block"> `
+                                    +$('#intermedia').val()+`</h2> <h2 style='display: inline-block'> `
                                     +$('#final').val()+`!</h2></div>`);
                                     // $('#imagenPrevia').html("<h1>Hola</h1>");
                                     // $('#inicial').html("Inicial");
@@ -112,7 +113,7 @@
       <!-- </div> -->
   <!-- </div> -->
 <!-- </div> -->
-
+        </div> 
             <div class="card-footer" style="text-align:center">
                 <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>Grabar</button>
                 <a href="{{route('cancelarPor')}}" class="btn btn-danger"><i class="fas fa-ban"></i>Cancelar</a>
