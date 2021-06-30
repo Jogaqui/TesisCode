@@ -202,6 +202,24 @@ class PublicacionController extends Controller
 
     }
 
+
+    public function leerPublicacion($id)
+    {
+
+        DB::beginTransaction();
+        try{
+            $publicacion=Publicacion::findOrFail($id);
+            // dd($publicacion);
+            $publicacion->vistas=$publicacion->vistas+1;
+            $publicacion->save();
+            DB::commit();
+            // return redirect()->route('publicacion.index',compact('publicacion'));
+        }catch(Exception $e){
+            DB::rollback();
+        }
+
+
+    }
     // public function cancelar(){
     //     return redirect()->route('publicacion.index')->with('datos','Acción Cancelada!!');
     // }

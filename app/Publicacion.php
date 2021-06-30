@@ -10,6 +10,6 @@ class Publicacion extends Model
     protected $primaryKey="idPublicacion";
     public $timestamps=false;
     protected $fillable = [
-        'imagen', 'titulo','fecha','creador','texto','archivo','estado',
+        'imagen', 'titulo','fecha','creador','texto','archivo','vistas','estado',
     ];
 }

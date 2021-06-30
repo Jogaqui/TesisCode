@@ -62,6 +62,7 @@ Route::group(['middleware' => 'auth'], function () {
 
   // Publicaciones
   Route::resource('publicacion', 'PublicacionController');
+  Route::get('vistas/{id}', 'PublicacionController@leerPublicacion')->name('vistas');
   Route::get(('cancelarPu'), function(){
       return redirect()->route('publicacion.index')->with('datos', 'C');
   })->name('cancelarPu');
