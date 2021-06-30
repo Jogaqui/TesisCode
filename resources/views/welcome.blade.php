@@ -87,7 +87,7 @@
               <p>{{$post -> texto}}</p>
             </div>
             <div class="news_post_button text-center trans_200">
-              <a href="news_post.html">Leer publicación</a>
+              <a href="{{route('vistas', $post->idPublicacion)}}">Leer publicación</a>
             </div>
             <div class="news_post_button text-center trans_200">
               <a href="news_post.html">Descargar archivo adjunto</a>

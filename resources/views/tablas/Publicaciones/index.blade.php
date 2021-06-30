@@ -25,6 +25,7 @@
                 <th>Título</th>
                 <th>Fecha</th>
                 <th>Información de usuario</th>
+                <th>Vistas</th>
                 <th>Opciones</th>
               </tr>
               </thead>
@@ -36,6 +37,7 @@
                     <td>{{$item->titulo}}</td>
                     <td>{{$item->fecha}}</td>
                     <td>{{$item->creador}}</td>
+                    <td>{{$item->vistas}}</td>
                     <td>
                       @if ($item->estado == 1)
                           <a href="{{route('publicacion.edit',$item->idPublicacion)}}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
@@ -87,6 +89,7 @@
                 <th>Título</th>
                 <th>Fecha</th>
                 <th>Información de usuario</th>
+                <th>Vistas</th>
                 <th>Opciones</th>
               </tr>
               </tfoot>

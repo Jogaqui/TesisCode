@@ -22,6 +22,7 @@ class CreatePublicacionesTable extends Migration
             $table->text('resumen');
             $table->text('texto');
             $table->string('archivo');
+            $table->integer('vistas');
             $table->tinyInteger('estado');
         });
     }

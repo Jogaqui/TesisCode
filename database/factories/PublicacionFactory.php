@@ -14,6 +14,7 @@ $factory->define(Publicacion::class, function (Faker $faker) {
       'resumen' => $faker->paragraph(),
       'texto' => $faker->paragraph(),
       'archivo' => '',
+      'vistas' => $faker->randomNumber(),
       'estado' => 1,
     ];
 });
