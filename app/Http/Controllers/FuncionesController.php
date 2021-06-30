@@ -15,7 +15,7 @@ class FuncionesController extends Controller
 
     public function create()
     {
-        $unidad = Unidad::select('idUnidad','descripcion')->get();
+        $unidad = Unidad::select('idUnidad','descripcion')->where('estado','1')->get();
         return view('tablas.funciones.create',compact('unidad'));
     }
 

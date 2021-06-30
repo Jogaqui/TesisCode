@@ -92,7 +92,7 @@ class TrabajadorController extends Controller
         $trabajador=Trabajador::findOrFail($id);
         $idUnidad=$trabajador->idUnidad;
         $unidad=Unidad::findOrFail($idUnidad);
-        $unidades=Unidad::get();
+        $unidades=Unidad::where('estado','=','1')->get();
         return view('tablas.Trabajadores.edit',compact('trabajador','unidad','unidades')); 
     }
 

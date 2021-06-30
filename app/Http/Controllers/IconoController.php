@@ -90,7 +90,7 @@ class IconoController extends Controller
     public function update(Request $request, $id)
     {
         $data=request()->validate([
-            'nombre'=>'required|max:40'
+            'nombre'=>'required|unique:iconos'
         ],
         [
             'nombre.required'=>'Ingrese Nombre',

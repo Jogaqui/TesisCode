@@ -28,7 +28,7 @@ class ConocenosController extends Controller
      */
     public function create()
     {
-        $tipoconoce = TipoConoce::select('idConoce','nombre')->get();
+        $tipoconoce = TipoConoce::select('idConoce','nombre')->where('estado','1')->get();
         return view('tablas.conocenos.create',compact('tipoconoce'));
     }
     

@@ -49,7 +49,7 @@
                         </div>
                         <div class="col-9">
                             <div class="select2-purple">
-                                <select class="select2" multiple="multiple" data-placeholder="Selecciones etiqueta(s)" data-dropdown-css-class="select2-purple" style="width: 100%;" id="etiquetas[]" name="etiquetas[]" >
+                                <select class="select2" multiple="multiple" data-placeholder="Selecciones etiqueta(s)" data-dropdown-css-class="select2-purple" style="width: 100%;" id="etiquetas[]" name="etiquetas[]" required>
                                     @foreach($etiquetas as $item)
                                         <option value="{{$item->idEtiqueta}}" selected>{{$item->descripcion}}</option>
                                     @endforeach  

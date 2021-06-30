@@ -114,16 +114,15 @@ class PublicacionController extends Controller
     public function edit($id)
     {
         $publicacion=Publicacion::findOrFail($id);
-        $idPublicacion=$publicacion->idPublicacion;
-        // dd($idPublicacion);
+        //$idPublicacion=$publicacion->idPublicacion;
+        
         // $etiquetas=Publicacion_Etiqueta::where('idPublicacion',$idPublicacion)->get();
         
         
-        $etiquetas=DB::table('publicacion_etiqueta as pe')
-        ->join('etiquetas as e','pe.idEtiqueta','=','e.idEtiqueta')->where('e.estado','1')->select('*')->get();
+        $etiquetas=Publicacion_Etiqueta::select('publicacion_etiqueta.idEtiqueta','publicacion_etiqueta.idPublicacion','etiquetas.estado','etiquetas.descripcion')->join('etiquetas','etiquetas.idEtiqueta','=','publicacion_etiqueta.idEtiqueta')->where('publicacion_etiqueta.idPublicacion',$id)->where('etiquetas.estado','1')->get();
         
-        $etiqueta=Etiqueta::get();
-        // dd($etiquetas);
+        $etiqueta=Etiqueta::where('etiquetas.estado','1')->get();
+        //dd($etiquetas);
         return view('tablas.Publicaciones.edit',compact('publicacion','etiquetas','etiqueta'));
     }
 
@@ -136,35 +135,79 @@ class PublicacionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data=request()->validate([
-            'titulo'=>'required|unique:publicaciones',
-        ],
-        [
-            'titulo.required'=>'Ingrese título',
-        ]);
-
         DB::beginTransaction();
         try{
 
             $publicacion = Publicacion::findOrFail($id);
-            if(!empty($request->imagen)){
-                $img = $request->file('imagen');
-                // dd($img);
-                $nombre=$img->getClientOriginalName();
-                $nombreBD="/storage/publicaciones/".$nombre;
-                $img->storeAs("public/publicaciones", $nombre);
-                $publicacion->imagen=$nombreBD;
+            if ($publicacion->titulo==$request->titulo) {
+                if(!empty($request->imagen)){
+                    $img = $request->file('imagen');
+                    // dd($img);
+                    $nombre=$img->getClientOriginalName();
+                    $nombreBD="/storage/publicaciones/".$nombre;
+                    $img->storeAs("public/publicaciones", $nombre);
+                    $publicacion->imagen=$nombreBD;
+                }
+                // $img = $request->file('imagen');
+                // $nombre=$img->getClientOriginalName();
+                // $nombreBD="/storage/publicaciones/".$nombre;
+                // $img->storeAs("public/publicaciones", $nombre);
+                // $publicacion->imagen=$nombreBD;
+                //$publicacion->titulo=$request->titulo;
+                $publicacion->resumen=$request->resumen;
+                $publicacion->texto=$request->texto;
+                $etiquetas=$request->etiquetas;
+                $publicacion_etiqueta=Publicacion_Etiqueta::where('idPublicacion',$id)->delete();
+                //dd($publicacion_etiqueta);
+                for($i = 0; $i < sizeof($etiquetas); $i++){
+                    $publicacion_etiqueta=new Publicacion_Etiqueta();
+                    $publicacion_etiqueta->idPublicacion=$id;
+                    $publicacion_etiqueta->idEtiqueta=$etiquetas[$i];
+                    $publicacion_etiqueta->save();
+                }
+                $publicacion->estado='1';
+            }else {
+                $data=request()->validate([
+                    'titulo'=>'required|unique:publicaciones',
+                ],
+                [
+                    'titulo.required'=>'Ingrese título',
+                ]);
+                if(!empty($request->imagen)){
+                    $img = $request->file('imagen');
+                    // dd($img);
+                    $nombre=$img->getClientOriginalName();
+                    $nombreBD="/storage/publicaciones/".$nombre;
+                    $img->storeAs("public/publicaciones", $nombre);
+                    $publicacion->imagen=$nombreBD;
+                }
+                // $img = $request->file('imagen');
+                // $nombre=$img->getClientOriginalName();
+                // $nombreBD="/storage/publicaciones/".$nombre;
+                // $img->storeAs("public/publicaciones", $nombre);
+                // $publicacion->imagen=$nombreBD;
+                $publicacion->titulo=$request->titulo;
+                $publicacion->resumen=$request->resumen;
+                $publicacion->texto=$request->texto;
+                $etiquetas=$request->etiquetas;
+                $publicacion_etiqueta=Publicacion_Etiqueta::where('idPublicacion',$id)->delete();
+                //dd($publicacion_etiqueta);
+                for($i = 0; $i < sizeof($etiquetas); $i++){
+                    $publicacion_etiqueta=new Publicacion_Etiqueta();
+                    $publicacion_etiqueta->idPublicacion=$id;
+                    $publicacion_etiqueta->idEtiqueta=$etiquetas[$i];
+                    $publicacion_etiqueta->save();
+                }
+                $publicacion->estado='1';
             }
-            // $img = $request->file('imagen');
-            // $nombre=$img->getClientOriginalName();
-            // $nombreBD="/storage/publicaciones/".$nombre;
-            // $img->storeAs("public/publicaciones", $nombre);
-            // $publicacion->imagen=$nombreBD;
-            $publicacion->titulo=$request->titulo;
-            $publicacion->resumen=$request->resumen;
-            $publicacion->texto=$request->texto;
-            $publicacion->estado='1';
             $publicacion->save();
+            // bucle para guardar la relacion Publicacion/Etiqueta
+            //$publicacion= Publicacion::all();
+            //$lastPublicacion=$publicacion->last();
+            
+            //$ide=$lastPublicacion->idPublicacion;
+            //dd($id);
+            
             DB::commit();
             return redirect()->route('publicacion.index')->with('datos', 'T');
         }catch(Exception $e){
