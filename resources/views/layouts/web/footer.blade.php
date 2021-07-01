@@ -11,7 +11,7 @@
         <!-- Logo -->
         <div class="logo_container">
           <div class="logo">
-            <img src="images/logo.png" alt="">
+            <img src="{{ asset('images/logo.png') }}" alt="">
             <span>Dirección de Registro Técnico</span>
           </div>
         </div>
@@ -50,19 +50,19 @@
           <ul>
             <li class="footer_contact_item">
               <div class="footer_contact_icon">
-                <img src="images/placeholder.svg" alt="https://www.flaticon.com/authors/lucy-g">
+                <img src="{{ asset('images/placeholder.svg') }}" alt="Icono">
               </div>
               {{$info -> direccion}}
             </li>
             <li class="footer_contact_item">
               <div class="footer_contact_icon">
-                <img src="images/smartphone.svg" alt="https://www.flaticon.com/authors/lucy-g">
+                <img src="{{ asset('images/smartphone.svg') }}" alt="Icono">
               </div>
               {{$info -> telefono}}
             </li>
             <li class="footer_contact_item">
               <div class="footer_contact_icon">
-                <img src="images/envelope.svg" alt="https://www.flaticon.com/authors/lucy-g">
+                <img src="{{ asset('images/envelope.svg') }}" alt="Icono">
               </div>
               {{$info -> correo}}
             </li>

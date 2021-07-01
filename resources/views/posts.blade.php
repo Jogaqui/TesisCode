@@ -1,51 +1,18 @@
 @extends('layouts.guest')
 @section('styles')
-<link rel="stylesheet" type="text/css" href="{{ asset('plugins/OwlCarousel2-2.2.1/owl.carousel.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('plugins/OwlCarousel2-2.2.1/owl.theme.default.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('plugins/OwlCarousel2-2.2.1/animate.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('css/main_styles.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('css/responsive.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/news_post_styles.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/news_post_responsive.css') }}">
 @endsection
 @section('contenido')
 <!-- Home -->
+
 <div class="home">
-
-  <!-- Hero Slider -->
-  <div class="hero_slider_container">
-    <div class="hero_slider owl-carousel">
-      <!-- Hero Slide -->
-      <div class="hero_slide">
-        <div class="hero_slide_background" style="background-image:url(images/slider_background.jpg)"></div>
-        <div class="hero_slide_container d-flex flex-column align-items-center justify-content-center">
-          <div class="hero_slide_content text-center">
-            <h1 data-animation-in="fadeInUp" data-animation-out="animate-out fadeOut">Get your <span>Education</span> today!</h1>
-          </div>
-        </div>
-      </div>
-      <!-- Hero Slide -->
-      <div class="hero_slide">
-        <div class="hero_slide_background" style="background-image:url(images/slider_background.jpg)"></div>
-        <div class="hero_slide_container d-flex flex-column align-items-center justify-content-center">
-          <div class="hero_slide_content text-center">
-            <h1 data-animation-in="fadeInUp" data-animation-out="animate-out fadeOut">Get your <span>Education</span> today!</h1>
-          </div>
-        </div>
-      </div>
-      <!-- Hero Slide -->
-      <div class="hero_slide">
-        <div class="hero_slide_background" style="background-image:url(images/slider_background.jpg)"></div>
-        <div class="hero_slide_container d-flex flex-column align-items-center justify-content-center">
-          <div class="hero_slide_content text-center">
-            <h1 data-animation-in="fadeInUp" data-animation-out="animate-out fadeOut">¡ La mejor <span>Education</span> !</h1>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="hero_slider_left hero_slider_nav trans_200"><span class="trans_200"><</span></div>
-    <div class="hero_slider_right hero_slider_nav trans_200"><span class="trans_200">></span></div>
+  <div class="home_background_container prlx_parent">
+    <div class="home_background prlx" style="background-image:url({{ asset('images/news_background.jpg') }})"></div>
   </div>
-
+  <div class="home_content">
+    <h1>{{$tag -> descripcion}}</h1>
+  </div>
 </div>
 
 <!-- News -->
@@ -120,5 +87,4 @@
     </div>
   </div>
 </div>
-
 @endsection

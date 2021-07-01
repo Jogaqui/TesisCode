@@ -16,11 +16,12 @@ class WelcomeController extends Controller
      */
     public function index()
     {
-      $publicaciones = Publicacion::orderBy('fecha', 'DESC')->where('estado', 1)->get();
-      $top = Publicacion::orderBy('fecha', 'DESC')->where('estado', 1)->skip(0)->take(5)->get();
+      $publicaciones = Publicacion::orderBy('fecha', 'DESC')->where('estado', 1)->paginate(5);
+      $top = Publicacion::orderBy('fecha', 'DESC')->where('estado', 1)->skip(0)->take(3)->get();
+      $mejoresPublicaciones = Publicacion::orderBy('fecha', 'DESC')->where('estado', 1)->skip(0)->take(3)->get();
       $etiquetas = Etiqueta::all();
       $info = Contactanos::where('estado',1)->first();
-      return view('welcome') -> with(compact('publicaciones', 'top', 'etiquetas', 'info'));
+      return view('welcome') -> with(compact('publicaciones', 'top', 'etiquetas', 'info', 'mejoresPublicaciones'));
     }
 
     /**
@@ -41,7 +42,7 @@ class WelcomeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      //
     }
 
     /**
@@ -52,8 +53,25 @@ class WelcomeController extends Controller
      */
     public function show($id)
     {
-        //
+      $post = Publicacion::findOrFail($id);
+      $top = Publicacion::orderBy('fecha', 'DESC')->where('estado', 1)->skip(0)->take(3)->get();
+      $mejoresPublicaciones = Publicacion::orderBy('fecha', 'DESC')->where('estado', 1)->skip(0)->take(3)->get();
+      $etiquetas = Etiqueta::all();
+      $info = Contactanos::where('estado',1)->first();
+      return view('post') -> with(compact('post', 'top', 'etiquetas', 'info', 'mejoresPublicaciones'));
     }
+
+     public function showByTag($id)
+     {
+       $tag = Etiqueta::findOrFail($id);
+       $publicaciones = Publicacion::join('publicacion_etiqueta', 'publicacion_etiqueta.idPublicacion', 'publicaciones.idPublicacion')
+       ->orderBy('fecha', 'DESC')->where('publicacion_etiqueta.idEtiqueta', $tag->idEtiqueta)->where('estado', 1)->paginate(5);
+       $top = Publicacion::orderBy('fecha', 'DESC')->where('estado', 1)->skip(0)->take(3)->get();
+       $mejoresPublicaciones = Publicacion::orderBy('fecha', 'DESC')->where('estado', 1)->skip(0)->take(3)->get();
+       $etiquetas = Etiqueta::all();
+       $info = Contactanos::where('estado',1)->first();
+       return view('posts') -> with(compact('publicaciones', 'top', 'etiquetas', 'info', 'mejoresPublicaciones', 'tag'));
+     }
 
     /**
      * Show the form for editing the specified resource.

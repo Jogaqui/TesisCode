@@ -32,6 +32,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 //WEB
 Route::resource('/welcome', WelcomeController::class);
+Route::get('/welcome/etiqueta/{posts}', 'WelcomeController@showByTag')->name('welcome.showByTag');
 Route::resource('/procedure', ProcedureController::class);
 Route::resource('/unit', UnitController::class);
 Route::resource('/aboutus', AboutUsController::class);

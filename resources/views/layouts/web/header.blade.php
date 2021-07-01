@@ -3,7 +3,7 @@
     <!-- Logo -->
     <div class="logo_container">
       <div class="logo">
-        <img src="images/logo.png" alt="">
+        <img src="{{ asset('images/logo.png') }}" alt="">
         <span>Dirección de<br>Registro Técnico</span>
       </div>
     </div>
@@ -34,7 +34,7 @@
     </nav>
   </div>
   <div class="header_side d-flex flex-row justify-content-center align-items-center">
-    <img src="images/phone-call.svg" alt="">
+    <img src="{{ asset('images/phone-call.svg') }}" alt="">
     <span>{{$info -> telefono}}</span>
   </div>
 
