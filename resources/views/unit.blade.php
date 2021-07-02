@@ -38,19 +38,20 @@
                 <div class="col-lg-4 teacher">
                   <div class="card">
                     <div class="card_img">
-                      <div class="card_plus trans_200 text-center"><a href="#">+</a></div>
-                      <img class="card-img-top trans_200" src="images/teacher_1.jpg" alt="https://unsplash.com/@michaeldam">
+                      <div class="trans_200 text-center"></div>
+                      <img class="card-img-top trans_200" src="{{$itemT->imagen}}" alt="https://unsplash.com/@michaeldam">
                     </div>
                     <div class="card-body text-center">
-                      <div class="card-title"><a href="#">{{$itemT->apPaterno}} {{$itemT->apMaterno}} {{$itemT->nombres}}</a></div>
-                      <div class="card-text">Graphic Designer</div>
+                      <div class="card-title"><a href="#">{{$itemT->abrevGrado}} {{$itemT->apPaterno}} {{$itemT->apMaterno}} {{$itemT->nombres}}</a></div>
+                      <div class="card-text"><h3>{{$itemT -> puesto}}</h3></div>
+                      <div class="card-text"><h8>{{$itemT -> correo}}</h8></div>
                       <div class="teacher_social">
                         <ul class="menu_social">
-                          <li class="menu_social_item"><a href="#"><i class="fab fa-pinterest"></i></a></li>
-                          <li class="menu_social_item"><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-                          <li class="menu_social_item"><a href="#"><i class="fab fa-instagram"></i></a></li>
-                          <li class="menu_social_item"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                          <li class="menu_social_item"><a href="#"><i class="fab fa-twitter"></i></a></li>
+                          <!-- <li class="menu_social_item"><a href="#"><i class="fab fa-pinterest"></i></a></li> -->
+                          <li class="menu_social_item"><a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
+                          <!-- <li class="menu_social_item"><a href="#"><i class="fab fa-instagram"></i></a></li> -->
+                          <li class="menu_social_item"><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+                          <!-- <li class="menu_social_item"><a href="#"><i class="fab fa-twitter"></i></a></li> -->
                         </ul>
                       </div>
                     </div>

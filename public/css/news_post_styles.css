@@ -879,6 +879,26 @@ section
 	margin-right: 2px;
 }
 
+.news_post_button
+{
+	width: 288px;
+	height: 53px;
+	background: #ffb606;
+	margin: 18px auto;
+}
+.news_post_button a
+{
+	display: block;
+	font-size: 16px;
+	font-weight: 700;
+	color: #FFFFFF;
+	line-height: 53px;
+}
+.news_post_button:hover
+{
+	box-shadow: 0px 10px 20px rgba(0,0,0,0.2);
+}
+
 /*********************************
 9.1 Comments
 *********************************/

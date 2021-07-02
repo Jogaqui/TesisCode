@@ -76,10 +76,11 @@
                   <a href="{{route('welcome.show', $post->idPublicacion)}}">{{$post -> titulo}}</a>
                 </div>
                 <div class="news_post_meta">
-                  <span class="news_post_author"><a href="#">By {{$post -> creador}}</a></span>
+                  <span class="news_post_author"><a href="{{route('welcome.show', $post->idPublicacion)}}">By {{$post -> creador}}</a></span>
                   <span>|</span>
-                  <span class="news_post_comments"><a href="#">{{date('Y', strtotime($post -> fecha))}}</a></span>
-                  <!-- <span class="news_post_comments"><a href="#">3 Comments</a></span> -->
+                  <span class="news_post_comments"><a href="{{route('welcome.show', $post->idPublicacion)}}">{{date('Y', strtotime($post -> fecha))}}</a></span>
+                  <span>|</span>
+                  <span class="news_post_comments"><a href="{{route('welcome.show', $post->idPublicacion)}}">{{$post -> vistas}} Vistas</a></span>
                 </div>
               </div>
             </div>
@@ -90,7 +91,7 @@
               <a href="{{route('welcome.show', $post->idPublicacion)}}">Leer publicación</a>
             </div>
             <div class="news_post_button text-center trans_200">
-              <a href="{{$post -> archivo}}">Descargar archivo adjunto</a>
+              <a href="{{$post -> archivo}}" target="_blank">Descargar archivo adjunto</a>
             </div>
           </div>
           @endforeach

@@ -29,10 +29,11 @@
       </div>
       <div class="latest_post_title"><a href="{{route('welcome.show', $post->idPublicacion)}}">{{$post -> titulo}}</a></div>
       <div class="latest_post_meta">
-        <span class="latest_post_author"><a href="#">By {{$post -> creador}}</a></span>
+        <span class="latest_post_author"><a href="{{route('welcome.show', $post->idPublicacion)}}">By {{$post -> creador}}</a></span>
         <span>|</span>
-        <span class="latest_post_comments"><a href="#">{{date('Y', strtotime($post -> fecha))}}</a></span>
-        <!-- <span class="latest_post_comments"><a href="#">3 Comments</a></span> -->
+        <span class="latest_post_comments"><a href="{{route('welcome.show', $post->idPublicacion)}}">{{date('Y', strtotime($post -> fecha))}}</a></span>
+        <span>|</span>
+        <span class="latest_post_comments"><a href="{{route('welcome.show', $post->idPublicacion)}}">{{$post -> vistas}} Vistas</a></span>
       </div>
     </div>
     @endforeach
@@ -57,10 +58,11 @@
       </div>
       <div class="latest_post_title"><a href="{{route('welcome.show', $post->idPublicacion)}}">{{$post -> titulo}}</a></div>
       <div class="latest_post_meta">
-        <span class="latest_post_author"><a href="#">By {{$post -> creador}}</a></span>
+        <span class="latest_post_author"><a href="{{route('welcome.show', $post->idPublicacion)}}">By {{$post -> creador}}</a></span>
         <span>|</span>
-        <span class="latest_post_comments"><a href="#">{{date('Y', strtotime($post -> fecha))}}</a></span>
-        <!-- <span class="latest_post_comments"><a href="#">3 Comments</a></span> -->
+        <span class="latest_post_comments"><a href="{{route('welcome.show', $post->idPublicacion)}}">{{date('Y', strtotime($post -> fecha))}}</a></span>
+        <span>|</span>
+        <span class="latest_post_comments"><a href="{{route('welcome.show', $post->idPublicacion)}}">{{$post -> vistas}} Vistas</a></span>
       </div>
     </div>
     @endforeach
@@ -78,10 +80,5 @@
     @foreach ($etiquetas as $tag)
     <div class="tag"><a href="{{route('welcome.showByTag', $tag->idEtiqueta)}}">{{$tag->descripcion}}</a></div>
     @endforeach
-    <!-- <div class="tag"><a href="#">Design</a></div>
-    <div class="tag"><a href="#">FAQ</a></div>
-    <div class="tag"><a href="#">Teachers</a></div>
-    <div class="tag"><a href="#">School</a></div>
-    <div class="tag"><a href="#">Graduate</a></div> -->
   </div>
 </div>

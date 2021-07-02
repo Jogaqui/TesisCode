@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Publicacion;
 use App\Etiqueta;
 use App\Contactanos;
+use App\Publicacion_Etiqueta;
 
 class WelcomeController extends Controller
 {
@@ -18,7 +19,7 @@ class WelcomeController extends Controller
     {
       $publicaciones = Publicacion::orderBy('fecha', 'DESC')->where('estado', 1)->paginate(5);
       $top = Publicacion::orderBy('fecha', 'DESC')->where('estado', 1)->skip(0)->take(3)->get();
-      $mejoresPublicaciones = Publicacion::orderBy('fecha', 'DESC')->where('estado', 1)->skip(0)->take(3)->get();
+      $mejoresPublicaciones = Publicacion::orderBy('vistas', 'DESC')->where('estado', 1)->skip(0)->take(3)->get();
       $etiquetas = Etiqueta::all();
       $info = Contactanos::where('estado',1)->first();
       return view('welcome') -> with(compact('publicaciones', 'top', 'etiquetas', 'info', 'mejoresPublicaciones'));
@@ -55,10 +56,11 @@ class WelcomeController extends Controller
     {
       $post = Publicacion::findOrFail($id);
       $top = Publicacion::orderBy('fecha', 'DESC')->where('estado', 1)->skip(0)->take(3)->get();
-      $mejoresPublicaciones = Publicacion::orderBy('fecha', 'DESC')->where('estado', 1)->skip(0)->take(3)->get();
+      $mejoresPublicaciones = Publicacion::orderBy('vistas', 'DESC')->where('estado', 1)->skip(0)->take(3)->get();
       $etiquetas = Etiqueta::all();
       $info = Contactanos::where('estado',1)->first();
-      return view('post') -> with(compact('post', 'top', 'etiquetas', 'info', 'mejoresPublicaciones'));
+      $etiquetasPost = Publicacion_Etiqueta::where('publicacion_etiqueta.idPublicacion', $id)->get();
+      return view('post') -> with(compact('post', 'top', 'etiquetas', 'info', 'mejoresPublicaciones', 'etiquetasPost'));
     }
 
      public function showByTag($id)
@@ -67,7 +69,7 @@ class WelcomeController extends Controller
        $publicaciones = Publicacion::join('publicacion_etiqueta', 'publicacion_etiqueta.idPublicacion', 'publicaciones.idPublicacion')
        ->orderBy('fecha', 'DESC')->where('publicacion_etiqueta.idEtiqueta', $tag->idEtiqueta)->where('estado', 1)->paginate(5);
        $top = Publicacion::orderBy('fecha', 'DESC')->where('estado', 1)->skip(0)->take(3)->get();
-       $mejoresPublicaciones = Publicacion::orderBy('fecha', 'DESC')->where('estado', 1)->skip(0)->take(3)->get();
+       $mejoresPublicaciones = Publicacion::orderBy('vistas', 'DESC')->where('estado', 1)->skip(0)->take(3)->get();
        $etiquetas = Etiqueta::all();
        $info = Contactanos::where('estado',1)->first();
        return view('posts') -> with(compact('publicaciones', 'top', 'etiquetas', 'info', 'mejoresPublicaciones', 'tag'));

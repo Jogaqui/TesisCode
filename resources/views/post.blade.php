@@ -50,6 +50,16 @@
               </div>
             </div>
 
+            <div class="tags d-flex flex-row flex-wrap">
+              @foreach ($etiquetasPost as $tag)
+              @foreach ($etiquetas as $itag)
+              @if($tag->idEtiqueta == $itag->idEtiqueta)
+              <div class="tag"><a href="{{route('welcome.showByTag', $itag->idEtiqueta)}}">{{$itag->descripcion}}</a></div>
+              @endif
+              @endforeach
+              @endforeach
+            </div>
+
             <div class="news_post_quote">
               <p class="news_post_quote_text"><span>E</span>tiam eu purus nec eros varius luctus. Praesent finibus risus facilisis ultricies venena tis. Suspendisse fermentum sodales lacus, lacinia gravida elit.</p>
             </div>
@@ -57,7 +67,7 @@
             <p class="news_post_text" style="margin-top: 59px;">{{$post -> texto}}</p>
 
             <div class="news_post_button text-center trans_200">
-              <a href="{{$post -> archivo}}">Descargar archivo adjunto</a>
+              <a href="{{$post -> archivo}}" target="_blank">Descargar archivo adjunto</a>
             </div>
           </div>
 

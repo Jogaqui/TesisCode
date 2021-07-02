@@ -70,7 +70,8 @@ class PublicacionController extends Controller
             $publicacion->resumen=$request->resumen;
             $publicacion->texto=$request->texto;
             $publicacion->archivo=$request->archivo;
-            $publicacion->estado='1';
+            $publicacion->vistas=0;
+            $publicacion->estado=1;
             $publicacion->save();
 
 
@@ -117,11 +118,11 @@ class PublicacionController extends Controller
         $idPublicacion=$publicacion->idPublicacion;
         // dd($idPublicacion);
         // $etiquetas=Publicacion_Etiqueta::where('idPublicacion',$idPublicacion)->get();
-        
-        
+
+
         $etiquetas=DB::table('publicacion_etiqueta as pe')
         ->join('etiquetas as e','pe.idEtiqueta','=','e.idEtiqueta')->where('e.estado','1')->select('*')->get();
-        
+
         $etiqueta=Etiqueta::get();
         // dd($etiquetas);
         return view('tablas.Publicaciones.edit',compact('publicacion','etiquetas','etiqueta'));
