@@ -10,7 +10,7 @@
                 <div class="form-group">
                     <input type="hidden" name="tipo" id="tipo" value="{{$conocenos->tipo}}">
                     <label for="descripcion" style="float: left">Descripción</label>
-                    <input type="text" class="form-control @error('descripcion') is-invalid @enderror" id="descripcion" name="descripcion" aria-describedby="descripcionHelp" placeholder="Ingrese descripcion" value="{{$conocenos->descripcion}}" pattern="^(?!.* (?: |$))[A-Z][A-Za-záéíóú ]+$" title="Debe poner solo palabras con la primera letra en Mayuscula" required>
+                    <input type="text" class="form-control @error('descripcion') is-invalid @enderror" id="descripcion" name="descripcion" aria-describedby="descripcionHelp" placeholder="Ingrese descripcion" value="{{$conocenos->descripcion}}" pattern="^(?!.* (?: |$))[A-Z][A-Za-záéíóúÁÉÍÓÚ, ]+$" title="Debe poner solo palabras con la primera letra en Mayuscula" required>
                     @error('descripcion')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{$message}}</strong>

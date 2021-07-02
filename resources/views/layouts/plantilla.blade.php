@@ -322,7 +322,8 @@ var table = $('#example1').DataTable({
         text: 'Su registro ha sido actualizado correctamente.',
         icon: 'success',
         showConfirmButton: false,
-        footer: '<a href="javascript:location.reload()" class="btn btn-primary">Ok</a>'
+        footer: '<a href="javascript:location.reload()" class="btn btn-primary">Ok</a>',
+        timer: 1500
       })
     </script>
     
@@ -333,7 +334,8 @@ var table = $('#example1').DataTable({
         text: 'Su registro ha sido guardado correctamente.',
         icon: 'success',
         showConfirmButton: false,
-        footer: '<a href="javascript:location.reload()" class="btn btn-primary">Ok</a>'
+        footer: '<a href="javascript:location.reload()" class="btn btn-primary">Ok</a>',
+        timer: 1500
       })
     </script>
 
@@ -344,7 +346,8 @@ var table = $('#example1').DataTable({
         text: 'Su registro ha sido eliminado correctamente.',
         icon: 'success',
         showConfirmButton: false,
-        footer: '<a href="javascript:location.reload()" class="btn btn-primary">Ok</a>'
+        footer: '<a href="javascript:location.reload()" class="btn btn-primary">Ok</a>',
+        timer: 1500
       })
     </script>
 
@@ -355,7 +358,8 @@ var table = $('#example1').DataTable({
         text: 'Su registro ha sido cancelado correctamente.',
         icon: 'error',
         showConfirmButton: false,
-        footer: '<a href="javascript:location.reload()" class="btn btn-primary">Ok</a>'
+        footer: '<a href="javascript:location.reload()" class="btn btn-primary">Ok</a>',
+        timer: 1500
       })
     </script>
 
@@ -366,7 +370,8 @@ var table = $('#example1').DataTable({
         text: 'Su registro ha sido activado correctamente.',
         icon: 'success',
         showConfirmButton: false,
-        footer: '<a href="javascript:location.reload()" class="btn btn-primary">Ok</a>'
+        footer: '<a href="javascript:location.reload()" class="btn btn-primary">Ok</a>',
+        timer: 1500
       })
     </script>
 
@@ -377,7 +382,8 @@ var table = $('#example1').DataTable({
         text: 'Su registro ha sido desactivado correctamente.',
         icon: 'success',
         showConfirmButton: false,
-        footer: '<a href="javascript:location.reload()" class="btn btn-primary">Ok</a>'
+        footer: '<a href="javascript:location.reload()" class="btn btn-primary">Ok</a>',
+        timer: 1500
       })
     </script>
     @endif

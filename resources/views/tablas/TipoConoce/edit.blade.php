@@ -9,7 +9,7 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="nombre" style="float: left">Nombre</label>
-                    <input type="text" style="text-transform:uppercase;" class="form-control @error('nombre') is-invalid @enderror" id="nombre" name="nombre" aria-describedby="nombreHelp" placeholder="Ingrese Nombre" value="{{$tipoconoce->nombre}}" onkeyup="javascript:this.value=this.value.toUpperCase();" pattern="^(?!.* (?: |$))[A-Z][A-Za-záéíóú ]+$" title="Debe poner solo palabras en Mayuscula">
+                    <input type="text" style="text-transform:uppercase;" class="form-control @error('nombre') is-invalid @enderror" id="nombre" name="nombre" aria-describedby="nombreHelp" placeholder="Ingrese Nombre" value="{{$tipoconoce->nombre}}" onkeyup="javascript:this.value=this.value.toUpperCase();" pattern="^(?!.* (?: |$))[A-Z][A-Za-záéíóúÁÉÍÓÚ ]+$" title="Debe poner solo palabras en Mayuscula">
                     @error('nombre')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{$message}}</strong>

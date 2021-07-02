@@ -13,8 +13,12 @@ class FuncionesController extends Controller
         
     }
 
-    public function create()
+    public function create(Request $request)
     {
+        
+        //docente=Unidad::FindOrFail($id);
+        //dd($request);
+        
         $unidad = Unidad::select('idUnidad','descripcion')->where('estado','1')->get();
         return view('tablas.funciones.create',compact('unidad'));
     }
