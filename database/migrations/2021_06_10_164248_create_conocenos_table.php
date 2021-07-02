@@ -16,7 +16,7 @@ class CreateConocenosTable extends Migration
         Schema::create('conocenos', function (Blueprint $table) {
             $table->id('idConocenos');
             $table->integer('tipo');
-            $table->string('descripcion');
+            $table->text('descripcion');
             $table->tinyInteger('estado');
         });
     }

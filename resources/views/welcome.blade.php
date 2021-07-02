@@ -73,13 +73,14 @@
               </div>
               <div class="news_post_title_container">
                 <div class="news_post_title">
-                  <a href="news_post.html">{{$post -> titulo}}</a>
+                  <a href="{{route('welcome.show', $post->idPublicacion)}}">{{$post -> titulo}}</a>
                 </div>
                 <div class="news_post_meta">
-                  <span class="news_post_author"><a href="#">By {{$post -> creador}}</a></span>
+                  <span class="news_post_author"><a href="{{route('welcome.show', $post->idPublicacion)}}">By {{$post -> creador}}</a></span>
                   <span>|</span>
-                  <span class="news_post_comments"><a href="#">{{date('Y', strtotime($post -> fecha))}}</a></span>
-                  <!-- <span class="news_post_comments"><a href="#">3 Comments</a></span> -->
+                  <span class="news_post_comments"><a href="{{route('welcome.show', $post->idPublicacion)}}">{{date('Y', strtotime($post -> fecha))}}</a></span>
+                  <span>|</span>
+                  <span class="news_post_comments"><a href="{{route('welcome.show', $post->idPublicacion)}}">{{$post -> vistas}} Vistas</a></span>
                 </div>
               </div>
             </div>
@@ -87,24 +88,26 @@
               <p>{{$post -> texto}}</p>
             </div>
             <div class="news_post_button text-center trans_200">
-              <a href="{{route('vistas', $post->idPublicacion)}}">Leer publicación</a>
+              <a href="{{route('welcome.show', $post->idPublicacion)}}">Leer publicación</a>
             </div>
             <div class="news_post_button text-center trans_200">
-              <a href="news_post.html">Descargar archivo adjunto</a>
+              <a href="{{$post -> archivo}}" target="_blank">Descargar archivo adjunto</a>
             </div>
           </div>
           @endforeach
         </div>
 
+        {{ $publicaciones->links('layouts.web.paginate') }}
+
         <!-- Page Nav -->
 
-        <div class="news_page_nav">
+        <!-- <div class="news_page_nav">
           <ul>
             <li class="active text-center trans_200"><a href="#">01</a></li>
             <li class="text-center trans_200"><a href="#">02</a></li>
             <li class="text-center trans_200"><a href="#">03</a></li>
           </ul>
-        </div>
+        </div> -->
 
       </div>
 
@@ -112,67 +115,7 @@
 
       <div class="col-lg-4">
         <div class="sidebar">
-
-          <!-- Archives -->
-          <!-- <div class="sidebar_section">
-            <div class="sidebar_section_title">
-              <h3>Archives</h3>
-            </div>
-            <ul class="sidebar_list">
-              <li class="sidebar_list_item"><a href="#">Design Courses</a></li>
-              <li class="sidebar_list_item"><a href="#">All you need to know</a></li>
-              <li class="sidebar_list_item"><a href="#">Uncategorized</a></li>
-              <li class="sidebar_list_item"><a href="#">About Our Departments</a></li>
-              <li class="sidebar_list_item"><a href="#">Choose the right course</a></li>
-            </ul>
-          </div> -->
-
-          <!-- Latest Posts -->
-
-          <div class="sidebar_section">
-            <div class="sidebar_section_title">
-              <h3>Últimas publicaciones</h3>
-            </div>
-
-            <div class="latest_posts">
-
-              <!-- Latest Post -->
-              @foreach ($top as $post)
-              <div class="latest_post">
-                <div class="latest_post_image">
-                  <img src="{{$post->imagen}}" alt="Imagen de las últimas publicaciones">
-                </div>
-                <div class="latest_post_title"><a href="news_post.html">{{$post -> titulo}}</a></div>
-                <div class="latest_post_meta">
-                  <span class="latest_post_author"><a href="#">By {{$post -> creador}}</a></span>
-                  <span>|</span>
-                  <span class="latest_post_comments"><a href="#">{{date('Y', strtotime($post -> fecha))}}</a></span>
-                  <!-- <span class="latest_post_comments"><a href="#">3 Comments</a></span> -->
-                </div>
-              </div>
-              @endforeach
-            </div>
-
-          </div>
-
-          <!-- Tags -->
-
-          <div class="sidebar_section">
-            <div class="sidebar_section_title">
-              <h3>Etiquetas</h3>
-            </div>
-            <div class="tags d-flex flex-row flex-wrap">
-              @foreach ($etiquetas as $tag)
-              <div class="tag"><a href="#">{{$tag->descripcion}}</a></div>
-              @endforeach
-              <!-- <div class="tag"><a href="#">Design</a></div>
-              <div class="tag"><a href="#">FAQ</a></div>
-              <div class="tag"><a href="#">Teachers</a></div>
-              <div class="tag"><a href="#">School</a></div>
-              <div class="tag"><a href="#">Graduate</a></div> -->
-            </div>
-          </div>
-
+          @include('layouts.web.sidebar')
         </div>
       </div>
     </div>

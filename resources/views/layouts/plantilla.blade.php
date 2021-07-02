@@ -2,10 +2,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | Blank Page</title>
-
-
-
+  <title>DRT | Intranet</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -45,7 +42,7 @@
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
 <!-- Site wrapper -->
 <div class="wrapper">
-  
+
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand" style="background: rgb(3, 15, 54)">
     <!-- Left navbar links -->
@@ -77,7 +74,7 @@
             </p>
           </li>
           <!-- Menu Body -->
-          
+
           <!-- Menu Footer-->
           <li class="user-footer">
             <a href="/welcome" class="btn btn-default btn-flat float-left">Welcome</a>
@@ -105,7 +102,7 @@
     <div class="sidebar">
       <!-- Sidebar user (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex" style="padding-top: 15px">
-        
+
         <div class="image">
           <img src="/adminlte/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
@@ -141,7 +138,7 @@
               <p>
                 Trabajadores
               </p>
-            </a>    
+            </a>
           </li>
           <li class="nav-item">
             <a href="{{route('contactanos.index')}}" class="nav-link {{ Request::routeIs('contactanos.index','contactanos.create','contactanos.edit') ? 'active' : '' }}">
@@ -157,7 +154,7 @@
               <p>
                 Etiquetas
               </p>
-            </a>    
+            </a>
           </li>
           <li class="nav-item">
             <a href="{{route('publicacion.index')}}" class="nav-link {{ Request::routeIs('publicacion.index','publicacion.delet','publicacion.create','publicacion.edit') ? 'active' : '' }}">
@@ -165,7 +162,7 @@
               <p>
                 Publicaciones
               </p>
-            </a>    
+            </a>
           </li>
           <li class="nav-item">
             <a href="{{route('icono.index')}}" class="nav-link {{ Request::routeIs('icono.index','icono.create','icono.edit') ? 'active' : '' }}">
@@ -173,7 +170,7 @@
               <p>
                 Íconos
               </p>
-            </a>    
+            </a>
           </li>
           <li class="nav-item">
             <a href="{{route('tramite.index')}}" class="nav-link {{ Request::routeIs('tramite.index','tramite.create','tramite.edit') ? 'active' : '' }}">
@@ -181,7 +178,7 @@
               <p>
                 Trámites
               </p>
-            </a>    
+            </a>
           </li>
           <li class="nav-item">
             <a href="{{route('consulta.index')}}" class="nav-link {{ Request::routeIs('consulta.index','consulta.show') ? 'active' : '' }}">
@@ -189,7 +186,7 @@
               <p>
                 Consultas
               </p>
-            </a>    
+            </a>
           </li>
           <li class="nav-item">
             <a href="{{route('portada.index')}}" class="nav-link {{ Request::routeIs('portada.index','portada.show') ? 'active' : '' }}">
@@ -197,7 +194,7 @@
               <p>
                 Portadas
               </p>
-            </a>    
+            </a>
           </li>
         </ul>
       </nav>
@@ -217,7 +214,7 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-  
+
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
@@ -311,7 +308,7 @@ var table = $('#example1').DataTable({
             "previous": "Anterior"
         }
     }
-});    
+});
   </script>
   <script src="sweetalert2.all.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -326,7 +323,7 @@ var table = $('#example1').DataTable({
         timer: 1500
       })
     </script>
-    
+
     @elseif (session('datos') == 'G')
     <script>
         Swal.fire({

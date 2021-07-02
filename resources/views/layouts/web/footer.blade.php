@@ -11,7 +11,7 @@
         <!-- Logo -->
         <div class="logo_container">
           <div class="logo">
-            <img src="images/logo.png" alt="">
+            <img src="{{ asset('images/logo.png') }}" alt="">
             <span>Dirección de Registro Técnico</span>
           </div>
         </div>
@@ -50,19 +50,19 @@
           <ul>
             <li class="footer_contact_item">
               <div class="footer_contact_icon">
-                <img src="images/placeholder.svg" alt="https://www.flaticon.com/authors/lucy-g">
+                <img src="{{ asset('images/placeholder.svg') }}" alt="Icono">
               </div>
               {{$info -> direccion}}
             </li>
             <li class="footer_contact_item">
               <div class="footer_contact_icon">
-                <img src="images/smartphone.svg" alt="https://www.flaticon.com/authors/lucy-g">
+                <img src="{{ asset('images/smartphone.svg') }}" alt="Icono">
               </div>
               {{$info -> telefono}}
             </li>
             <li class="footer_contact_item">
               <div class="footer_contact_icon">
-                <img src="images/envelope.svg" alt="https://www.flaticon.com/authors/lucy-g">
+                <img src="{{ asset('images/envelope.svg') }}" alt="Icono">
               </div>
               {{$info -> correo}}
             </li>
@@ -83,11 +83,11 @@
     </div>
     <div class="footer_social ml-sm-auto">
       <ul class="menu_social">
-        <li class="menu_social_item"><a href="#"><i class="fab fa-pinterest"></i></a></li>
-        <li class="menu_social_item"><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-        <li class="menu_social_item"><a href="#"><i class="fab fa-instagram"></i></a></li>
-        <li class="menu_social_item"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-        <li class="menu_social_item"><a href="#"><i class="fab fa-twitter"></i></a></li>
+        <!-- <li class="menu_social_item"><a href="#"><i class="fab fa-pinterest"></i></a></li> -->
+        <!-- <li class="menu_social_item"><a href="#"><i class="fab fa-linkedin-in"></i></a></li> -->
+        <!-- <li class="menu_social_item"><a href="#"><i class="fab fa-instagram"></i></a></li> -->
+        <li class="menu_social_item"><a href="https://www.facebook.com/ort.unt" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+        <!-- <li class="menu_social_item"><a href="#"><i class="fab fa-twitter"></i></a></li> -->
       </ul>
     </div>
   </div>

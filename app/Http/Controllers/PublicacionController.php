@@ -70,7 +70,8 @@ class PublicacionController extends Controller
             $publicacion->resumen=$request->resumen;
             $publicacion->texto=$request->texto;
             $publicacion->archivo=$request->archivo;
-            $publicacion->estado='1';
+            $publicacion->vistas=0;
+            $publicacion->estado=1;
             $publicacion->save();
 
 

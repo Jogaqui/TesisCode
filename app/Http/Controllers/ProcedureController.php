@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Contactanos;
+use App\Tramite;
 
 class ProcedureController extends Controller
 {
@@ -15,7 +16,8 @@ class ProcedureController extends Controller
     public function index()
     {
       $info = Contactanos::where('estado',1)->first();
-      return view('procedure') -> with(compact('info'));
+      $tramites = Tramite::join('iconos', 'iconos.idIcono', 'tramites.idIcono')->get();
+      return view('procedure') -> with(compact('info', 'tramites'));
     }
 
     /**
