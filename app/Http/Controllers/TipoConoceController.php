@@ -31,7 +31,7 @@ class TipoConoceController extends Controller
         $tipoconoce = Tipoconoce::findOrFail($id);
         //dd($tipoconoce);
         $conocenos = Conocenos::where('tipo','=',$id)->get();
-        return view('tablas.tipoconoce.show', compact('conocenos','tipoconoce'));
+        return view('tablas.tipoconoce.show', compact('conocenos','tipoconoce','id'));
     }
 
 /*
@@ -67,15 +67,19 @@ class TipoConoceController extends Controller
 
     public function update(Request $request, $id)
     {
-        $data=request()->validate([
-            'nombre'=>'unique:tipoconoce'
-        ]);
-
         DB::beginTransaction();
         try{
             $tipoconoce = Tipoconoce::findOrFail($id);
-            $tipoconoce->nombre=$request->nombre;
-            $tipoconoce->estado='1';
+            if ($tipoconoce->nombre==$request->nombre) {
+                $tipoconoce->estado='1';
+            }
+            else {
+                $data=request()->validate([
+                    'nombre'=>'unique:tipoconoce'
+                ]);
+                $tipoconoce->nombre=$request->nombre;
+                $tipoconoce->estado='1';
+            }
             $tipoconoce->save();
             DB::commit();
             return redirect()->route('tipoconoce.index')->with('datos', 'T');

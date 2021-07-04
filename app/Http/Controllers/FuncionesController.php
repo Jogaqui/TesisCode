@@ -13,22 +13,24 @@ class FuncionesController extends Controller
         
     }
 
-    public function create(Request $request)
+    public function create()
     {
-        
-        //docente=Unidad::FindOrFail($id);
-        //dd($request);
-        
-        $unidad = Unidad::select('idUnidad','descripcion')->where('estado','1')->get();
-        return view('tablas.funciones.create',compact('unidad'));
+
     }
 
+    public function crearfuncion($id)
+    {
+        $tipo=Unidad::FindOrFail($id);
+        $unidad = Unidad::select('idUnidad','descripcion')->where('estado','1')->get();
+        return view('tablas.funciones.create',compact('unidad','tipo'));
+    }
+    
     public function store(Request $request)
     {
         $data=request()->validate([
             'descripcion'=>'unique:funciones'
         ]);
-
+        //dd($request);
         DB::beginTransaction();
         try{
             $funciones = new Funciones();
@@ -56,16 +58,21 @@ class FuncionesController extends Controller
 
     public function update(Request $request, $id)
     {
-        $data=request()->validate([
-            'descripcion'=>'unique:funciones'
-        ]);
-
         DB::beginTransaction();
         try{
             $funciones = Funciones::findOrFail($id);
-            $funciones->unidad=$request->unidad;
-            $funciones->descripcion=$request->descripcion;
-            $funciones->estado='1';
+            if ($funciones->descripcion==$request->descripcion) {
+                $funciones->unidad=$request->unidad;
+                $funciones->estado='1';
+            }
+            else {
+                $data=request()->validate([
+                    'descripcion'=>'unique:funciones'
+                ]);
+                $funciones->unidad=$request->unidad;
+                $funciones->descripcion=$request->descripcion;
+                $funciones->estado='1';
+            }
             $funciones->save();
             DB::commit();
             return redirect()->route('Unidad.show',$funciones->unidad)->with('datos', 'T');

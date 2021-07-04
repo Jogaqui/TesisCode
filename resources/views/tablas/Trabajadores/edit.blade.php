@@ -9,7 +9,7 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="apPaterno" style="float: left">Apellido Paterno</label>
-                    <input type="text" class="form-control @error('apPaterno') is-invalid @enderror" id="apPaterno" name="apPaterno" aria-describedby="descripcionHelp" placeholder="Ingrese Descripción" value="{{$trabajador->apPaterno}}" pattern="^(?!.* (?: |$))[A-Z][A-Za-záéíóú ]+$" title="Debe poner solo palabras con la primera letra en Mayuscula" required>
+                    <input type="text" class="form-control @error('apPaterno') is-invalid @enderror" id="apPaterno" name="apPaterno" aria-describedby="descripcionHelp" placeholder="Ingrese Descripción" value="{{$trabajador->apPaterno}}" pattern="^(?!.* (?: |$))[A-ZÁÉÍÓÚ][A-Za-záéíóúÁÉÍÓÚ\u00f1\u00d1 ]+$" title="Debe poner solo palabras con la primera letra en Mayuscula" required>
                     @error('apellidos')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -19,7 +19,7 @@
 
                 <div class="form-group">
                     <label for="apMaterno" style="float: left">Apellido Materno</label>
-                    <input type="text" class="form-control @error('apMaterno') is-invalid @enderror" id="apMaterno" name="apMaterno" aria-describedby="descripcionHelp" placeholder="Ingrese Apellido Paterno" value="{{$trabajador->apMaterno}}" pattern="^(?!.* (?: |$))[A-Z][A-Za-záéíóú ]+$" title="Debe poner solo palabras con la primera letra en Mayuscula" required>
+                    <input type="text" class="form-control @error('apMaterno') is-invalid @enderror" id="apMaterno" name="apMaterno" aria-describedby="descripcionHelp" placeholder="Ingrese Apellido Paterno" value="{{$trabajador->apMaterno}}" pattern="^(?!.* (?: |$))[A-ZÁÉÍÓÚ][A-Za-záéíóúÁÉÍÓÚ\u00f1\u00d1 ]+$" title="Debe poner solo palabras con la primera letra en Mayuscula" required>
                     @error('apellidos')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -29,7 +29,7 @@
 
                 <div class="form-group">
                     <label for="nombres" style="float: left">Nombres</label>
-                    <input type="text" class="form-control @error('nombres') is-invalid @enderror" id="nombres" name="nombres" aria-describedby="descripcionHelp" placeholder="Ingrese Apellido Materno" value="{{$trabajador->nombres}}" pattern="^(?!.* (?: |$))[A-Z][A-Za-záéíóú ]+$" title="Debe poner solo palabras con la primera letra en Mayuscula" required>
+                    <input type="text" class="form-control @error('nombres') is-invalid @enderror" id="nombres" name="nombres" aria-describedby="descripcionHelp" placeholder="Ingrese Apellido Materno" value="{{$trabajador->nombres}}" pattern="^(?!.* (?: |$))[A-ZÁÉÍÓÚ][A-Za-záéíóúÁÉÍÓÚ\u00f1\u00d1 ]+$" title="Debe poner solo palabras con la primera letra en Mayuscula" required>
                     @error('nombres')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -39,7 +39,7 @@
 
                 <div class="form-group">
                     <label for="dni" style="float: left">DNI</label>
-                    <input type="text" class="form-control @error('dni') is-invalid @enderror" id="dni" name="dni" minlength="8"  aria-describedby="descripcionHelp" placeholder="Ingrese DNI" value="{{$trabajador->dni}}" pattern="[1-9][0-9]{7}" required>
+                    <input type="text" class="form-control @error('dni') is-invalid @enderror" id="dni" name="dni" minlength="8"  aria-describedby="descripcionHelp" placeholder="Ingrese DNI" value="{{$trabajador->dni}}" pattern="[0-9]{8}" required>
                     @error('dni')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -68,8 +68,12 @@
                 <div class="form-group">
                     <label for="grado" style="float: left">Grado</label>
                     <select class="form-control @error('grado') is-invalid @enderror" id="grado" name="grado" required>
-                        <option value="">Selecciona una opción</option>
-                        <option value="{{$trabajador->abrevGrado}}" selected>{{$trabajador->abrevGrado}}</option>
+                        <option value="{{$grado->idGrado}}">{{$unidad->nombre}}</option>
+                        @foreach($grados as $itemgrado)
+                            @if($grado->idGrado!==$itemgrado->idGrado)
+                                <option value="{{$itemgrado->idGrado}}" >{{$itemgrado->nombre}}</option>
+                            @endif
+                        @endforeach
                     </select>
                     @error('idIcono')
                     <span class="invalid-feedback" role="alert">
@@ -80,7 +84,7 @@
 
                 <div class="form-group">
                     <label for="puesto" style="float: left">Puesto</label>
-                    <input type="text" class="form-control @error('puesto') is-invalid @enderror" id="puesto" name="puesto" aria-describedby="descripcionHelp" placeholder="Ingrese Puesto" value="{{$trabajador->puesto}}">
+                    <input type="text" class="form-control @error('puesto') is-invalid @enderror" id="puesto" name="puesto" aria-describedby="descripcionHelp" placeholder="Ingrese Puesto" value="{{$trabajador->puesto}}" pattern="^(?!.* (?: |$))[A-ZÁÉÍÓÚ][A-Za-záéíóúÁÉÍÓÚ1-9,\u00f1\u00d1 ]+$" title="Debe poner solo palabras con la primera letra en Mayuscula">
                     @error('puesto')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -108,7 +112,6 @@
                     @enderror
                 </div> 
 
-
                 <div class="form-group">
                     <label for="imagen" style="float: left">Imagen</label><br><br>
                     <img src="{{$trabajador->imagen}}" alt="" style="border-radius:50%;width:200px;height:200px;"><br><br>
@@ -120,7 +123,6 @@
                     </span>
                     @enderror
                 </div>
-
 
             </div> 
             <div class="card-footer" style="text-align:center">

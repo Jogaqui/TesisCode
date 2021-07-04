@@ -28,8 +28,14 @@ class ConocenosController extends Controller
      */
     public function create()
     {
+
+    }
+
+    public function creartipogene($id)
+    {
+        $tipo=TipoConoce::FindOrFail($id);
         $tipoconoce = TipoConoce::select('idConoce','nombre')->where('estado','1')->get();
-        return view('tablas.conocenos.create',compact('tipoconoce'));
+        return view('tablas.conocenos.create',compact('tipoconoce','tipo'));
     }
     
     public function store(Request $request)
@@ -64,18 +70,22 @@ class ConocenosController extends Controller
     }
 
     public function update(Request $request, $id)
-    {
-        $data=request()->validate([
-            'descripcion'=>'unique:conocenos'
-        ]);
-
+    {    
         DB::beginTransaction();
         try{
             $conocenos = Conocenos::findOrFail($id);
-            //$tipoconoce = Conocenos::findOrFail($id);
-            $conocenos->tipo=$request->tipo;
-            $conocenos->descripcion=$request->descripcion;
-            $conocenos->estado='1';
+            if ($conocenos->descripcion==$request->descripcion) {
+                $conocenos->tipo=$request->tipo;
+                $conocenos->estado='1';
+            }
+            else {
+                $data=request()->validate([
+                    'descripcion'=>'unique:conocenos'
+                ]);        
+                $conocenos->tipo=$request->tipo;
+                $conocenos->descripcion=$request->descripcion;
+                $conocenos->estado='1';
+            }
             $conocenos->save();
             DB::commit();
             return redirect()->route('TipoConoce.show',$conocenos->tipo)->with('datos', 'T');

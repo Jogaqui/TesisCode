@@ -10,10 +10,14 @@ class Trabajador extends Model
     protected $primaryKey="idTrabajador";
     public $timestamps=false;
     protected $fillable = [
-        'apPaterno', 'apMaterno','Nombres','dni','abrevGrado','puesto','correo','telefono','imagen','estado','idUnidad',
+        'apPaterno', 'apMaterno','Nombres','dni','puesto','correo','telefono','imagen','estado','idUnidad','idGrado'
     ];
     public function unidad()
     {
         return $this->hasOne('App\Unidad','idUnidad','idUnidad');
+    }
+    public function grados()
+    {
+        return $this->hasOne('App\Grados','idGrado','idGrado');
     }
 }

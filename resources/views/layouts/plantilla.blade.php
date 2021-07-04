@@ -77,7 +77,7 @@
 
           <!-- Menu Footer-->
           <li class="user-footer">
-            <a href="/welcome" class="btn btn-default btn-flat float-left">Welcome</a>
+            <a href="/welcome" class="btn btn-default btn-flat float-left">Página Web</a>
             <a href="{{ route('logout') }}"
             onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="btn btn-default btn-flat float-right">{{ __('Logout') }}</a>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -129,6 +129,14 @@
               <i class="nav-icon fab fa-audible"></i>
               <p>
                 Tipos de Generalidades
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{route('grados.index')}}" class="nav-link {{ Request::routeIs('grados.index','grados.create','grados.edit') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-industry"></i>
+              <p>
+                Grados
               </p>
             </a>
           </li>
