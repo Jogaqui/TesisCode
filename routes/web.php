@@ -61,6 +61,12 @@ Route::group(['middleware' => 'auth'], function () {
     return redirect()->route('trabajador.index')->with('datos', 'C');
   })->name('cancelarTr');
 
+  // Grados
+  Route::resource('grados', 'GradosController');
+  Route::get(('cancelargr'), function(){
+      return redirect()->route('grados.index')->with('datos', 'C');
+  })->name('cancelargr');
+
   // Publicaciones
   Route::resource('publicacion', 'PublicacionController');
   Route::get('vistas/{id}', 'PublicacionController@leerPublicacion')->name('vistas');
@@ -84,6 +90,7 @@ Route::group(['middleware' => 'auth'], function () {
   // Conocenos
   Route::resource('conocenos', 'ConocenosController');
   Route::get('TipoConoce/{id}','TipoConoceController@show')->name('TipoConoce.show');
+  Route::get('Conocenos/{id}','ConocenosController@creartipogene')->name('creartipogene');
   Route::get(('cancelarc/{id}'), function($tipo){
     return redirect()->route('TipoConoce.show',$tipo)->with('datos', 'C');
   })->name('cancelarc');
@@ -115,7 +122,7 @@ Route::group(['middleware' => 'auth'], function () {
 
   // Funciones
   Route::resource('funciones', 'FuncionesController');
-  Route::get('Funciones/{id?}','FuncionesController@create')->name('Funciones.create');
+  Route::get('Funciones/{id}','FuncionesController@crearfuncion')->name('crearfuncion');
   Route::get('Unidad/{id}','UnidadController@show')->name('Unidad.show');
   Route::get(('cancelarf/{id}'), function($tipo){
     return redirect()->route('Unidad.show',$tipo)->with('datos', 'C');

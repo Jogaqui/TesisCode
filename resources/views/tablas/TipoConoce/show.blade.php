@@ -8,7 +8,7 @@
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">Listado del tipo "{{$tipoconoce->nombre}}"</h3>
-            <a href="{{route('conocenos.create')}}" class="btn btn-success" style="float:right;"><i class="fas fa-plus"></i> Nuevo Registro</a>
+            <a href="{{route('creartipogene',$id)}}" class="btn btn-success" style="float:right;"><i class="fas fa-plus"></i> Nuevo Registro</a>
             <a href="{{route('tipoconoce.index')}}" class="btn btn-info" style="float:right;"><i class="fas fa-arrow-circle-left"></i> Volver</a>
             <br><br>
             

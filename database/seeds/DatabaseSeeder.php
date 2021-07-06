@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
         $this -> call(EtiquetaSeeder::class);
         $this -> call(ContactanosSeeder::class);
         $this -> call(UnidadSeeder::class);
+        $this -> call(GradosSeeder::class);
         $this -> call(TrabajadorSeeder::class);
         $this -> call(IconoSeeder::class);
         $this -> call(TramiteSeeder::class);

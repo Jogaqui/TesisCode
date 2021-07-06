@@ -87,7 +87,7 @@
                                   <div class="row d-flex">
                                     <div class="col-2">
                                       <label for="grado" style="float: left">Grado</label>
-                                      <input type="text" class="form-control" id="grado" name="grado" aria-describedby="descripcionHelp" value="{{$item->abrevGrado}}" disabled>
+                                      <input type="text" class="form-control" id="grado" name="grado" aria-describedby="descripcionHelp" value="{{$item->grados->abreviatura}}" disabled>
                                     </div>
                                     <div class="col-10">
                                       <label for="apPaterno" style="float: left">Nombre Completo</label>

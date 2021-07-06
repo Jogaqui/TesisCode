@@ -10,7 +10,7 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="apPaterno" style="float: left">Apellido Paterno</label>
-                    <input type="text" class="form-control @error('apPaterno') is-invalid @enderror" id="apPaterno" name="apPaterno" pattern="^(?!.* (?: |$))[A-Z][A-Za-záéíóú ]+$" title="Debe poner solo palabras con la primera letra en Mayuscula" required>
+                    <input type="text" class="form-control @error('apPaterno') is-invalid @enderror" id="apPaterno" name="apPaterno" pattern="^(?!.* (?: |$))[A-ZÁÉÍÓÚ][A-Za-záéíóúÁÉÍÓÚ\u00f1\u00d1 ]+$" title="Debe poner solo palabras con la primera letra en Mayuscula" required>
                     @error('apPaterno')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -20,7 +20,7 @@
 
                 <div class="form-group">
                     <label for="apMaterno" style="float: left">Apellido Materno</label>
-                    <input type="text" class="form-control @error('apMaterno') is-invalid @enderror" id="apMaterno" name="apMaterno" pattern="^(?!.* (?: |$))[A-Z][A-Za-záéíóú ]+$" title="Debe poner solo palabras con la primera letra en Mayuscula" required>
+                    <input type="text" class="form-control @error('apMaterno') is-invalid @enderror" id="apMaterno" name="apMaterno" pattern="^(?!.* (?: |$))[A-ZÁÉÍÓÚ][A-Za-záéíóúÁÉÍÓÚ\u00f1\u00d1 ]+$" title="Debe poner solo palabras con la primera letra en Mayuscula" required>
                     @error('apMaterno')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -30,7 +30,7 @@
 
                 <div class="form-group">
                     <label for="nombres" style="float: left">Nombres</label>
-                    <input type="text" class="form-control @error('nombres') is-invalid @enderror" id="nombres" name="nombres" pattern="^(?!.* (?: |$))[A-Z][A-Za-záéíóú ]+$" title="Debe poner solo palabras con la primera letra en Mayuscula" required>
+                    <input type="text" class="form-control @error('nombres') is-invalid @enderror" id="nombres" name="nombres" pattern="^(?!.* (?: |$))[A-ZÁÉÍÓÚ][A-Za-záéíóúÁÉÍÓÚ\u00f1\u00d1 ]+$" title="Debe poner solo palabras con la primera letra en Mayuscula" required>
                     @error('nombres')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -40,7 +40,7 @@
 
                 <div class="form-group">
                     <label for="dni" style="float: left">DNI</label>
-                    <input type="text" class="form-control @error('dni') is-invalid @enderror" id="dni" name="dni" maxlength="8" pattern="[1-9][0-9]{7}" title="Ingrese sólo números" required>
+                    <input type="text" class="form-control @error('dni') is-invalid @enderror" id="dni" name="dni" maxlength="8" pattern="[0-9]{8}" title="Ingrese sólo números" required>
                     @error('dni')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -67,7 +67,9 @@
                     <label for="grado" style="float: left">Grado</label>
                     <select class="form-control @error('grado') is-invalid @enderror" id="grado" name="grado" required>
                         <option value="">Seleccionar Grado</option>
-                        <option value="Dr.">Doctor</option>
+                        @foreach($grado as $itemgrado)
+                            <option value="{{$itemgrado['idGrado']}}">{{$itemgrado['nombre']}}</option>
+                        @endforeach
                     </select>
                     @error('grado')
                     <span class="invalid-feedback" role="alert">
@@ -76,10 +78,9 @@
                     @enderror
                 </div>
 
-
                 <div class="form-group">
                     <label for="puesto" style="float: left">Puesto</label>
-                    <input type="text" class="form-control @error('puesto') is-invalid @enderror" id="puesto" name="puesto" pattern="^(?!.* (?: |$))[A-Z][A-Za-záéíóú ]+$" title="Debe poner solo palabras con la primera letra en Mayuscula">
+                    <input type="text" class="form-control @error('puesto') is-invalid @enderror" id="puesto" name="puesto" pattern="^(?!.* (?: |$))[A-ZÁÉÍÓÚ][A-Za-záéíóúÁÉÍÓÚ1-9,\u00f1\u00d1 ]+$" title="Debe poner solo palabras con la primera letra en Mayuscula">
                     @error('puesto')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>

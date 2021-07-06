@@ -8,9 +8,7 @@
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">Listado de funciones de la unidad "{{$unidad->descripcion}}"</h3>
-            <a href="{{route('funciones.create')}}" class="btn btn-success" style="float:right;"><i class="fas fa-plus"></i> Nuevo Registro</a>@php
-                //dd($unidad->idUnidad);
-            @endphp
+            <a href="{{route('crearfuncion',$id)}}" class="btn btn-success" style="float:right;"><i class="fas fa-plus"></i> Nuevo Registro</a>
             <a href="{{route('unidad.index')}}" class="btn btn-info" style="float:right;"><i class="fas fa-arrow-circle-left"></i> Volver</a>
             <br><br>
             

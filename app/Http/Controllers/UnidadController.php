@@ -49,7 +49,7 @@ class UnidadController extends Controller
         //$conocenos = Conocenos::where('tipo','=',$id)->get();
         $funciones = Funciones::where('unidad','=',$id)->get();
         //return view('tablas.funciones.index', compact('funciones'));
-        return view('tablas.Unidades.show', compact('funciones','unidad'));
+        return view('tablas.Unidades.show', compact('funciones','unidad','id'));
     }
 
     public function edit($id)
@@ -60,15 +60,19 @@ class UnidadController extends Controller
 
     public function update(Request $request, $id)
     {
-        $data=request()->validate([
-            'descripcion'=>'unique:unidades'
-        ]);
-        
         DB::beginTransaction();
         try{
             $unidad = Unidad::findOrFail($id);
-            $unidad->descripcion=$request->descripcion;
-            $unidad->estado='1';
+            if ($unidad->descripcion==$request->descripcion) {
+                $unidad->estado='1';
+            }
+            else {
+                $data=request()->validate([
+                    'descripcion'=>'unique:unidades'
+                ]);
+                $unidad->descripcion=$request->descripcion;
+                $unidad->estado='1';
+            }
             $unidad->save();
             DB::commit();
             return redirect()->route('unidad.index')->with('datos', 'T');

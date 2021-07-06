@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Unidad;
+use App\Grados;
 use App\Trabajador;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -27,8 +28,9 @@ class TrabajadorController extends Controller
     public function create()
     {
         $unidad=Unidad::where('estado','=','1')->get();
+        $grado=Grados::where('estado','=','1')->get();
         // dd($unidad);
-        return view('tablas.Trabajadores.create',compact('unidad'));
+        return view('tablas.Trabajadores.create',compact('unidad','grado'));
     }
 
     public function store(Request $request)
@@ -93,7 +95,10 @@ class TrabajadorController extends Controller
         $idUnidad=$trabajador->idUnidad;
         $unidad=Unidad::findOrFail($idUnidad);
         $unidades=Unidad::where('estado','=','1')->get();
-        return view('tablas.Trabajadores.edit',compact('trabajador','unidad','unidades')); 
+        $idGrado=$trabajador->idGrado;
+        $grado=Grados::findOrFail($idGrado);
+        $grados=Grados::where('estado','=','1')->get();
+        return view('tablas.Trabajadores.edit',compact('trabajador','unidad','unidades','grado','grados')); 
     }
 
     public function update(Request $request, $id)

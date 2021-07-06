@@ -19,7 +19,6 @@ class CreateTrabajadoresTable extends Migration
             $table->string('apMaterno');
             $table->string('nombres');
             $table->char('dni',8);
-            $table->char('abrevGrado');
             $table->string('puesto')->nullable();
             $table->string('correo');
             $table->char('telefono',9);
@@ -27,6 +26,8 @@ class CreateTrabajadoresTable extends Migration
             $table->tinyInteger('estado');
             $table->bigInteger('idUnidad')->unsigned();
             $table->foreign('idUnidad')->references('idUnidad')->on('unidades');
+            $table->bigInteger('idGrado')->unsigned();
+            $table->foreign('idGrado')->references('idGrado')->on('grados');
             // $table->timestamps();
         });
     }
