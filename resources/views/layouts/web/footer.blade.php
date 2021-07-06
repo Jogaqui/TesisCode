@@ -11,8 +11,9 @@
         <!-- Logo -->
         <div class="logo_container">
           <div class="logo">
-            <img src="{{ asset('images/logo.png') }}" alt="">
-            <span>Dirección de Registro Técnico</span>
+            <img src="{{ asset('images/logo-footer.png') }}" width="120" alt="">
+            <br>
+            <span>Unidad de registro<br>académico administrativo</span>
           </div>
         </div>
         <!-- <p class="footer_about_text">In aliquam, augue a gravida rutrum, ante nisl fermentum nulla, vitae tempor nisl ligula vel nunc. Proin quis mi malesuada, finibus tortor fermentum, tempor lacus.</p> -->

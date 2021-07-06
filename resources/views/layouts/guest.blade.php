@@ -4,9 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>{{ config('app.name', 'Laravel') }}</title>
+  <title>URA-A | Sitio Web</title>
 
-  <link rel="icon" href="{{ asset('images/logo - copia.png') }}">
+  <link rel="icon" href="{{ asset('images/logo-icon.png') }}">
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">

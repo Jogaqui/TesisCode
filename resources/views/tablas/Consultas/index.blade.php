@@ -28,7 +28,7 @@
               </thead>
               <tbody>
 
-              @foreach($consulta as $item) 
+              @foreach($consulta as $item)
                 <tr>
                     <td>{{$item->idConsulta}}</td>
                     <td>{{$item->nombre}}</td>
@@ -36,18 +36,18 @@
                     <td>{{$item->fecha}}</td>
                     <td>{{$item->unidad->descripcion}}</td>
                       @if ($item->estado==1)
-                        <td>Pendiente</td>                          
+                        <td>Pendiente</td>
                       @else
                         <td>Resuelto</td>
                       @endif
                     <td>
                       <a href="{{route('consulta.show',$item->idConsulta)}}" class="btn btn-success btn-sm"><i class="fas fa-eye"></i> Mensaje</a>
                       @if ($item->estado==1)
-                        <a href="" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModalCenter{{$item->idConsulta}}"><i class="far fa-folder"></i></i> Resolver</a>
+                      <a href="{{route('consulta.edit',$item->idConsulta)}}" class="btn btn-danger btn-sm"><i class="far fa-folder"></i> Resolver</a>
                       @endif
                     </td>
                 </tr>
-            <!------ ESTE ES EL MODAL QUE SE MUESTRA AL DAR CLICK EN EL BOTON "ELIMINAR" ------>
+            <!-- ESTE ES EL MODAL QUE SE MUESTRA AL DAR CLICK EN EL BOTON "ELIMINAR" -->
             <div class="modal fade" id="exampleModalCenter{{$item->idConsulta}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
@@ -62,13 +62,13 @@
                                 @method('delete')
                                 @csrf
                                 <a type="button" href="{{route('cancelarC')}}" class="btn btn-secondary"><i class="fas fa-ban"></i> Cancelar</a>
-                                <button type="submit" class="btn btn-danger"><i class="fas fa-times"></i> Aceptar</button> 
+                                <button type="submit" class="btn btn-danger"><i class="fas fa-times"></i> Aceptar</button>
                             </form>
                         </div>
                     </div>
                 </div>
             </div><!--fin modal-->
-              @endforeach  
+              @endforeach
 
               </tbody>
               <tfoot>

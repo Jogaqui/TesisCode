@@ -2,7 +2,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>DRT | Intranet</title>
+  <title>URA-A | Intranet</title>
+
+  <link rel="icon" href="{{ asset('images/logo-icon.png') }}">
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -95,7 +97,7 @@
     <!-- Brand Logo -->
     <a href="/home" class="brand-link" style="background: rgb(3, 15, 54)">
       <img src="/adminlte/dist/img/unt1.jpg" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-bold">Registro Técnico</span>
+      <span class="brand-text font-weight-bold">URA-Administrativo</span>
     </a>
 
     <!-- Sidebar -->
@@ -384,18 +386,6 @@ var table = $('#example1').DataTable({
       })
     </script>
     @endif
-
-    <script>
-      function cancel() {
-        Swal.fire({
-        icon: 'error',
-        title: 'Cancelado...',
-        text: 'Su registro ha sido cancelado correctamente.!',
-        showConfirmButton: false,
-        footer: '<a href="javascript: history.go(-1)" class="btn btn-primary">Ok</a>'
-      })
-    }
-    </script>
 <script>
   $(function () {
     //Initialize Select2 Elements

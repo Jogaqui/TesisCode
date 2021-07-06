@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use App\Jobs\EmailRespuestaJob;
 use App\Consulta;
 
 class ConsultaController extends Controller
@@ -77,7 +79,8 @@ class ConsultaController extends Controller
      */
     public function edit($id)
     {
-        //
+      $consulta = Consulta::findOrFail($id);
+      return view('tablas.Consultas.response', compact('consulta'));
     }
 
     /**
@@ -89,7 +92,23 @@ class ConsultaController extends Controller
      */
     public function update(Request $request, $id)
     {
-
+      $consulta = Consulta::findOrFail($id);
+      $respuesta = $request->respuesta;
+      config(['mail.mailers.smtp.username' => Auth::user()->email]);
+      config(['mail.mailers.smtp.password' => $request->password]);
+      // dd(config('mail.mailers.smtp'));
+      // return view('mails.RespuestaEnviada', compact('consulta'), compact('respuesta'));
+      DB::beginTransaction();
+      try{
+        dispatch(new EmailRespuestaJob(Auth::user()->email, $consulta->correo, $consulta->idConsulta, $consulta->mensaje, $request->respuesta));
+        // $consulta->estado = 0;
+        // $consulta->update();
+        DB::commit();
+        return redirect()->route('consulta.index')->with('datos','T');
+      } catch(Exception $e){
+        DB::rollback();
+        return redirect()->route('consulta.index')->with('datos','C');
+      }
     }
 
     /**
@@ -100,7 +119,6 @@ class ConsultaController extends Controller
      */
     public function destroy($id)
     {
-
         DB::beginTransaction();
         try{
             $consulta=Consulta::findOrFail($id);
