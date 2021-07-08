@@ -20,5 +20,7 @@ class DatabaseSeeder extends Seeder
         $this -> call(TrabajadorSeeder::class);
         $this -> call(IconoSeeder::class);
         $this -> call(TramiteSeeder::class);
+        $this -> call(GeneralidadesSeeder::class);
+        $this -> call(PreguntasSeeder::class);
     }
 }

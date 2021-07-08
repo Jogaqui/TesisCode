@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Contactanos;
+use App\TipoConoce;
+use App\Conocenos;
 
 class AboutUsController extends Controller
 {
@@ -15,7 +17,11 @@ class AboutUsController extends Controller
     public function index()
     {
       $info = Contactanos::where('estado',1)->first();
-      return view('aboutUs') -> with(compact('info'));
+      $generalidades = TipoConoce::where('estado',1)->get();
+      foreach ($generalidades as $item) {
+        $item->detalles = Conocenos::where('tipo', $item->idConoce)->where('estado',1)->get();
+      }
+      return view('aboutUs') -> with(compact('info', 'generalidades'));
     }
 
     /**

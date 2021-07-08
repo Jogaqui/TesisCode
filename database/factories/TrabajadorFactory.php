@@ -18,6 +18,6 @@ $factory->define(Trabajador::class, function (Faker $faker) {
       'imagen' => $faker->imageUrl(),
       'estado' => 1,
       'idGrado' => $faker->numberBetween(1, 8),
-      'idUnidad' => $faker->numberBetween(1, 5),
+      'idUnidad' => $faker->numberBetween(1, 6),
     ];
 });

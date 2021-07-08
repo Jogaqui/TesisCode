@@ -46,7 +46,7 @@
 
       <!-- Footer Column - Contact -->
       <div class="col-lg-4 footer_col">
-        <div class="footer_column_title">Contact</div>
+        <div class="footer_column_title">Contáctanos</div>
         <div class="footer_column_content">
           <ul>
             <li class="footer_contact_item">

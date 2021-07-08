@@ -511,7 +511,7 @@
 									<td style="padding:36px 0 0 0;color:#153643;">
 										<h1 style="font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;">{{$consulta}}</h1>
 										<h5 style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">{{$respuesta}}<h5>
-										<p style="margin:48px 0 0 0 ;font-size:14px;line-height:24px;font-family:Arial,sans-serif">Recuerde que respondiendo este correo puede continuar con su consulta, NO ES NECESARIO volver a ingresar su respuesta por el Sitio Web</p>
+										<p style="margin:48px 0 0 0 ;font-size:14px;line-height:24px;font-family:Arial,sans-serif">Recuerde que respondiendo este correo puede continuar con su consulta, NO ES NECESARIO volver a ingresar su re-consulta (consulta sobre el mismo tema) por el Sitio Web</p>
 									</td>
 								</tr>
 							</table>

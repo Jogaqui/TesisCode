@@ -4,11 +4,10 @@
     <h3>Preguntas frecuentes</h3>
   </div>
   <ul class="sidebar_list">
-    <li class="sidebar_list_item"><a href="#">¿Design Courses?</a></li>
-    <li class="sidebar_list_item"><a href="#">¿All you need to know?</a></li>
-    <li class="sidebar_list_item"><a href="#">¿Uncategorized?</a></li>
-    <li class="sidebar_list_item"><a href="#">¿About Our Departments?</a></li>
-    <li class="sidebar_list_item"><a href="#">¿Choose the right course?</a></li>
+    @foreach ($unidades as $unidad)
+
+    <li class="sidebar_list_item"><a href="{{route('question.show', $unidad->idUnidad)}}" style="{{ request()->is('question/'.$unidad->idUnidad) ? 'color: #ffb606;' : '' }}">{{ $unidad->descripcion }}</a></li>
+    @endforeach
   </ul>
 </div>
 

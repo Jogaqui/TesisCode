@@ -10,12 +10,15 @@
         <div class="card-body">
             <div class="form-group">
                 <label for="nombre" style="float: left">De:</label>
-                <input type="email" class="form-control" value="{{ Auth::User()->email }}" disabled required>
+                <input type="email" class="form-control" value="{{ Auth::User()->email }}" disabled>
 
                 <label for="correo" style="float: left">Para:</label>
-                <input type="email" class="form-control" value="{{ $consulta->correo }}" disabled required>
+                <input type="email" class="form-control" value="{{ $consulta->correo }}" disabled>
 
-                <label for="respuesta" style="float: left">Mensaje:</label>
+                <label for="correo" style="float: left">Consulta:</label>
+                <input type="email" class="form-control" value="{{ $consulta->mensaje }}" readonly>
+
+                <label for="respuesta" style="float: left">Respuesta:</label>
                 <textarea rows="5" class="form-control @error('texto') is-invalid @enderror" id="respuesta" name="respuesta" autofocus required></textarea>
 
                 <label for="input_password" style="float: left">Contraseña del correo:</label>

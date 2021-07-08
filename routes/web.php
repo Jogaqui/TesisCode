@@ -37,6 +37,7 @@ Route::resource('/procedure', ProcedureController::class);
 Route::resource('/unit', UnitController::class);
 Route::resource('/aboutus', AboutUsController::class);
 Route::resource('/contact', ContactController::class);
+Route::resource('/question', QuestionController::class);
 
 
 //APP

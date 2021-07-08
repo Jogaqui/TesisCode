@@ -18,28 +18,29 @@
 <div class="contact">
   <div class="container">
     <div class="row">
+      @for ($i = 0; $i < 2; $i++)
       <div class="col-lg-6">
         <div class="about">
-          <div class="about_title">Misión</div>
-          <p class="about_text">In aliquam, augue a gravida rutrum, ante nisl fermentum nulla, vitae tempor nisl ligula vel nunc. Proin quis mi malesuada, finibus tortor fermentum. Etiam eu purus nec eros varius luctus. Praesent finibus risus facilisis ultricies. Etiam eu purus nec eros varius luctus.</p>
+          <div class="about_title">{{$generalidades[$i]->nombre}}</div>
+          <p class="about_text">{{$generalidades[$i]->detalles[0]->descripcion}}</p>
         </div>
       </div>
-
-      <div class="col-lg-6">
-        <div class="about">
-          <div class="about_title">Visión</div>
-          <p class="about_text">In aliquam, augue a gravida rutrum, ante nisl fermentum nulla, vitae tempor nisl ligula vel nunc. Proin quis mi malesuada, finibus tortor fermentum. Etiam eu purus nec eros varius luctus. Praesent finibus risus facilisis ultricies. Etiam eu purus nec eros varius luctus.</p>
-        </div>
-      </div>
+      @endfor
     </div>
+    @for ($i = 2; $i < count($generalidades); $i++)
     <div class="row">
       <div class="col-lg-12">
         <div class="about">
-          <div class="about_title">Funciones</div>
-          <p class="about_text">In aliquam, augue a gravida rutrum, ante nisl fermentum nulla, vitae tempor nisl ligula vel nunc. Proin quis mi malesuada, finibus tortor fermentum. Etiam eu purus nec eros varius luctus. Praesent finibus risus facilisis ultricies. Etiam eu purus nec eros varius luctus.</p>
+          <div class="about_title">{{$generalidades[$i]->nombre}}</div>
+          <p class="about_text">
+            @foreach ($generalidades[$i]->detalles as $item)
+            {{ $loop->index+1 }}. {{$item->descripcion}}<br>
+            @endforeach
+          </p>
         </div>
       </div>
     </div>
+    @endfor
   </div>
 </div>
 @endsection

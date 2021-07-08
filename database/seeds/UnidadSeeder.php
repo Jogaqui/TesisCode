@@ -29,6 +29,10 @@ class UnidadSeeder extends Seeder
           'estado' => 1,
       ]);
       Unidad::create([
+          'descripcion' => 'Unidad de Estadística e Informática',
+          'estado' => 1,
+      ]);
+      Unidad::create([
           'descripcion' => 'Seccion de Actas y Archivo',
           'estado' => 1,
       ]);
