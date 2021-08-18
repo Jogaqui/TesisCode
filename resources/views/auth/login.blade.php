@@ -37,12 +37,12 @@
             <form method="POST" action="{{ route('login') }}" class="search_form">
                 @csrf
                 <div class="form-group row">
-                    <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                    <label for="usu_login" class="col-md-4 col-form-label text-md-right">{{ __('Código') }}</label>
 
                     <div class="col-md-6">
-                        <input id="email" type="email" class="input_field search_form_degree @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                        <input id="usu_login" type="text" class="input_field search_form_degree @error('usu_login') is-invalid @enderror" name="usu_login" value="{{ old('usu_login') }}" required autocomplete="usu_login" autofocus>
 
-                        @error('email')
+                        @error('usu_login')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>

@@ -1,8 +1,6 @@
 <?php
 
-// use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
-// use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\User;
 
@@ -16,19 +14,14 @@ class UserSeeder extends Seeder
     public function run()
     {
         User::create([
-            'name' => 'César Urbina',
-            'email' => 'csaun_98@hotmail.com',
-            'password' => Hash::make('12345678'),
-        ]);
-        User::create([
-            'name' => 'José Mantilla',
-            'email' => 'jmantillas@unitru.edu.pe',
-            'password' => Hash::make('12345678'),
-        ]);
-        User::create([
-            'name' => 'Kevin Juárez',
-            'email' => 'kevinkjjuarez@gmail.com',
-            'password' => Hash::make('12345678'),
+          'usu_nombres' => 'CESAR AUGUSTO',
+          'usu_apepaterno' => 'URBINA',
+          'usu_apematerno' => 'NARRO',
+          'usu_email' => 'curbina@unitru.edu.pe',
+          'usu_login' => 'curbina@unitru.edu.pe',
+          'usu_dni' => '74660603',
+          'password' => Hash::make('12345678'),
+          'usu_rol' => 1,
         ]);
     }
 }
