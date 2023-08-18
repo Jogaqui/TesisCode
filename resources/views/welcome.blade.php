@@ -15,7 +15,7 @@
     <div class="hero_slider owl-carousel">
       <!-- Hero Slide -->
       <div class="hero_slide">
-        <div class="hero_slide_background" style="background-image:url(images/slider_background.jpg)"></div>
+        <div class="hero_slide_background" style="background-image:url(images/courses_background_2.jpg)"></div>
         <div class="hero_slide_container d-flex flex-column align-items-center justify-content-center">
           <div class="hero_slide_content text-center">
             <!-- <h1 data-animation-in="fadeInUp" data-animation-out="animate-out fadeOut">Get your <span>Education</span> today!</h1> -->
@@ -24,7 +24,7 @@
       </div>
       <!-- Hero Slide -->
       <div class="hero_slide">
-        <div class="hero_slide_background" style="background-image:url(images/slider_background.jpg)"></div>
+        <div class="hero_slide_background" style="background-image:url(images/courses_background_2.jpg)"></div>
         <div class="hero_slide_container d-flex flex-column align-items-center justify-content-center">
           <div class="hero_slide_content text-center">
             <!-- <h1 data-animation-in="fadeInUp" data-animation-out="animate-out fadeOut">Get your <span>Education</span> today!</h1> -->
@@ -33,7 +33,7 @@
       </div>
       <!-- Hero Slide -->
       <div class="hero_slide">
-        <div class="hero_slide_background" style="background-image:url(images/slider_background.jpg)"></div>
+        <div class="hero_slide_background" style="background-image:url(images/courses_background_2.jpg)"></div>
         <div class="hero_slide_container d-flex flex-column align-items-center justify-content-center">
           <div class="hero_slide_content text-center">
             <!-- <h1 data-animation-in="fadeInUp" data-animation-out="animate-out fadeOut">¡ La mejor <span>Education</span> !</h1> -->

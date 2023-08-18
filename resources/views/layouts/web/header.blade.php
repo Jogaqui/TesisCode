@@ -3,7 +3,7 @@
     <!-- Logo -->
     <div class="logo_container">
       <div class="logo">
-        <img src="{{ asset('images/logo.png') }}" alt="Logo UNT">
+        <img src="{{ asset('images/logo_uraa_2.png') }}" alt="Logo UNT">
         <!-- <span>DIRECCIÓN DE<br>REGISTRO TÉCNICO</span> -->
       </div>
     </div>
