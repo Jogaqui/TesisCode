@@ -44,38 +44,69 @@ class TrabajadorController extends Controller
         DB::beginTransaction();
         try{
             $trabajador = new Trabajador();
+            $trabajador->apPaterno=$request->apPaterno;
+            $trabajador->apMaterno=$request->apMaterno;
+            $trabajador->nombres=$request->nombres;
+            $trabajador->dni=$request->dni;
+
             if(!empty($request->puesto)){
-                $trabajador->apPaterno=$request->apPaterno;
-                $trabajador->apMaterno=$request->apMaterno;
-                $trabajador->nombres=$request->nombres;
-                $trabajador->dni=$request->dni;
-                $trabajador->abrevGrado=$request->grado;
                 $trabajador->puesto=$request->puesto;
-                $trabajador->correo=$request->correo;
-                $trabajador->telefono=$request->telefono;
-                $img = $request->file('imagen');
-                $nombre=$img->getClientOriginalName();
-                $nombreBD="/storage/trabajadores/".$nombre;
-                $img->storeAs("public/trabajadores", $nombre);
-                $trabajador->imagen=$nombreBD;
-                $trabajador->idUnidad=$request->idUnidad;
-                $trabajador->estado='1';
-            }else{
-                $trabajador->apPaterno=$request->apPaterno;
-                $trabajador->apMaterno=$request->apMaterno;
-                $trabajador->nombres=$request->nombres;
-                $trabajador->dni=$request->dni;
-                $trabajador->abrevGrado=$request->grado;
-                $trabajador->correo=$request->correo;
-                $trabajador->telefono=$request->telefono;
-                $img = $request->file('imagen');
-                $nombre=$img->getClientOriginalName();
-                $nombreBD="/storage/trabajadores/".$nombre;
-                $img->storeAs("public/trabajadores", $nombre);
-                $trabajador->imagen=$nombreBD;
-                $trabajador->idUnidad=$request->idUnidad;
-                $trabajador->estado='1';
             }
+           
+            if(!empty($request->telefono)){
+                $trabajador->telefono=$request->telefono;
+            }
+            if(!empty($request->linkedin)){
+                $trabajador->linkedin=$request->linkedin;
+            }
+            if(!empty($request->facebook)){
+                $trabajador->facebook=$request->facebook;
+            }
+
+            $trabajador->correo=$request->correo;
+            $img = $request->file('imagen');
+            $nombre=$img->getClientOriginalName();
+            $nombreBD="/storage/trabajadores/".$nombre;
+            $img->storeAs("public/trabajadores", $nombre);
+            $trabajador->imagen=$nombreBD;
+            $trabajador->idUnidad=$request->idUnidad;
+            $trabajador->idGrado=$request->grado;
+            $trabajador->estado='1';
+            
+            // if(!empty($request->puesto)){
+            //     $trabajador->apPaterno=$request->apPaterno;
+            //     $trabajador->apMaterno=$request->apMaterno;
+            //     $trabajador->nombres=$request->nombres;
+            //     $trabajador->dni=$request->dni;
+            //     $trabajador->idGrado=$request->grado;
+            //     $trabajador->puesto=$request->puesto;
+            //     $trabajador->correo=$request->correo;
+            //     $trabajador->telefono=$request->telefono;
+            //     $img = $request->file('imagen');
+            //     $nombre=$img->getClientOriginalName();
+            //     $nombreBD="/storage/trabajadores/".$nombre;
+            //     $img->storeAs("public/trabajadores", $nombre);
+            //     $trabajador->imagen=$nombreBD;
+            //     $trabajador->idUnidad=$request->idUnidad;
+            //     $trabajador->estado='1';
+            // }else{
+            //     $trabajador->apPaterno=$request->apPaterno;
+            //     $trabajador->apMaterno=$request->apMaterno;
+            //     $trabajador->nombres=$request->nombres;
+            //     $trabajador->dni=$request->dni;
+            //     $trabajador->idGrado=$request->grado;
+            //     $trabajador->correo=$request->correo;
+            //     $trabajador->telefono=$request->telefono;
+            //     $img = $request->file('imagen');
+            //     $nombre=$img->getClientOriginalName();
+            //     $nombreBD="/storage/trabajadores/".$nombre;
+            //     $img->storeAs("public/trabajadores", $nombre);
+            //     $trabajador->imagen=$nombreBD;
+            //     $trabajador->idUnidad=$request->idUnidad;
+            //     $trabajador->estado='1';
+            // }
+
+
             $trabajador->save();
             DB::commit();
             return redirect()->route('trabajador.index')->with('datos', 'G');

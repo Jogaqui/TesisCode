@@ -12,8 +12,8 @@
         <div class="logo_container">
           <div class="logo">
             <img src="{{ asset('images/logo-footer.png') }}" width="120" alt="">
-            <br>
-            <span>Unidad de registro<br>académico administrativo</span>
+            <br><br>
+            <span>Unidad de registros<br>académicos</span>
           </div>
         </div>
         <!-- <p class="footer_about_text">In aliquam, augue a gravida rutrum, ante nisl fermentum nulla, vitae tempor nisl ligula vel nunc. Proin quis mi malesuada, finibus tortor fermentum, tempor lacus.</p> -->
@@ -22,12 +22,24 @@
 
       <!-- Footer Column - Menu -->
       <div class="col-lg-4 footer_col">
-        <div class="footer_column_title">Menu</div>
+        <div class="footer_column_title">Menú</div>
         <div class="footer_column_content">
           <ul>
             <li class="footer_list_item"><a href="{{ url('welcome') }}">Inicio</a></li>
+            <li class="footer_list_item"><a href="{{ url('aboutus') }}">Nosotros</a></li>
+            <li class="footer_list_item"><a href="{{ url('unit') }}">Subunidades</a></li>
             <li class="footer_list_item"><a href="{{ url('procedure') }}">Trámites</a></li>
-            <li class="footer_list_item"><a href="{{ url('unit') }}">Unidades</a></li>
+            <li class="footer_list_item"><a href="{{ url('statitics') }}">Estadísticas</a></li>
+            
+            <li class="footer_list_item"><a href="{{ url('news') }}">Noticias</a></li>
+            
+            <li class="footer_list_item"><a href="{{ url('contact') }}">Contacto</a></li>
+          </ul>
+        </div>
+        <br>
+        <div class="footer_column_title">Recursos</div>
+        <div class="footer_column_content">
+          <ul>
             @if (Route::has('login'))
               @auth
               <li class="footer_list_item"><a href="{{ url('home') }}">Intranet</a></li>
@@ -38,11 +50,13 @@
                 @endif
               @endauth
             @endif
-            <li class="footer_list_item"><a href="{{ url('aboutus') }}">Conócenos</a></li>
-            <li class="footer_list_item"><a href="{{ url('contact') }}">Contáctanos</a></li>
+           
           </ul>
         </div>
+
+
       </div>
+
 
       <!-- Footer Column - Contact -->
       <div class="col-lg-4 footer_col">

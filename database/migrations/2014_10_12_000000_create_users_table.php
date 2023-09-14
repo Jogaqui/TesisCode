@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('usu_apepaterno');
             $table->string('usu_apematerno');
             $table->string('usu_nombres');
+            $table->string('usu_nombreCompleto');
             $table->string('usu_email');
             $table->string('usu_login');
             $table->string('password');

@@ -52,7 +52,7 @@
                     @enderror
                 </div>      
 
-                <div class="form-group">
+                {{-- <div class="form-group">
                     <label for="archivo" style="float: left">Archivo</label>
                     <input type="text" class="form-control @error('archivo') is-invalid @enderror" id="archivo" name="archivo">
                     @error('archivo')
@@ -60,23 +60,29 @@
                         <strong>{{ $message }}</strong>
                     </span>
                     @enderror
-                </div>      
-
+                </div>   --}}
+                
                 <div class="form-group">
-                    <div class="row d-flex">
-                        <div class="col-3">
-                            <label style="float: left">Etiquetas</label>
-                        </div>
-                        <div class="col-9">
-                            <div class="select2-purple">
-                                <select class="select2" multiple="multiple" data-placeholder="Selecciones etiqueta(s)" data-dropdown-css-class="select2-purple" style="width: 100%;" id="etiquetas[]" name="etiquetas[]" >
-                                    @foreach($etiqueta as $item)
-                                        <option value="{{$item->idEtiqueta}}" >{{$item->descripcion}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>
+                    <label for="archivo" style="float: left">Archivo</label><br><br>
+                    <input accept=".pdf, .doc, .docx" type="file"  id="archivo" name="archivo">
+                    <!-- <input type="text" class="form-control @error('archivo') is-invalid @enderror" id="imagen" name="imagen"> -->
+                    @error('archivo')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+
+                <div class="form-group">        
+                    <label style="float: left">Etiquetas</label><br>
+                    <div class="select2-purple">
+                        <select class="select2" multiple="multiple" data-placeholder="Selecciones etiqueta(s)" data-dropdown-css-class="select2-purple" style="width: 100%;" id="etiquetas[]" name="etiquetas[]" >
+                            @foreach($etiqueta as $item)
+                                <option value="{{$item->idEtiqueta}}" >{{$item->descripcion}}</option>
+                            @endforeach
+                        </select>
+                    </div> 
+                 
                 </div>
             </div>
             <div class="card-footer" style="text-align:center">

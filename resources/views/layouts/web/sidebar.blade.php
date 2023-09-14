@@ -77,7 +77,7 @@
   </div>
   <div class="tags d-flex flex-row flex-wrap">
     @foreach ($etiquetas as $tag)
-    <div class="tag"><a href="{{route('welcome.showByTag', $tag->idEtiqueta)}}">{{$tag->descripcion}}</a></div>
+    <div class="tag"><a href="{{route('news.showByTag', $tag->idEtiqueta)}}">{{$tag->descripcion}}</a></div>
     @endforeach
   </div>
 </div>

@@ -12,7 +12,7 @@
                 <div class="form-group">
                     <label for="titulo" style="float: left">Título</label>
                     <input type="text" class="form-control @error('titulo') is-invalid @enderror" id="titulo" name="titulo" value="{{$publicacion->titulo}}"
-                    pattern="^(?!.* (?: |$))[A-Z][A-Za-záéíóú1-9 ]+$" title="Debe poner solo palabras con la primera letra en Mayúscula" required>
+                    required>
                     @error('titulo')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -90,6 +90,18 @@
                     </span>
                     @enderror
                 </div>
+
+                <div class="form-group">
+                    <label for="archivo" style="float: left">Archivo</label><br><br>
+                    <input accept=".pdf, .doc, .docx"  type="file"  id="archivo" name="archivo">
+                    <!-- <input type="text" class="form-control @error('archivo') is-invalid @enderror" id="imagen" name="imagen"> -->
+                    @error('archivo')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+
 
             </div>
             <div class="card-footer" style="text-align:center">

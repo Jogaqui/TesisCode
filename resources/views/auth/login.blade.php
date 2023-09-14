@@ -1,17 +1,44 @@
 @extends('layouts.guest')
 @section('styles')
+<link rel="stylesheet" type="text/css" href="{{ asset('plugins/OwlCarousel2-2.2.1/owl.carousel.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('plugins/OwlCarousel2-2.2.1/owl.theme.default.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('plugins/OwlCarousel2-2.2.1/animate.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/main_styles.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/responsive.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('css/login_styles.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('css/teachers_responsive.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/responsive.css') }}">
 @endsection
 @section('contenido')
 <!-- Home -->
+
 <div class="home">
-  <div class="home_background_container prlx_parent">
-    <div class="home_background prlx" style="background-image:url(images/teachers_background.jpg)"></div>
+
+  <!-- Hero Slider -->
+  <div class="hero_slider_container">
+    <div class="hero_slider owl-carousel">
+      <!-- Hero Slide -->
+      <div class="hero_slide">
+        <div class="hero_slide_background" style="background-image:url(images/teachers_background.jpg)"></div>
+        <div class="hero_slide_container d-flex flex-column align-items-center justify-content-center" style="height:100%">
+          <div class="hero_slide_content text-center" style="padding-top: 60px">
+             <h1 data-animation-in="fadeInUp" data-animation-out="animate-out fadeOut"><span>Intranet</span></h1> 
+          </div>
+        </div>
+      </div>
+      <!-- Hero Slide -->
+      <div class="hero_slide">
+        <div class="hero_slide_background" style="background-image:url(images/teachers_background.jpg)"></div>
+        <div class="hero_slide_container d-flex flex-column align-items-center justify-content-center" style="height:100%">
+          <div class="hero_slide_content text-center" style="padding-top: 60px">
+             <h1 data-animation-in="fadeInUp" data-animation-out="animate-out fadeOut"><span>Intranet</span></h1> 
+          </div>
+        </div>
+      </div>
+    
+    </div>
+
   </div>
-  <div class="home_content">
-    <h1>Intranet</h1>
-  </div>
+
 </div>
 
 <!-- Login -->
@@ -23,8 +50,8 @@
           <div class="register_content text-center">
             <p class="register_text"> <br><br> </p>
             <h1 class="register_title"> {{ __('Login') }} al sistema <span>intranet</span> de la Dirección de Registro Técnico</h1>
-            <p class="register_text"> Para poder acceder al gestor de contenido de la Dirección de Registro Técnico, debe ingresar sus credenciales otorgadas por el administrador de este sitio web.</p><br><br>
-            <h1 class="register_title"><span>MUCHAS GRACIAS</span></h1>
+            <p class="register_text"> Sistema gestor de contenido de la Dirección de Registro Técnico orientado a los <span style="color: black">Administrativos</span> de la unidad, para acceder ingrese sus credenciales otorgadas por el administrador de este sitio web. </p><br><br>
+            <h1 class="register_title"><span>Muchas Gracias.</span></h1>
           </div>
         </div>
       </div>

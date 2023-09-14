@@ -2,6 +2,7 @@
 @section('styles')
 <link rel="stylesheet" type="text/css" href="{{ asset('css/contact_styles.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('css/contact_responsive.css') }}">
+
 @endsection
 @section('contenido')
 <!-- Home -->
@@ -24,7 +25,7 @@
 
         <!-- Contact Form -->
         <div class="contact_form">
-          <div class="contact_title">Ponerse en contacto</div>
+          <div class="contact_title">Póngase en contacto</div>
 
           <div class="contact_form_container">
             <form method="post" action="{{route('contact.store')}}">

@@ -32,12 +32,19 @@ Route::group(['middleware' => 'auth'], function () {
 
 //WEB
 Route::resource('/welcome', WelcomeController::class);
-Route::get('/welcome/etiqueta/{posts}', 'WelcomeController@showByTag')->name('welcome.showByTag');
+Route::get('/news/etiqueta/{posts}', 'NewsController@showByTag')->name('news.showByTag');
 Route::resource('/procedure', ProcedureController::class);
 Route::resource('/unit', UnitController::class);
+Route::resource('/news', NewsController::class);
 Route::resource('/aboutus', AboutUsController::class);
 Route::resource('/contact', ContactController::class);
 Route::resource('/question', QuestionController::class);
+Route::resource('/statitics', StatiticsController::class);
+Route::get('/statitics/reportes/matriculas_sga/{sede}/{semestre}/{dependencia}', 'StatiticsController@getNroAlumnosMatriculadosByEscuela_SGA');
+
+Route::get('/statitics/reportes/matriculas_suv/{sede}/{semestre}/{dependencia}', 'StatiticsController@getNroAlumnosMatriculadosByEscuela_SUV');
+
+Route::get('/statitics/reportes/matriculas_consolidado/{semestre}', 'StatiticsController@getNroAlumnosMatriculadosByEscuela_Consolidado');
 
 
 //APP
@@ -81,7 +88,19 @@ Route::group(['middleware' => 'auth'], function () {
       return redirect()->route('etiqueta.index')->with('datos', 'C');
   })->name('cancelarE');
 
-  //Tramite
+   //Manual
+   Route::resource('manual', 'ManualController');
+   Route::get(('cancelarHis'), function(){
+       return redirect()->route('manual.index')->with('datos', 'C');
+   })->name('cancelarHis');
+
+   //Pregunta
+   Route::resource('pregunta', 'PreguntaController');
+   Route::get(('cancelarPreg'), function(){
+       return redirect()->route('pregunta.index')->with('datos', 'C');
+   })->name('cancelarPreg'); 
+
+   //Tramite
   Route::resource('tramite', 'TramiteController');
   Route::get(('cancelarT'), function(){
       return redirect()->route('tramite.index')->with('datos', 'C');

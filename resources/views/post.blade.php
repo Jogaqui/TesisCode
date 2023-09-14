@@ -2,6 +2,10 @@
 @section('styles')
 <link rel="stylesheet" type="text/css" href="{{ asset('css/news_post_styles.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('css/news_post_responsive.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/main_styles.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/responsive.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/elements_styles.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/elements_responsive.css') }}">
 @endsection
 @section('contenido')
 <!-- Home -->
@@ -46,6 +50,8 @@
                   <span class="news_post_author"><a href="#">By {{$post -> creador}}</a></span>
                   <span>|</span>
                   <span class="news_post_comments"><a href="#">{{date('Y', strtotime($post -> fecha))}}</a></span>
+                  <span>| </span>
+                  <span class="news_post_comments"><a href="#">{{$post -> vistas}} Vistas</a></span>
                 </div>
               </div>
             </div>
@@ -54,20 +60,20 @@
               @foreach ($etiquetasPost as $tag)
               @foreach ($etiquetas as $itag)
               @if($tag->idEtiqueta == $itag->idEtiqueta)
-              <div class="tag"><a href="{{route('welcome.showByTag', $itag->idEtiqueta)}}">{{$itag->descripcion}}</a></div>
+              <div class="tag"><a href="{{route('news.showByTag', $itag->idEtiqueta)}}">{{$itag->descripcion}}</a></div>
               @endif
               @endforeach
               @endforeach
             </div>
 
             <div class="news_post_quote">
-              <p class="news_post_quote_text"><span>E</span>tiam eu purus nec eros varius luctus. Praesent finibus risus facilisis ultricies venena tis. Suspendisse fermentum sodales lacus, lacinia gravida elit.</p>
+              <p class="news_post_quote_text"><span>()</span>{{$post->texto}}</p>
             </div>
 
-            <p class="news_post_text" style="margin-top: 59px;">{{$post -> texto}}</p>
+            <p class="news_post_text" style="margin-top: 40px;"> </p>
 
             <div class="news_post_button text-center trans_200">
-              <a href="{{$post -> archivo}}" target="_blank">Descargar archivo adjunto</a>
+              <a href="{{$post->archivo}}" target="_blank">Descargar archivo adjunto</a>
             </div>
           </div>
 

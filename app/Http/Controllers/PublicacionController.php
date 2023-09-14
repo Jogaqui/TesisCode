@@ -8,7 +8,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use App\Models\Post;
+use Illuminate\Http\UploadedFile;
 
 class PublicacionController extends Controller
 {
@@ -19,7 +21,7 @@ class PublicacionController extends Controller
      */
     public function index()
     {
-        $publicacion = Publicacion::all();
+        $publicacion = Publicacion::where('estado',1)->orderBy('fecha','desc')->get();
         return view('tablas.Publicaciones.index',compact('publicacion'));
     }
 
@@ -50,6 +52,7 @@ class PublicacionController extends Controller
             'titulo.required'=>'Ingrese título',
         ]);
 
+       
         DB::beginTransaction();
         try{
             $publicacion = new Publicacion();
@@ -57,19 +60,35 @@ class PublicacionController extends Controller
             // dd($img);
             // $nombre=$img->getClientOriginalName();
             // $img->move('/uploads/', $nombre);
-            $nombreUsuario=Auth::user()->name;
-            $img = $request->file('imagen');
-            $nombre=$img->getClientOriginalName();
-            // dd($nombre);
+            $nombreUsuario=Auth::user()->usu_nombreCompleto;
+            if(!empty($request->file('imagen'))){
+                $img = $request->file('imagen');
+                $nombre=$img->getClientOriginalName();      
+                $img->storeAs("public/publicaciones", $nombre);
+            }
+            else{
+                $nombre="logount".$publicacion->idPublicacion.".png";     
+            }
+          
             $nombreBD="/storage/publicaciones/".$nombre;
-            $img->storeAs("public/publicaciones", $nombre);
+       
             $publicacion->imagen=$nombreBD;
             $publicacion->titulo=$request->titulo;
             $publicacion->fecha=date('Y-m-d H:i:s');
+            
+            if(!empty($request->file('archivo'))){
+                $archivo_file = $request->file('archivo');
+                $nombre_archivo=$archivo_file->getClientOriginalName();      
+                $archivo_file->storeAs("public/publicaciones/archivos", $nombre_archivo);
+                
+                $nombre_archivo_BD = "/storage/publicaciones/archivos/".$nombre_archivo;
+                $publicacion->archivo=$nombre_archivo_BD;
+            } 
+            
             $publicacion->creador=$nombreUsuario;
             $publicacion->resumen=$request->resumen;
             $publicacion->texto=$request->texto;
-            $publicacion->archivo=$request->archivo;
+
             $publicacion->vistas=0;
             $publicacion->estado=1;
             $publicacion->save();
@@ -138,9 +157,10 @@ class PublicacionController extends Controller
     {
         DB::beginTransaction();
         try{
-
+        
             $publicacion = Publicacion::findOrFail($id);
             if ($publicacion->titulo==$request->titulo) {
+
                 if(!empty($request->imagen)){
                     $img = $request->file('imagen');
                     // dd($img);
@@ -148,6 +168,16 @@ class PublicacionController extends Controller
                     $nombreBD="/storage/publicaciones/".$nombre;
                     $img->storeAs("public/publicaciones", $nombre);
                     $publicacion->imagen=$nombreBD;
+                }
+
+                
+                if(!empty($request->archivo)){
+                    $archivo_file = $request->file('archivo');
+                    $nombre_archivo=$archivo_file->getClientOriginalName();      
+                    $archivo_file->storeAs("public/publicaciones/archivos", $nombre_archivo);
+                
+                    $nombre_archivo_BD = "/storage/publicaciones/archivos/".$nombre_archivo;
+                    $publicacion->archivo=$nombre_archivo_BD;
                 }
                 // $img = $request->file('imagen');
                 // $nombre=$img->getClientOriginalName();
@@ -181,6 +211,15 @@ class PublicacionController extends Controller
                     $nombreBD="/storage/publicaciones/".$nombre;
                     $img->storeAs("public/publicaciones", $nombre);
                     $publicacion->imagen=$nombreBD;
+                }
+
+                if(!empty($request->archivo)){
+                    $archivo_file = $request->file('archivo');
+                    $nombre_archivo=$archivo_file->getClientOriginalName();      
+                    $archivo_file->storeAs("public/publicaciones/archivos", $nombre_archivo);
+                
+                    $nombre_archivo_BD = "/storage/publicaciones/archivos/".$nombre_archivo;
+                    $publicacion->archivo=$nombre_archivo_BD;
                 }
                 // $img = $request->file('imagen');
                 // $nombre=$img->getClientOriginalName();

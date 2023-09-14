@@ -14,10 +14,31 @@
   <!-- Styles -->
   <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap4/bootstrap.min.css') }}">
   <link href="plugins/fontawesome-free-5.0.1/css/fontawesome-all.css" rel="stylesheet" type="text/css">
+
+  <link rel="stylesheet" type="text/css" href="{{ asset('css/spinner.css') }}">
+
+
+
   @yield('styles')
+
 
 </head>
 <body>
+
+   <!-- Spinner -->
+  <div class="loader-section-spinner">
+    <div class="col ">
+      <div class="row justify-content-center">
+        <img src="{{ asset('images/logo-icon.png') }}" style="width: 120px; margin-bottom:18px;" alt="UNT logo">
+      </div>
+     <br>
+      <div class="row justify-content-center">
+        <span class="loader-spinner"></span>
+      </div>
+      
+    </div>
+  </div>
+
   <div class="super_container">
     <!-- Header -->
     @include('layouts.web.header')
@@ -41,11 +62,14 @@
   <script src="{{ asset('plugins/greensock/TimelineMax.min.js') }}"></script>
   <script src="{{ asset('plugins/scrollmagic/ScrollMagic.min.js') }}"></script>
   <script src="{{ asset('plugins/greensock/animation.gsap.min.js') }}"></script>
+  <script src="{{ asset('plugins/progressbar/progressbar.min.js') }}"></script>
   <script src="{{ asset('plugins/greensock/ScrollToPlugin.min.js') }}"></script>
   <script src="{{ asset('plugins/OwlCarousel2-2.2.1/owl.carousel.js') }}"></script>
   <script src="{{ asset('plugins/scrollTo/jquery.scrollTo.min.js') }}"></script>
   <script src="{{ asset('plugins/easing/easing.js') }}"></script>
   <script src="{{ asset('js/custom.js') }}"></script>
+  <script src="{{ asset('js/elements_custom.js') }}"></script>
+  @yield('scripts')
 
 </body>
 </html>

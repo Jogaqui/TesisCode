@@ -2,6 +2,10 @@
 @section('styles')
 <link rel="stylesheet" type="text/css" href="{{ asset('css/news_post_styles.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('css/news_post_responsive.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/main_styles.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/responsive.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/elements_styles.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/elements_responsive.css') }}">
 @endsection
 @section('contenido')
 <!-- Home -->
@@ -40,14 +44,13 @@
               </div>
               <div class="news_post_title_container">
                 <div class="news_post_title">
-                  <a href="#">{{$post -> titulo}}</a>
+                  <a href="">{{$post -> titulo}}</a>
                 </div>
                 <div class="news_post_meta">
-                  <span class="news_post_author"><a href="#">By {{$post -> creador}}</a></span>
+                  <span class="news_post_author"><a href="">By {{$post -> creador}}</a></span>
                   <span>|</span>
-                  <span class="news_post_comments"><a href="#">{{date('Y', strtotime($post -> fecha))}}</a></span>
-                  <span>|</span>
-                  <span class="news_post_comments"><a href="#">{{$post -> vistas}} Vistas</a></span>
+                  <span class="news_post_comments"><a href="">{{date('Y', strtotime($post -> fecha))}}</a></span>
+          
                 </div>
               </div>
             </div>

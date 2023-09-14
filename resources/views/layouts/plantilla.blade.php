@@ -59,15 +59,15 @@
       <li class="nav-item dropdown user-menu">
         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
           <img src="/adminlte/dist/img/user2-160x160.jpg" class="user-image img-circle elevation-2" alt="User Image">
-          <span class="d-none d-md-inline" style="color: white">{{ Auth::user()->name }}</span>
+          <span class="d-none d-md-inline" style="color: white">{{ Auth::user()->usu_nombreCompleto }}</span>
         </a>
         <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           <!-- User image -->
-          <li class="user-header" style="background: rgb(3, 15, 54);color: white">
+          <li class="user-header" style="background: rgb(3, 15, 54);color: white; padding-bottom: 20px; height: auto !important;">
             <img src="/adminlte/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
 
             <p>
-              {{ Auth::user()->name }} - Web Developer
+              {{ Auth::user()->usu_nombreCompleto }} - Administrador
               <small>@php
                 $fecha = Auth::user()->created_at;
                 $date = strtotime($fecha);
@@ -97,7 +97,7 @@
     <!-- Brand Logo -->
     <a href="/home" class="brand-link" style="background: rgb(3, 15, 54)">
       <img src="/adminlte/dist/img/unt1.jpg" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-bold">URA-Administrativo</span>
+      <span class="brand-text font-weight-bold">URA-Intranet</span>
     </a>
 
     <!-- Sidebar -->
@@ -109,7 +109,7 @@
           <img src="/adminlte/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" style="font-weight: bold" class="d-block">{{ Auth::user()->name }}</a>
+          <a href="#" style="font-weight: bold" class="d-block">{{ Auth::user()->usu_nombreCompleto  }}</a>
         </div>
       </div>
 
@@ -135,26 +135,10 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{route('grados.index')}}" class="nav-link {{ Request::routeIs('grados.index','grados.create','grados.edit') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-industry"></i>
+            <a href="{{route('publicacion.index')}}" class="nav-link {{ Request::routeIs('publicacion.index','publicacion.delet','publicacion.create','publicacion.edit') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-chart-line"></i>
               <p>
-                Grados
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{route('trabajador.index')}}" class="nav-link {{ Request::routeIs('trabajador.index','trabajador.create','trabajador.edit') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-users"></i>
-              <p>
-                Trabajadores
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{route('contactanos.index')}}" class="nav-link {{ Request::routeIs('contactanos.index','contactanos.create','contactanos.edit') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-at"></i>
-              <p>
-                Informacion de Contacto
+                Publicaciones
               </p>
             </a>
           </li>
@@ -167,45 +151,89 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{route('publicacion.index')}}" class="nav-link {{ Request::routeIs('publicacion.index','publicacion.delet','publicacion.create','publicacion.edit') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-chart-line"></i>
+            <a href="{{route('trabajador.index')}}" class="nav-link {{ Request::routeIs('trabajador.index','trabajador.create','trabajador.edit') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-users"></i>
               <p>
-                Publicaciones
+                Trabajadores
               </p>
             </a>
           </li>
+
           <li class="nav-item">
+            <a href="{{route('grados.index')}}" class="nav-link {{ Request::routeIs('grados.index','grados.create','grados.edit') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-industry"></i>
+              <p>
+                Grados
+              </p>
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="{{route('tramite.index')}}" class="nav-link {{ Request::routeIs('tramite.index','tramite.create','tramite.edit') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-edit"></i>
+              <p>
+                Trámites
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="{{route('manual.index')}}" class="nav-link {{ Request::routeIs('manual.index','manual.create','manual.edit') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-book"></i>
+              <p>
+                Manuales
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="{{route('pregunta.index')}}" class="nav-link {{ Request::routeIs('question.index','question.show') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-question-circle"></i>
+              <p>
+                FAQ
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="{{route('contactanos.index')}}" class="nav-link {{ Request::routeIs('contactanos.index','contactanos.create','contactanos.edit') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-at"></i>
+              <p>
+                Informacion de Contacto
+              </p>
+            </a>
+          </li>
+          
+        
+
+          {{-- <li class="nav-item">
             <a href="{{route('icono.index')}}" class="nav-link {{ Request::routeIs('icono.index','icono.create','icono.edit') ? 'active' : '' }}">
               <i class="nav-icon fab fa-font-awesome-alt"></i>
               <p>
                 Íconos
               </p>
             </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{route('tramite.index')}}" class="nav-link {{ Request::routeIs('tramite.index','tramite.create','tramite.edit') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-envelope-open-text"></i>
-              <p>
-                Trámites
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
+          </li> --}}
+
+          {{-- <li class="nav-item">
             <a href="{{route('consulta.index')}}" class="nav-link {{ Request::routeIs('consulta.index','consulta.show') ? 'active' : '' }}">
               <i class="nav-icon fas fa-book-reader"></i>
               <p>
                 Consultas
               </p>
             </a>
-          </li>
-          <li class="nav-item">
+          </li> --}}
+
+          {{-- <li class="nav-item">
             <a href="{{route('portada.index')}}" class="nav-link {{ Request::routeIs('portada.index','portada.show') ? 'active' : '' }}">
               <i class="nav-icon fas fa-book-reader"></i>
               <p>
                 Portadas
               </p>
             </a>
-          </li>
+          </li> --}}
+
+          
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -297,7 +325,7 @@
     });
 
 var table = $('#example1').DataTable({
-    "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "todo"]],
+    "lengthMenu": [[10, 20, 40, -1], [10, 20, 40, "todo"]],
     language: {
         "decimal": "",
         "emptyTable": "No hay información",

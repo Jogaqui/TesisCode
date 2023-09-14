@@ -9,12 +9,14 @@
   <div class="menu_inner menu_mm">
     <div class="menu menu_mm">
       <ul class="menu_list menu_mm">
-        <li class="menu_item menu_mm"><a href="{{ url('home') }}">Inicio</a></li>
-        <li class="menu_item menu_mm"><a href="{{ url('procedure') }}">Trámites</a></li>
-        <li class="menu_item menu_mm"><a href="{{ url('unit') }}">Unidades</a></li>
+        <li class="menu_item menu_mm"><a href="{{ url('') }}">Inicio</a></li>
+        <li class="menu_item menu_mm"><a href="{{ url('about') }}">Nosotros</a></li>
+        <li class="menu_item menu_mm"><a href="{{ url('unit') }}">Subunidades</a></li>
+        <li class="menu_item menu_mm"><a href="{{ url('statitics') }}">Estadísticas</a></li>
+        <li class="menu_item menu_mm"><a href="{{ url('news') }}">Noticias</a></li>
         <li class="menu_item menu_mm"><a href="{{ url('login') }}">Intranet</a></li>
-        <li class="menu_item menu_mm"><a href="{{ url('about') }}">Conócenos</a></li>
-        <li class="menu_item menu_mm"><a href="{{ url('contact') }}">Contáctanos</a></li>
+        
+        <li class="menu_item menu_mm"><a href="{{ url('contact') }}">Contacto</a></li>
       </ul>
 
       <!-- Menu Social -->
@@ -24,7 +26,7 @@
           <li class="menu_social_item menu_mm"><a href="#"><i class="fab fa-pinterest"></i></a></li>
           <li class="menu_social_item menu_mm"><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
           <li class="menu_social_item menu_mm"><a href="#"><i class="fab fa-instagram"></i></a></li>
-          <li class="menu_social_item menu_mm"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+          <li class="menu_social_item menu_mm"><a href="https://www.facebook.com/ort.unt"><i class="fab fa-facebook-f"></i></a></li>
           <li class="menu_social_item menu_mm"><a href="#"><i class="fab fa-twitter"></i></a></li>
         </ul>
       </div>

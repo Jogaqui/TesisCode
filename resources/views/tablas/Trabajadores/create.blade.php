@@ -86,11 +86,31 @@
                         <strong>{{ $message }}</strong>
                     </span>
                     @enderror
-                </div>      
+                </div>   
+                
+                <div class="form-group">
+                    <label for="linkedin" style="float: left">Linkedin (URL)</label>
+                    <input type="text" class="form-control @error('linkedin') is-invalid @enderror" id="linkedin" name="linkedin">
+                    @error('linkedin')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>   
+
+                <div class="form-group">
+                    <label for="facebook" style="float: left">Facebook (URL)</label>
+                    <input type="text" class="form-control @error('facebook') is-invalid @enderror" id="facebook" name="facebook">
+                    @error('facebook')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>  
                 
                 <div class="form-group">
                     <label for="correo" style="float: left">Correo</label>
-                    <input type="email" class="form-control @error('correo') is-invalid @enderror" id="correo" name="correo" required pattern="^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$">
+                    <input type="email" class="form-control @error('correo') is-invalid @enderror" id="correo" name="correo" pattern="^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$" required>
                     @error('correo')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -100,7 +120,7 @@
 
                 <div class="form-group">
                     <label for="telefono" style="float: left">Celular</label>
-                    <input type="text" class="form-control @error('telefono') is-invalid @enderror" id="telefono" name="telefono" maxlength="9" pattern="[1-9][0-9]{8}" required>
+                    <input type="text" class="form-control @error('telefono') is-invalid @enderror" id="telefono" name="telefono" maxlength="9" pattern="[1-9][0-9]{8}">
                     @error('telefono')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -110,7 +130,7 @@
 
                 <div class="form-group">
                     <label for="imagen" style="float: left">Imagen</label><br><br>
-                    <input accept=".png, .jpg, .jpeg"  type="file"  id="imagen" name="imagen">
+                    <input accept=".png, .jpg, .jpeg"  type="file"  id="imagen" name="imagen" required>
                     <!-- <input type="text" class="form-control @error('imagen') is-invalid @enderror" id="imagen" name="imagen"> -->
                     @error('imagen')
                     <span class="invalid-feedback" role="alert">

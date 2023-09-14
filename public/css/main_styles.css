@@ -267,7 +267,7 @@ section
 }
 .prlx
 {
-	height: 130% !important;
+	height: 150% !important;
 }
 .nopadding
 {
@@ -288,7 +288,7 @@ section
 	-ms-transform: translateX(-50%);
 	-o-transform: translateX(-50%);
 	transform: translateX(-50%);
-	width: 1318px;
+	width: 1300px;
 	height: 104px;
 	background: #FFFFFF;
 	z-index: 10;
@@ -308,7 +308,7 @@ section
 }
 .header_content
 {
-	width: calc(100% - 279px);
+	width: calc(100% - 180px);
 	height: 100%;
 }
 .header_content::before
@@ -341,7 +341,7 @@ section
 	color: #3a3a3a;
 	vertical-align: middle;
 	text-transform: uppercase;
-	margin-left: 3px;
+	margin-left: 4px;
 }
 
 /*********************************
@@ -350,9 +350,9 @@ section
 
 .main_nav_container
 {
-	display: inline-block;
+	margin-right: auto;
 	margin-left: auto;
-	padding-right: 93px;
+
 }
 .main_nav
 {
@@ -391,7 +391,7 @@ section
 
 .header_side
 {
-	width: 279px;
+	width: 220px;
 	height: 100%;
 	background: #ffb606;
 }
@@ -654,6 +654,7 @@ section
 {
 	width: 100%;
 	height: 100%;
+	
 }
 .hero_slide
 {
@@ -676,6 +677,16 @@ section
 	width: 100%;
 	height: 100vh;
 }
+
+.hero_slide_container_2
+{
+	width: 100%;
+	height: 100vh;
+	justify-content: flex-end;
+	margin-bottom: 80px;
+	padding-bottom: 80px;
+}
+
 .hero_slide_content
 {
 	max-width: 80%;
@@ -696,8 +707,9 @@ section
 	background: #ffb606;
 	padding-left: 13px;
 	padding-right: 13px;
-	margin-left: -12px;
+	margin-left: 12px;
 	margin-right: -12px;
+	
 }
 .animated
 {
@@ -753,7 +765,7 @@ section
 	text-transform: uppercase;
 	/* font-size: 12px; */
 	/* font-weight: 700; */
-	font-size: 20px;
+	font-size: 12px;
 	font-weight: 500;
 	color: #121212;
 	line-height: 1;
@@ -829,6 +841,12 @@ section
 	color: #FFFFFF;
 	margin-bottom: 7px;
 }
+.hero_box_title:hover
+{
+	color: #1a1a1a;
+}
+
+
 .hero_box_link
 {
 	font-size: 12px;
@@ -848,12 +866,13 @@ section
 
 .page_section
 {
-	padding-top: 117px;
-	padding-bottom: 117px;
+	padding-top: 70px;
+	padding-bottom: 90px;
 }
+
 .section_title
 {
-
+	
 }
 .section_title h1
 {
@@ -978,6 +997,7 @@ section
 	color: #1a1a1a;
 	padding-left: 20px;
 	margin-top: 7px;
+	
 }
 .course_author_name span
 {
@@ -989,13 +1009,16 @@ section
 	height: 67px;
 	background: #ffb606;
 	margin-left: auto;
+	
+	
 }
 .course_price span
 {
 	color: #FFFFFF;
-	font-size: 18px;
+	font-size: 15px;
 	font-weight: 500;
-	margin-top: 7px;
+	margin-top: 3px;
+	text-transform: uppercase;
 }
 
 /*********************************
@@ -1358,7 +1381,7 @@ input:last-of-type
 .footer
 {
 	width: 100%;
-	padding-top: 86px;
+	padding-top: 56px;
 	background: #1a1a1a;
 }
 .footer .section_title h1
@@ -1416,7 +1439,7 @@ input:last-of-type
 .footer_content
 {
 	/* padding-top: 80px; */
-	padding-bottom: 53px;
+	padding-bottom: 36px;
 	border-bottom: solid 2px #4d4e4e;
 }
 .footer_content .logo_container
@@ -1442,7 +1465,7 @@ input:last-of-type
 }
 .footer_column_content
 {
-	margin-top: 32px;
+	margin-top: 20px;
 }
 .footer_list_item
 {
@@ -1515,7 +1538,7 @@ input:last-of-type
 .news
 {
 	width: 100%;
-	padding-top: 103px;
+	padding-top: 72px;
 	padding-bottom: 118px;
 }
 .news_post
@@ -1790,4 +1813,371 @@ input:last-of-type
 	line-height: 40px;
 	padding-left: 30px;
 	padding-right: 30px;
+}
+
+
+/*********************************
+11. Elements
+*********************************/
+
+.elements
+{
+	width: 100%;
+	/* padding-top: 109px; */
+	padding-bottom: 48px;
+}
+.elements_title
+{
+	font-size: 24px;
+	font-weight: 500;
+	color: #1a1a1a;
+}
+
+/*********************************
+11.1 Buttons
+*********************************/
+
+.buttons_container
+{
+	margin-top: 107px;
+}
+.button
+{
+	display: inline-block;
+	width: 188px;
+	height: 53px;
+	vertical-align: middle;
+	margin-right: 9px;
+	margin-bottom: 15px;
+}
+.button:hover
+{
+	box-shadow: 0px 4px 8px #ffb606;
+}
+.button a
+{
+	line-height: 53px;
+	display: block;
+	font-size: 16px;
+	font-weight: 700;
+}
+.button_color_1
+{
+	background: #ffb606;
+}
+.button_color_1 a
+{
+	color: #FFFFFF;
+}
+.button_color_2
+{
+	background: #1a1a1a;
+}
+.button_color_2 a
+{
+	color: #FFFFFF;
+}
+.button_line_1
+{
+	background: transparent;
+	border: solid 2px #ffb606;
+}
+.button_line_1 a
+{
+	color: #ffb606;
+}
+.button_line_2
+{
+	background: transparent;
+	border: solid 2px #1a1a1a;
+}
+.button_line_2 a
+{
+	color: #1a1a1a;
+}
+
+/*********************************
+11.2 Progress Bars
+*********************************/
+
+.pbars_accordions
+{
+	margin-top: 24px;
+}
+.pbars_accordions_container
+{
+	padding-top: 24px;
+	padding-bottom: 48px;
+}
+.pbar_container
+{
+	background: #f8f4f4;
+	padding-left: 99px;
+	padding-right: 97px;
+	padding-top: 46px;
+	padding-bottom: 45px;
+}
+.pb_item
+{
+	margin-bottom: 18px;
+}
+.pb_item h4
+{
+	color: #1a1a1a;
+	font-weight: 400 !important;
+	padding-left: 2px;
+	margin-bottom: 13px;
+}
+.skill_bars
+{
+	height: 5px;
+}
+
+/*********************************
+11.3 Accordions
+*********************************/
+
+.elements_accordions
+{
+
+}
+.accordion_container
+{
+	margin-bottom: 15px;
+	margin-bottom: 25px;
+}
+.accordion
+{
+	height: 60px;
+	width: 100%;
+	background: #f8f4f4;
+	padding-left: 30px;
+	cursor: pointer;
+	-webkit-transition: all 200ms ease;
+	-moz-transition: all 200ms ease;
+	-ms-transition: all 200ms ease;
+	-o-transition: all 200ms ease;
+	transition: all 200ms ease;
+}
+.accordion.active
+{
+	background: #ffb606;
+	color: #FFFFFF;
+}
+.accordion:active
+{
+	background: #ffb606 !important;
+	color: #FFFFFF;
+
+}
+.accordion::after
+{
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 62px;
+	height: 100%;
+	content: '+';
+	background: #ffb606;
+	font-size: 14px;
+	color: #FFFFFF;
+	font-weight: 500;
+	-webkit-transition: all 200ms ease;
+	-moz-transition: all 200ms ease;
+	-ms-transition: all 200ms ease;
+	-o-transition: all 200ms ease;
+	transition: all 200ms ease;
+}
+.accordion.active::after
+{
+	content: '-';
+}
+.accordion:hover
+{
+	background: #e4e4e4;
+}
+.accordion_panel
+{
+	padding-left: 30px;
+	padding-right: 30px;
+	max-height: 0;
+	overflow: hidden;
+	-webkit-transition: all 500ms ease;
+	-moz-transition: all 500ms ease;
+	-ms-transition: all 500ms ease;
+	-o-transition: all 500ms ease;
+	transition: all 500ms ease;
+}
+.accordion_panel p
+{
+	padding-top: 15px;
+}
+
+/*********************************
+11.4 Loaders
+*********************************/
+
+.loaders
+{
+	margin-top: 92px;
+	margin-bottom: 72px;
+}
+.elements_loaders_container
+{
+	margin-top: 60px;
+}
+.loader
+{
+	width: 195px;
+	height: 195px;
+	margin: 0 auto;
+}
+.loader_text
+{
+	font-size: 16px;
+	font-weight: 500;
+	color: #1a1a1a;
+	margin-top: 26px;
+}
+.loader .progressbar-text
+{
+	top: 50% !important;
+}
+.loader_sub
+{
+	font-size: 15px;
+	font-weight: 400;
+	color: #a5a5a5;
+	margin-top: 5px;
+}
+
+/*********************************
+11.5 Milestones
+*********************************/
+
+.milestones
+{
+	width: 100%;
+	margin-top: 16px;
+}
+.milestones_container
+{
+	width: 100%;
+	padding-top: 92px;
+	padding-bottom: 92px;
+	margin-top: 24px;
+}
+.milestones_background
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center center;
+	background-attachment: fixed;
+}
+.milestone
+{
+	width: 100%;
+}
+.milestone_icon
+{
+	display: inline-block;
+	width: 70px;
+	height: 70px;
+}
+.milestone_icon img
+{
+	width: 100%;
+}
+.milestone_counter
+{
+	font-size: 36px;
+	font-weight: 500;
+	color: #ffb606;
+	line-height: 1;
+	margin-top: 41px;
+}
+.milestone_text
+{
+	font-size: 22px;
+	font-weight: 500;
+	color: #FFFFFF;
+	margin-top: 6px;
+}
+
+/*********************************
+11.6 Icon Boxes
+*********************************/
+
+.icon_boxes
+{
+	margin-top: 112px;
+}
+.icon_boxes_container
+{
+	margin-top: 64px;
+}
+.icon_box
+{
+
+}
+.icon_box h3
+{
+	font-family: 'Roboto', sans-serif;
+	font-size: 22px;
+	font-weight: 500;
+	color: #1a1a1a;
+	margin-bottom: 13px;
+}
+.icon_box p
+{
+	font-size: 14px;
+	font-weight: 500;
+	color: #a5a5a5;
+	max-width: 100%;
+	margin-bottom: 0px;
+}
+.icon_container
+{
+	height: 41px;
+	width: auto;
+	margin-bottom: 30px;
+}
+.icon_container img
+{
+	height: 100%;
+}
+
+/*********************************
+X. Customizados
+*********************************/
+.combo_reportes{
+	border: 2px solid #ffb606;
+
+}
+
+.tag_fade_in {
+	opacity: 0;
+	transform: translateY(20vh);
+	visibility: hidden;
+	transition: opacity 0.6s ease-out, transform 1.5s ease-out;
+	will-change: opacity, visibility;
+}
+
+.tag_fade_in.visible {
+	opacity: 1;
+	transform: none;
+	visibility: visible;
 }

@@ -8,6 +8,7 @@ use App\Etiqueta;
 use App\Contactanos;
 use App\Publicacion_Etiqueta;
 use App\Unidad;
+use App\Tramite;
 
 class WelcomeController extends Controller
 {
@@ -18,13 +19,14 @@ class WelcomeController extends Controller
      */
     public function index()
     {
-      $publicaciones = Publicacion::orderBy('fecha', 'DESC')->where('estado', 1)->paginate(10);
+      $publicaciones = Publicacion::orderBy('fecha', 'DESC')->where('estado', 1)->skip(0)->take(3)->get();
       $unidades = Unidad::where('estado', 1)->get();
       $top = Publicacion::orderBy('fecha', 'DESC')->where('estado', 1)->skip(0)->take(3)->get();
       $mejoresPublicaciones = Publicacion::orderBy('vistas', 'DESC')->where('estado', 1)->skip(0)->take(3)->get();
       $etiquetas = Etiqueta::all();
       $info = Contactanos::where('estado',1)->first();
-      return view('welcome') -> with(compact('publicaciones', 'unidades', 'top', 'etiquetas', 'info', 'mejoresPublicaciones'));
+      $tramites = Tramite::join('iconos', 'iconos.idIcono', 'tramites.idIcono')->limit(3)->get();
+      return view('welcome') -> with(compact('publicaciones', 'unidades', 'top', 'etiquetas', 'info', 'mejoresPublicaciones','tramites'));
     }
 
     /**

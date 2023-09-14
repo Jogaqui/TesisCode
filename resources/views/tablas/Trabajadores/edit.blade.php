@@ -90,11 +90,31 @@
                         <strong>{{ $message }}</strong>
                     </span>
                     @enderror
+                </div>     
+                
+                <div class="form-group">
+                    <label for="linkedin" style="float: left">Linkedin (URL)</label>
+                    <input type="text" class="form-control @error('linkedin') is-invalid @enderror" id="linkedin" name="linkedin" aria-describedby="descripcionHelp" placeholder="Ingrese URL de su página de Linkedin" value="{{$trabajador->linkedin}}">
+                    @error('linkedin')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>      
+                
+                <div class="form-group">
+                    <label for="facebook" style="float: left">Facebook (URL)</label>
+                    <input type="text" class="form-control @error('facebook') is-invalid @enderror" id="facebook" name="facebook" aria-describedby="descripcionHelp" placeholder="Ingrese URL de su página de Facebook" value="{{$trabajador->facebook}}">
+                    @error('facebook')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
                 </div>      
                 
                 <div class="form-group">
                     <label for="correo" style="float: left">Correo</label>
-                    <input type="email" class="form-control @error('correo') is-invalid @enderror" id="correo" name="correo" aria-describedby="descripcionHelp" placeholder="Ingrese correo" value="{{$trabajador->correo}}" required pattern="^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$">
+                    <input type="email" class="form-control @error('correo') is-invalid @enderror" id="correo" name="correo" aria-describedby="descripcionHelp" placeholder="Ingrese correo" value="{{$trabajador->correo}}" pattern="^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$" required>
                     @error('correo')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>

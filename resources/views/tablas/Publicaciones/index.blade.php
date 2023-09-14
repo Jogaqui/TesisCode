@@ -21,7 +21,7 @@
             <table id="example1" class="table table-bordered table-striped">
               <thead>
               <tr>
-                <th>Código</th>
+                <th>#</th>
                 <th>Título</th>
                 <th>Fecha</th>
                 <th>Información de usuario</th>
@@ -33,7 +33,7 @@
 
               @foreach($publicacion as $item) 
                 <tr>
-                    <td>{{$item->idPublicacion}}</td>
+                    <td>{{$loop->index+1}}</td>
                     <td>{{$item->titulo}}</td>
                     <td>{{$item->fecha}}</td>
                     <td>{{$item->creador}}</td>

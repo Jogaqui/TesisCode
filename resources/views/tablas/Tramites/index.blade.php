@@ -22,7 +22,7 @@
                 <th>Ícono</th>
                 <th>Título</th>
                 <th>Descripción</th>
-                <th>Ruta</th>
+                <th>Archivo</th>
                 <th>Opciones</th>
               </tr>
               </thead>
