@@ -390,41 +390,7 @@
 		</div>
 	</div>
 
-	<!-- Footer -->
-
-	<footer class="footer">
-		<div class="container">
-			
-			<!-- Newsletter -->
-
-			{{-- <div class="newsletter">
-				<div class="row">
-					<div class="col">
-						<div class="section_title text-center">
-							<h1>Subscríbete a las Noticias</h1>
-						</div>
-					</div>
-				</div>
-
-				<div class="row">
-					<div class="col text-center">
-						<div class="newsletter_form_container mx-auto">
-							<form action="post">
-								<div class="newsletter_form d-flex flex-md-row flex-column flex-xs-column align-items-center justify-content-center">
-									<input id="newsletter_email" class="newsletter_email" type="email" placeholder="Correo electrónico" required="required" data-error="Valid email is required.">
-									<button id="newsletter_submit" type="submit" class="newsletter_submit_btn trans_300" value="Submit">Subscribir</button>
-								</div>
-							</form>
-						</div>
-					</div>
-				</div>
-
-			</div> --}}
-
-			
-
-		</div>
-	</footer>
+	
 
 </div>
 
