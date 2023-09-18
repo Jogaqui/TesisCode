@@ -2147,7 +2147,7 @@ input:last-of-type
 	font-weight: 500;
 	color: #a5a5a5;
 	max-width: 100%;
-	margin-bottom: 0px;
+	margin-bottom: 10px;
 }
 .icon_container
 {
@@ -2159,6 +2159,9 @@ input:last-of-type
 {
 	height: 100%;
 }
+
+
+
 
 /*********************************
 X. Customizados

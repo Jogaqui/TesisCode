@@ -6,7 +6,7 @@
     <form method="POST" action="{{route('manual.store')}}" enctype="multipart/form-data">
         @csrf
         <div class="card text-white bg-secondary mb-3" style="max-width: 40rem;">
-            <div class="card-header"><h1 style="font-weight: bold;text-align:center">Crear Pregunta</h1></div>
+            <div class="card-header"><h1 style="font-weight: bold;text-align:center">Crear Manual</h1></div>
 
             <div class="card-body">
                 <div class="form-group">
