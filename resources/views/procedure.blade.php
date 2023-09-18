@@ -140,7 +140,7 @@
     <div class="row">
       <div class="col">
         <div class="section_title text-center"  style="margin: 20px">
-          <h1>General</h1>
+          <h1>Manuales</h1>
         </div>
       </div>
     </div>

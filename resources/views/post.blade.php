@@ -72,9 +72,11 @@
 
             <p class="news_post_text" style="margin-top: 40px;"> </p>
 
+            @if ($post -> archivo)
             <div class="news_post_button text-center trans_200">
-              <a href="{{$post->archivo}}" target="_blank">Descargar archivo adjunto</a>
+              <a href="{{$post -> archivo}}" target="_blank">Descargar archivo adjunto</a>
             </div>
+            @endif
           </div>
 
         </div>

@@ -28,7 +28,7 @@
       </div>
       <div class="latest_post_title"><a href="{{route('welcome.show', $post->idPublicacion)}}">{{$post -> titulo}}</a></div>
       <div class="latest_post_meta">
-        <span class="latest_post_author"><a href="{{route('welcome.show', $post->idPublicacion)}}">By {{$post -> creador}}</a></span>
+        <span class="latest_post_author"><a href="{{route('welcome.show', $post->idPublicacion)}}">Por {{$post -> creador}}</a></span>
         <span>|</span>
         <span class="latest_post_comments"><a href="{{route('welcome.show', $post->idPublicacion)}}">{{date('Y', strtotime($post -> fecha))}}</a></span>
         <span>|</span>

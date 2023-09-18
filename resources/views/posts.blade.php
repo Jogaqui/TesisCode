@@ -63,9 +63,11 @@
             <div class="news_post_button text-center trans_200">
               <a href="{{route('news.show', $post->idPublicacion)}}">Leer publicación</a>
             </div>
+            @if ($post -> archivo)
             <div class="news_post_button text-center trans_200">
-              <a href="{{$post->archivo}}" target="_blank">Descargar archivo adjunto</a>
+              <a href="{{$post -> archivo}}" target="_blank">Descargar archivo adjunto</a>
             </div>
+            @endif
           </div>
           @endforeach
         </div>

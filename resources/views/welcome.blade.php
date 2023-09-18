@@ -113,10 +113,10 @@
 										{{$post->titulo}}
 									</a>
 								</div>
-								<div class="card-text">{{substr($post->resumen,0,40)}}...</div>
+								<div class="card-text">{{substr($post->resumen,0,80)}}...</div>
 							</div>
 							<div class="price_box d-flex flex-row align-items-center justify-content-center">
-								<div class="course_author_name">{{$post->creador}}<span> , Autor</span></div>
+								<div class="course_author_name">{{$post->creador}}<span>  Autor</span></div>
 								<div class="course_price d-flex flex-column align-items-center justify-content-center">
 									<span>
 										<div>{{date('d', strtotime($post->fecha))}}</div>
@@ -368,8 +368,8 @@
 								<div class="col-lg-6 order-lg-2 order-3">
 									<div class="event_content">
 										<div class="event_name"><a class="trans_200" href="{{route('news.show', $post->idPublicacion)}}">{{$post->titulo}}</a></div>
-										<div class="event_location">{{$post->vistas}} vistas - {{$post->creador}}</div>
-										<p>{{substr($post->resumen,0,60)}}</p>
+										<div class="event_location">{{$post->vistas}} vistas - Por {{$post->creador}}</div>
+										<p>{{substr($post->resumen,0,80)}}...</p>
 									</div>
 								</div>
 

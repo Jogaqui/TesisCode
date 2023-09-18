@@ -70,7 +70,7 @@
                   <a href="{{route('news.show', $post->idPublicacion)}}">{{$post -> titulo}}</a>
                 </div>
                 <div class="news_post_meta">
-                  <span class="news_post_author"><a href="{{route('news.show', $post->idPublicacion)}}">By {{$post -> creador}}</a></span>
+                  <span class="news_post_author"><a href="{{route('news.show', $post->idPublicacion)}}">Por {{$post -> creador}}</a></span>
                   <span>|</span>
                   <span class="news_post_comments"><a href="{{route('news.show', $post->idPublicacion)}}">{{date('Y', strtotime($post -> fecha))}}</a></span>
                   <span>|</span>
@@ -79,14 +79,17 @@
               </div>
             </div>
             <div class="news_post_text">
-              <p>{{$post -> texto}}</p>
+              <p>{{$post -> resumen}}</p>
             </div>
             <div class="news_post_button text-center trans_200">
               <a href="{{route('news.show', $post->idPublicacion)}}">Leer publicación</a>
             </div>
+            @if ($post -> archivo)
             <div class="news_post_button text-center trans_200">
               <a href="{{$post -> archivo}}" target="_blank">Descargar archivo adjunto</a>
             </div>
+            @endif
+            
           </div>
           @endforeach
         </div>

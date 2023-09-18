@@ -80,7 +80,7 @@
 
                 <div class="form-group">
                     <label for="puesto" style="float: left">Puesto</label>
-                    <input type="text" class="form-control @error('puesto') is-invalid @enderror" id="puesto" name="puesto" pattern="^(?!.* (?: |$))[A-ZÁÉÍÓÚ][A-Za-záéíóúÁÉÍÓÚ1-9,\u00f1\u00d1 ]+$" title="Debe poner solo palabras con la primera letra en Mayuscula">
+                    <input type="text" class="form-control @error('puesto') is-invalid @enderror" id="puesto" name="puesto">
                     @error('puesto')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>

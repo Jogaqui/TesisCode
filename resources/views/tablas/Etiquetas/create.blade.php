@@ -10,8 +10,7 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="descripcion" style="float: left">Descripción</label>
-                    <input type="text" class="form-control @error('descripcion') is-invalid @enderror" id="descripcion" name="descripcion" 
-                    pattern="^(?!.* (?: |$))[A-Z][A-Za-záéíóú1-9 ]+$" title="Debe poner solo palabras con la primera letra en Mayúscula" required>
+                    <input type="text" class="form-control @error('descripcion') is-invalid @enderror" id="descripcion" name="descripcion" required>
                     @error('descripcion')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
