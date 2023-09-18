@@ -22,7 +22,7 @@ class TrabajadorController extends Controller
         /*$trabajador=DB::table('trabajadores as t')
         ->join('unidades as u','t.idUnidad','=','u.idUnidad')->where('t.estado','1')->select('*')->get();*/
         $trabajador=Trabajador::where('estado','1')->get();
-        return view('tablas.trabajadores.index', compact('trabajador'));
+        return view('tablas.Trabajadores.index', compact('trabajador'));
     }
 
     public function create()

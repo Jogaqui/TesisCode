@@ -6,6 +6,10 @@ use App\Tramite;
 use App\Icono;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
+use App\Models\Post;
+use Illuminate\Http\UploadedFile;
+
 
 class TramiteController extends Controller
 {
@@ -54,8 +58,18 @@ class TramiteController extends Controller
         try{
             $tramite = new Tramite();
             $tramite->titulo=$request->titulo;
+            $tramite->titulo_abrev=$request->titulo_abrev;
             $tramite->descripcion=$request->descripcion;
-            $tramite->ruta=$request->ruta;
+
+            
+            $archivo_file = $request->file('archivo');
+            $nombre_archivo=$archivo_file->getClientOriginalName();      
+            $archivo_file->storeAs("public/manuales", $nombre_archivo);
+                
+            $nombre_archivo_BD = "/storage/manuales/".$nombre_archivo;
+            $tramite->ruta=$nombre_archivo_BD;
+            
+
             $tramite->idIcono=$request->idIcono;
             $tramite->estado='1';
             $tramite->save();
@@ -115,8 +129,16 @@ class TramiteController extends Controller
         try{
             $tramite =Tramite::findOrFail($id);
             $tramite->titulo=$request->titulo;
+            $tramite->titulo_abrev=$request->titulo_abrev;
             $tramite->descripcion=$request->descripcion;
-            $tramite->ruta=$request->ruta;
+            if(!empty($request->file('archivo'))){
+                $archivo_file = $request->file('archivo');
+                $nombre_archivo=$archivo_file->getClientOriginalName();      
+                $archivo_file->storeAs("public/manuales", $nombre_archivo);
+                
+                $nombre_archivo_BD = "/storage/manuales/".$nombre_archivo;
+                $tramite->ruta=$nombre_archivo_BD;
+            }
             $tramite->idIcono=$request->idIcono;
             $tramite->estado='1';
             $tramite->save();

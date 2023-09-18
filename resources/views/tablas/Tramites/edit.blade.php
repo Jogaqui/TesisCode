@@ -1,7 +1,7 @@
 @extends('layouts.plantilla')
 @section('contenido')
 <div class="container" align="center">
-    <form method="POST" action="{{route('tramite.update',$tramite->idTramite)}}">
+    <form method="POST" action="{{route('tramite.update',$tramite->idTramite)}}" enctype="multipart/form-data">
         @method('put')
         @csrf
         <div class="card text-white bg-secondary mb-3" style="max-width: 40rem;">
@@ -33,10 +33,9 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="descripcion" style="float: left">Descripción</label>
-                    <input type="text" class="form-control @error('descripcion') is-invalid @enderror" id="descripcion" name="descripcion" aria-describedby="descripcionHelp" placeholder="Ingrese Descripción" value="{{$tramite->descripcion}}"
-                    pattern="^(?!.* (?: |$))[A-Z][A-Za-záéíóú1-9 ]+$" title="Debe poner solo palabras con la primera letra en Mayuscula" required>
-                    @error('descripcion')
+                    <label for="titulo_abrev" style="float: left">Título abreviado</label>
+                    <input type="text" class="form-control @error('titulo_abrev') is-invalid @enderror" id="titulo_abrev" name="titulo_abrev" aria-describedby="descripcionHelp" placeholder="Ingrese título abreviado" value="{{$tramite->titulo_abrev}}" required>
+                    @error('titulo_abrev')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{$message}}</strong>
                         </span>
@@ -44,14 +43,26 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="ruta" style="float: left">Ruta</label>
-                    <input type="text" class="form-control @error('ruta') is-invalid @enderror" id="ruta" name="ruta" aria-describedby="descripcionHelp" placeholder="Ingrese Ruta" value="{{$tramite->ruta}}">
-                    @error('ruta')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{$message}}</strong>
-                        </span>
+                    <label for="descripcion" style="float: left">Descripción</label>
+                    <textarea rows="3" class="form-control @error('descripcion') is-invalid @enderror" id="descripcion" name="descripcion" required>{{$tramite->descripcion}}</textarea>
+                    @error('descripcion')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>   
+
+                <div class="form-group">
+                    <label for="archivo" style="float: left">Archivo</label><br><br>
+                    <input accept=".pdf, .doc, .docx" type="file"  id="archivo" name="archivo">
+                    <!-- <input type="text" class="form-control @error('archivo') is-invalid @enderror" id="imagen" name="imagen"> -->
+                    @error('archivo')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
                     @enderror
                 </div>
+
             
 
                 <div class="form-group">

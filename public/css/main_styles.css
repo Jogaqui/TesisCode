@@ -2127,11 +2127,11 @@ input:last-of-type
 }
 .icon_boxes_container
 {
-	margin-top: 64px;
+	margin-top: 32px;
 }
 .icon_box
 {
-
+	margin-top: 40px;	
 }
 .icon_box h3
 {

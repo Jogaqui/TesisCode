@@ -23,11 +23,14 @@ class ProcedureController extends Controller
       // $manuales = Manual::where('estado',1)->get();
       $idTipo_usuario_manuales = Manual::select('manuales.idTipo_usuario')->where('estado',1)->groupBy('manuales.idTipo_usuario')->get();
     
+      $array_manuales_idTipo_usu = collect();
+      
       for($i=0;$i<count($idTipo_usuario_manuales);$i++)
       {
         $array_manuales_idTipo_usu[$i] = $idTipo_usuario_manuales[$i]->idTipo_usuario;
       }
       $tipos_usuario = URAA_TipoUsuario::whereIn('idTipo_usuario',$array_manuales_idTipo_usu)->where('tipo_usuario.estado',1)->get();
+
       foreach ($tipos_usuario as $key => $tipo_usuario) {
         $tipo_usuario->manuales = Manual::where('estado',1)->where('manuales.idTipo_usuario',$tipo_usuario->idTipo_usuario)->get();
       }      
