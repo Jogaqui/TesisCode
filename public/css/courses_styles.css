@@ -802,15 +802,15 @@ section
 	font-size: 14px;
 	font-weight: 500;
 	color: #a5a5a5;
-	margin-top: -12px;
+	margin-top: 0px;
 }
 .price_box
 {
 	width: 100%;
 	height: 67px;
 	background: #eaebec;
-	margin-top: 41px;
-	padding-left: 35px;
+	margin-top: 32px;
+	padding-left: 18px;
 }
 .course_author_image
 {

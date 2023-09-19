@@ -60,7 +60,10 @@ class PublicacionController extends Controller
             // dd($img);
             // $nombre=$img->getClientOriginalName();
             // $img->move('/uploads/', $nombre);
-            $nombreUsuario=Auth::user()->usu_nombreCompleto;
+            $nombreUsuario="";
+            $nombreUsuario+=Auth::user()->usu_apepaterno+", "+Auth::user()->usu_nombres;
+            $puestoUsuario=Auth::user()->trab_puesto;
+
             if(!empty($request->file('imagen'))){
                 $img = $request->file('imagen');
                 $nombre=$img->getClientOriginalName();      
@@ -86,6 +89,7 @@ class PublicacionController extends Controller
             } 
             
             $publicacion->creador=$nombreUsuario;
+            $publicacion->creador_puesto=$puestoUsuario;
             $publicacion->resumen=$request->resumen;
             $publicacion->texto=$request->texto;
 

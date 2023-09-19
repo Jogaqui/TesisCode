@@ -116,7 +116,11 @@
 								<div class="card-text">{{substr($post->resumen,0,80)}}...</div>
 							</div>
 							<div class="price_box d-flex flex-row align-items-center justify-content-center">
-								<div class="course_author_name">{{$post->creador}}<span>  Autor</span></div>
+								<div class="col">
+									<div class="row course_author_name">{{$post->creador}}</div>
+									<div class="row" style="padding-top:4px; padding-bottom:10px; padding-left: 20px;"><span>{{$post->creador_puesto}}</span></div>
+								</div>
+								
 								<div class="course_price d-flex flex-column align-items-center justify-content-center">
 									<span>
 										<div>{{date('d', strtotime($post->fecha))}}</div>
