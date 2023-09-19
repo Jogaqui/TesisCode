@@ -61,7 +61,7 @@ class PublicacionController extends Controller
             // $nombre=$img->getClientOriginalName();
             // $img->move('/uploads/', $nombre);
             $nombreUsuario="";
-            $nombreUsuario+=Auth::user()->usu_apepaterno+", "+Auth::user()->usu_nombres;
+            $nombreUsuario+=Auth::user()->usu_nombres+Auth::user()->usu_apepaterno;
             $puestoUsuario=Auth::user()->trab_puesto;
 
             if(!empty($request->file('imagen'))){

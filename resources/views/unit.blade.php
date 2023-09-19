@@ -63,9 +63,9 @@
 
 
       <!-- Teachers -->
-      <div class="teachers page_section">
+      <div class="teachers page_section ">
         <div class="container ">
-          <div class="row">
+          <div class="row justify-content-center">
 
             @foreach($trabajador as $itemT)
               @if($item->idUnidad===$itemT->idUnidad)
