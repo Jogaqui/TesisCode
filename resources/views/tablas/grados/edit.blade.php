@@ -9,7 +9,7 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="abreviatura" style="float: left">Abreviatura</label>
-                    <input type="text" class="form-control @error('abreviatura') is-invalid @enderror" id="abreviatura" name="abreviatura" pattern="^(?!.* (?: |$))([A-ZÁÉÍÓÚ][a-záéíóú\u00f1\u00d1 ]+([.])){1}$" value="{{$grado->abreviatura}}" title="Debe poner solo palabras con la primera letra en Mayuscula" required>
+                    <input type="text" class="form-control @error('abreviatura') is-invalid @enderror" id="abreviatura" name="abreviatura" value="{{$grado->abreviatura}}" required>
                     @error('abreviatura')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -17,7 +17,7 @@
                     @enderror
 
                     <label for="nombre" style="float: left">Nombre</label>
-                    <input type="text" class="form-control @error('nombre') is-invalid @enderror" id="nombre" name="nombre" pattern="^(?!.* (?: |$))[A-ZÁÉÍÓÚ][A-Za-záéíóúÁÉÍÓÚ\u00f1\u00d1 ]+([.])?$" value="{{$grado->nombre}}" title="Debe poner solo palabras con la primera letra en Mayuscula" required>
+                    <input type="text" class="form-control @error('nombre') is-invalid @enderror" id="nombre" name="nombre" value="{{$grado->nombre}}" required>
                     @error('nombre')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>

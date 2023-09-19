@@ -44,7 +44,7 @@
                     <label for="tipo_usuario" style="float: left">Tipo de usuario</label>
                     <select class="form-control @error('tipo_usuario') is-invalid @enderror" id="tipo_usuario" name="tipo_usuario" required>
                         <option value="{{$manual->idTipo_usuario}}" selected>{{$manual_tipo_usuario->nombre}}</option>
-                        <option value="" disabled>Seleccionar tipo de usuario ...</option>
+                        
                         @foreach($tipos_usuario as $item)
                             <option value="{{$item['idTipo_usuario']}}">{{$item['nombre']}}</option>
                         @endforeach

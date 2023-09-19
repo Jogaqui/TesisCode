@@ -51,7 +51,7 @@
                 <div class="form-group">
                     <label for="idUnidad" style="float: left">Unidad</label>
                     <select class="form-control @error('idUnidad') is-invalid @enderror" id="idUnidad" name="idUnidad" required>
-                        <option value="">Seleccionar Unidad</option>
+                        <option value="0" disabled selected>Seleccionar Unidad</option>
                         @foreach($unidad as $itemunidad)
                             <option value="{{$itemunidad['idUnidad']}}">{{$itemunidad['descripcion']}}</option>
                         @endforeach
@@ -66,7 +66,7 @@
                 <div class="form-group">
                     <label for="grado" style="float: left">Grado</label>
                     <select class="form-control @error('grado') is-invalid @enderror" id="grado" name="grado" required>
-                        <option value="">Seleccionar Grado</option>
+                        <option value="0" disabled selected>Seleccionar Grado</option>
                         @foreach($grado as $itemgrado)
                             <option value="{{$itemgrado['idGrado']}}">{{$itemgrado['nombre']}}</option>
                         @endforeach

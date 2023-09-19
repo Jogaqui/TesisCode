@@ -27,8 +27,7 @@
 
                 <div class="form-group">
                     <label for="titulo" style="float: left">Título</label>
-                    <input type="text" class="form-control @error('titulo') is-invalid @enderror" id="titulo" name="titulo"
-                    pattern="^(?!.* (?: |$))[A-Z][A-Za-záéíóú1-9 ]+$" title="Debe poner solo palabras con la primera letra en Mayuscula" required>
+                    <input type="text" class="form-control @error('titulo') is-invalid @enderror" id="titulo" name="titulo" required>
                     @error('titulo')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>

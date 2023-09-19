@@ -68,7 +68,8 @@
                 <div class="form-group">
                     <label for="grado" style="float: left">Grado</label>
                     <select class="form-control @error('grado') is-invalid @enderror" id="grado" name="grado" required>
-                        <option value="{{$grado->idGrado}}">{{$unidad->nombre}}</option>
+                        <option value="{{$grado->idGrado}}" selected>{{$grado->nombre}}</option>
+                  
                         @foreach($grados as $itemgrado)
                             @if($grado->idGrado!==$itemgrado->idGrado)
                                 <option value="{{$itemgrado->idGrado}}" >{{$itemgrado->nombre}}</option>

@@ -11,8 +11,7 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="titulo" style="float: left">Título</label>
-                    <input type="text" class="form-control @error('titulo') is-invalid @enderror" id="titulo" name="titulo"
-                    pattern="^(?!.* (?: |$))[A-Z][A-Za-záéíóú1-9 ]+$" title="Debe poner solo palabras con la primera letra en Mayuscula" required>
+                    <input type="text" class="form-control @error('titulo') is-invalid @enderror" id="titulo" name="titulo" required>
                     @error('titulo')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -22,8 +21,7 @@
 
                 <div class="form-group">
                     <label for="titulo_abrev" style="float: left">Título abreviado</label>
-                    <input type="text" class="form-control @error('titulo_abrev') is-invalid @enderror" id="titulo_abrev" name="titulo_abrev"
-                    pattern="^(?!.* (?: |$))[A-Z][A-Za-záéíóú1-9 ]+$" title="Debe poner solo palabras con la primera letra en Mayuscula" required>
+                    <input type="text" class="form-control @error('titulo_abrev') is-invalid @enderror" id="titulo_abrev" name="titulo_abrev" required>
                     @error('titulo_abrev')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
