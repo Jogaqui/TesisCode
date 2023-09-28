@@ -66,7 +66,7 @@
                 </div>
               </div>
               <div class="news_post_title_container">
-                <div class="news_post_title">
+                <div class="news_post_title" style="margin-top:5px;">
                   <a href="{{route('news.show', $post->idPublicacion)}}">{{$post -> titulo}}</a>
                 </div>
                 <div class="news_post_meta">

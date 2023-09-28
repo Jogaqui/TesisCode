@@ -399,6 +399,58 @@
 
               </div>
             </div>
+
+
+            <!-- Grados y Títulos -->
+            <div class="accordion_container">
+              <div class="accordion d-flex flex-row align-items-center">GRADOS Y TÍTULOS</div>
+              <div id="accordion_panel_3" class="accordion_panel">
+
+                <br>
+                <h3>Tipo:</h3>
+								<select class="combo_reportes input_field search_form_name @error('tipo') is-invalid @enderror" id="tipo" name="tipo" required="required" >
+									<option value="0" disabled selected>Seleccionar el tipo...</option>
+									@foreach($facultades_SUV as $itemfacultad)
+										<option value="{{$itemfacultad['idestructura']}}">
+											{{$itemfacultad['estr_descripcion']}}
+										</option>
+									@endforeach
+								</select>
+
+                <br>
+                <h3>Año:</h3>
+								<select class=" combo_reportes input_field search_form_name @error('anio') is-invalid @enderror" id="anio" name="anio" required="required" >
+									<option value="0" disabled selected>Seleccionar el año...</option>
+									@foreach($semestres_SUV as $itemsemestre)
+										<option value="{{$itemsemestre['periodo']}}">
+											{{$itemsemestre->periodo}}
+										</option>
+									@endforeach
+								</select>
+
+                <br>
+                <h3>Facultad:</h3>
+								<select class="combo_reportes input_field search_form_name @error('dependencia_SUV') is-invalid @enderror" id="dependencia_SUV" name="dependencia_SUV" required="required" >
+									<option value="0" disabled selected>Seleccionar la facultad...</option>
+									@foreach($facultades_SUV as $itemfacultad)
+										<option value="{{$itemfacultad['idestructura']}}">
+											{{$itemfacultad['estr_descripcion']}}
+										</option>
+									@endforeach
+								</select>
+
+                <button class="btn btn-dark btn-user btn-block" style="margin-top: 16px" type="button" id="btnBuscarMatriculados_Consolidado">
+                  BUSCAR REPORTE
+                </button>
+
+                <div class="d-flex" style="margin-top: 32px;">
+                  <table class="table table-bordered" style=" color:black !important;" width="90%" cellspacing="0" id="tablaMatriculados_Consolidado">
+                   
+                  </table> 
+                </div>      
+
+              </div>
+            </div>
            
 
           </div>

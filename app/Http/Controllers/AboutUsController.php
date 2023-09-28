@@ -21,7 +21,7 @@ class AboutUsController extends Controller
       foreach ($generalidades as $item) {
         $item->detalles = Conocenos::where('tipo', $item->idConoce)->where('estado',1)->get();
       }
-      return view('aboutUs') -> with(compact('info', 'generalidades'));
+      return view('aboutus') -> with(compact('info', 'generalidades'));
     }
 
     /**
