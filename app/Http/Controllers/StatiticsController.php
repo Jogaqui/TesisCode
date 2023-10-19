@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Publicacion;
 use App\Etiqueta;
 use App\Contactanos;
+use App\DIPLOMASAPP_Escuela;
 use App\Publicacion_Etiqueta;
 use App\SGA_Dependencia;
 use App\Unidad;
@@ -453,30 +454,57 @@ class StatiticsController extends Controller
             ->groupBy('programa.nombre')
             ->get();
   
-            //
-            if($query_GradosTitulos_URAA->count()!=0 && $query_GradosTitulos_DiplomasApp->count()!=0){
-              foreach ($query_GradosTitulos_URAA as $key => $item_URAA) { 
-                $graduados_titulados->push(
-                  ['nro_graduados_titulados' => ($query_GradosTitulos_DiplomasApp[$key]->nro_graduados + $item_URAA->nro_graduados),
-                   'nombre_escuela' => ($item_URAA->nombre),
-                  ]);
+            //*********************** VALIDACION URAA + DIPLOMAS APP *************************
+             
+            $escuela_original = DIPLOMASAPP_Escuela::all();
+   
+            $idx_temp_URAA = -1;
+            $idx_temp_DIPLOMASAPP = -1;
+            
+            foreach ($escuela_original as $key => $escuela_item) { 
+              foreach ($query_GradosTitulos_DiplomasApp as $key_DiplomasApp => $item_DiplomasApp) { 
+                if($escuela_item->Nom_escuela == $item_DiplomasApp->Nom_escuela){
+  
+                  $idx_temp_DIPLOMASAPP = $key_DiplomasApp;
+                  
+                }
               }
-            }
-            elseif($query_GradosTitulos_URAA->count()!=0 && $query_GradosTitulos_DiplomasApp->count()==0){
-              foreach ($query_GradosTitulos_URAA as $key => $item_URAA) { 
-                $graduados_titulados->push(
-                  ['nro_graduados_titulados' => ($item_URAA->nro_graduados),
-                   'nombre_escuela' => ($item_URAA->nombre),
-                  ]);
+  
+              foreach ($query_GradosTitulos_URAA as $key_URAA => $item_URAA) { 
+                if($escuela_item->Nom_escuela == $item_URAA->nombre){
+  
+                  $idx_temp_URAA = $key_URAA;
+                  
+                }
               }
-            }
-            elseif($query_GradosTitulos_DiplomasApp->count()!=0 && $query_GradosTitulos_URAA->count()==0 ){
-              foreach ($query_GradosTitulos_DiplomasApp as $key => $item_DiplomasApp) { 
+               
+              // SUMAR ARRAY Consolidado 
+              if($idx_temp_URAA != -1 && $idx_temp_DIPLOMASAPP != -1){
                 $graduados_titulados->push(
-                  ['nro_graduados_titulados' => ($item_DiplomasApp->nro_graduados),
-                   'nombre_escuela' => ($item_DiplomasApp->Nom_escuela),
-                  ]);
+                  ['nro_graduados_titulados' => (
+                    $query_GradosTitulos_URAA[$idx_temp_URAA]->nro_graduados + 
+                    $query_GradosTitulos_DiplomasApp[$idx_temp_DIPLOMASAPP]->nro_graduados),
+                   'nombre_escuela' => ($escuela_item->Nom_escuela),
+                  ]);       
               }
+              elseif($idx_temp_URAA == -1 && $idx_temp_DIPLOMASAPP != -1){
+                $graduados_titulados->push(
+                  ['nro_graduados_titulados' => (
+                    $query_GradosTitulos_DiplomasApp[$idx_temp_DIPLOMASAPP]->nro_graduados),
+                   'nombre_escuela' => ($escuela_item->Nom_escuela),
+                  ]);       
+              }
+              elseif($idx_temp_URAA != -1 && $idx_temp_DIPLOMASAPP == -1){
+                $graduados_titulados->push(
+                  ['nro_graduados_titulados' => (
+                    $query_GradosTitulos_URAA[$idx_temp_URAA]->nro_graduados),
+                   'nombre_escuela' => ($escuela_item->Nom_escuela),
+                  ]);       
+              }
+              
+              $idx_temp_URAA = -1;
+              $idx_temp_DIPLOMASAPP = -1;
+               
             }
 
 
@@ -528,30 +556,57 @@ class StatiticsController extends Controller
             ->groupBy('programa.nombre')
             ->get();
   
-            //
-            if($query_GradosTitulos_URAA->count()!=0 && $query_GradosTitulos_DiplomasApp->count()!=0){
-              foreach ($query_GradosTitulos_URAA as $key => $item_URAA) { 
-                $graduados_titulados->push(
-                  ['nro_graduados_titulados' => ($query_GradosTitulos_DiplomasApp[$key]->nro_graduados + $item_URAA->nro_graduados),
-                   'nombre_escuela' => ($item_URAA->nombre),
-                  ]);
+            //*********************** VALIDACION URAA + DIPLOMAS APP *************************
+             
+            $escuela_original = DIPLOMASAPP_Escuela::all();
+   
+            $idx_temp_URAA = -1;
+            $idx_temp_DIPLOMASAPP = -1;
+            
+            foreach ($escuela_original as $key => $escuela_item) { 
+              foreach ($query_GradosTitulos_DiplomasApp as $key_DiplomasApp => $item_DiplomasApp) { 
+                if($escuela_item->Nom_escuela == $item_DiplomasApp->Nom_escuela){
+  
+                  $idx_temp_DIPLOMASAPP = $key_DiplomasApp;
+                  
+                }
               }
-            }
-            elseif($query_GradosTitulos_URAA->count()!=0 && $query_GradosTitulos_DiplomasApp->count()==0){
-              foreach ($query_GradosTitulos_URAA as $key => $item_URAA) { 
-                $graduados_titulados->push(
-                  ['nro_graduados_titulados' => ($item_URAA->nro_graduados),
-                   'nombre_escuela' => ($item_URAA->nombre),
-                  ]);
+  
+              foreach ($query_GradosTitulos_URAA as $key_URAA => $item_URAA) { 
+                if($escuela_item->Nom_escuela == $item_URAA->nombre){
+  
+                  $idx_temp_URAA = $key_URAA;
+                  
+                }
               }
-            }
-            elseif($query_GradosTitulos_DiplomasApp->count()!=0 && $query_GradosTitulos_URAA->count()==0 ){
-              foreach ($query_GradosTitulos_DiplomasApp as $key => $item_DiplomasApp) { 
+               
+              // SUMAR ARRAY Consolidado 
+              if($idx_temp_URAA != -1 && $idx_temp_DIPLOMASAPP != -1){
                 $graduados_titulados->push(
-                  ['nro_graduados_titulados' => ($item_DiplomasApp->nro_graduados),
-                   'nombre_escuela' => ($item_DiplomasApp->Nom_escuela),
-                  ]);
+                  ['nro_graduados_titulados' => (
+                    $query_GradosTitulos_URAA[$idx_temp_URAA]->nro_graduados + 
+                    $query_GradosTitulos_DiplomasApp[$idx_temp_DIPLOMASAPP]->nro_graduados),
+                   'nombre_escuela' => ($escuela_item->Nom_escuela),
+                  ]);       
               }
+              elseif($idx_temp_URAA == -1 && $idx_temp_DIPLOMASAPP != -1){
+                $graduados_titulados->push(
+                  ['nro_graduados_titulados' => (
+                    $query_GradosTitulos_DiplomasApp[$idx_temp_DIPLOMASAPP]->nro_graduados),
+                   'nombre_escuela' => ($escuela_item->Nom_escuela),
+                  ]);       
+              }
+              elseif($idx_temp_URAA != -1 && $idx_temp_DIPLOMASAPP == -1){
+                $graduados_titulados->push(
+                  ['nro_graduados_titulados' => (
+                    $query_GradosTitulos_URAA[$idx_temp_URAA]->nro_graduados),
+                   'nombre_escuela' => ($escuela_item->Nom_escuela),
+                  ]);       
+              }
+              
+              $idx_temp_URAA = -1;
+              $idx_temp_DIPLOMASAPP = -1;
+               
             }
           }
          
@@ -605,32 +660,58 @@ class StatiticsController extends Controller
             ->groupBy('programa.nombre')
             ->get();
   
-            //
-            if($query_GradosTitulos_URAA->count()!=0 && $query_GradosTitulos_DiplomasApp->count()!=0){
-              foreach ($query_GradosTitulos_URAA as $key => $item_URAA) { 
-                $graduados_titulados->push(
-                  ['nro_graduados_titulados' => ($query_GradosTitulos_DiplomasApp[$key]->nro_graduados + $item_URAA->nro_graduados),
-                   'nombre_escuela' => ($item_URAA->nombre),
-                  ]);
+             //*********************** VALIDACION URAA + DIPLOMAS APP *************************
+             
+            $escuela_original = DIPLOMASAPP_Escuela::all();
+   
+            $idx_temp_URAA = -1;
+            $idx_temp_DIPLOMASAPP = -1;
+            
+            foreach ($escuela_original as $key => $escuela_item) { 
+              foreach ($query_GradosTitulos_DiplomasApp as $key_DiplomasApp => $item_DiplomasApp) { 
+                if($escuela_item->Nom_escuela == $item_DiplomasApp->Nom_escuela){
+  
+                  $idx_temp_DIPLOMASAPP = $key_DiplomasApp;
+                  
+                }
               }
-            }
-            elseif($query_GradosTitulos_URAA->count()!=0 && $query_GradosTitulos_DiplomasApp->count()==0){
-              foreach ($query_GradosTitulos_URAA as $key => $item_URAA) { 
-                $graduados_titulados->push(
-                  ['nro_graduados_titulados' => ($item_URAA->nro_graduados),
-                   'nombre_escuela' => ($item_URAA->nombre),
-                  ]);
+  
+              foreach ($query_GradosTitulos_URAA as $key_URAA => $item_URAA) { 
+                if($escuela_item->Nom_escuela == $item_URAA->nombre){
+  
+                  $idx_temp_URAA = $key_URAA;
+                  
+                }
               }
-            }
-            elseif($query_GradosTitulos_DiplomasApp->count()!=0 && $query_GradosTitulos_URAA->count()==0 ){
-              foreach ($query_GradosTitulos_DiplomasApp as $key => $item_DiplomasApp) { 
+               
+              // SUMAR ARRAY Consolidado 
+              if($idx_temp_URAA != -1 && $idx_temp_DIPLOMASAPP != -1){
                 $graduados_titulados->push(
-                  ['nro_graduados_titulados' => ($item_DiplomasApp->nro_graduados),
-                   'nombre_escuela' => ($item_DiplomasApp->Nom_escuela),
-                  ]);
+                  ['nro_graduados_titulados' => (
+                    $query_GradosTitulos_URAA[$idx_temp_URAA]->nro_graduados + 
+                    $query_GradosTitulos_DiplomasApp[$idx_temp_DIPLOMASAPP]->nro_graduados),
+                   'nombre_escuela' => ($escuela_item->Nom_escuela),
+                  ]);       
               }
+              elseif($idx_temp_URAA == -1 && $idx_temp_DIPLOMASAPP != -1){
+                $graduados_titulados->push(
+                  ['nro_graduados_titulados' => (
+                    $query_GradosTitulos_DiplomasApp[$idx_temp_DIPLOMASAPP]->nro_graduados),
+                   'nombre_escuela' => ($escuela_item->Nom_escuela),
+                  ]);       
+              }
+              elseif($idx_temp_URAA != -1 && $idx_temp_DIPLOMASAPP == -1){
+                $graduados_titulados->push(
+                  ['nro_graduados_titulados' => (
+                    $query_GradosTitulos_URAA[$idx_temp_URAA]->nro_graduados),
+                   'nombre_escuela' => ($escuela_item->Nom_escuela),
+                  ]);       
+              }
+              
+              $idx_temp_URAA = -1;
+              $idx_temp_DIPLOMASAPP = -1;
+               
             }
-
           }
 
           // ----------------- DUPLICADOS -----------------
@@ -677,31 +758,60 @@ class StatiticsController extends Controller
             ->groupBy('programa.nombre')
             ->get();
   
-            //
-            if($query_GradosTitulos_URAA->count()!=0 && $query_GradosTitulos_DiplomasApp->count()!=0){
-              foreach ($query_GradosTitulos_URAA as $key => $item_URAA) { 
-                $graduados_titulados->push(
-                  ['nro_graduados_titulados' => ($query_GradosTitulos_DiplomasApp[$key]->nro_graduados + $item_URAA->nro_graduados),
-                   'nombre_escuela' => ($item_URAA->nombre),
-                  ]);
+            //*********************** VALIDACION URAA + DIPLOMAS APP *************************
+             
+            $escuela_original = DIPLOMASAPP_Escuela::all();
+   
+            $idx_temp_URAA = -1;
+            $idx_temp_DIPLOMASAPP = -1;
+            
+            foreach ($escuela_original as $key => $escuela_item) { 
+              foreach ($query_GradosTitulos_DiplomasApp as $key_DiplomasApp => $item_DiplomasApp) { 
+                if($escuela_item->Nom_escuela == $item_DiplomasApp->Nom_escuela){
+  
+                  $idx_temp_DIPLOMASAPP = $key_DiplomasApp;
+                  
+                }
               }
-            }
-            elseif($query_GradosTitulos_URAA->count()!=0 && $query_GradosTitulos_DiplomasApp->count()==0){
-              foreach ($query_GradosTitulos_URAA as $key => $item_URAA) { 
-                $graduados_titulados->push(
-                  ['nro_graduados_titulados' => ($item_URAA->nro_graduados),
-                   'nombre_escuela' => ($item_URAA->nombre),
-                  ]);
+  
+              foreach ($query_GradosTitulos_URAA as $key_URAA => $item_URAA) { 
+                if($escuela_item->Nom_escuela == $item_URAA->nombre){
+  
+                  $idx_temp_URAA = $key_URAA;
+                  
+                }
               }
-            }
-            elseif($query_GradosTitulos_DiplomasApp->count()!=0 && $query_GradosTitulos_URAA->count()==0 ){
-              foreach ($query_GradosTitulos_DiplomasApp as $key => $item_DiplomasApp) { 
+               
+              // SUMAR ARRAY Consolidado 
+              if($idx_temp_URAA != -1 && $idx_temp_DIPLOMASAPP != -1){
                 $graduados_titulados->push(
-                  ['nro_graduados_titulados' => ($item_DiplomasApp->nro_graduados),
-                   'nombre_escuela' => ($item_DiplomasApp->Nom_escuela),
-                  ]);
+                  ['nro_graduados_titulados' => (
+                    $query_GradosTitulos_URAA[$idx_temp_URAA]->nro_graduados + 
+                    $query_GradosTitulos_DiplomasApp[$idx_temp_DIPLOMASAPP]->nro_graduados),
+                   'nombre_escuela' => ($escuela_item->Nom_escuela),
+                  ]);       
               }
+              elseif($idx_temp_URAA == -1 && $idx_temp_DIPLOMASAPP != -1){
+                $graduados_titulados->push(
+                  ['nro_graduados_titulados' => (
+                    $query_GradosTitulos_DiplomasApp[$idx_temp_DIPLOMASAPP]->nro_graduados),
+                   'nombre_escuela' => ($escuela_item->Nom_escuela),
+                  ]);       
+              }
+              elseif($idx_temp_URAA != -1 && $idx_temp_DIPLOMASAPP == -1){
+                $graduados_titulados->push(
+                  ['nro_graduados_titulados' => (
+                    $query_GradosTitulos_URAA[$idx_temp_URAA]->nro_graduados),
+                   'nombre_escuela' => ($escuela_item->Nom_escuela),
+                  ]);       
+              }
+              
+              $idx_temp_URAA = -1;
+              $idx_temp_DIPLOMASAPP = -1;
+               
             }
+
+
           }
           
         }
@@ -875,7 +985,7 @@ class StatiticsController extends Controller
           ->groupBy('tipo_tramite_unidad.descripcion')
           ->get();
 
-          
+
           //*********************** VALIDACION URAA + DIPLOMAS APP *************************
           $tipo_ficha_original = DIPLOMASAPP_TipoFicha::all();
 
