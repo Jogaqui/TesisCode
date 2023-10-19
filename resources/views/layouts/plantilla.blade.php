@@ -236,6 +236,38 @@
           
         </ul>
       </nav>
+
+      {{-- <div class="mt-4" style="margin-left: 1rem">
+        <p style="color: #c2c2c2; font-weight: bold">RECURSOS</p>
+      </div> --}}
+
+      <nav class="mt-3"  style="margin-left: 0.25rem">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <a href="" class="nav-link">
+            <p style="color: #c2c2c2; font-weight: bold">
+              ACCESOS
+            </p>
+          </a>
+       
+        </ul>
+      </nav>
+
+      <nav class="mt-1">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <li class="nav-item">
+            <a href="{{route('usuario.index')}}" class="nav-link {{ Request::routeIs('usuario.index','usuario.create','usuario.edit') ? 'active' : '' }}">
+              <i class="nav-icon far fa-user-circle"></i>
+              <p>
+                Usuarios (BETA)
+              </p>
+            </a>
+          </li>   
+          
+        </ul>
+      </nav>
+
       <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->

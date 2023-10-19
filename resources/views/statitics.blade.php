@@ -404,47 +404,90 @@
             <!-- Grados y Títulos -->
             <div class="accordion_container">
               <div class="accordion d-flex flex-row align-items-center">GRADOS Y TÍTULOS</div>
-              <div id="accordion_panel_3" class="accordion_panel">
+              <div id="accordion_panel_4" class="accordion_panel">
 
                 <br>
                 <h3>Tipo:</h3>
-								<select class="combo_reportes input_field search_form_name @error('tipo') is-invalid @enderror" id="tipo" name="tipo" required="required" >
-									<option value="0" disabled selected>Seleccionar el tipo...</option>
-									@foreach($facultades_SUV as $itemfacultad)
-										<option value="{{$itemfacultad['idestructura']}}">
-											{{$itemfacultad['estr_descripcion']}}
-										</option>
-									@endforeach
+								<select class="combo_reportes input_field search_form_name @error('tipo_GT') is-invalid @enderror" id="tipo_GT" name="tipo_GT" required="required" >
+									<option value="0" disabled selected>Seleccionar el tipo de carpeta...</option>
+									<option value="1">GRADOS</option>
+                  <option value="2">TÍTULOS</option>
+								</select>
+
+                <br>
+                <h3>Condición:</h3>
+								<select class="combo_reportes input_field search_form_name @error('condicion_GT') is-invalid @enderror" id="condicion_GT" name="condicion_GT" required="required" >
+									<option value="0" disabled selected>Seleccionar la condición del tipo...</option>
+									<option value="1">Regulares</option>
+                  <option value="2">Duplicados</option>
 								</select>
 
                 <br>
                 <h3>Año:</h3>
-								<select class=" combo_reportes input_field search_form_name @error('anio') is-invalid @enderror" id="anio" name="anio" required="required" >
+								<select class=" combo_reportes input_field search_form_name @error('anio_GT') is-invalid @enderror" id="anio_GT" name="anio_GT" required="required" >
 									<option value="0" disabled selected>Seleccionar el año...</option>
-									@foreach($semestres_SUV as $itemsemestre)
-										<option value="{{$itemsemestre['periodo']}}">
-											{{$itemsemestre->periodo}}
+									@foreach($anios_grados_titulos as $itemanio_gradostitulos)
+										<option value="{{$itemanio_gradostitulos['anio']}}">
+											{{$itemanio_gradostitulos['anio']}}
 										</option>
 									@endforeach
 								</select>
 
                 <br>
                 <h3>Facultad:</h3>
-								<select class="combo_reportes input_field search_form_name @error('dependencia_SUV') is-invalid @enderror" id="dependencia_SUV" name="dependencia_SUV" required="required" >
+								<select class="combo_reportes input_field search_form_name @error('dependencia_GT') is-invalid @enderror" id="dependencia_GT" name="dependencia_GT" required="required" >
 									<option value="0" disabled selected>Seleccionar la facultad...</option>
-									@foreach($facultades_SUV as $itemfacultad)
-										<option value="{{$itemfacultad['idestructura']}}">
-											{{$itemfacultad['estr_descripcion']}}
+									@foreach($facultades_DiplomasApp as $itemfacultad)
+										<option value="{{$itemfacultad['Nom_facultad']}}">
+                      
+											{{$itemfacultad['Nom_facultad']}}
 										</option>
 									@endforeach
 								</select>
 
-                <button class="btn btn-dark btn-user btn-block" style="margin-top: 16px" type="button" id="btnBuscarMatriculados_Consolidado">
+                <button class="btn btn-dark btn-user btn-block" style="margin-top: 16px" type="button" id="btnBuscarGraduados_Titulados">
                   BUSCAR REPORTE
                 </button>
 
                 <div class="d-flex" style="margin-top: 32px;">
-                  <table class="table table-bordered" style=" color:black !important;" width="90%" cellspacing="0" id="tablaMatriculados_Consolidado">
+                  <table class="table table-bordered" style=" color:black !important;" width="90%" cellspacing="0" id="tablaGraduados_Titulados">
+                   
+                  </table> 
+                </div>      
+
+              </div>
+            </div>
+
+            <!-- Grados y Títulos - Consolidado -->
+            <div class="accordion_container">
+              <div class="accordion d-flex flex-row align-items-center">GRADOS Y TÍTULOS - Consolidado</div>
+              <div id="accordion_panel_5" class="accordion_panel">
+
+                <br>
+                <h3>Condición:</h3>
+								<select class="combo_reportes input_field search_form_name @error('condicion_GT_Consolidado') is-invalid @enderror" id="condicion_GT_Consolidado" name="condicion_GT_Consolidado" required="required" >
+									<option value="0" disabled selected>Seleccionar la condición del tipo...</option>
+									<option value="1">Regulares</option>
+                  <option value="2">Duplicados</option>
+								</select>
+
+                <br>
+                <h3>Año:</h3>
+								<select class=" combo_reportes input_field search_form_name @error('anio_GT_Consolidado') is-invalid @enderror" id="anio_GT_Consolidado" name="anio_GT_Consolidado" required="required" >
+									<option value="0" disabled selected>Seleccionar el año...</option>
+									@foreach($anios_grados_titulos as $itemanio_gradostitulos)
+										<option value="{{$itemanio_gradostitulos['anio']}}">
+											{{$itemanio_gradostitulos['anio']}}
+										</option>
+									@endforeach
+								</select>
+
+                <button class="btn btn-dark btn-user btn-block" style="margin-top: 16px" type="button" id="btnBuscarGraduados_Titulados_Consolidado">
+                  BUSCAR REPORTE
+                </button>
+
+                <div class="d-flex" style="margin-top: 32px;">
+                  <table class="table table-bordered" style=" color:black !important;" width="90%" cellspacing="0" id="tablaGraduados_Titulados_Consolidado">
                    
                   </table> 
                 </div>      
@@ -452,6 +495,55 @@
               </div>
             </div>
            
+            <!-- Egresados -->
+            {{-- <div class="accordion_container">
+              <div class="accordion d-flex flex-row align-items-center">EGRESADOS</div>
+              <div id="accordion_panel_4" class="accordion_panel">
+
+     
+                <br>
+                <h3>Condición:</h3>
+								<select class="combo_reportes input_field search_form_name @error('condicion_GT') is-invalid @enderror" id="condicion_GT" name="condicion_GT" required="required" >
+									<option value="0" disabled selected>Seleccionar la condición del tipo...</option>
+									<option value="1">Regulares</option>
+                  <option value="2">Duplicados</option>
+								</select>
+
+                <br>
+                <h3>Año:</h3>
+								<select class=" combo_reportes input_field search_form_name @error('anio_GT') is-invalid @enderror" id="anio_GT" name="anio_GT" required="required" >
+									<option value="0" disabled selected>Seleccionar el año...</option>
+									@foreach($anios_grados_titulos as $itemanio_gradostitulos)
+										<option value="{{$itemanio_gradostitulos['anio']}}">
+											{{$itemanio_gradostitulos['anio']}}
+										</option>
+									@endforeach
+								</select>
+
+                <br>
+                <h3>Facultad:</h3>
+								<select class="combo_reportes input_field search_form_name @error('dependencia_GT') is-invalid @enderror" id="dependencia_GT" name="dependencia_GT" required="required" >
+									<option value="0" disabled selected>Seleccionar la facultad...</option>
+									@foreach($facultades_DiplomasApp as $itemfacultad)
+										<option value="{{$itemfacultad['Nom_facultad']}}">
+                      
+											{{$itemfacultad['Nom_facultad']}}
+										</option>
+									@endforeach
+								</select>
+
+                <button class="btn btn-dark btn-user btn-block" style="margin-top: 16px" type="button" id="btnBuscarGraduados_Titulados">
+                  BUSCAR REPORTE
+                </button>
+
+                <div class="d-flex" style="margin-top: 32px;">
+                  <table class="table table-bordered" style=" color:black !important;" width="90%" cellspacing="0" id="tablaGraduados_Titulados">
+                   
+                  </table> 
+                </div>      
+
+              </div>
+            </div> --}}
 
           </div>
         </div>
@@ -515,7 +607,6 @@
 @section('scripts')
 <script>
   $('#btnBuscarMatriculados_SGA').on('click', function(){
-  
     $.ajax({
       url: "/statitics/reportes/matriculas_sga/" + $('#sede').val() + "/" + $('#semestre').val() + "/" + $('#dependencia').val(),
       type: 'GET',
@@ -524,23 +615,30 @@
         try {
             var html = '';
          
-            html+='<thead><tr><th>#</th><th>Escuela</th><th>N° Alumnos matriculados</th></tr></thead>'
+            html+='<thead><tr><th>#</th><th>Escuela Profesional</th><th style="text-align:center;">Femenino</th><th style="text-align:center;">Masculino</th><th style="text-align:center;">TOTAL MATRICULADOS</th></tr></thead>';
+
             var matriculados = response.matriculados;
             var matriculados_total = 0;
+            var matriculados_femenino_total = 0;
+            var matriculados_masculino_total = 0;
 
             for (var i = 0; i < matriculados.length; i++) {
               var fila = matriculados[i];
               var idx = i+1;
               matriculados_total += fila.nro_matriculados;
+              matriculados_femenino_total += fila.femenino;
+              matriculados_masculino_total += fila.masculino;
               html += '<tbody> <tr>' +
               '<td>' + idx + '</td>' +
               '<td>' + fila.dep_nombre + '</td>' + 
-              '<td>' + fila.nro_matriculados + '</td>' +
+              '<td style="text-align:center;">' + fila.femenino + '</td>' +
+              '<td style="text-align:center;">' + fila.masculino + '</td>' +
+              '<td style="text-align:center;">' + fila.nro_matriculados + '</td>' +
               '</tr> </tbody>';
               
             }
 
-            html+='<tfoot><tr style="border: 2px solid #332D2D;"><th> </th><th>TOTAL</th><th>' + matriculados_total + '</th></tr></tfoot>';
+            html+='<tfoot><tr style="border: 2px solid #332D2D;"><th> </th><th>TOTAL GENERAL</th><th style="text-align:center;">' + matriculados_femenino_total + '</th><th style="text-align:center;">' +  matriculados_masculino_total + '</th><th style="text-align:center;">' + matriculados_total + '</tr></tfoot>';
 
             $('#tablaMatriculados_SGA').html(html);
 
@@ -561,24 +659,31 @@
       try {
           var html = '';
        
-          html+='<thead><tr><th>#</th><th>Escuela</th><th>N° Alumnos matriculados</th></tr></thead>'
+          html+='<thead><tr><th>#</th><th>Escuela Profesional</th><th style="text-align:center;">Femenino</th><th style="text-align:center;">Masculino</th><th style="text-align:center;">TOTAL MATRICULADOS</th></tr></thead>';
+
           var matriculados = response.matriculados;
           var matriculados_total = 0;
+          var matriculados_femenino_total = 0;
+          var matriculados_masculino_total = 0;
 
           for (var i = 0; i < matriculados.length; i++) {
             var fila = matriculados[i];
             var idx = i+1;
             
             matriculados_total += fila.nro_matriculados;
+            matriculados_femenino_total += fila.femenino;
+            matriculados_masculino_total += fila.masculino;
             html += '<tbody> <tr>' +
             '<td>' + idx + '</td>' +
             '<td>' + fila.estr_descripcion+ '</td>' + 
-            '<td>' + fila.nro_matriculados + '</td>' +
+            '<td style="text-align:center;">' + fila.femenino + '</td>' +
+            '<td style="text-align:center;">' + fila.masculino + '</td>' +
+            '<td style="text-align:center;">' + fila.nro_matriculados + '</td>' +
             '</tr> </tbody>';
             
           }
 
-          html+='<tfoot><tr style="border: 2px solid #332D2D;"><th> </th><th>TOTAL</th><th>' + matriculados_total + '</th></tr></tfoot>';
+         html+='<tfoot><tr style="border: 2px solid #332D2D;"><th> </th><th>TOTAL GENERAL</th><th style="text-align:center;">' + matriculados_femenino_total + '</th><th style="text-align:center;">' +  matriculados_masculino_total + '</th><th style="text-align:center;">' + matriculados_total + '</tr></tfoot>';
 
           $('#tablaMatriculados_SUV').html(html);
 
@@ -591,7 +696,6 @@
   });
 
   $('#btnBuscarMatriculados_Consolidado').on('click', function(){
-  
   $.ajax({
     url: "/statitics/reportes/matriculas_consolidado/" + $('#semestre_Consolidado').val(),
     type: 'GET',
@@ -600,24 +704,32 @@
       try {
           var html = '';
        
-          html+='<thead><tr><th style="text-align:center;">#</th><th style="text-align:center;">Sistema</th><th>N° Alumnos Matriculados</th></tr></thead>'
+          html+='<thead><tr><th>#</th><th style="text-align:center;">Sistema Académico</th><th style="text-align:center;">Femenino</th><th style="text-align:center;">Masculino</th><th style="text-align:center;">N° ALUMNOS MATRICULADOS</th></tr></thead>';
+
           var matriculados = response.matriculados;
           var matriculados_total = 0;
+          var matriculados_femenino_total = 0;
+          var matriculados_masculino_total = 0;
    
           for (var i = 0; i < matriculados.length; i++) {
             var fila = matriculados[i];
             var idx = i+1;           
 
+            matriculados_femenino_total += fila.femenino;
+            matriculados_masculino_total += fila.masculino;
             matriculados_total += fila.nro_matriculados_consolidado;
+
             html += '<tbody> <tr>' +
             '<td style="text-align:center;">' + idx + '</td>' +
             '<td style="text-align:center;">' + fila.sistema_descri+ '</td>' + 
-            '<td>' + fila.nro_matriculados_consolidado + '</td>' +
+            '<td style="text-align:center;">' + fila.femenino + '</td>' +
+            '<td style="text-align:center;">' + fila.masculino + '</td>' +
+            '<td style="text-align:center;">' + fila.nro_matriculados_consolidado + '</td>' +
             '</tr> </tbody>';
             
           }
 
-          html+='<tfoot><tr style="border: 2px solid #332D2D;"><th> </th><th  style="text-align:center;">TOTAL</th><th>' + matriculados_total + '</th></tr></tfoot>';
+          html+='<tfoot><tr style="border: 2px solid #332D2D;"><th> </th><th style="text-align:center;">TOTAL GENERAL</th><th style="text-align:center;">' + matriculados_femenino_total + '</th><th style="text-align:center;">' +  matriculados_masculino_total + '</th><th style="text-align:center;">' + matriculados_total + '</tr></tfoot>';
 
           $('#tablaMatriculados_Consolidado').html(html);
 
@@ -628,6 +740,87 @@
     }
   });
   });
+
+  $('#btnBuscarGraduados_Titulados').on('click', function(){
+  $.ajax({
+    url: "/statitics/reportes/graduados_titulados/" + $('#tipo_GT').val() + "/" + $('#condicion_GT').val() + "/" + $('#anio_GT').val() + "/" + $('#dependencia_GT').val(),
+    type: 'GET',
+    success: function (response) {
+      console.log(response)
+      try {
+          var html = '';
+          var header_tipo = response.header_tipo;
+          html+='<thead><tr><th>#</th><th>Escuela Profesional</th><th style="text-align:center;">N° ' + header_tipo + '</th></tr></thead>';
+
+          var graduados_titulados = response.graduados_titulados;
+          var graduados_titulados_total = 0;
+
+          for (var i = 0; i < graduados_titulados.length; i++) {
+            var fila = graduados_titulados[i];
+            var idx = i+1;
+            
+            graduados_titulados_total += fila.nro_graduados_titulados;
+ 
+            html += '<tbody> <tr>' +
+            '<td>' + idx + '</td>' +
+            '<td>' + fila.nombre_escuela + '</td>' + 
+            '<td style="text-align:center;">' + fila.nro_graduados_titulados + '</td>' +
+            '</tr> </tbody>';
+            
+          }
+
+         html+='<tfoot><tr style="border: 2px solid #332D2D;"><th> </th><th>TOTAL GENERAL</th><th style="text-align:center;">' + graduados_titulados_total + '</tr></tfoot>';
+
+          $('#tablaGraduados_Titulados').html(html);
+
+          $("#accordion_panel_4").css("max-height", "1500px");
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  });
+  });
+
+  $('#btnBuscarGraduados_Titulados_Consolidado').on('click', function(){
+  $.ajax({
+    url: "/statitics/reportes/graduados_titulados_consolidado/" + $('#condicion_GT_Consolidado').val() + "/" + $('#anio_GT_Consolidado').val(),
+    type: 'GET',
+    success: function (response) {
+      console.log(response)
+      try {
+          var html = '';
+          var header_condicion = response.header_condicion;
+          html+='<thead><tr><th>#</th><th>Nombre Ficha</th><th style="text-align:center;">N° ' + header_condicion + '</th></tr></thead>';
+
+          var graduados_titulados_consolidado = response.graduados_titulados_consolidado;
+          var graduados_titulados_consolidado_total = 0;
+
+          for (var i = 0; i < graduados_titulados_consolidado.length; i++) {
+            var fila = graduados_titulados_consolidado[i];
+            var idx = i+1;
+            
+            graduados_titulados_consolidado_total += fila.nro_graduados_titulados_consolidado;
+ 
+            html += '<tbody> <tr>' +
+            '<td>' + idx + '</td>' +
+            '<td>' + fila.nombre_ficha + '</td>' + 
+            '<td style="text-align:center;">' + fila.nro_graduados_titulados_consolidado + '</td>' +
+            '</tr> </tbody>';
+            
+          }
+
+         html+='<tfoot><tr style="border: 2px solid #332D2D;"><th> </th><th>TOTAL GENERAL</th><th style="text-align:center;">' + graduados_titulados_consolidado_total + '</tr></tfoot>';
+
+          $('#tablaGraduados_Titulados_Consolidado').html(html);
+
+          $("#accordion_panel_5").css("max-height", "1500px");
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  });
+  });
+
 
 
 $(document).ready(function(){

@@ -60,8 +60,10 @@ class PublicacionController extends Controller
             // dd($img);
             // $nombre=$img->getClientOriginalName();
             // $img->move('/uploads/', $nombre);
-            $nombreUsuario="";
-            $nombreUsuario+=Auth::user()->usu_nombres+Auth::user()->usu_apepaterno;
+            $nombreUsuario=Auth::user()->usu_nombres." ".Auth::user()->usu_apepaterno;
+
+            //return dd($nombreUsuario);
+
             $puestoUsuario=Auth::user()->trab_puesto;
 
             if(!empty($request->file('imagen'))){
@@ -98,18 +100,24 @@ class PublicacionController extends Controller
             $publicacion->save();
 
 
-            // bucle para guardar la relacion Publicacion/Etiqueta
-            $publicacion= Publicacion::all();
-            $lastPublicacion=$publicacion->last();
-            $id=$lastPublicacion->idPublicacion;
             $etiquetas=$request->etiquetas;
-            // dd( $etiquetas);
-            for($i = 0; $i < sizeof($etiquetas); $i++){
-                $publicacion_etiqueta=new Publicacion_Etiqueta();
-                $publicacion_etiqueta->idPublicacion=$id;
-                $publicacion_etiqueta->idEtiqueta=$etiquetas[$i];
-                $publicacion_etiqueta->save();
+
+            if($etiquetas){
+                $publicacion= Publicacion::all();
+                $lastPublicacion=$publicacion->last();
+                $id=$lastPublicacion->idPublicacion;
+                
+                // dd( $etiquetas);
+                // bucle para guardar la relacion Publicacion/Etiqueta
+                for($i = 0; $i < sizeof($etiquetas); $i++){
+                    $publicacion_etiqueta=new Publicacion_Etiqueta();
+                    $publicacion_etiqueta->idPublicacion=$id;
+                    $publicacion_etiqueta->idEtiqueta=$etiquetas[$i];
+                    $publicacion_etiqueta->save();
+                }
             }
+          
+           
             //fin de bucle
             DB::commit();
             return redirect()->route('publicacion.index')->with('datos', 'G');
@@ -191,15 +199,19 @@ class PublicacionController extends Controller
                 //$publicacion->titulo=$request->titulo;
                 $publicacion->resumen=$request->resumen;
                 $publicacion->texto=$request->texto;
+              
                 $etiquetas=$request->etiquetas;
                 $publicacion_etiqueta=Publicacion_Etiqueta::where('idPublicacion',$id)->delete();
                 //dd($publicacion_etiqueta);
-                for($i = 0; $i < sizeof($etiquetas); $i++){
-                    $publicacion_etiqueta=new Publicacion_Etiqueta();
-                    $publicacion_etiqueta->idPublicacion=$id;
-                    $publicacion_etiqueta->idEtiqueta=$etiquetas[$i];
-                    $publicacion_etiqueta->save();
+                if($etiquetas){
+                    for($i = 0; $i < sizeof($etiquetas); $i++){
+                        $publicacion_etiqueta=new Publicacion_Etiqueta();
+                        $publicacion_etiqueta->idPublicacion=$id;
+                        $publicacion_etiqueta->idEtiqueta=$etiquetas[$i];
+                        $publicacion_etiqueta->save();
+                    }
                 }
+               
                 $publicacion->estado='1';
             }else {
                 $data=request()->validate([
@@ -236,11 +248,13 @@ class PublicacionController extends Controller
                 $etiquetas=$request->etiquetas;
                 $publicacion_etiqueta=Publicacion_Etiqueta::where('idPublicacion',$id)->delete();
                 //dd($publicacion_etiqueta);
-                for($i = 0; $i < sizeof($etiquetas); $i++){
-                    $publicacion_etiqueta=new Publicacion_Etiqueta();
-                    $publicacion_etiqueta->idPublicacion=$id;
-                    $publicacion_etiqueta->idEtiqueta=$etiquetas[$i];
-                    $publicacion_etiqueta->save();
+                if($etiquetas){
+                    for($i = 0; $i < sizeof($etiquetas); $i++){
+                        $publicacion_etiqueta=new Publicacion_Etiqueta();
+                        $publicacion_etiqueta->idPublicacion=$id;
+                        $publicacion_etiqueta->idEtiqueta=$etiquetas[$i];
+                        $publicacion_etiqueta->save();
+                    }
                 }
                 $publicacion->estado='1';
             }

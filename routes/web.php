@@ -40,16 +40,28 @@ Route::resource('/aboutus', AboutUsController::class);
 Route::resource('/contact', ContactController::class);
 Route::resource('/question', QuestionController::class);
 Route::resource('/statitics', StatiticsController::class);
+
+//Reportes Estadísticas
 Route::get('/statitics/reportes/matriculas_sga/{sede}/{semestre}/{dependencia}', 'StatiticsController@getNroAlumnosMatriculadosByEscuela_SGA');
 
 Route::get('/statitics/reportes/matriculas_suv/{sede}/{semestre}/{dependencia}', 'StatiticsController@getNroAlumnosMatriculadosByEscuela_SUV');
 
 Route::get('/statitics/reportes/matriculas_consolidado/{semestre}', 'StatiticsController@getNroAlumnosMatriculadosByEscuela_Consolidado');
 
+Route::get('/statitics/reportes/graduados_titulados/{tipo}/{condicion}/{anio}/{dependencia}', 'StatiticsController@getNroGraduadosTituladosByEscuela');
+
+Route::get('/statitics/reportes/graduados_titulados_consolidado/{condicion}/{anio}', 'StatiticsController@getNroGraduadosTituladosConsolidado');
 
 //APP
 Route::group(['middleware' => 'auth'], function () {
   Route::get('/home', 'HomeController@index')->name('home');
+
+  // Usuarios
+  Route::resource('usuario','UsuarioController');
+  Route::get(('cancelarUsu'), function(){
+    return redirect()->route('usuario.index')->with('datos', 'C');
+  })->name('cancelarUsu');
+
 
   // Unidades
   Route::resource('unidad', 'UnidadController');
