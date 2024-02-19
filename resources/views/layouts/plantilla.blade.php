@@ -40,8 +40,14 @@
   <link rel="stylesheet" href="/adminlte/plugins/bs-stepper/css/bs-stepper.min.css">
   <!-- dropzonejs -->
   <link rel="stylesheet" href="/adminlte/plugins/dropzone/min/dropzone.min.css">
+
+
+
+  
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
+
+  
 <!-- Site wrapper -->
 <div class="wrapper">
 
@@ -58,13 +64,13 @@
     <ul class="navbar-nav ml-auto">
       <li class="nav-item dropdown user-menu">
         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-          <img src="/adminlte/dist/img/user2-160x160.jpg" class="user-image img-circle elevation-2" alt="User Image">
+          <img src="{{asset('images/icono-user-genNeutro.png')}}" class="user-image img-circle elevation-2" alt="User Image">
           <span class="d-none d-md-inline" style="color: white">{{ Auth::user()->usu_nombreCompleto }}</span>
         </a>
         <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           <!-- User image -->
           <li class="user-header" style="background: rgb(3, 15, 54);color: white; padding-bottom: 20px; height: auto !important;">
-            <img src="/adminlte/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+            <img src="{{asset('images/icono-user-genNeutro.png')}}" class="img-circle elevation-2" alt="User Image">
 
             <p>
               {{ Auth::user()->usu_nombreCompleto }} - Administrador
@@ -76,7 +82,7 @@
             </p>
           </li>
           <!-- Menu Body -->
-
+          
           <!-- Menu Footer-->
           <li class="user-footer">
             <a href="/welcome" class="btn btn-default btn-flat float-left">Página Web</a>
@@ -103,15 +109,27 @@
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex" style="padding-top: 15px">
+      {{-- <div class="user-panel mt-3 pb-3 mb-3 d-flex">
 
         <div class="image">
-          <img src="/adminlte/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+          <img src="{{asset('images/icono-user-genNeutro.png')}}" class="img-circle elevation-2 d-flex" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" style="font-weight: bold" class="d-block">{{ Auth::user()->usu_nombreCompleto  }}</a>
+          <a href="#" style="font-weight: bold" class="d-flex">{{ Auth::user()->usu_nombreCompleto}}</a>
         </div>
-      </div>
+      </div> --}}
+
+      <!-- Encabezado Sidebar Menu -->
+      <nav class="mt-3"  style="margin-left: 0.25rem">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <a href="" class="nav-link">
+            <p style="color: #7a7a7a; font-weight: bold">
+              COMPONENTES
+            </p>
+          </a>
+       
+        </ul>
+      </nav>
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
@@ -142,6 +160,7 @@
               </p>
             </a>
           </li>
+
           <li class="nav-item">
             <a href="{{route('etiqueta.index')}}" class="nav-link {{ Request::routeIs('etiqueta.index','etiqueta.create','etiqueta.edit') ? 'active' : '' }}">
               <i class="nav-icon fab fa-buffer"></i>
@@ -150,6 +169,16 @@
               </p>
             </a>
           </li>
+
+          <li class="nav-item">
+            <a href="{{route('norma.index')}}" class="nav-link {{ Request::routeIs('norma.index','norma.create','norma.edit') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-envelope-open-text"></i>
+              <p>
+                Normativas
+              </p>
+            </a>
+          </li>
+
           <li class="nav-item">
             <a href="{{route('trabajador.index')}}" class="nav-link {{ Request::routeIs('trabajador.index','trabajador.create','trabajador.edit') ? 'active' : '' }}">
               <i class="nav-icon fas fa-users"></i>
@@ -159,14 +188,14 @@
             </a>
           </li>
 
-          <li class="nav-item">
+          {{-- <li class="nav-item">
             <a href="{{route('grados.index')}}" class="nav-link {{ Request::routeIs('grados.index','grados.create','grados.edit') ? 'active' : '' }}">
               <i class="nav-icon fas fa-industry"></i>
               <p>
                 Grados
               </p>
             </a>
-          </li>
+          </li> --}}
           
           <li class="nav-item">
             <a href="{{route('tramite.index')}}" class="nav-link {{ Request::routeIs('tramite.index','tramite.create','tramite.edit') ? 'active' : '' }}">
@@ -196,10 +225,19 @@
           </li>
 
           <li class="nav-item">
+            <a href="{{route('consulta.index')}}" class="nav-link {{ Request::routeIs('consulta.index','consulta.show') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-book-reader"></i>
+              <p>
+                Consultas
+              </p>
+            </a>
+          </li>
+          
+          <li class="nav-item">
             <a href="{{route('contactanos.index')}}" class="nav-link {{ Request::routeIs('contactanos.index','contactanos.create','contactanos.edit') ? 'active' : '' }}">
               <i class="nav-icon fas fa-at"></i>
               <p>
-                Informacion de Contacto
+                Contacto
               </p>
             </a>
           </li>
@@ -215,14 +253,7 @@
             </a>
           </li> --}}
 
-          {{-- <li class="nav-item">
-            <a href="{{route('consulta.index')}}" class="nav-link {{ Request::routeIs('consulta.index','consulta.show') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-book-reader"></i>
-              <p>
-                Consultas
-              </p>
-            </a>
-          </li> --}}
+          
 
           {{-- <li class="nav-item">
             <a href="{{route('portada.index')}}" class="nav-link {{ Request::routeIs('portada.index','portada.show') ? 'active' : '' }}">
@@ -237,14 +268,14 @@
         </ul>
       </nav>
 
-      {{-- <div class="mt-4" style="margin-left: 1rem">
-        <p style="color: #c2c2c2; font-weight: bold">RECURSOS</p>
-      </div> --}}
 
-      <nav class="mt-3"  style="margin-left: 0.25rem">
+
+      
+      <!-- Encabezado Sidebar Menu -->
+      <nav class="mt-4"  style="margin-left: 0.25rem">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <a href="" class="nav-link">
-            <p style="color: #c2c2c2; font-weight: bold">
+            <p style="color: #7a7a7a; font-weight: bold">
               ACCESOS
             </p>
           </a>
@@ -252,6 +283,7 @@
         </ul>
       </nav>
 
+      <!-- Sidebar Menu -->
       <nav class="mt-1">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
@@ -274,7 +306,11 @@
   </aside>
 
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper" style="background-color: #f8f9fa;">
+  <div class="content-wrapper " style="background-color: #f8f9fa;">
+
+    <div class="">
+      <img style="position:fixed; opacity: 0.5; width:auto;" src="{{ asset('images/background_unt_tramites.jpg') }}" alt="Fondo Intranet">
+    </div>
     <!-- Main content -->
     <section class="content" style="background-color: #f8f9fa;">
       <br>
@@ -293,6 +329,7 @@
 </div>
 <!-- ./wrapper -->
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
 <!-- jQuery -->
 <script src="/adminlte/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->

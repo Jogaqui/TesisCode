@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\BotmanController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,6 +18,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return redirect('/welcome');
 });
+
+Route::match(['get','post'], '/botman', [BotmanController::class, 'handle']);
 
 // Auth::routes();
 // Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
@@ -40,17 +44,29 @@ Route::resource('/aboutus', AboutUsController::class);
 Route::resource('/contact', ContactController::class);
 Route::resource('/question', QuestionController::class);
 Route::resource('/statitics', StatiticsController::class);
+Route::resource('/normativas', NormativasController::class);
 
 //Reportes Estadísticas
-Route::get('/statitics/reportes/matriculas_sga/{sede}/{semestre}/{dependencia}', 'StatiticsController@getNroAlumnosMatriculadosByEscuela_SGA');
+//Route::get('/statitics/reportes/matriculas_sga/{sede}/{semestre}/{dependencia}', 'StatiticsController@getNroAlumnosMatriculadosByEscuela_SGA');
 
-Route::get('/statitics/reportes/matriculas_suv/{sede}/{semestre}/{dependencia}', 'StatiticsController@getNroAlumnosMatriculadosByEscuela_SUV');
+//Route::get('/statitics/reportes/matriculas_suv/{sede}/{semestre}/{dependencia}', 'StatiticsController@getNroAlumnosMatriculadosByEscuela_SUV');
 
-Route::get('/statitics/reportes/matriculas_consolidado/{semestre}', 'StatiticsController@getNroAlumnosMatriculadosByEscuela_Consolidado');
+Route::get('/statitics/reportes/matriculas/{sede}/{semestre}/{dependencia}', 'StatiticsController@getNroMatriculadosByFacultad');
 
-Route::get('/statitics/reportes/graduados_titulados/{tipo}/{condicion}/{anio}/{dependencia}', 'StatiticsController@getNroGraduadosTituladosByEscuela');
+Route::get('/statitics/reportes/matriculas_consolidado/{semestre}/{tipo_consolidado}', 'StatiticsController@getNroMatriculadosConsolidado');
+
+Route::get('/statitics/reportes/graduados_titulados/{tipo}/{condicion}/{anio}/{dependencia}', 'StatiticsController@getNroGraduadosTituladosByFacultad');
 
 Route::get('/statitics/reportes/graduados_titulados_consolidado/{condicion}/{anio}', 'StatiticsController@getNroGraduadosTituladosConsolidado');
+
+Route::get('/statitics/reportes/egresados/{sede}/{semestre}/{dependencia}', 'StatiticsController@getNroEgresadosByFacultad');
+
+Route::get('/statitics/reportes/egresados_consolidado/{semestre}', 'StatiticsController@getNroEgresadosConsolidado');
+
+Route::get('/statitics/milestones/matriculadosByAnio', 'StatiticsController@getMatriculadosTotalesByAnio');
+
+Route::get('/statitics/consultas/alumno_egresado/{unidad}/{tipo_busqueda}/{input_alumno_egresado}', 'StatiticsController@getAlumnoEgresado_Consulta');
+
 
 //APP
 Route::group(['middleware' => 'auth'], function () {
@@ -111,6 +127,13 @@ Route::group(['middleware' => 'auth'], function () {
    Route::get(('cancelarPreg'), function(){
        return redirect()->route('pregunta.index')->with('datos', 'C');
    })->name('cancelarPreg'); 
+
+   
+   //Normativa App
+   Route::resource('norma', 'NormaController');
+   Route::get(('cancelarNorm'), function(){
+       return redirect()->route('norma.index')->with('datos', 'C');
+   })->name('cancelarNorm');
 
    //Tramite
   Route::resource('tramite', 'TramiteController');

@@ -4,7 +4,7 @@
 
 
 <div class="container-fluid">
-    <h3>GESTIÓN DE MANUALES</h3>
+    <h3 style="position:relative; opacity: 1 !important;">GESTIÓN DE MANUALES</h3>
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">Listado de manuales</h3>
@@ -22,7 +22,7 @@
                 <th>Título</th>
                 <th>Descripción</th>
                 <th>Tipo de usuario</th>
-                <th>Archivo</th>
+                <th style="max-width: 10vw;">Archivo</th>
                 <th>Opciones</th>
               </tr>
               </thead>
@@ -30,15 +30,15 @@
 
               @foreach($manuales as $item) 
                 <tr>
-                    <td>{{$item->idManual}}</td>
+                    <td style="text-align: center">{{$item->idManual}}</td>
                     <td>{{$item->titulo}}</td>
                     <td>{{$item->descripcion}}</td>
                     <td>{{$item->tipo_usuario->nombre}}</td>
                     <td>{{substr($item->ruta_manual,18)}}</td>
                     <td>
                       @if ($item->estado == 1)
-                        <a href="{{route('manual.edit',$item->idManual)}}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i>Editar</a>
-                        <a href="" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModalCenter{{$item->idManual}}"><i class="fas fa-times"></i> Desactivar</a>
+                        <a href="{{route('manual.edit',$item->idManual)}}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
+                        <a href="" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModalCenter{{$item->idManual}}"><i class="fas fa-times"></i></a>
                       @else
                         <a href="" style="border: 1px solid black;" class="btn btn-light btn-sm" data-toggle="modal" data-target="#exampleModalCenter{{$item->idManual}}"><i class="fas fa-check"></i> Activar</a>
                       @endif

@@ -3,7 +3,7 @@
 @section('contenido')
 
 <div class="container-fluid">
-    <h3>GESTIÓN DE USUARIOS</h3>
+    <h3 style="position:relative; opacity: 1 !important;">GESTIÓN DE USUARIOS</h3>
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">Listado de Usuarios</h3>

@@ -11,19 +11,27 @@ use App\DIPLOMASAPP_Escuela;
 use App\Publicacion_Etiqueta;
 use App\SGA_Dependencia;
 use App\Unidad;
+use App\Facultad;
+use App\Escuela;
+use App\Periodo;
+use App\Sede;
 use App\DIPLOMASAPP_Graduado;
 use App\DIPLOMASAPP_Facultad;
 use App\DIPLOMASAPP_Graduado_duplicado;
 use App\DIPLOMASAPP_TipoFicha;
+use App\SE_Alumno;
 use App\URAA_Tramite;
 use App\URAA_SemestreAcademico;
+use App\SGA_Perfil;
 use App\SGA_Sede;
 use App\SGA_Semestre;
 use App\SGA_Matricula;
+use App\SGA_Persona;
 use App\SUV_Sede;
 use App\SUV_Semestre;
 use App\SUV_Matricula;
 use App\SUV_Estructura;
+use App\SUV_Persona;
 use App\URAA_Dependencia;
 use App\URAA_Tipo_tramite_unidad;
 use Illuminate\Database\Eloquent\Collection;
@@ -92,9 +100,6 @@ class StatiticsController extends Controller
         ->where('tramite.idUnidad',1)
         ->where('tramite.idEstado_tramite',15)
         ->count();
-
-
-
 
       //COUNT - Segunda especialidad tramites para statitics
       $tramites_se_certificados=URAA_Tramite::select('tramite.idTramite','tramite.idUsuario','tramite.idUnidad','tramite.idPrograma','tramite.idEstado_tramite', 
@@ -172,7 +177,15 @@ class StatiticsController extends Controller
        ->orderBy('sga_anio.tan_id','asc')
        ->first();
 
+
        $facultades_DiplomasApp = DIPLOMASAPP_Facultad::where('Nom_facultad','LIKE','FACULTAD%')->get();
+
+       $facultades_URAA_Website = Facultad::where('estado', '1')->get();
+
+       $semestres_URAA_Website = Periodo::where('estado', '1')->orderBy('denominacion','desc')->get();
+
+       $sedes_URAA_Website = Sede::where('estado', '1')->get();
+
 
        // ULTIMO AÑO - TABLA SEMESTRE ACADEMICO URAA-Tramites
        $query_diplomas_anio_antiguo =  DIPLOMASAPP_Graduado::select(DB::raw('SUBSTR(graduado.fec_expe_d,1,4) as anio_expe'))->where('graduado.fec_expe_d','>=','1970-01-01')->orderBy('graduado.fec_expe_d','asc')->first();
@@ -189,6 +202,7 @@ class StatiticsController extends Controller
         $pre_anios_grados_titulos->push(['id'=>$i,'anio'=>strval($diplomas_anio_antiguo+$i-1)]);
        }
        $anios_grados_titulos = $pre_anios_grados_titulos->sortByDesc('anio');
+
 
       //dd($anios_grados_titulos);
       //
@@ -218,179 +232,520 @@ class StatiticsController extends Controller
         'semestres_SUV',
         'facultades_SUV',
         'facultades_DiplomasApp',
+        'facultades_URAA_Website',
+        'semestres_URAA_Website',
+        'sedes_URAA_Website',
         'semestres_consolidado',
         'anios_grados_titulos',
+  
       ));
     }
 
 
+    // *********************************************************** EX-REPORTES **************************************************************************
+    // ***********************************************************************************************************************************************
+    
+    // public function getNroAlumnosMatriculadosByEscuela_SGA($sede, $semestre, $dependencia)
+    // {
+    //   DB::beginTransaction();
+    //   try{
 
-    public function getNroAlumnosMatriculadosByEscuela_SGA($sede, $semestre, $dependencia)
-    {
+    //     //NUEVA QUERY CON GENEROS
+    //     $matriculados_SGA =  SGA_Matricula::select('escuela.dep_nombre',
+    //     DB::raw('COUNT(CASE WHEN persona.per_sexo = "F" THEN 1 END) AS femenino'),
+    //     DB::raw('COUNT(CASE WHEN persona.per_sexo = "M" THEN 1 END) AS masculino'),
+    //     DB::raw('COUNT(escuela.dep_id) AS nro_matriculados'))
+    //     ->join('perfil','perfil.pfl_id','sga_matricula.pfl_id')
+    //     ->join('persona','persona.per_id','perfil.per_id')
+    //     ->join('dependencia AS escuela','escuela.dep_id','perfil.dep_id')
+    //     //->join('sga_orden_pago AS op','sga_matricula.mat_id','op.mat_id')
+    //     ->where('sga_matricula.ani_id',$semestre)
+    //     ->where('perfil.sed_id',$sede)
+    //     ->where('escuela.sdep_id',$dependencia)
+    //     ->where('sga_matricula.mat_estado',1)
+    //    // ->where('op.ord_pagado',1)
+    //     ->groupBy('escuela.dep_id', 'escuela.dep_nombre')
+    //     ->get();
+      
+    //     return response()->json(['matriculados' => $matriculados_SGA]);
+    //     DB::commit();
+        
+    //   }catch(Exception $e){
+    //     return response()->json(['matriculados' => $e->getMessage()]);
+    //     DB::rollback();
+    //   }
+     
+    // }
+
+    // public function getNroAlumnosMatriculadosByEscuela_SUV($sede, $semestre, $dependencia)
+    // {
+    //   DB::beginTransaction();
+    //   try{
+        
+    //     $matriculados_SUV =  SUV_Matricula::select('patrimonio.estructura.estr_descripcion',
+    //     DB::raw('COUNT(*) AS nro_matriculados'),
+    //     DB::raw("COUNT(CASE WHEN sistema.persona.per_sexo = '0' THEN 1 END) AS femenino"),
+    //     DB::raw("COUNT(CASE WHEN sistema.persona.per_sexo = '1' THEN 1 END) AS masculino"))
+    //     ->join('matriculas.alumno','matriculas.alumno.idalumno','matricula.idalumno')
+    //     ->join('sistema.persona','sistema.persona.idpersona','matriculas.alumno.idpersona')
+    //     ->join('patrimonio.area','patrimonio.area.idarea','matriculas.alumno.idarea')
+    //     ->join('patrimonio.estructura','patrimonio.estructura.idestructura','patrimonio.area.idestructura')
+    //     ->join('matriculas.orden_pago','matriculas.orden_pago.idmatricula','matricula.idmatricula')
+    //     ->where('matricula.mat_periodo',$semestre)
+    //     ->where('matriculas.alumno.idsede',$sede)
+    //     ->where('patrimonio.estructura.iddependencia',$dependencia)
+    //     ->where('matriculas.orden_pago.ord_estado',"PAGADA")
+    //     ->where('matricula.mat_estado',"1")
+    //     ->groupBy('patrimonio.estructura.idestructura')
+    //     ->get();
+      
+    //     return response()->json(['matriculados' => $matriculados_SUV]);
+    //     DB::commit();
+        
+    //   }catch(Exception $e){
+    //     return response()->json(['matriculados' => $e->getMessage()]);
+    //     DB::rollback();
+    //   }
+     
+    // }
+
+    // Milestones - Matriculas
+    public function getMatriculadosTotalesByAnio(){
+             
       DB::beginTransaction();
       try{
-        
-         //QUERY CLASICA 
-        // $matriculados_SGA =  SGA_Matricula::select(DB::raw('COUNT(escuela.dep_id) AS nro_matriculados'), 'escuela.dep_nombre')
-        // ->join('perfil','perfil.pfl_id','sga_matricula.pfl_id')
-        // ->join('dependencia AS escuela','escuela.dep_id','perfil.dep_id')
-        // ->where('sga_matricula.ani_id',$semestre)
-        // ->where('perfil.sed_id',$sede)
-        // ->where('escuela.sdep_id',$dependencia)
-        // ->where('sga_matricula.mat_estado',1)
-        // ->groupBy('escuela.dep_id', 'escuela.dep_nombre')
-        // ->get();
-
-        //NUEVA QUERY CON GENEROS
-        $matriculados_SGA =  SGA_Matricula::select('escuela.dep_nombre',
-        DB::raw('COUNT(CASE WHEN persona.per_sexo = "F" THEN 1 END) AS femenino'),
-        DB::raw('COUNT(CASE WHEN persona.per_sexo = "M" THEN 1 END) AS masculino'),
-        DB::raw('COUNT(escuela.dep_id) AS nro_matriculados'))
-        ->join('perfil','perfil.pfl_id','sga_matricula.pfl_id')
-        ->join('persona','persona.per_id','perfil.per_id')
-        ->join('dependencia AS escuela','escuela.dep_id','perfil.dep_id')
-        //->join('sga_orden_pago AS op','sga_matricula.mat_id','op.mat_id')
-        ->where('sga_matricula.ani_id',$semestre)
-        ->where('perfil.sed_id',$sede)
-        ->where('escuela.sdep_id',$dependencia)
-        ->where('sga_matricula.mat_estado',1)
-       // ->where('op.ord_pagado',1)
-        ->groupBy('escuela.dep_id', 'escuela.dep_nombre')
-        ->get();
       
-        return response()->json(['matriculados' => $matriculados_SGA]);
+        // N° Matriculados por año - ultimos 5 años
+       $n_matriculados_ultimos_5_anios = collect();
+
+
+       $query_ultimo_periodo = Periodo::where('estado',1)->orderBy('idPeriodo','desc')->first();
+
+       $valor_cantidad_anios = 5;
+       $value_query_ultimo_anio_minus5 = intval($query_ultimo_periodo->anio) - $valor_cantidad_anios;
+  
+
+        // -------------- SGA -------------
+        $query_Matriculados_5anios_SGA =  SGA_Matricula::select('sga_anio.ani_anio',
+            DB::raw('COUNT(DISTINCT persona.per_login) AS nro_matriculados'))
+            ->join('sga_anio','sga_matricula.ani_id','sga_anio.ani_id')
+            ->join('perfil','perfil.pfl_id','sga_matricula.pfl_id')
+            ->join('persona','persona.per_id','perfil.per_id')
+            ->join('sga_orden_pago AS op','sga_matricula.mat_id','op.mat_id')
+            ->where('sga_anio.ani_anio', '>', $value_query_ultimo_anio_minus5)
+            ->where('sga_matricula.mat_estado',1)
+            ->where('op.ord_pagado',1)
+            ->groupBy('sga_anio.ani_anio')
+            ->get();
+        
+        //return dd($query_Matriculados_5anios_SGA);
+
+        // -------------- SUV -------------
+        $query_Matriculados_5anios_SUV=  SUV_Matricula::select(
+            DB::raw('SUBSTRING(planificacion.periodo.idperiodo,1,4) as anio'),
+            DB::raw('COUNT(DISTINCT matricula.idalumno) AS nro_matriculados'))
+            ->join('planificacion.periodo','matriculas.matricula.mat_periodo','planificacion.periodo.idperiodo')
+            ->join('matriculas.orden_pago','matriculas.orden_pago.idmatricula','matriculas.matricula.idmatricula')
+            ->whereRaw('CAST(SUBSTRING(planificacion.periodo.idperiodo,1,4) as INT) >'.$value_query_ultimo_anio_minus5)
+            ->where('matriculas.orden_pago.ord_estado',"PAGADA")
+            ->where('matricula.mat_estado',1)
+            ->groupBy(DB::raw('SUBSTRING(planificacion.periodo.idperiodo,1,4)'))
+            ->get();
+
+        // return dd($query_Matriculados_5anios_SGA, $query_Matriculados_5anios_SUV);
+
+          
+
+          //recorrido del array y llenado del collect a mandar a front n_matriculados_ultimos_5anios
+          for ($i=0; $i < $valor_cantidad_anios; $i++){
+
+            $total_matriculados_anio = $query_Matriculados_5anios_SGA[$i]['nro_matriculados'] + $query_Matriculados_5anios_SUV[$i]['nro_matriculados'];
+
+            $n_matriculados_ultimos_5_anios->push(
+              ['value' => ($total_matriculados_anio),
+                'anio' => ($value_query_ultimo_anio_minus5 + $i + 1),
+              ]); 
+
+          }
+
+        return response()->json(['n_matriculados_ultimos_5_anios' => $n_matriculados_ultimos_5_anios]);
         DB::commit();
         
       }catch(Exception $e){
-        return response()->json(['matriculados' => $e->getMessage()]);
+        return response()->json(['n_matriculados_ultimos_5_anios' => $e->getMessage()]);
         DB::rollback();
-      }
-     
+      } 
+    
     }
 
-    public function getNroAlumnosMatriculadosByEscuela_SUV($sede, $semestre, $dependencia)
+
+    // Matrículas
+    public function getNroMatriculadosByFacultad($sede, $semestre, $dependencia)
     {
       DB::beginTransaction();
       try{
-        
-        $matriculados_SUV =  SUV_Matricula::select('patrimonio.estructura.estr_descripcion',
-        DB::raw('COUNT(*) AS nro_matriculados'),
-        DB::raw("COUNT(CASE WHEN sistema.persona.per_sexo = '0' THEN 1 END) AS femenino"),
-        DB::raw("COUNT(CASE WHEN sistema.persona.per_sexo = '1' THEN 1 END) AS masculino"))
-        ->join('matriculas.alumno','matriculas.alumno.idalumno','matricula.idalumno')
-        ->join('sistema.persona','sistema.persona.idpersona','matriculas.alumno.idpersona')
-        ->join('patrimonio.area','patrimonio.area.idarea','matriculas.alumno.idarea')
-        ->join('patrimonio.estructura','patrimonio.estructura.idestructura','patrimonio.area.idestructura')
-        ->join('matriculas.orden_pago','matriculas.orden_pago.idmatricula','matricula.idmatricula')
-        ->where('matricula.mat_periodo',$semestre)
-        ->where('matriculas.alumno.idsede',$sede)
-        ->where('patrimonio.estructura.iddependencia',$dependencia)
-        ->where('matriculas.orden_pago.ord_estado',"PAGADA")
-        ->where('matricula.mat_estado',"1")
-        ->groupBy('patrimonio.estructura.idestructura')
-        ->get();
-      
-        return response()->json(['matriculados' => $matriculados_SUV]);
-        DB::commit();
-        
-      }catch(Exception $e){
-        return response()->json(['matriculados' => $e->getMessage()]);
-        DB::rollback();
-      }
-     
-    }
 
-    public function getNroAlumnosMatriculadosByEscuela_Consolidado($semestre)
-    {
-      DB::beginTransaction();
-      try{
-        
-        $semestre_ani_SGA = "";
-        $semestre_ani_SGA = substr($semestre,0,4);
+        $matriculados = collect();
+        $semestre_query = Periodo::where('idPeriodo',$semestre)->where('estado',1)->first();
+        $sede_query = Sede::where('idSede',$sede)->where('estado',1)->first();
+        $facultad_query = Facultad::where('idFacultad',$dependencia)->where('estado',1)->first();
 
-        $semestre_tani_SGA = 0;
-
-        if(substr($semestre,5)=='I'){
-          $semestre_tani_SGA = 1;
-        }
-        elseif(substr($semestre,5)=='II'){
-          $semestre_tani_SGA = 2;
-        }
-        elseif(substr($semestre,5)=='NIV'){
-          $semestre_tani_SGA = 3;
-        }
-        elseif(substr($semestre,5)=='ANUAL'){
-          $semestre_tani_SGA = 4;
-        }
-        elseif(substr($semestre,5)=='VER'){
-          $semestre_tani_SGA = 5;
-        }
-        
-        $semestre_SGA = SGA_Semestre::select('sga_anio.ani_id')
-                        ->where('sga_anio.tan_id',$semestre_tani_SGA)
-                        ->where('sga_anio.ani_anio',$semestre_ani_SGA)
-                        ->first();
-   
-        
-
-        // QUERYS CLASICAS - Matriculas Consolidado
-
-        // $matriculados_SGA = SGA_Matricula::select(DB::raw('COUNT(sga_matricula.mat_id) AS nro_matriculados'))
-        // ->where('sga_matricula.ani_id',$semestre_SGA->ani_id)
-        // ->where('sga_matricula.mat_estado',1)
-        // ->first();
-
-        // $matriculados_SUV =  SUV_Matricula::select(DB::raw('COUNT(*) AS nro_matriculados'))
-        // ->join('matriculas.orden_pago','matriculas.orden_pago.idmatricula','matricula.idmatricula')
-        // ->where('matricula.mat_periodo',$semestre)
-        // ->where('matriculas.orden_pago.ord_estado',"PAGADA")
-        // ->where('matricula.mat_estado',1)
-        // ->first();
-
-
-        $matriculados_SGA = SGA_Matricula::select(DB::raw('COUNT(sga_matricula.mat_id) AS nro_matriculados'),
-         DB::raw('COUNT(CASE WHEN persona.per_sexo = "F" THEN 1 END) AS femenino'),
-         DB::raw('COUNT(CASE WHEN persona.per_sexo = "M" THEN 1 END) AS masculino'),)
-        ->join('perfil','perfil.pfl_id','sga_matricula.pfl_id')
-        ->join('persona','persona.per_id','perfil.per_id')
-        ->join('sga_orden_pago','sga_orden_pago.mat_id', 'sga_matricula.mat_id')
-        ->where('sga_matricula.ani_id', $semestre_SGA->ani_id)
-        ->where('sga_orden_pago.ord_pagado',1)
-        ->where('sga_matricula.mat_estado',1)
-        ->first();
-
-        $matriculados_SUV =  SUV_Matricula::select(DB::raw('COUNT(*) AS nro_matriculados'),
-        DB::raw("COUNT(CASE WHEN sistema.persona.per_sexo = '0' THEN 1 END) AS femenino"),
-        DB::raw("COUNT(CASE WHEN sistema.persona.per_sexo = '1' THEN 1 END) AS masculino"))
-        ->join('matriculas.alumno','matriculas.alumno.idalumno','matricula.idalumno')
-        ->join('sistema.persona','sistema.persona.idpersona','matriculas.alumno.idpersona')
-        ->join('matriculas.orden_pago','matriculas.orden_pago.idmatricula','matricula.idmatricula')
-        ->where('matricula.mat_periodo',$semestre)
-        ->where('matriculas.orden_pago.ord_estado',"PAGADA")
-        ->where('matricula.mat_estado',1)
-        ->first();
-
-        //dd($matriculados_SGA);
-
-        $matriculados_Consolidado_array = "";
-
-        $matriculados_Consolidado = collect([
-          [
-           'sistema_descri' => 'SGA' , 
-           'femenino' => $matriculados_SGA->femenino ,
-           'masculino' => $matriculados_SGA->masculino , 
-           'nro_matriculados_consolidado'=> $matriculados_SGA->nro_matriculados
-          ], 
-          [
-            'sistema_descri' => 'SUV' , 
-            'femenino' => $matriculados_SUV->femenino ,
-            'masculino' => $matriculados_SUV->masculino , 
-            'nro_matriculados_consolidado'=> $matriculados_SUV->nro_matriculados
-           ], 
-        ]);
+        // -------------- SGA -------------
+        $query_Matriculados_SGA =  SGA_Matricula::select('escuela.dep_id','escuela.dep_nombre',
+            DB::raw('COUNT(CASE WHEN persona.per_sexo = "F" THEN 1 END) AS femenino'),
+            DB::raw('COUNT(CASE WHEN persona.per_sexo = "M" THEN 1 END) AS masculino'),
+            DB::raw('COUNT(escuela.dep_id) AS nro_matriculados'))
+            ->join('perfil','perfil.pfl_id','sga_matricula.pfl_id')
+            ->join('persona','persona.per_id','perfil.per_id')
+            ->join('dependencia AS escuela','escuela.dep_id','perfil.dep_id')
+            ->join('sga_orden_pago AS op','sga_matricula.mat_id','op.mat_id')
+            ->where('sga_matricula.ani_id',$semestre_query->idSGA_PREG)
+            
+            ->where('perfil.sed_id',$sede_query->idSGA_PREG)
+            ->where('escuela.sdep_id',$facultad_query->idSGA_PREG)
+            ->where('sga_matricula.mat_estado',1)
            
+            ->where('op.ord_pagado',1)
+            ->where('op.ord_nro','<>',0)
+            ->groupBy('escuela.dep_id', 'escuela.dep_nombre')
+            ->get();
+        
+      
+        // -------------- SUV -------------
+        $query_Matriculados_SUV=  SUV_Matricula::select(
+          'patrimonio.estructura.idestructura',
+          'patrimonio.estructura.estr_descripcion', 
+          'matriculas.curricula.curr_mencion',
+            DB::raw('COUNT(*) AS nro_matriculados'),
+            DB::raw("COUNT(CASE WHEN sistema.persona.per_sexo = '0' THEN 1 END) AS femenino"),
+            DB::raw("COUNT(CASE WHEN sistema.persona.per_sexo = '1' THEN 1 END) AS masculino"))
+            ->join('matriculas.alumno','matriculas.alumno.idalumno','matricula.idalumno')
+            ->join('matriculas.curricula','matriculas.alumno.alu_curricula','matriculas.curricula.idcurricula')
+            ->join('sistema.persona','sistema.persona.idpersona','matriculas.alumno.idpersona')
+            ->join('patrimonio.area','patrimonio.area.idarea','matriculas.alumno.idarea')
+            ->join('patrimonio.estructura','patrimonio.estructura.idestructura','patrimonio.area.idestructura')
+            ->join('matriculas.orden_pago','matriculas.orden_pago.idmatricula','matricula.idmatricula')
+            ->where('matricula.mat_periodo',$semestre_query->idSUV_PREG)
+            ->where('matriculas.alumno.idsede',$sede_query->idSUV_PREG)
+            ->where('patrimonio.estructura.iddependencia',$facultad_query->idSUV_PREG)
+            ->where('matriculas.orden_pago.ord_estado',"PAGADA")
+            ->where('matricula.mat_estado',"1")
+            ->groupBy('patrimonio.estructura.idestructura', 'matriculas.curricula.curr_mencion')
+            ->get();
 
-        return response()->json(['matriculados' => $matriculados_Consolidado]);
+         //************** VALIDACION URAA + DIPLOMAS APP ***************
+         
+        $escuela_original = Escuela::where('estado',1)->get();
+
+        $idx_temp_SGA = -1;
+        $idx_temp_SUV = -1;
+        
+        foreach ($escuela_original as $key => $escuela_item) { 
+          foreach ($query_Matriculados_SGA as $key => $item_SGA) { 
+            if($escuela_item->idSGA_PREG == $item_SGA->dep_id){
+              $idx_temp_SGA = $key;  
+            }
+          }
+
+          foreach ($query_Matriculados_SUV as $key => $item_SUV) { 
+            if($item_SUV->idestructura != 0){
+              if($escuela_item->idSUV_PREG == $item_SUV->idestructura){
+                $idx_temp_SUV= $key;  
+              }
+            }
+            else{
+              if($escuela_item->idMencionSUV_PREG == $item_SUV->curr_mencion){
+                $idx_temp_SUV= $key;  
+              }
+            }
+          }
+          // SUMAR ARRAY Consolidado 
+          if($idx_temp_SGA != -1 && $idx_temp_SUV != -1){
+            $matriculados->push(
+              ['nro_matriculados' => (
+                $query_Matriculados_SGA[$idx_temp_SGA]->nro_matriculados + 
+                $query_Matriculados_SUV[$idx_temp_SUV]->nro_matriculados),
+                'femenino' => (
+                  $query_Matriculados_SGA[$idx_temp_SGA]->femenino + 
+                  $query_Matriculados_SUV[$idx_temp_SUV]->femenino),
+                'masculino' => (
+                  $query_Matriculados_SGA[$idx_temp_SGA]->masculino + 
+                  $query_Matriculados_SUV[$idx_temp_SUV]->masculino),
+               'dep_nombre' => ($escuela_item->nombre),
+              ]);       
+          }
+          elseif($idx_temp_SGA == -1 && $idx_temp_SUV != -1){
+            $matriculados->push(
+              ['nro_matriculados' => (
+                $query_Matriculados_SUV[$idx_temp_SUV]->nro_matriculados),
+                'femenino' => ($query_Matriculados_SUV[$idx_temp_SUV]->femenino),
+                'masculino' => ($query_Matriculados_SUV[$idx_temp_SUV]->masculino),
+               'dep_nombre' => ($escuela_item->nombre),
+              ]);       
+          }
+          elseif($idx_temp_SGA != -1 && $idx_temp_SUV == -1){
+            $matriculados->push(
+              ['nro_matriculados' => (
+                $query_Matriculados_SGA[$idx_temp_SGA]->nro_matriculados),
+                'femenino' => ($query_Matriculados_SGA[$idx_temp_SGA]->femenino),
+                'masculino' => ($query_Matriculados_SGA[$idx_temp_SGA]->masculino),
+               'dep_nombre' => ($escuela_item->nombre),
+              ]);       
+          }
+          
+          $idx_temp_SGA = -1;
+          $idx_temp_SUV = -1;
+
+           
+        }
+
+        return response()->json(['matriculados' => $matriculados]);
+        DB::commit();
+        
+      }catch(Exception $e){
+        return response()->json(['matriculados' => $e->getMessage()]);
+        DB::rollback();
+      }
+    }
+
+
+    // Matrículas - Consolidado
+    public function getNroMatriculadosConsolidado($semestre, $tipo_consolidado)
+    {
+      DB::beginTransaction();
+      try{
+        
+        $matriculados_Consolidado = collect();
+        $semestre_query = Periodo::where('idPeriodo',$semestre)->where('estado',1)->first();
+
+        $tipo_consolidado_Matriculados = $tipo_consolidado;
+        
+        if($tipo_consolidado_Matriculados == 1){
+            
+          // -------------- SGA -------------
+          $query_Matriculados_SGA =  SGA_Matricula::select('facultad.dep_id','facultad.dep_nombre',
+          DB::raw('COUNT(CASE WHEN persona.per_sexo = "F" THEN 1 END) AS femenino'),
+          DB::raw('COUNT(CASE WHEN persona.per_sexo = "M" THEN 1 END) AS masculino'),
+          DB::raw('COUNT(facultad.dep_id) AS nro_matriculados'))
+          ->join('perfil','perfil.pfl_id','sga_matricula.pfl_id')
+          ->join('persona','persona.per_id','perfil.per_id')
+          ->join('dependencia AS escuela','escuela.dep_id','perfil.dep_id')
+          ->join('dependencia AS facultad','facultad.dep_id','escuela.sdep_id')
+          ->join('sga_orden_pago AS op','sga_matricula.mat_id','op.mat_id')
+          ->where('sga_matricula.ani_id',$semestre_query->idSGA_PREG)
+          ->where('facultad.tde_id', '2')
+          ->where('facultad.dep_estado',1)
+          ->where('sga_matricula.mat_estado',1)
+          ->where('op.ord_pagado',1)
+          ->where('op.ord_nro','<>',0)
+          ->groupBy('facultad.dep_id', 'facultad.dep_nombre')
+          ->get();
+          // -------------- SUV -------------
+          $query_Matriculados_SUV=  SUV_Matricula::select(
+            'facultad.idestructura',
+            'facultad.estr_descripcion', 
+              DB::raw('COUNT(*) AS nro_matriculados'),
+              DB::raw("COUNT(CASE WHEN sistema.persona.per_sexo = '0' THEN 1 END) AS femenino"),
+              DB::raw("COUNT(CASE WHEN sistema.persona.per_sexo = '1' THEN 1 END) AS masculino"))
+              ->join('matriculas.alumno','matriculas.alumno.idalumno','matricula.idalumno')
+              ->join('sistema.persona','sistema.persona.idpersona','matriculas.alumno.idpersona')
+              ->join('patrimonio.area','patrimonio.area.idarea','matriculas.alumno.idarea')
+              ->join('patrimonio.estructura AS escuela','escuela.idestructura','patrimonio.area.idestructura')
+              ->join('patrimonio.estructura AS facultad','facultad.idestructura','escuela.iddependencia')
+              ->join('matriculas.orden_pago','matriculas.orden_pago.idmatricula','matricula.idmatricula')
+              ->where('matricula.mat_periodo',$semestre_query->idSUV_PREG)
+              ->where('facultad.estr_descripcion','like','FACULTAD%')
+              ->where('facultad.estr_estado',1)
+              ->where('matriculas.orden_pago.ord_estado',"PAGADA")
+              ->where('matricula.mat_estado',1)
+              ->groupBy('facultad.idestructura', 'facultad.estr_descripcion')
+              ->get();
+              
+              
+          //return dd($query_Matriculados_SGA, $query_Matriculados_SUV);
+          //************** VALIDACION URAA + DIPLOMAS APP ***************
+                  
+          $facultad_original = Facultad::where('estado',1)->get();
+             
+          $idx_temp_SGA = -1;
+          $idx_temp_SUV = -1;
+          foreach ($facultad_original as $key => $facultad_item) { 
+            foreach ($query_Matriculados_SGA as $key => $item_SGA) { 
+              if($facultad_item->idSGA_PREG == $item_SGA->dep_id){
+                $idx_temp_SGA = $key;  
+              }
+            }
+             
+            foreach ($query_Matriculados_SUV as $key => $item_SUV) { 
+              if($facultad_item->idSUV_PREG == $item_SUV->idestructura){
+                $idx_temp_SUV= $key;  
+              }
+            }
+             
+           // SUMAR ARRAY Consolidado 
+           if($idx_temp_SGA != -1 && $idx_temp_SUV != -1){
+             $matriculados_Consolidado->push(
+              ['nro_matriculados_consolidado' => (
+                $query_Matriculados_SGA[$idx_temp_SGA]->nro_matriculados + 
+                $query_Matriculados_SUV[$idx_temp_SUV]->nro_matriculados),
+                'femenino' => (
+                $query_Matriculados_SGA[$idx_temp_SGA]->femenino + 
+                $query_Matriculados_SUV[$idx_temp_SUV]->femenino),
+                'masculino' => (
+                $query_Matriculados_SGA[$idx_temp_SGA]->masculino + 
+                $query_Matriculados_SUV[$idx_temp_SUV]->masculino),
+                'dep_nombre' => ($facultad_item->nombre),
+              ]
+             );       
+            }
+           elseif($idx_temp_SGA == -1 && $idx_temp_SUV != -1){
+            $matriculados_Consolidado->push(
+              ['nro_matriculados_consolidado' => (
+                $query_Matriculados_SUV[$idx_temp_SUV]->nro_matriculados),
+                'femenino' => ($query_Matriculados_SUV[$idx_temp_SUV]->femenino),
+                'masculino' => ($query_Matriculados_SUV[$idx_temp_SUV]->masculino),
+                'dep_nombre' => ($facultad_item->nombre),
+              ]
+            );       
+           }
+           elseif($idx_temp_SGA != -1 && $idx_temp_SUV == -1){
+            $matriculados_Consolidado->push(
+              ['nro_matriculados_consolidado' => (
+                $query_Matriculados_SGA[$idx_temp_SGA]->nro_matriculados),
+                'femenino' => ($query_Matriculados_SGA[$idx_temp_SGA]->femenino),
+                'masculino' => ($query_Matriculados_SGA[$idx_temp_SGA]->masculino),
+                'dep_nombre' => ($facultad_item->nombre),
+              ]
+            );       
+           }
+                   
+           $idx_temp_SGA = -1;
+           $idx_temp_SUV = -1;
+             
+          }
+        }
+
+        elseif($tipo_consolidado_Matriculados == 2){
+            
+          // -------------- SGA -------------
+          $query_Matriculados_SGA =  SGA_Matricula::select('facultad.dep_id','facultad.dep_nombre',
+          DB::raw('COUNT(CASE WHEN perfil.sed_id = "1" THEN 1 END) AS trujillo'),
+          DB::raw('COUNT(CASE WHEN perfil.sed_id = "2" THEN 1 END) AS valle_jequetepeque'),
+          DB::raw('COUNT(CASE WHEN perfil.sed_id = "4" THEN 1 END) AS huamachuco'),
+          DB::raw('COUNT(CASE WHEN perfil.sed_id = "6" THEN 1 END) AS santiago_de_chuco'),
+          DB::raw('COUNT(facultad.dep_id) AS nro_matriculados'))
+          ->join('perfil','perfil.pfl_id','sga_matricula.pfl_id')
+          ->join('persona','persona.per_id','perfil.per_id')
+          ->join('dependencia AS escuela','escuela.dep_id','perfil.dep_id')
+          ->join('dependencia AS facultad','facultad.dep_id','escuela.sdep_id')
+          ->join('sga_orden_pago AS op','sga_matricula.mat_id','op.mat_id')
+          ->where('sga_matricula.ani_id',$semestre_query->idSGA_PREG)
+          ->where('facultad.tde_id', '2')
+          ->where('facultad.dep_estado',1)
+          ->where('sga_matricula.mat_estado',1)
+          ->where('op.ord_pagado',1)
+          ->where('op.ord_nro','<>',0)
+          ->groupBy('facultad.dep_id', 'facultad.dep_nombre')
+          ->get();
+          // -------------- SUV -------------
+          $query_Matriculados_SUV=  SUV_Matricula::select(
+            'facultad.idestructura',
+            'facultad.estr_descripcion', 
+              DB::raw('COUNT(*) AS nro_matriculados'),
+              DB::raw("COUNT(CASE WHEN matriculas.alumno.idsede = '1' THEN 1 END) AS trujillo"),
+              DB::raw("COUNT(CASE WHEN matriculas.alumno.idsede = '2' THEN 1 END) AS valle_jequetepeque"),
+              DB::raw("COUNT(CASE WHEN matriculas.alumno.idsede = '3' THEN 1 END) AS huamachuco"),
+              DB::raw("COUNT(CASE WHEN matriculas.alumno.idsede = '13' THEN 1 END) AS santiago_de_chuco"),)
+              ->join('matriculas.alumno','matriculas.alumno.idalumno','matricula.idalumno')
+              ->join('sistema.persona','sistema.persona.idpersona','matriculas.alumno.idpersona')
+              ->join('patrimonio.area','patrimonio.area.idarea','matriculas.alumno.idarea')
+              ->join('patrimonio.estructura AS escuela','escuela.idestructura','patrimonio.area.idestructura')
+              ->join('patrimonio.estructura AS facultad','facultad.idestructura','escuela.iddependencia')
+              ->join('matriculas.orden_pago','matriculas.orden_pago.idmatricula','matricula.idmatricula')
+              ->where('matricula.mat_periodo',$semestre_query->idSUV_PREG)
+              ->where('facultad.estr_descripcion','like','FACULTAD%')
+              ->where('facultad.estr_estado',1)
+              ->where('matriculas.orden_pago.ord_estado',"PAGADA")
+              ->where('matricula.mat_estado',1)
+              ->groupBy('facultad.idestructura', 'facultad.estr_descripcion')
+              ->get();
+              
+              
+          //return dd($query_Matriculados_SGA, $query_Matriculados_SUV);
+          //************** VALIDACION URAA + DIPLOMAS APP ***************
+                  
+          $facultad_original = Facultad::where('estado',1)->get();
+             
+          $idx_temp_SGA = -1;
+          $idx_temp_SUV = -1;
+          foreach ($facultad_original as $key => $facultad_item) { 
+            foreach ($query_Matriculados_SGA as $key => $item_SGA) { 
+              if($facultad_item->idSGA_PREG == $item_SGA->dep_id){
+                $idx_temp_SGA = $key;  
+              }
+            }
+             
+            foreach ($query_Matriculados_SUV as $key => $item_SUV) { 
+              if($facultad_item->idSUV_PREG == $item_SUV->idestructura){
+                $idx_temp_SUV= $key;  
+              }
+            }
+             
+           // SUMAR ARRAY Consolidado 
+           if($idx_temp_SGA != -1 && $idx_temp_SUV != -1){
+             $matriculados_Consolidado->push(
+              ['nro_matriculados_consolidado' => (
+                $query_Matriculados_SGA[$idx_temp_SGA]->nro_matriculados + 
+                $query_Matriculados_SUV[$idx_temp_SUV]->nro_matriculados),
+                'trujillo' => (
+                $query_Matriculados_SGA[$idx_temp_SGA]->trujillo + 
+                $query_Matriculados_SUV[$idx_temp_SUV]->trujillo),
+                'valle_jequetepeque' => (
+                $query_Matriculados_SGA[$idx_temp_SGA]->valle_jequetepeque + 
+                $query_Matriculados_SUV[$idx_temp_SUV]->valle_jequetepeque),
+                'huamachuco' => (
+                $query_Matriculados_SGA[$idx_temp_SGA]->huamachuco + 
+                $query_Matriculados_SUV[$idx_temp_SUV]->huamachuco),
+                'santiago_de_chuco' => (
+                $query_Matriculados_SGA[$idx_temp_SGA]->santiago_de_chuco + 
+                $query_Matriculados_SUV[$idx_temp_SUV]->santiago_de_chuco),
+                'dep_nombre' => ($facultad_item->nombre),
+              ]
+             );       
+            }
+           elseif($idx_temp_SGA == -1 && $idx_temp_SUV != -1){
+            $matriculados_Consolidado->push(
+              ['nro_matriculados_consolidado' => (
+                $query_Matriculados_SUV[$idx_temp_SUV]->nro_matriculados),
+                'trujillo' => ($query_Matriculados_SUV[$idx_temp_SUV]->trujillo),
+                'valle_jequetepeque' => ($query_Matriculados_SUV[$idx_temp_SUV]->valle_jequetepeque),
+                'huamachuco' => ($query_Matriculados_SUV[$idx_temp_SUV]->huamachuco),
+                'santiago_de_chuco' => ($query_Matriculados_SUV[$idx_temp_SUV]->santiago_de_chuco),
+                'dep_nombre' => ($facultad_item->nombre),
+              ]
+            );       
+           }
+           elseif($idx_temp_SGA != -1 && $idx_temp_SUV == -1){
+            $matriculados_Consolidado->push(
+              ['nro_matriculados_consolidado' => (
+                $query_Matriculados_SGA[$idx_temp_SGA]->nro_matriculados),
+                'trujillo' => ($query_Matriculados_SGA[$idx_temp_SGA]->trujillo),
+                'valle_jequetepeque' => ($query_Matriculados_SGA[$idx_temp_SGA]->valle_jequetepeque),
+                'huamachuco' => ($query_Matriculados_SGA[$idx_temp_SGA]->huamachuco),
+                'santiago_de_chuco' => ($query_Matriculados_SGA[$idx_temp_SGA]->santiago_de_chuco),
+                'dep_nombre' => ($facultad_item->nombre),
+              ]
+            );       
+           }
+                   
+           $idx_temp_SGA = -1;
+           $idx_temp_SUV = -1;
+             
+          }
+        }
+      
+
+        return response()->json(['matriculados' => $matriculados_Consolidado, 'tipo_consolidado_Matriculados' => $tipo_consolidado_Matriculados]);
         DB::commit();
         
       }catch(Exception $e){
@@ -401,419 +756,226 @@ class StatiticsController extends Controller
     }
 
 
-    public function getNroGraduadosTituladosByEscuela($tipo, $condicion, $anio, $dependencia)
+    // Grados y Títulos
+    public function getNroGraduadosTituladosByFacultad($tipo, $condicion, $anio, $dependencia)
     {
       DB::beginTransaction();
       try{
 
+        $graduados_titulados = collect();
         $header_tipo = "";
+        $idTipo_ficha_DiplomasApp_1 = "0";
+        $idTipo_ficha_DiplomasApp_2 = "0";
+        $idTipo_tramite_unidad_URAA = "0";
+        $idTipo_tramite_unidad_URAA_duplicados = "0";
 
-        //---------------------------------------------------- GRADUADOS -------------------------------------------------------------
+        // ------------------------------------------------------------ TIPO -------------------------------------------------------------------
+        // ----------------- Tipo: GRADOS -----------------
         if($tipo==1){
 
-          // ----------------- REGULARES -----------------
-          if($condicion==1){
-
-            $graduados_titulados = collect();
-            $header_tipo = "GRADUADOS";
-            
-            // Diplomas App
-            $idDependencia_DiplomasApp = DIPLOMASAPP_Facultad::select('facultad.Cod_facultad')->where('facultad.Nom_facultad',$dependencia)->first();
-  
-            $query_GradosTitulos_DiplomasApp =  DIPLOMASAPP_Graduado::select(DB::raw('COUNT(graduado.idgraduado) AS nro_graduados'), 'escuela.Nom_escuela')
-            ->join('alumno','alumno.Cod_alumno','graduado.cod_alumno')
-            ->join('escuela','escuela.Cod_escuela','alumno.Cod_escuela')
-            ->whereRaw('SUBSTRING(graduado.fec_expe_d, 1, 4) = '.$anio)
-            ->where('escuela.Cod_facultad', $idDependencia_DiplomasApp->Cod_facultad)
-            ->whereNotIn('graduado.grad_estado', [3,5])
-            ->where(function($query)
-            {
-                $query->where('graduado.tipo_ficha','1')
-                ->orWhere('graduado.tipo_ficha','7');
-            })  
-            ->groupBy('escuela.Nom_escuela')
-            ->get();
-          
-            // URAA
-            $idDependencia_URAA = URAA_Dependencia::select('dependencia.idDependencia')->where('dependencia.denominacion',$dependencia)->first();
-  
-            $query_GradosTitulos_URAA = URAA_Tramite::select(DB::raw('COUNT(tramite.idTramite) AS nro_graduados'), 'programa.nombre')
-            ->join('tramite_detalle','tramite.idTramite_detalle','tramite_detalle.idTramite_detalle')
-            ->join('tipo_tramite_unidad','tipo_tramite_unidad.idTipo_tramite_unidad','tramite.idTipo_tramite_unidad')
-            ->join('dependencia','tramite.idDependencia','dependencia.idDependencia')
-            ->join('programa','programa.idPrograma','tramite.idPrograma')
-            ->join('cronograma_carpeta','cronograma_carpeta.idCronograma_carpeta','tramite_detalle.idCronograma_carpeta')
-            ->whereRaw('SUBSTRING(cronograma_carpeta.fecha_colacion, 1, 4) = '.$anio)
-            ->where('tramite.idDependencia',$idDependencia_URAA->idDependencia)
-            ->where('tipo_tramite_unidad.idTipo_tramite_unidad',15)
-            ->where(function($query)
-            {
-                $query->where('tramite.idEstado_tramite',15)
-                ->orWhere('tramite.idEstado_tramite',44);
-            })
-            ->groupBy('programa.nombre')
-            ->get();
-  
-            //*********************** VALIDACION URAA + DIPLOMAS APP *************************
-             
-            $escuela_original = DIPLOMASAPP_Escuela::all();
-   
-            $idx_temp_URAA = -1;
-            $idx_temp_DIPLOMASAPP = -1;
-            
-            foreach ($escuela_original as $key => $escuela_item) { 
-              foreach ($query_GradosTitulos_DiplomasApp as $key_DiplomasApp => $item_DiplomasApp) { 
-                if($escuela_item->Nom_escuela == $item_DiplomasApp->Nom_escuela){
-  
-                  $idx_temp_DIPLOMASAPP = $key_DiplomasApp;
-                  
-                }
-              }
-  
-              foreach ($query_GradosTitulos_URAA as $key_URAA => $item_URAA) { 
-                if($escuela_item->Nom_escuela == $item_URAA->nombre){
-  
-                  $idx_temp_URAA = $key_URAA;
-                  
-                }
-              }
-               
-              // SUMAR ARRAY Consolidado 
-              if($idx_temp_URAA != -1 && $idx_temp_DIPLOMASAPP != -1){
-                $graduados_titulados->push(
-                  ['nro_graduados_titulados' => (
-                    $query_GradosTitulos_URAA[$idx_temp_URAA]->nro_graduados + 
-                    $query_GradosTitulos_DiplomasApp[$idx_temp_DIPLOMASAPP]->nro_graduados),
-                   'nombre_escuela' => ($escuela_item->Nom_escuela),
-                  ]);       
-              }
-              elseif($idx_temp_URAA == -1 && $idx_temp_DIPLOMASAPP != -1){
-                $graduados_titulados->push(
-                  ['nro_graduados_titulados' => (
-                    $query_GradosTitulos_DiplomasApp[$idx_temp_DIPLOMASAPP]->nro_graduados),
-                   'nombre_escuela' => ($escuela_item->Nom_escuela),
-                  ]);       
-              }
-              elseif($idx_temp_URAA != -1 && $idx_temp_DIPLOMASAPP == -1){
-                $graduados_titulados->push(
-                  ['nro_graduados_titulados' => (
-                    $query_GradosTitulos_URAA[$idx_temp_URAA]->nro_graduados),
-                   'nombre_escuela' => ($escuela_item->Nom_escuela),
-                  ]);       
-              }
-              
-              $idx_temp_URAA = -1;
-              $idx_temp_DIPLOMASAPP = -1;
-               
-            }
-
-
-          }
-
-          // ----------------- DUPLICADOS -----------------
-          elseif($condicion==2){
-
-            $graduados_titulados = collect();
-            $header_tipo = "GRADUADOS - Duplicados";
-            
-            // Diplomas App
-            $idDependencia_DiplomasApp = DIPLOMASAPP_Facultad::select('facultad.Cod_facultad')->where('facultad.Nom_facultad',$dependencia)->first();
-  
-            $query_GradosTitulos_DiplomasApp =  DIPLOMASAPP_Graduado_duplicado::select(DB::raw('COUNT(graduado_duplicado.idgraduado_duplicado) AS nro_graduados'), 'escuela.Nom_escuela')
-            ->join('graduado','graduado.idgraduado','graduado_duplicado.grad_idgraduado')
-            ->join('alumno','alumno.Cod_alumno','graduado.cod_alumno')
-            ->join('escuela','escuela.Cod_escuela','alumno.Cod_escuela')
-            ->whereRaw('SUBSTRING(graduado_duplicado.fec_expe_d, 1, 4) = '.$anio)
-            ->where('escuela.Cod_facultad', $idDependencia_DiplomasApp->Cod_facultad)
-            ->whereNotIn('graduado.grad_estado', [3,5])
-            ->where(function($query)
-            {
-                $query->where('graduado.tipo_ficha','1')
-                ->orWhere('graduado.tipo_ficha','7');
-            })  
-            ->groupBy('escuela.Nom_escuela')
-            ->get();
-
-            dd($query_GradosTitulos_DiplomasApp);
-          
-            // URAA
-            $idDependencia_URAA = URAA_Dependencia::select('dependencia.idDependencia')->where('dependencia.denominacion',$dependencia)->first();
-  
-            $query_GradosTitulos_URAA = URAA_Tramite::select(DB::raw('COUNT(tramite.idTramite) AS nro_graduados'), 'programa.nombre')
-            ->join('tramite_detalle','tramite.idTramite_detalle','tramite_detalle.idTramite_detalle')
-            ->join('tipo_tramite_unidad','tipo_tramite_unidad.idTipo_tramite_unidad','tramite.idTipo_tramite_unidad')
-            ->join('dependencia','tramite.idDependencia','dependencia.idDependencia')
-            ->join('programa','programa.idPrograma','tramite.idPrograma')
-            ->join('cronograma_carpeta','cronograma_carpeta.idCronograma_carpeta','tramite_detalle.idCronograma_carpeta')
-            ->whereRaw('SUBSTRING(cronograma_carpeta.fecha_colacion, 1, 4) = '.$anio)
-            ->where('tramite.idDependencia',$idDependencia_URAA->idDependencia)
-            ->where('tipo_tramite_unidad.idTipo_tramite_unidad',0)
-            ->where(function($query)
-            {
-                $query->where('tramite.idEstado_tramite',15)
-                ->orWhere('tramite.idEstado_tramite',44);
-            })
-            ->groupBy('programa.nombre')
-            ->get();
-  
-            //*********************** VALIDACION URAA + DIPLOMAS APP *************************
-             
-            $escuela_original = DIPLOMASAPP_Escuela::all();
-   
-            $idx_temp_URAA = -1;
-            $idx_temp_DIPLOMASAPP = -1;
-            
-            foreach ($escuela_original as $key => $escuela_item) { 
-              foreach ($query_GradosTitulos_DiplomasApp as $key_DiplomasApp => $item_DiplomasApp) { 
-                if($escuela_item->Nom_escuela == $item_DiplomasApp->Nom_escuela){
-  
-                  $idx_temp_DIPLOMASAPP = $key_DiplomasApp;
-                  
-                }
-              }
-  
-              foreach ($query_GradosTitulos_URAA as $key_URAA => $item_URAA) { 
-                if($escuela_item->Nom_escuela == $item_URAA->nombre){
-  
-                  $idx_temp_URAA = $key_URAA;
-                  
-                }
-              }
-               
-              // SUMAR ARRAY Consolidado 
-              if($idx_temp_URAA != -1 && $idx_temp_DIPLOMASAPP != -1){
-                $graduados_titulados->push(
-                  ['nro_graduados_titulados' => (
-                    $query_GradosTitulos_URAA[$idx_temp_URAA]->nro_graduados + 
-                    $query_GradosTitulos_DiplomasApp[$idx_temp_DIPLOMASAPP]->nro_graduados),
-                   'nombre_escuela' => ($escuela_item->Nom_escuela),
-                  ]);       
-              }
-              elseif($idx_temp_URAA == -1 && $idx_temp_DIPLOMASAPP != -1){
-                $graduados_titulados->push(
-                  ['nro_graduados_titulados' => (
-                    $query_GradosTitulos_DiplomasApp[$idx_temp_DIPLOMASAPP]->nro_graduados),
-                   'nombre_escuela' => ($escuela_item->Nom_escuela),
-                  ]);       
-              }
-              elseif($idx_temp_URAA != -1 && $idx_temp_DIPLOMASAPP == -1){
-                $graduados_titulados->push(
-                  ['nro_graduados_titulados' => (
-                    $query_GradosTitulos_URAA[$idx_temp_URAA]->nro_graduados),
-                   'nombre_escuela' => ($escuela_item->Nom_escuela),
-                  ]);       
-              }
-              
-              $idx_temp_URAA = -1;
-              $idx_temp_DIPLOMASAPP = -1;
-               
-            }
-          }
-         
-         
+          $header_tipo = "GRADUADOS";
+          $idTipo_ficha_DiplomasApp_1 = "1";
+          $idTipo_ficha_DiplomasApp_2 = "7";
+          $idTipo_tramite_unidad_URAA = "15";
+          $idTipo_tramite_unidad_URAA_duplicados = "0";
 
         }
 
-        //---------------------------------------------------- TITULADOS -------------------------------------------------------------
+        // ----------------- Tipo: TÍTULOS -----------------
         elseif($tipo==2){
 
-          // ----------------- REGULARES -----------------
-          if($condicion==1){
-
-            $graduados_titulados = collect();
-            $header_tipo = "TITULADOS";
-            
-            // Diplomas App
-            $idDependencia_DiplomasApp = DIPLOMASAPP_Facultad::select('facultad.Cod_facultad')->where('facultad.Nom_facultad',$dependencia)->first();
-  
-            $query_GradosTitulos_DiplomasApp =  DIPLOMASAPP_Graduado::select(DB::raw('COUNT(graduado.idgraduado) AS nro_graduados'), 'escuela.Nom_escuela')
-            ->join('alumno','alumno.Cod_alumno','graduado.cod_alumno')
-            ->join('escuela','escuela.Cod_escuela','alumno.Cod_escuela')
-            ->whereRaw('SUBSTRING(graduado.fec_expe_d, 1, 4) = '.$anio)
-            ->where('escuela.Cod_facultad', $idDependencia_DiplomasApp->Cod_facultad)
-            ->whereNotIn('graduado.grad_estado', [3,5])
-            ->where(function($query)
-            {
-                $query->where('graduado.tipo_ficha','2')
-                ->orWhere('graduado.tipo_ficha','8');
-            })  
-            ->groupBy('escuela.Nom_escuela')
-            ->get();
+          $header_tipo = "TITULADOS";
+          $idTipo_ficha_DiplomasApp_1 = "2";
+          $idTipo_ficha_DiplomasApp_2 = "8";
+          $idTipo_tramite_unidad_URAA = "16";
+          $idTipo_tramite_unidad_URAA_duplicados = "0";
           
-            // URAA
-            $idDependencia_URAA = URAA_Dependencia::select('dependencia.idDependencia')->where('dependencia.denominacion',$dependencia)->first();
-  
-            $query_GradosTitulos_URAA = URAA_Tramite::select(DB::raw('COUNT(tramite.idTramite) AS nro_graduados'), 'programa.nombre')
-            ->join('tramite_detalle','tramite.idTramite_detalle','tramite_detalle.idTramite_detalle')
-            ->join('tipo_tramite_unidad','tipo_tramite_unidad.idTipo_tramite_unidad','tramite.idTipo_tramite_unidad')
-            ->join('dependencia','tramite.idDependencia','dependencia.idDependencia')
-            ->join('programa','programa.idPrograma','tramite.idPrograma')
-            ->join('cronograma_carpeta','cronograma_carpeta.idCronograma_carpeta','tramite_detalle.idCronograma_carpeta')
-            ->whereRaw('SUBSTRING(cronograma_carpeta.fecha_colacion, 1, 4) = '.$anio)
-            ->where('tramite.idDependencia',$idDependencia_URAA->idDependencia)
-            ->where('tipo_tramite_unidad.idTipo_tramite_unidad',16)
-            ->where(function($query)
-            {
-                $query->where('tramite.idEstado_tramite',15)
-                ->orWhere('tramite.idEstado_tramite',44);
-            })
-            ->groupBy('programa.nombre')
-            ->get();
-  
-             //*********************** VALIDACION URAA + DIPLOMAS APP *************************
-             
-            $escuela_original = DIPLOMASAPP_Escuela::all();
-   
-            $idx_temp_URAA = -1;
-            $idx_temp_DIPLOMASAPP = -1;
-            
-            foreach ($escuela_original as $key => $escuela_item) { 
-              foreach ($query_GradosTitulos_DiplomasApp as $key_DiplomasApp => $item_DiplomasApp) { 
-                if($escuela_item->Nom_escuela == $item_DiplomasApp->Nom_escuela){
-  
-                  $idx_temp_DIPLOMASAPP = $key_DiplomasApp;
-                  
-                }
-              }
-  
-              foreach ($query_GradosTitulos_URAA as $key_URAA => $item_URAA) { 
-                if($escuela_item->Nom_escuela == $item_URAA->nombre){
-  
-                  $idx_temp_URAA = $key_URAA;
-                  
-                }
-              }
-               
-              // SUMAR ARRAY Consolidado 
-              if($idx_temp_URAA != -1 && $idx_temp_DIPLOMASAPP != -1){
-                $graduados_titulados->push(
-                  ['nro_graduados_titulados' => (
-                    $query_GradosTitulos_URAA[$idx_temp_URAA]->nro_graduados + 
-                    $query_GradosTitulos_DiplomasApp[$idx_temp_DIPLOMASAPP]->nro_graduados),
-                   'nombre_escuela' => ($escuela_item->Nom_escuela),
-                  ]);       
-              }
-              elseif($idx_temp_URAA == -1 && $idx_temp_DIPLOMASAPP != -1){
-                $graduados_titulados->push(
-                  ['nro_graduados_titulados' => (
-                    $query_GradosTitulos_DiplomasApp[$idx_temp_DIPLOMASAPP]->nro_graduados),
-                   'nombre_escuela' => ($escuela_item->Nom_escuela),
-                  ]);       
-              }
-              elseif($idx_temp_URAA != -1 && $idx_temp_DIPLOMASAPP == -1){
-                $graduados_titulados->push(
-                  ['nro_graduados_titulados' => (
-                    $query_GradosTitulos_URAA[$idx_temp_URAA]->nro_graduados),
-                   'nombre_escuela' => ($escuela_item->Nom_escuela),
-                  ]);       
-              }
-              
-              $idx_temp_URAA = -1;
-              $idx_temp_DIPLOMASAPP = -1;
-               
-            }
-          }
+        }
 
-          // ----------------- DUPLICADOS -----------------
-          elseif($condicion==2){
+        // ------------------------------------------------------------ CONDICIÓN -------------------------------------------------------------------
+        // ----------------- Condición: REGULARES -----------------
+        if($condicion==1){
 
-            $graduados_titulados = collect();
-            $header_tipo = "TITULADOS - Duplicados";
-            
-            // Diplomas App
-            $idDependencia_DiplomasApp = DIPLOMASAPP_Facultad::select('facultad.Cod_facultad')->where('facultad.Nom_facultad',$dependencia)->first();
-  
-            $query_GradosTitulos_DiplomasApp =  DIPLOMASAPP_Graduado_duplicado::select(DB::raw('COUNT(graduado_duplicado.idgraduado_duplicado) AS nro_graduados'), 'escuela.Nom_escuela')
-            ->join('graduado','graduado.idgraduado','graduado_duplicado.grad_idgraduado')
-            ->join('alumno','alumno.Cod_alumno','graduado.cod_alumno')
-            ->join('escuela','escuela.Cod_escuela','alumno.Cod_escuela')
-            ->whereRaw('SUBSTRING(graduado_duplicado.fec_expe_d, 1, 4) = '.$anio)
-            ->where('escuela.Cod_facultad', $idDependencia_DiplomasApp->Cod_facultad)
-            ->whereNotIn('graduado.grad_estado', [3,5])
-            ->where(function($query)
-            {
-                $query->where('graduado.tipo_ficha','2')
-                ->orWhere('graduado.tipo_ficha','8');
-            })  
-            ->groupBy('escuela.Nom_escuela')
-            ->get();
+          // Diplomas App
+          $idDependencia_DiplomasApp = DIPLOMASAPP_Facultad::select('facultad.Cod_facultad')->where('facultad.Nom_facultad',$dependencia)->first();
+
+          $query_GradosTitulos_DiplomasApp =  DIPLOMASAPP_Graduado::select(DB::raw('COUNT(graduado.idgraduado) AS nro_graduados'), 'escuela.Nom_escuela')
+          ->join('alumno','alumno.Cod_alumno','graduado.cod_alumno')
+          ->join('escuela','escuela.Cod_escuela','alumno.Cod_escuela')
+          ->whereRaw('SUBSTRING(graduado.fec_expe_d, 1, 4) = '.$anio)
+          ->where('escuela.Cod_facultad', $idDependencia_DiplomasApp->Cod_facultad)
+          ->whereNotIn('graduado.grad_estado', [3,5])
+          ->where(function($query) use ($idTipo_ficha_DiplomasApp_1, $idTipo_ficha_DiplomasApp_2)
+          {
+              $query->where('graduado.tipo_ficha',$idTipo_ficha_DiplomasApp_1)
+              ->orWhere('graduado.tipo_ficha',$idTipo_ficha_DiplomasApp_2);
+          })  
+          ->groupBy('escuela.Nom_escuela')
+          ->get();
+        
+          // URAA
+          $idDependencia_URAA = URAA_Dependencia::select('dependencia.idDependencia')->where('dependencia.denominacion',$dependencia)->first();
+
+          $query_GradosTitulos_URAA = URAA_Tramite::select(DB::raw('COUNT(tramite.idTramite) AS nro_graduados'), 'programa.nombre')
+          ->join('tramite_detalle','tramite.idTramite_detalle','tramite_detalle.idTramite_detalle')
+          ->join('tipo_tramite_unidad','tipo_tramite_unidad.idTipo_tramite_unidad','tramite.idTipo_tramite_unidad')
+          ->join('dependencia','tramite.idDependencia','dependencia.idDependencia')
+          ->join('programa','programa.idPrograma','tramite.idPrograma')
+          ->join('cronograma_carpeta','cronograma_carpeta.idCronograma_carpeta','tramite_detalle.idCronograma_carpeta')
+          ->whereRaw('SUBSTRING(cronograma_carpeta.fecha_colacion, 1, 4) = '.$anio)
+          ->where('tramite.idDependencia',$idDependencia_URAA->idDependencia)
+          ->where('tipo_tramite_unidad.idTipo_tramite_unidad',$idTipo_tramite_unidad_URAA)
+          ->where(function($query)
+          {
+              $query->where('tramite.idEstado_tramite',15)
+              ->orWhere('tramite.idEstado_tramite',44);
+          })
+          ->groupBy('programa.nombre')
+          ->get();
+
+           //*********** VALIDACION URAA + DIPLOMAS APP *********
+           
+          $escuela_original = DIPLOMASAPP_Escuela::all();
+ 
+          $idx_temp_URAA = -1;
+          $idx_temp_DIPLOMASAPP = -1;
           
-            // URAA
-            $idDependencia_URAA = URAA_Dependencia::select('dependencia.idDependencia')->where('dependencia.denominacion',$dependencia)->first();
-  
-            $query_GradosTitulos_URAA = URAA_Tramite::select(DB::raw('COUNT(tramite.idTramite) AS nro_graduados'), 'programa.nombre')
-            ->join('tramite_detalle','tramite.idTramite_detalle','tramite_detalle.idTramite_detalle')
-            ->join('tipo_tramite_unidad','tipo_tramite_unidad.idTipo_tramite_unidad','tramite.idTipo_tramite_unidad')
-            ->join('dependencia','tramite.idDependencia','dependencia.idDependencia')
-            ->join('programa','programa.idPrograma','tramite.idPrograma')
-            ->join('cronograma_carpeta','cronograma_carpeta.idCronograma_carpeta','tramite_detalle.idCronograma_carpeta')
-            ->whereRaw('SUBSTRING(cronograma_carpeta.fecha_colacion, 1, 4) = '.$anio)
-            ->where('tramite.idDependencia',$idDependencia_URAA->idDependencia)
-            ->where('tipo_tramite_unidad.idTipo_tramite_unidad',0)
-            ->where(function($query)
-            {
-                $query->where('tramite.idEstado_tramite',15)
-                ->orWhere('tramite.idEstado_tramite',44);
-            })
-            ->groupBy('programa.nombre')
-            ->get();
-  
-            //*********************** VALIDACION URAA + DIPLOMAS APP *************************
-             
-            $escuela_original = DIPLOMASAPP_Escuela::all();
-   
-            $idx_temp_URAA = -1;
-            $idx_temp_DIPLOMASAPP = -1;
-            
-            foreach ($escuela_original as $key => $escuela_item) { 
-              foreach ($query_GradosTitulos_DiplomasApp as $key_DiplomasApp => $item_DiplomasApp) { 
-                if($escuela_item->Nom_escuela == $item_DiplomasApp->Nom_escuela){
-  
-                  $idx_temp_DIPLOMASAPP = $key_DiplomasApp;
-                  
-                }
+          foreach ($escuela_original as $key => $escuela_item) { 
+            foreach ($query_GradosTitulos_DiplomasApp as $key_DiplomasApp => $item_DiplomasApp) { 
+              if($escuela_item->Nom_escuela == $item_DiplomasApp->Nom_escuela){
+                $idx_temp_DIPLOMASAPP = $key_DiplomasApp;  
               }
-  
-              foreach ($query_GradosTitulos_URAA as $key_URAA => $item_URAA) { 
-                if($escuela_item->Nom_escuela == $item_URAA->nombre){
-  
-                  $idx_temp_URAA = $key_URAA;
-                  
-                }
-              }
-               
-              // SUMAR ARRAY Consolidado 
-              if($idx_temp_URAA != -1 && $idx_temp_DIPLOMASAPP != -1){
-                $graduados_titulados->push(
-                  ['nro_graduados_titulados' => (
-                    $query_GradosTitulos_URAA[$idx_temp_URAA]->nro_graduados + 
-                    $query_GradosTitulos_DiplomasApp[$idx_temp_DIPLOMASAPP]->nro_graduados),
-                   'nombre_escuela' => ($escuela_item->Nom_escuela),
-                  ]);       
-              }
-              elseif($idx_temp_URAA == -1 && $idx_temp_DIPLOMASAPP != -1){
-                $graduados_titulados->push(
-                  ['nro_graduados_titulados' => (
-                    $query_GradosTitulos_DiplomasApp[$idx_temp_DIPLOMASAPP]->nro_graduados),
-                   'nombre_escuela' => ($escuela_item->Nom_escuela),
-                  ]);       
-              }
-              elseif($idx_temp_URAA != -1 && $idx_temp_DIPLOMASAPP == -1){
-                $graduados_titulados->push(
-                  ['nro_graduados_titulados' => (
-                    $query_GradosTitulos_URAA[$idx_temp_URAA]->nro_graduados),
-                   'nombre_escuela' => ($escuela_item->Nom_escuela),
-                  ]);       
-              }
-              
-              $idx_temp_URAA = -1;
-              $idx_temp_DIPLOMASAPP = -1;
-               
             }
 
-
+            foreach ($query_GradosTitulos_URAA as $key_URAA => $item_URAA) { 
+              if($escuela_item->Nom_escuela == $item_URAA->nombre){
+                $idx_temp_URAA = $key_URAA; 
+              }
+            }
+             
+            // SUMAR ARRAY Consolidado 
+            if($idx_temp_URAA != -1 && $idx_temp_DIPLOMASAPP != -1){
+              $graduados_titulados->push(
+                ['nro_graduados_titulados' => (
+                  $query_GradosTitulos_URAA[$idx_temp_URAA]->nro_graduados + 
+                  $query_GradosTitulos_DiplomasApp[$idx_temp_DIPLOMASAPP]->nro_graduados),
+                 'nombre_escuela' => ($escuela_item->Nom_escuela),
+                ]);       
+            }
+            elseif($idx_temp_URAA == -1 && $idx_temp_DIPLOMASAPP != -1){
+              $graduados_titulados->push(
+                ['nro_graduados_titulados' => (
+                  $query_GradosTitulos_DiplomasApp[$idx_temp_DIPLOMASAPP]->nro_graduados),
+                 'nombre_escuela' => ($escuela_item->Nom_escuela),
+                ]);       
+            }
+            elseif($idx_temp_URAA != -1 && $idx_temp_DIPLOMASAPP == -1){
+              $graduados_titulados->push(
+                ['nro_graduados_titulados' => (
+                  $query_GradosTitulos_URAA[$idx_temp_URAA]->nro_graduados),
+                 'nombre_escuela' => ($escuela_item->Nom_escuela),
+                ]);       
+            }
+            
+            $idx_temp_URAA = -1;
+            $idx_temp_DIPLOMASAPP = -1;
+             
           }
+        }
+
+        // ----------------- Condición: DUPLICADOS -----------------
+        elseif($condicion==2){
+
+          $header_tipo.= " - Duplicados";
           
+          // Diplomas App
+          $idDependencia_DiplomasApp = DIPLOMASAPP_Facultad::select('facultad.Cod_facultad')->where('facultad.Nom_facultad',$dependencia)->first();
+
+          $query_GradosTitulos_DiplomasApp =  DIPLOMASAPP_Graduado_duplicado::select(DB::raw('COUNT(graduado_duplicado.idgraduado_duplicado) AS nro_graduados'), 'escuela.Nom_escuela')
+          ->join('graduado','graduado.idgraduado','graduado_duplicado.grad_idgraduado')
+          ->join('alumno','alumno.Cod_alumno','graduado.cod_alumno')
+          ->join('escuela','escuela.Cod_escuela','alumno.Cod_escuela')
+          ->whereRaw('SUBSTRING(graduado_duplicado.fec_emision, 1, 4) = '.$anio)
+          ->where('escuela.Cod_facultad', $idDependencia_DiplomasApp->Cod_facultad)
+          ->whereNotIn('graduado_duplicado.grad_estado', [3,5])
+          ->where(function($query) use ($idTipo_ficha_DiplomasApp_1, $idTipo_ficha_DiplomasApp_2)
+          {
+              $query->where('graduado.tipo_ficha', $idTipo_ficha_DiplomasApp_1)
+              ->orWhere('graduado.tipo_ficha', $idTipo_ficha_DiplomasApp_2);
+          })  
+          ->groupBy('escuela.Nom_escuela')
+          ->get();
+        
+          // URAA
+          $idDependencia_URAA = URAA_Dependencia::select('dependencia.idDependencia')->where('dependencia.denominacion',$dependencia)->first();
+
+          $query_GradosTitulos_URAA = URAA_Tramite::select(DB::raw('COUNT(tramite.idTramite) AS nro_graduados'), 'programa.nombre')
+          ->join('tramite_detalle','tramite.idTramite_detalle','tramite_detalle.idTramite_detalle')
+          ->join('tipo_tramite_unidad','tipo_tramite_unidad.idTipo_tramite_unidad','tramite.idTipo_tramite_unidad')
+          ->join('dependencia','tramite.idDependencia','dependencia.idDependencia')
+          ->join('programa','programa.idPrograma','tramite.idPrograma')
+          ->join('cronograma_carpeta','cronograma_carpeta.idCronograma_carpeta','tramite_detalle.idCronograma_carpeta')
+          ->whereRaw('SUBSTRING(cronograma_carpeta.fecha_colacion, 1, 4) = '.$anio)
+          ->where('tramite.idDependencia',$idDependencia_URAA->idDependencia)
+          ->where('tipo_tramite_unidad.idTipo_tramite_unidad',$idTipo_tramite_unidad_URAA_duplicados)
+          ->where(function($query)
+          {
+              $query->where('tramite.idEstado_tramite',15)
+              ->orWhere('tramite.idEstado_tramite',44);
+          })
+          ->groupBy('programa.nombre')
+          ->get();
+
+          //************ VALIDACION URAA + DIPLOMAS APP ***********
+           
+          $escuela_original = DIPLOMASAPP_Escuela::all();
+ 
+          $idx_temp_URAA = -1;
+          $idx_temp_DIPLOMASAPP = -1;
+          
+          foreach ($escuela_original as $key => $escuela_item) { 
+            foreach ($query_GradosTitulos_DiplomasApp as $key_DiplomasApp => $item_DiplomasApp) { 
+              if($escuela_item->Nom_escuela == $item_DiplomasApp->Nom_escuela){
+                $idx_temp_DIPLOMASAPP = $key_DiplomasApp;
+              }
+            }
+
+            foreach ($query_GradosTitulos_URAA as $key_URAA => $item_URAA) { 
+              if($escuela_item->Nom_escuela == $item_URAA->nombre){
+                $idx_temp_URAA = $key_URAA;
+              }
+            }
+             
+            // SUMAR ARRAY Consolidado 
+            if($idx_temp_URAA != -1 && $idx_temp_DIPLOMASAPP != -1){
+              $graduados_titulados->push(
+                ['nro_graduados_titulados' => (
+                  $query_GradosTitulos_URAA[$idx_temp_URAA]->nro_graduados + 
+                  $query_GradosTitulos_DiplomasApp[$idx_temp_DIPLOMASAPP]->nro_graduados),
+                 'nombre_escuela' => ($escuela_item->Nom_escuela),
+                ]);       
+            }
+            elseif($idx_temp_URAA == -1 && $idx_temp_DIPLOMASAPP != -1){
+              $graduados_titulados->push(
+                ['nro_graduados_titulados' => (
+                  $query_GradosTitulos_DiplomasApp[$idx_temp_DIPLOMASAPP]->nro_graduados),
+                 'nombre_escuela' => ($escuela_item->Nom_escuela),
+                ]);       
+            }
+            elseif($idx_temp_URAA != -1 && $idx_temp_DIPLOMASAPP == -1){
+              $graduados_titulados->push(
+                ['nro_graduados_titulados' => (
+                  $query_GradosTitulos_URAA[$idx_temp_URAA]->nro_graduados),
+                 'nombre_escuela' => ($escuela_item->Nom_escuela),
+                ]);       
+            }
+            
+            $idx_temp_URAA = -1;
+            $idx_temp_DIPLOMASAPP = -1;
+             
+          }
+
+
         }
 
 
@@ -926,30 +1088,10 @@ class StatiticsController extends Controller
 
             
           }
-
-        
-
         }
 
-          // QUERY ANTIGUA
-          // elseif($query_GradosTitulosConsolidado_URAA->count()!=0 && $query_GradosTitulosConsolidado_DiplomasApp->count()==0){
-          //   foreach ($query_GradosTitulosConsolidado_URAA as $key => $item_URAA) { 
-          //     $graduados_titulados_consolidado->push(
-          //       ['nro_graduados_titulados_consolidado' => ($item_URAA->nro_graduados),
-          //        'nombre_ficha' => ($item_URAA->nombre_ficha),
-          //       ]);
-          //   }
-          // }
-          // elseif($query_GradosTitulosConsolidado_DiplomasApp->count()!=0 && $query_GradosTitulosConsolidado_URAA->count()==0 ){
-          //   foreach ($query_GradosTitulosConsolidado_DiplomasApp as $key => $item_DiplomasApp) { 
-          //     $graduados_titulados_consolidado->push(
-          //       ['nro_graduados_titulados_consolidado' => ($item_DiplomasApp->nro_graduados),
-          //        'nombre_ficha' => ($item_DiplomasApp->Nom_ficha),
-          //       ]);
-          //   }
-          // }
           
-         // ----------------- DUPLICADOS - Regulares -----------------
+         // ----------------- DUPLICADOS - Consolidado -----------------
          if($condicion==2){
 
           $graduados_titulados_consolidado = collect();
@@ -960,8 +1102,8 @@ class StatiticsController extends Controller
           $query_GradosTitulosConsolidado_DiplomasApp =  DIPLOMASAPP_TipoFicha::select(DB::raw('COUNT(tipoficha.Tip_ficha) AS nro_graduados'), 'tipoficha.Nom_ficha')
           ->join('graduado','graduado.tipo_ficha','tipoficha.Tip_ficha')
           ->join('graduado_duplicado','graduado_duplicado.grad_idgraduado','graduado.idgraduado')
-          ->whereRaw('SUBSTRING(graduado_duplicado.fec_expe_d, 1, 4) = '.$anio)
-          ->whereNotIn('graduado.grad_estado', [3,5])
+          ->whereRaw('SUBSTRING(graduado_duplicado.fec_emision, 1, 4) = '.$anio)
+          ->whereNotIn('graduado_duplicado.grad_estado', [3,5])
           ->groupBy('tipoficha.Nom_ficha')
           ->get();
         
@@ -1049,10 +1191,430 @@ class StatiticsController extends Controller
         DB::commit();
         
       }catch(Exception $e){
-        return response()->json(['graduados_titulados' => $e->getMessage()]);
+        return response()->json(['graduados_titulados_consolidado' => $e->getMessage()]);
         DB::rollback();
       }
     }
+
+
+    // Egresados
+    public function getNroEgresadosByFacultad($sede, $semestre, $dependencia)
+    {
+      DB::beginTransaction();
+      try{
+
+        $egresados = collect();
+        $semestre_query = Periodo::where('idPeriodo',$semestre)->where('estado',1)->first();
+        $sede_query = Sede::where('idSede',$sede)->where('estado',1)->first();
+        $facultad_query = Facultad::where('idFacultad',$dependencia)->where('estado',1)->first();
+
+        // -------------- SGA -------------
+        $subq_SGA = SGA_Matricula::select('sga_matricula.pfl_id')->groupBy('sga_matricula.pfl_id')->having(DB::raw('MAX(sga_matricula.ani_id)'), '=', $semestre_query->idSGA_PREG);
+        
+        $query_Egresados_SGA =  SGA_Perfil::select('escuela.dep_id','escuela.dep_nombre',
+        DB::raw('COUNT(CASE WHEN persona.per_sexo = "F" THEN 1 END) AS femenino'),
+        DB::raw('COUNT(CASE WHEN persona.per_sexo = "M" THEN 1 END) AS masculino'),
+        DB::raw('COUNT(escuela.dep_id) AS nro_egresados'))
+        ->joinSub($subq_SGA, 'subq_SGA', 
+              function($join){
+                $join->on('subq_SGA.pfl_id', '=', 'perfil.pfl_id');
+              })
+        ->join('sga_matricula','sga_matricula.pfl_id','perfil.pfl_id')
+        ->join('persona','persona.per_id','perfil.per_id')
+        ->join('dependencia AS escuela','escuela.dep_id','perfil.dep_id')
+        ->join('sga_orden_pago AS op','sga_matricula.mat_id','op.mat_id')
+        ->join('sga_datos_alumno','sga_datos_alumno.pfl_id','perfil.pfl_id')
+        ->where('sga_matricula.ani_id',$semestre_query->idSGA_PREG)
+        ->where('perfil.sed_id',$sede_query->idSGA_PREG)
+        ->where('escuela.sdep_id',$facultad_query->idSGA_PREG)
+        ->where('sga_datos_alumno.con_id',6)
+        ->where('sga_matricula.mat_estado',1)
+        ->where('op.ord_pagado',1)
+        ->groupBy('escuela.dep_id', 'escuela.dep_nombre')
+        ->get();
+      
+        
+      
+        // -------------- SUV -------------
+        $subq_SUV = SUV_Matricula::select('matricula.idalumno')->groupBy('matricula.idalumno')->having(DB::raw('MAX(matricula.mat_periodo)'), '=', $semestre_query->idSUV_PREG);
+
+        $query_Egresados_SUV=  SUV_Matricula::select(
+          'patrimonio.estructura.idestructura',
+          'patrimonio.estructura.estr_descripcion', 
+          'matriculas.curricula.curr_mencion',
+        DB::raw('COUNT(*) AS nro_egresados'),
+        DB::raw("COUNT(CASE WHEN sistema.persona.per_sexo = '0' THEN 1 END) AS femenino"),
+        DB::raw("COUNT(CASE WHEN sistema.persona.per_sexo = '1' THEN 1 END) AS masculino"))
+        ->joinSub($subq_SUV, 'subq_SUV', 
+              function($join){
+                 $join->on('subq_SUV.idalumno', '=', 'matricula.idalumno');
+              })
+        ->join('matriculas.alumno','matriculas.alumno.idalumno','matricula.idalumno')
+        ->join('matriculas.curricula','matriculas.alumno.alu_curricula','matriculas.curricula.idcurricula')
+        ->join('sistema.persona','sistema.persona.idpersona','matriculas.alumno.idpersona')
+        ->join('patrimonio.area','patrimonio.area.idarea','matriculas.alumno.idarea')
+        ->join('patrimonio.estructura','patrimonio.estructura.idestructura','patrimonio.area.idestructura')
+        ->join('matriculas.orden_pago','matriculas.orden_pago.idmatricula','matricula.idmatricula')
+        ->where('matricula.mat_periodo',$semestre_query->idSUV_PREG)
+        ->where('matriculas.alumno.idsede',$sede_query->idSUV_PREG)
+        ->where('patrimonio.estructura.iddependencia',$facultad_query->idSUV_PREG)
+        ->where('matriculas.alumno.alu_estado',6)
+        ->where('matriculas.orden_pago.ord_estado',"PAGADA")
+        ->where('matricula.mat_estado',1)
+        ->groupBy('patrimonio.estructura.idestructura', 'matriculas.curricula.curr_mencion')
+        ->get();
+
+
+        //return  dd($query_Egresados_SGA, $query_Egresados_SUV);
+
+         //*********************** VALIDACION URAA + DIPLOMAS APP *************************
+         
+        $escuela_original = Escuela::where('estado',1)->get();
+
+        $idx_temp_SGA = -1;
+        $idx_temp_SUV = -1;
+        
+        foreach ($escuela_original as $key => $escuela_item) { 
+          foreach ($query_Egresados_SGA as $key => $item_SGA) { 
+            if($escuela_item->idSGA_PREG == $item_SGA->dep_id){
+              $idx_temp_SGA = $key;  
+            }
+          }
+
+          foreach ($query_Egresados_SUV as $key => $item_SUV) { 
+            if($item_SUV->idestructura != 0){
+              if($escuela_item->idSUV_PREG == $item_SUV->idestructura){
+                $idx_temp_SUV= $key;  
+              }
+            }
+            else{
+              if($escuela_item->idMencionSUV_PREG == $item_SUV->curr_mencion){
+                $idx_temp_SUV= $key;  
+              }
+            }
+          }
+          // SUMAR ARRAY Consolidado 
+          if($idx_temp_SGA != -1 && $idx_temp_SUV != -1){
+            $egresados->push(
+              ['nro_egresados' => (
+                $query_Egresados_SGA[$idx_temp_SGA]->nro_egresados + 
+                $query_Egresados_SUV[$idx_temp_SUV]->nro_egresados),
+                'femenino' => (
+                  $query_Egresados_SGA[$idx_temp_SGA]->femenino + 
+                  $query_Egresados_SUV[$idx_temp_SUV]->femenino),
+                'masculino' => (
+                  $query_Egresados_SGA[$idx_temp_SGA]->masculino + 
+                  $query_Egresados_SUV[$idx_temp_SUV]->masculino),
+               'dep_nombre' => ($escuela_item->nombre),
+              ]);       
+          }
+          elseif($idx_temp_SGA == -1 && $idx_temp_SUV != -1){
+            $egresados->push(
+              ['nro_egresados' => (
+                $query_Egresados_SUV[$idx_temp_SUV]->nro_egresados),
+                'femenino' => ($query_Egresados_SUV[$idx_temp_SUV]->femenino),
+                'masculino' => ($query_Egresados_SUV[$idx_temp_SUV]->masculino),
+               'dep_nombre' => ($escuela_item->nombre),
+              ]);       
+          }
+          elseif($idx_temp_SGA != -1 && $idx_temp_SUV == -1){
+            $egresados->push(
+              ['nro_egresados' => (
+                $query_Egresados_SGA[$idx_temp_SGA]->nro_egresados),
+                'femenino' => ($query_Egresados_SGA[$idx_temp_SGA]->femenino),
+                'masculino' => ($query_Egresados_SGA[$idx_temp_SGA]->masculino),
+               'dep_nombre' => ($escuela_item->nombre),
+              ]);       
+          }
+          
+          $idx_temp_SGA = -1;
+          $idx_temp_SUV = -1;
+
+           
+        }
+
+        return response()->json(['egresados' => $egresados]);
+        DB::commit();
+        
+      }catch(Exception $e){
+        return response()->json(['egresados' => $e->getMessage()]);
+        DB::rollback();
+      }
+    }
+
+
+    // Egresados - Consolidado
+    public function getNroEgresadosConsolidado($semestre)
+    {
+      DB::beginTransaction();
+      try{
+        
+        $egresados_Consolidado = collect();
+        $semestre_query = Periodo::where('idPeriodo',$semestre)->where('estado',1)->first();
+
+        // -------------- SGA -------------
+        $subq_SGA = SGA_Matricula::select('sga_matricula.pfl_id')->groupBy('sga_matricula.pfl_id')->having(DB::raw('MAX(sga_matricula.ani_id)'), '=', $semestre_query->idSGA_PREG);
+
+        $query_Egresados_SGA =  SGA_Perfil::select('facultad.dep_id','facultad.dep_nombre',
+            DB::raw('COUNT(CASE WHEN persona.per_sexo = "F" THEN 1 END) AS femenino'),
+            DB::raw('COUNT(CASE WHEN persona.per_sexo = "M" THEN 1 END) AS masculino'),
+            DB::raw('COUNT(facultad.dep_id) AS nro_egresados'))
+            ->joinSub($subq_SGA, 'subq_SGA', 
+              function($join){
+                $join->on('subq_SGA.pfl_id', '=', 'perfil.pfl_id');
+              })
+            ->join('sga_matricula','sga_matricula.pfl_id','perfil.pfl_id')
+            ->join('persona','persona.per_id','perfil.per_id')
+            ->join('dependencia AS escuela','escuela.dep_id','perfil.dep_id')
+            ->join('dependencia AS facultad','facultad.dep_id','escuela.sdep_id')
+            ->join('sga_orden_pago AS op','sga_matricula.mat_id','op.mat_id')
+            ->join('sga_datos_alumno','sga_datos_alumno.pfl_id','perfil.pfl_id')
+            ->where('sga_matricula.ani_id',$semestre_query->idSGA_PREG)
+            ->where('facultad.tde_id', '2')
+            ->where('sga_datos_alumno.con_id',6)
+            ->where('sga_matricula.mat_estado',1)
+            ->where('op.ord_pagado',1)
+            ->groupBy('facultad.dep_id', 'facultad.dep_nombre')
+            ->get();
+        
+
+        // -------------- SUV -------------
+        $subq_SUV = SUV_Matricula::select('matricula.idalumno')->groupBy('matricula.idalumno')->having(DB::raw('MAX(matricula.mat_periodo)'), '=', $semestre_query->idSUV_PREG);
+
+        $query_Egresados_SUV=  SUV_Matricula::select(
+          'facultad.idestructura',
+          'facultad.estr_descripcion', 
+            DB::raw('COUNT(*) AS nro_egresados'),
+            DB::raw("COUNT(CASE WHEN sistema.persona.per_sexo = '0' THEN 1 END) AS femenino"),
+            DB::raw("COUNT(CASE WHEN sistema.persona.per_sexo = '1' THEN 1 END) AS masculino"))
+            ->joinSub($subq_SUV, 'subq_SUV', 
+              function($join){
+                 $join->on('subq_SUV.idalumno', '=', 'matricula.idalumno');
+              })
+            ->join('matriculas.alumno','matriculas.alumno.idalumno','matricula.idalumno')
+            ->join('sistema.persona','sistema.persona.idpersona','matriculas.alumno.idpersona')
+            ->join('patrimonio.area','patrimonio.area.idarea','matriculas.alumno.idarea')
+            ->join('patrimonio.estructura AS escuela','escuela.idestructura','patrimonio.area.idestructura')
+            ->join('patrimonio.estructura AS facultad','facultad.idestructura','escuela.iddependencia')
+            ->join('matriculas.orden_pago','matriculas.orden_pago.idmatricula','matricula.idmatricula')
+            ->where('matricula.mat_periodo',$semestre_query->idSUV_PREG)
+            ->where('facultad.estr_descripcion','like','FACULTAD%')
+            ->where('matriculas.orden_pago.ord_estado',"PAGADA")
+            ->where('matricula.mat_estado',1)
+            ->where('matriculas.alumno.alu_estado',6)
+            ->groupBy('facultad.idestructura', 'facultad.estr_descripcion')
+            ->get();
+
+          //dd($query_Egresados_SGA, $query_Egresados_SUV);
+
+         
+         //************** VALIDACION URAA + DIPLOMAS APP ***************
+         
+        $facultad_original = Facultad::where('estado',1)->get();
+
+        $idx_temp_SGA = -1;
+        $idx_temp_SUV = -1;
+        
+        foreach ($facultad_original as $key => $facultad_item) { 
+          foreach ($query_Egresados_SGA as $key => $item_SGA) { 
+            if($facultad_item->idSGA_PREG == $item_SGA->dep_id){
+              $idx_temp_SGA = $key;  
+            }
+          }
+
+          foreach ($query_Egresados_SUV as $key => $item_SUV) { 
+            if($facultad_item->idSUV_PREG == $item_SUV->idestructura){
+              $idx_temp_SUV= $key;  
+            }
+          }
+
+          // SUMAR ARRAY Consolidado 
+          if($idx_temp_SGA != -1 && $idx_temp_SUV != -1){
+            $egresados_Consolidado->push(
+              ['nro_egresados_consolidado' => (
+                $query_Egresados_SGA[$idx_temp_SGA]->nro_egresados + 
+                $query_Egresados_SUV[$idx_temp_SUV]->nro_egresados),
+                'femenino' => (
+                  $query_Egresados_SGA[$idx_temp_SGA]->femenino + 
+                  $query_Egresados_SUV[$idx_temp_SUV]->femenino),
+                'masculino' => (
+                  $query_Egresados_SGA[$idx_temp_SGA]->masculino + 
+                  $query_Egresados_SUV[$idx_temp_SUV]->masculino),
+               'dep_nombre' => ($facultad_item->nombre),
+              ]);       
+          }
+          elseif($idx_temp_SGA == -1 && $idx_temp_SUV != -1){
+            $egresados_Consolidado->push(
+              ['nro_egresados_consolidado' => (
+                $query_Egresados_SUV[$idx_temp_SUV]->nro_egresados),
+                'femenino' => ($query_Egresados_SUV[$idx_temp_SUV]->femenino),
+                'masculino' => ($query_Egresados_SUV[$idx_temp_SUV]->masculino),
+               'dep_nombre' => ($facultad_item->nombre),
+              ]);       
+          }
+          elseif($idx_temp_SGA != -1 && $idx_temp_SUV == -1){
+            $egresados_Consolidado->push(
+              ['nro_egresados_consolidado' => (
+                $query_Egresados_SGA[$idx_temp_SGA]->nro_egresados),
+                'femenino' => ($query_Egresados_SGA[$idx_temp_SGA]->femenino),
+                'masculino' => ($query_Egresados_SGA[$idx_temp_SGA]->masculino),
+               'dep_nombre' => ($facultad_item->nombre),
+              ]);       
+          }
+          
+          $idx_temp_SGA = -1;
+          $idx_temp_SUV = -1;
+
+        }
+
+        return response()->json(['egresadosConsolidado' => $egresados_Consolidado]);
+        DB::commit();
+        
+      }catch(Exception $e){
+        return response()->json(['egresadosConsolidado' => $e->getMessage()]);
+        DB::rollback();
+      }
+     
+    }
+
+    // Egresados - Consolidado
+    public function getAlumnoEgresado_Consulta($unidad, $tipo_busqueda, $input_alumno_egresado)
+    {
+      DB::beginTransaction();
+      try{
+        
+        $alumnos = collect();
+        
+        if($unidad == 1){
+          $alumnos_SGA=SGA_Persona::select('per_nombres','per_apellidos','per_login', 'per_dni','dependencia.dep_id','dependencia.dep_nombre','dependencia.sdep_id', 'perfil.pfl_cond', 'sga_datos_alumno.con_id')
+                ->join('perfil','persona.per_id','perfil.per_id')
+                ->join('sga_datos_alumno','sga_datos_alumno.pfl_id','perfil.pfl_id')
+                ->join('sga_sede','sga_sede.sed_id','perfil.sed_id')
+                ->join('dependencia','dependencia.dep_id','perfil.dep_id')
+                ->where(function($query) use ($tipo_busqueda, $input_alumno_egresado)
+                {
+                    if ($tipo_busqueda==1) {
+                      $query->where('per_login','LIKE', '%'.$input_alumno_egresado);
+                    }
+                    if ($tipo_busqueda==2) {
+                      $query->where('per_dni','=', $input_alumno_egresado);
+                    }
+                    if ($tipo_busqueda==3) {
+                      $query->where('per_apellidos','LIKE', '%'.$input_alumno_egresado.'%');
+                    }
+                    if ($tipo_busqueda==4) {
+                      $query->where('per_nombres','LIKE', '%'.$input_alumno_egresado.'%');
+                    }
+                })
+                ->orderBy('per_apellidos','asc')
+                ->get();
+
+
+          $alumnos_SUV=SUV_Persona::select('persona.per_dni','persona.per_apepaterno','persona.per_apematerno', 'persona.per_nombres', 'matriculas.alumno.idalumno','patrimonio.sede.sed_descripcion','patrimonio.estructura.idestructura','patrimonio.estructura.estr_descripcion','patrimonio.estructura.iddependencia', 'curricula.curr_mencion', 'matriculas.alumno.alu_estado')
+          
+                ->join('matriculas.alumno','matriculas.alumno.idpersona','persona.idpersona')
+                ->join('matriculas.curricula','matriculas.alumno.alu_curricula','matriculas.curricula.idcurricula')
+                ->join('patrimonio.area','matriculas.alumno.idarea','patrimonio.area.idarea')
+                ->join('patrimonio.estructura','patrimonio.area.idestructura','patrimonio.estructura.idestructura')
+                ->join('patrimonio.sede','matriculas.alumno.idsede','patrimonio.sede.idsede')
+                ->where(function($query) use ($tipo_busqueda, $input_alumno_egresado)
+                {
+                  if ($tipo_busqueda==1) {
+                    $query->where('matriculas.alumno.idalumno','LIKE', '%'.$input_alumno_egresado);
+                  }
+                  if ($tipo_busqueda==2) {
+                    $query->where('persona.per_dni','=', $input_alumno_egresado);
+                  }
+                  if ($tipo_busqueda==3) {
+                    $query->whereRaw("CONCAT('persona.per_apepaterno', ' ', 'persona.per_apematerno') LIKE ?", ['%'.$input_alumno_egresado.'%']);
+                  }
+                  if ($tipo_busqueda==4) {
+                    $query->where('per_nombres','LIKE', '%'.$input_alumno_egresado.'%');
+                  }
+                })
+                ->orderBy('persona.per_apepaterno','asc')
+                ->get();
+
+                foreach ($alumnos_SGA as $key => $alumnoSGA){
+
+                  $alumnos->push(
+                    ['codigo' => ($alumnoSGA->per_login),
+                    'dni' => ($alumnoSGA->per_dni),
+                    'escuela' => ($alumnoSGA->dep_nombre),
+                    'nombreCompleto' => ($alumnoSGA->per_apellidos.' - '.$alumnoSGA->per_nombres),
+                    'condicion' => ($alumnoSGA->con_id == 6 ? "EGRESADO" : "ALUMNO"),
+                    
+                    ]); 
+        
+                }
+        
+                foreach ($alumnos_SUV as $key => $alumnoSUV){
+        
+                  $alumnos->push(
+                    ['codigo' => ($alumnoSUV->idalumno),
+                    'dni' => ($alumnoSUV->per_dni),
+                    'escuela' => ($alumnoSUV->estr_descripcion),
+                    'nombreCompleto' => ($alumnoSUV->per_apepaterno.' '.$alumnoSUV->per_apematerno.' - '.$alumnoSGA->per_nombres),
+                    'condicion' => ($alumnoSUV->alu_estado == 6 ? "EGRESADO" : "ALUMNO"),
+                    
+                    ]); 
+        
+                }
+                
+
+        }
+        elseif($unidad == 3){
+          $alumnos_SE = SE_Alumno::select('nombre','paterno','materno', 'nro_documento','codigo','descripcion','segunda_especialidad.nombre')
+                ->join('mencion','alumno.idMencion','mencion.idMencion')
+                ->join('segunda_especialidad','segunda_especialidad.idSegunda_Especialidad','mencion.idSegunda_Especialidad')
+
+                ->where(function($query) use ($tipo_busqueda, $input_alumno_egresado)
+                {
+                    if ($tipo_busqueda==1) {
+                      $query->where('codigo','LIKE', '%'.$input_alumno_egresado);
+                    }
+                    if ($tipo_busqueda==2) {
+                      $query->where('nro_documento','=', $input_alumno_egresado);
+                    }
+                    if ($tipo_busqueda==3) {
+                      $query->whereRaw("CONCAT('paterno', ' ', 'materno') LIKE ?", ['%'.$input_alumno_egresado.'%']);
+                    }
+                    if ($tipo_busqueda==4) {
+                      $query->where('nombre','LIKE', '%'.$input_alumno_egresado.'%');
+                    }
+                })
+                ->orderBy('paterno','asc')
+                ->get();
+
+                foreach ($alumnos_SE as $key => $alumno_SE){
+
+                  $alumnos->push(
+                    ['codigo' => ($alumno_SE->codigo),
+                    'dni' => ($alumno_SE->nro_documento),
+                    'escuela' => ($alumno_SE->nombre),
+                    'nombreCompleto' => ($alumno_SE->paterno.' '.$alumno_SE->materno.' - '.$alumno_SE->nombre),
+                    'condicion' => ($alumno_SE->descripcion),
+                    
+                    ]); 
+        
+                }
+        }
+
+    
+  
+        return response()->json(['alumnos' => $alumnos]);
+        DB::commit();
+        
+      }catch(Exception $e){
+       
+        return response()->json(['alumnos' => $e->getMessage()]);
+        DB::rollback();
+      }
+     
+    }
+
+
+
 
     /**
      * Show the form for creating a new resource.

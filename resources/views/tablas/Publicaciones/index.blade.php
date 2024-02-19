@@ -4,7 +4,7 @@
 
 
 <div class="container-fluid">
-    <h3>GESTIÓN DE PUBLICACIONES</h3>
+    <h3 style="position:relative; opacity: 1 !important;">GESTIÓN DE PUBLICACIONES</h3>
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">Listado de publicaciones</h3>
@@ -33,7 +33,7 @@
 
               @foreach($publicacion as $item) 
                 <tr>
-                    <td>{{$loop->index+1}}</td>
+                    <td style="text-align: center">{{$loop->index+1}}</td>
                     <td>{{$item->titulo}}</td>
                     <td>{{$item->fecha}}</td>
                     <td>{{$item->creador}}</td>

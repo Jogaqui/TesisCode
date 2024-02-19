@@ -4,7 +4,7 @@
 
 
 <div class="container-fluid">
-    <h3>GESTIÓN DE PREGUNTAS FRECUENTES</h3>
+    <h3 style="position:relative; opacity: 1 !important;">GESTIÓN DE PREGUNTAS FRECUENTES</h3>
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">Listado de preguntas</h3>

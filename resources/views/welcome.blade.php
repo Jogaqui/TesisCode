@@ -24,14 +24,10 @@
 		<div class="hero_slider_container">
 			<div class="hero_slider owl-carousel">
 				
-				<!-- Hero Slide -->
+				<!-- Hero Slide - Navideño -->
 				<div class="hero_slide">
-					<div class="hero_slide_background" style="background-image:url(images/slider_background.jpg)"></div>
-					<div class="hero_slide_container d-flex flex-column align-items-center justify-content-center">
-						<div class="hero_slide_content text-center">
-							<h1 data-animation-in="fadeInUp" data-animation-out="animate-out fadeOut">Gestionando  <span>nuevos</span>  desafíos...!!!</h1>
-						</div>
-					</div>
+					<div class="hero_slide_background" style="background-image:url(images/background_unt_7.jpg)"></div>
+
 				</div>
 				
 				<!-- Hero Slide -->
@@ -44,6 +40,11 @@
 					</div>
 				</div>
 				
+				<!-- Hero Slide - Navideño -->
+				<div class="hero_slide">
+					<div class="hero_slide_background" style="background-image:url(images/background_unt_7.jpg)"></div>
+
+				</div>
 
 			</div>
 
@@ -213,8 +214,8 @@
 					<div class="icon_container d-flex flex-column justify-content-end">
 						<img src="images/books.svg" alt="">
 					</div>
-					<h3>Organizar y reglamentar</h3>
-					<p>Establecer normativas para las distintas prestaciones relacionadas con la inscripción de matrículas, Identificación de alumnos, Análisis estadístico, Cómputo, Grados y Títulos.</p>
+					<a href="{{url('normativas')}}"><h3>Organizar Normativas</h3></a>
+					<p>Reglamentar y establecer normativas para las distintas prestaciones relacionadas con la inscripción de matrículas, Identificación de alumnos, Análisis estadístico, Cómputo, Grados y Títulos.</p>
 				</div>
 
 				<div class="col-lg-4 service_item text-left d-flex flex-column align-items-start justify-content-start">

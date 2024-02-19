@@ -14,9 +14,11 @@
                     <label for="unidad" style="float: left">Unidad</label>
                     <select class="form-control @error('unidad') is-invalid @enderror" id="unidad" name="unidad" required>
                         <option value="{{$pregunta->idUnidad}}" selected>{{$pregunta->unidad->descripcion}}</option>
-                        <option value="" disabled>Seleccionar la Unidad ...</option>
+            
                         @foreach($unidades as $item)
-                            <option value="{{$item['idUnidad']}}">{{$item['descripcion']}}</option>
+                            @if($pregunta->idUnidad!==$item->idUnidad)
+                                <option value="{{$item['idUnidad']}}">{{$item['descripcion']}}</option>
+                            @endif 
                         @endforeach
                     </select>
                     @error('unidad')
@@ -48,7 +50,7 @@
 
                 <div class="form-group">
                     <label for="fecha" style="float: left">Fecha</label>
-                    <input type="date" class="form-control @error('fecha') is-invalid @enderror" id="fecha" name="fecha" value="{{$pregunta->fecha}} required>
+                    <input type="date" class="form-control @error('fecha') is-invalid @enderror" id="fecha" name="fecha" value="{{$pregunta->fecha}}" required>
                     @error('fecha')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>

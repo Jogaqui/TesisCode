@@ -19,7 +19,20 @@
         <li id="news" class="menu_item menu_mm"><a href="{{ url('news') }}">Noticias</a></li>
         <li id="contact" class="menu_item menu_mm"><a href="{{ url('contact') }}">Contacto</a></li>
 
+        <br>
+        <br>
+        <li id="normativas" class="menu_item menu_mm"><a href="{{ url('normativas') }}">Normativas</a></li>
   
+        @if (Route::has('login'))
+            @auth
+              <li id="login" class="menu_item menu_mm"><a href="{{ url('home') }}">Intranet</a></li>
+              @else
+              <li id="login" class="menu_item menu_mm"><a href="{{ url('login') }}">Intranet</a></li>
+                @if (Route::has('register'))
+                <!-- <li class="main_nav_item"><a href="{{ url('register') }}">Registrar</a></li> -->
+                @endif
+            @endauth
+          @endif
       </ul>
 
       <!-- Menu Social -->

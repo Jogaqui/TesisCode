@@ -46,7 +46,10 @@
                         <option value="{{$manual->idTipo_usuario}}" selected>{{$manual_tipo_usuario->nombre}}</option>
                         
                         @foreach($tipos_usuario as $item)
-                            <option value="{{$item['idTipo_usuario']}}">{{$item['nombre']}}</option>
+                            @if($manual->idTipo_usuario!==$item->idTipo_usuario)
+                                <option value="{{$item['idTipo_usuario']}}">{{$item['nombre']}}</option>
+                            @endif 
+                           
                         @endforeach
                     </select>
                     @error('tipo_usuario')

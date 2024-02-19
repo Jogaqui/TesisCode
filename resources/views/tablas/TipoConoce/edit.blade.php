@@ -9,7 +9,7 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="nombre" style="float: left">Nombre</label>
-                    <input type="text" class="form-control @error('nombre') is-invalid @enderror" id="nombre" name="nombre" aria-describedby="nombreHelp" placeholder="Ingrese Nombre" value="{{$tipoconoce->nombre}}" pattern="^(?!.* (?: |$))[A-ZÁÉÍÓÚ][A-Za-záéíóúÁÉÍÓÚ,\u00f1\u00d1 ]+([.])?$" title="Debe empezar con la primera letra en Mayuscula">
+                    <input type="text" class="form-control @error('nombre') is-invalid @enderror" id="nombre" name="nombre" aria-describedby="nombreHelp" placeholder="Ingrese Nombre" value="{{$tipoconoce->nombre}}" title="Debe empezar con la primera letra en Mayuscula">
                     @error('nombre')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{$message}}</strong>

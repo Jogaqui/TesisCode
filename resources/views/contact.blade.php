@@ -36,11 +36,17 @@
               <option value="{{$itemunidad['idUnidad']}}">{{$itemunidad['descripcion']}}</option>
               @endforeach
             </select>
+
             @error('idUnidad')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
-            <input name="nombre" id="nombre" class="input_field contact_form_name" type="text" placeholder="Nombre" required="required" data-error="El nombre es requerido.">
-            <input name="correo" id="correo" class="input_field contact_form_email" type="email" placeholder="Correo electrónico" required="required" data-error="Correo válido es requerido.">
+            <input name="nombre" id="nombre" class="input_field contact_form_name" type="text" placeholder="Nombre" pattern="^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\s]+$"  required="required" data-error="El nombre es requerido.">
+
+            <input name="correo" id="correo" class="input_field contact_form_email" type="email" placeholder="Correo electrónico" pattern="^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$" required="required" data-error="Correo válido es requerido.">
+
             <textarea name="mensaje" id="mensaje" class="text_field contact_form_message" name="message" placeholder="Mensaje" required="required" data-error="Por favor, escríbenos un mensaje."></textarea>
+
             <p style="color: red;">*IMPORTANTE: La respuesta a su consulta será enviada a su correo registrado. Por favor, revisar sus correos no deseados o bandeja de spam</p>
+
+            <!-- BOTON SUBMIT -->
             <button id="contact_send_btn" type="Submit" class="contact_send_btn trans_200" >enviar mensaje</button>
             </form>
           </div>

@@ -4,7 +4,7 @@
 
 
 <div class="container-fluid">
-    <h3>GESTIÓN DE ETIQUETAS</h3>
+    <h3 style="position:relative; opacity: 1 !important;">GESTIÓN DE ETIQUETAS</h3>
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">Listado de etiquetas</h3>

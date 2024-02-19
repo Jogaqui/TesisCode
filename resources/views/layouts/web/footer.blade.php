@@ -6,7 +6,7 @@
     <div class="row">
 
       <!-- Footer Column - About -->
-      <div class="col-lg-4 footer_col">
+      <div class="col-lg-3 footer_col">
 
         <!-- Logo -->
         <div class="logo_container">
@@ -16,12 +16,13 @@
             <span>Unidad de registros<br>académicos</span>
           </div>
         </div>
-        <!-- <p class="footer_about_text">In aliquam, augue a gravida rutrum, ante nisl fermentum nulla, vitae tempor nisl ligula vel nunc. Proin quis mi malesuada, finibus tortor fermentum, tempor lacus.</p> -->
+        
+        <p class="footer_about_text">Dependencia orgánica de la Universidad Nacional de Trujillo en la Dirección de Procesos Académicos</p>
 
       </div>
 
       <!-- Footer Column - Menu -->
-      <div class="col-lg-4 footer_col">
+      <div class="col-lg-3 footer_col">
         <div class="footer_column_title">Menú</div>
         <div class="footer_column_content">
           <ul>
@@ -36,10 +37,14 @@
             <li class="footer_list_item"><a href="{{ url('contact') }}">Contacto</a></li>
           </ul>
         </div>
-        <br>
+      </div>
+      <!-- Footer Column - Menu -->
+      <div class="col-lg-3 footer_col">
         <div class="footer_column_title">Recursos</div>
         <div class="footer_column_content">
           <ul>
+            <li class="footer_list_item"><a href="{{ url('normativas') }}">Normativas</a></li>
+
             @if (Route::has('login'))
               @auth
               <li class="footer_list_item"><a href="{{ url('home') }}">Intranet</a></li>
@@ -50,16 +55,16 @@
                 @endif
               @endauth
             @endif
+
+          
            
           </ul>
         </div>
-
-
       </div>
 
 
       <!-- Footer Column - Contact -->
-      <div class="col-lg-4 footer_col">
+      <div class="col-lg-3 footer_col">
         <div class="footer_column_title">Contáctanos</div>
         <div class="footer_column_content">
           <ul>

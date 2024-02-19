@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Manual;
+use App\Normativa;
+use App\Publicacion;
+use App\Trabajador;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +27,17 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+
+        $n_publicaciones = Publicacion::where('estado',1)->count();
+        $n_manuales = Manual::where('estado',1)->count();
+        $n_normativas = Normativa::where('estado',1)->count();
+        $n_trabajadores = Trabajador::where('estado',1)->count();
+
+        return view('home', compact(
+            'n_publicaciones',
+            'n_manuales',
+            'n_normativas',
+            'n_trabajadores'
+        ));
     }
 }

@@ -17,7 +17,8 @@
 
   <link rel="stylesheet" type="text/css" href="{{ asset('css/spinner.css') }}">
 
-
+  <!-- Chatbot -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/assets/css/chat.min.css">
 
   @yield('styles')
 
@@ -55,6 +56,25 @@
 
   </div>
 
+
+
+  <!-- Chatbot -->
+  {{-- <script>
+    var botmanWidget = {
+        aboutText:'URA-A | Sitio web',
+        introMessage: 'Hola 🙂, Bienvenido al Sitio Web de la Unidad de Registros Académicos (URAA)', 
+        placeholderText: 'Escribe una pregunta...',
+        mainColor: '#ffb606',
+        bubbleBackground:'#ffb606',
+        bubbleAvatarUrl: 'images/chatbot-1-logo.png',
+        title: 'URA-A | Chatbot'
+    };
+  </script>
+  <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script> --}}
+  {{-- <script id="botmanWidget" src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/chat.js'></script> --}}
+
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
   <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
   <script src="{{ asset('css/bootstrap4/popper.js') }}"></script>
   <script src="{{ asset('css/bootstrap4/bootstrap.min.js') }}"></script>
@@ -69,6 +89,7 @@
   <script src="{{ asset('plugins/easing/easing.js') }}"></script>
   <script src="{{ asset('js/custom.js') }}"></script>
   <script src="{{ asset('js/elements_custom.js') }}"></script>
+  <script src="{{ asset('js/statitics.js') }}"></script>
   @yield('scripts')
 
 </body>
