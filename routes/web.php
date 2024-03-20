@@ -51,7 +51,7 @@ Route::resource('/normativas', NormativasController::class);
 
 //Route::get('/statitics/reportes/matriculas_suv/{sede}/{semestre}/{dependencia}', 'StatiticsController@getNroAlumnosMatriculadosByEscuela_SUV');
 
-Route::get('/statitics/reportes/matriculas/{sede}/{semestre}/{dependencia}', 'StatiticsController@getNroMatriculadosByFacultad');
+Route::get('/statitics/reportes/matriculas/{sede}/{semestre}/{dependencia}/{tipo}', 'StatiticsController@getNroMatriculadosByFacultad');
 
 Route::get('/statitics/reportes/matriculas_consolidado/{semestre}/{tipo_consolidado}', 'StatiticsController@getNroMatriculadosConsolidado');
 

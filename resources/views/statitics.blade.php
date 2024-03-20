@@ -20,12 +20,7 @@
   <div class="hero_slider_container">
     <div class="hero_slider owl-carousel">
       
-      <!-- Hero Slide - Navideño -->
-				<div class="hero_slide">
-					<div class="hero_slide_background" style="background-image:url(images/background_unt_7.jpg)"></div>
 
-				</div>
-      
       <!-- Hero Slide -->
       <div class="hero_slide">
         <div class="hero_slide_background" style="background-image:url(images/background_unt_4.jpg)"></div>
@@ -36,6 +31,12 @@
           </div>
         </div>
       </div>
+
+      <!-- Hero Slide - Veraniego -->
+				<div class="hero_slide">
+					<div class="hero_slide_background" style="background-image:url(images/background_unt_9.jpg)"></div>
+
+				</div>
       
     
     </div>
@@ -243,7 +244,7 @@
   </div>
 
   <!--  Milestones - Matrículas -->
-  <div class="milestones" style="margin-top: 0px !important;">
+  {{-- <div class="milestones" style="margin-top: 0px !important;">
 
     <div class="milestones_container tag_fade_in"  style="margin-top: 0px !important;">
       <div class="milestones_background" style="background-image:url(images/background_milestones_matriculas_2.jpg); opacity: 0.5 !important;"></div>
@@ -269,7 +270,16 @@
         
             <div class="row col-12 justify-content-center pt-4" style="margin-top: 40px;" id="divAlumnosMatriculadosByAnio">
 
-              {{-- CODIGO HTML PARA MOSTRAR MATRICULADOS POR AÑO --}}
+              
+
+            </div>  
+
+        </div>
+      </div>
+    </div>
+
+  </div>  --}}
+  {{-- CODIGO HTML PARA MOSTRAR MATRICULADOS POR AÑO --}}
               {{-- @foreach($n_matriculados_ultimos_5_anios as $item_n_matriculados)
   
                <!-- N Alumnos matriculados -->
@@ -286,13 +296,6 @@
                 </div>
               @endforeach --}}
 
-            </div>  
-
-        </div>
-      </div>
-    </div>
-
-  </div> 
   
   <!-- Reportes - Consultas y Otros -->
   <div class="page_section tag_fade_in" style="padding-bottom: 0px;">
@@ -427,11 +430,14 @@
                   <h3>Sede:</h3>
                   <select class=" combo_reportes input_field search_form_name @error('sede_matriculados') is-invalid @enderror" id="sede_matriculados" name="sede_matriculados" required="required" >
                     <option value="0" disabled selected>Seleccionar la sede...</option>
+                    
                     @foreach($sedes_URAA_Website as $itemsede)
                       <option value="{{$itemsede['idSede']}}">
                         {{$itemsede['nombre']}}
                       </option>
                     @endforeach
+                    <option value="99"> - Todas las Sedes - </option>
+
                   </select>
   
                   <br>
@@ -455,6 +461,15 @@
                         {{$itemfacultad['denominacion']}}
                       </option>
                     @endforeach
+                  </select>
+
+                  <br>
+                  <h3>Tipo:</h3>
+                  <select class="combo_reportes input_field search_form_name @error('tipo_matriculados') is-invalid @enderror" id="tipo_matriculados" name="tipo_matriculados" required="required" >
+                    <option value="0" disabled selected>Seleccionar el tipo de Reporte...</option>
+                    <option value="1">Por Género</option>
+                    <option value="2">Por Sede</option>
+                    <option value="3">Por Vez de Matrícula</option>
                   </select>
   
                   <div class="justify-content-center">
@@ -487,6 +502,7 @@
                     <option value="0" disabled selected>Seleccionar el tipo de carpeta...</option>
                     <option value="1">GRADOS</option>
                     <option value="2">TÍTULOS</option>
+                    <option value="3">TÍTULOS - SEGUNDA ESPECIALIDAD</option>
                   </select>
   
                   <br>
@@ -512,10 +528,10 @@
                   <h3>Facultad:</h3>
                   <select class="combo_reportes input_field search_form_name @error('dependencia_GT') is-invalid @enderror" id="dependencia_GT" name="dependencia_GT" required="required" >
                     <option value="0" disabled selected>Seleccionar la facultad...</option>
-                    @foreach($facultades_DiplomasApp as $itemfacultad)
-                      <option value="{{$itemfacultad['Nom_facultad']}}">
+                    @foreach($facultades_URAA_Website as $itemfacultad)
+                      <option value="{{$itemfacultad['nombre']}}">
                         
-                        {{$itemfacultad['Nom_facultad']}}
+                        {{$itemfacultad['denominacion']}}
                       </option>
                     @endforeach
                   </select>
@@ -646,6 +662,7 @@
                     <option value="0" disabled selected>Seleccionar el tipo de Consolidado...</option>
                     <option value="1">Por Género</option>
                     <option value="2">Por Sede</option>
+                    <option value="3">Por Vez de Matrícula</option>
                   </select>
   
                   <div class="justify-content-center">
@@ -665,7 +682,7 @@
                 </div>
               </div>
   
-  
+
               <!-- Grados y Títulos - Consolidado -->
               <div class="accordion_container">
                 <div class="accordion d-flex flex-row align-items-center"  style="color: #393d42 !important;">Consolidado - GRADOS Y TÍTULOS</div>
@@ -707,6 +724,7 @@
                 </div>
               </div>
   
+
               <!-- Egresados - Consolidado -->
               <div class="accordion_container">
                 <div class="accordion d-flex flex-row align-items-center"  style="color: #393d42 !important;">Consolidado - EGRESADOS</div>
@@ -739,9 +757,7 @@
                 </div>
               </div>
   
-  
-  
-  
+
   
             </div>
           </div>
@@ -816,8 +832,18 @@
                           <i class="nav-icon fas fa-search" id="icono_input_alumno_egresado"></i>
                         </span>
 
-                        <input type="text" class="form-control  @error('input_AlumnoEgresado') is-invalid @enderror" name="input_AlumnoEgresado" id="input_AlumnoEgresado" pattern="^[a-zA-Z0-9áéíóúÁÉÍÓÚüÜñÑ\s]+$" placeholder="BÚSQUEDA" aria-label="Ingrese Codigo" 
-                        aria-describedby="basic-addon2" style="font-size: 16px;" required> 
+                        <!--   ^[a-zA-Z0-9áéíóúÁÉÍÓÚüÜñÑ\s]+$ -->
+                        <!--   /^(?!.*(select|insert|update|delete|from|where|drop|create|alter))[a-zA-Z0-9áéíóúÁÉÍÓÚüÜñÑ\s]+$/i  -->
+                        <input type="text" 
+                        class="form-control @error('input_AlumnoEgresado') is-invalid @enderror" 
+                        name="input_AlumnoEgresado" 
+                        id="input_AlumnoEgresado" 
+                        pattern="/^(?!.*(select|insert|update|delete|from|where|drop|create|alter))[a-zA-Z0-9áéíóúÁÉÍÓÚüÜñÑ\s]+$/i"
+                        placeholder="BÚSQUEDA" 
+                        aria-label="Ingrese Codigo" 
+                        aria-describedby="basic-addon2" 
+                        style="font-size: 16px;" 
+                        required> 
                         @error('input_AlumnoEgresado')
                           <div class="alert alert-danger" role="alert">
                             <strong>{{ $message }}</strong>
@@ -967,6 +993,7 @@
 @endsection
 
 @section('scripts')
+
 <script>
   // $('#btnBuscarMatriculados_SGA').on('click', function(){
   //   $.ajax({
@@ -1119,10 +1146,10 @@
   });
 
 
-  // REPORTES
+  //  **************************** REPORTES **********************************
   $('#btnBuscarMatriculados').on('click', function(){
     $.ajax({
-      url: "/statitics/reportes/matriculas/" + $('#sede_matriculados').val() + "/" + $('#semestre_matriculados').val() + "/" + $('#dependencia_matriculados').val(),
+      url: "/statitics/reportes/matriculas/" + $('#sede_matriculados').val() + "/" + $('#semestre_matriculados').val() + "/" + $('#dependencia_matriculados').val() + "/" + $('#tipo_matriculados').val(),
       type: 'GET',
 
       beforeSend: function(){
@@ -1139,31 +1166,111 @@
         console.log(response)
         try {
             var html = '';
-         
-            html+='<thead><tr><th>#</th><th>Escuela Profesional</th><th style="text-align:center;">Femenino</th><th style="text-align:center;">Masculino</th><th style="text-align:center;">TOTAL MATRICULADOS</th></tr></thead>';
 
-            var matriculados = response.matriculados;
-            var matriculados_total = 0;
-            var matriculados_femenino_total = 0;
-            var matriculados_masculino_total = 0;
+            // Por Género
+            if(response.tipo_matriculados == 1){
 
-            for (var i = 0; i < matriculados.length; i++) {
-              var fila = matriculados[i];
-              var idx = i+1;
-              matriculados_total += fila.nro_matriculados;
-              matriculados_femenino_total += fila.femenino;
-              matriculados_masculino_total += fila.masculino;
-              html += '<tbody> <tr>' +
-              '<td>' + idx + '</td>' +
-              '<td>' + fila.dep_nombre + '</td>' + 
-              '<td style="text-align:center;">' + fila.femenino + '</td>' +
-              '<td style="text-align:center;">' + fila.masculino + '</td>' +
-              '<td style="text-align:center;">' + fila.nro_matriculados + '</td>' +
-              '</tr> </tbody>';
-              
+              html+='<thead><tr><th>#</th><th>Escuela Profesional</th><th style="text-align:center;">Femenino</th><th style="text-align:center;">Masculino</th><th style="text-align:center;">TOTAL MATRICULADOS</th></tr></thead>';
+
+              var matriculados = response.matriculados;
+              var matriculados_total = 0;
+              var matriculados_femenino_total = 0;
+              var matriculados_masculino_total = 0;
+  
+              for (var i = 0; i < matriculados.length; i++) {
+                var fila = matriculados[i];
+                var idx = i+1;
+                matriculados_total += fila.nro_matriculados;
+                matriculados_femenino_total += fila.femenino;
+                matriculados_masculino_total += fila.masculino;
+                html += '<tbody> <tr>' +
+                '<td>' + idx + '</td>' +
+                '<td>' + fila.dep_nombre + '</td>' + 
+                '<td style="text-align:center;">' + fila.femenino + '</td>' +
+                '<td style="text-align:center;">' + fila.masculino + '</td>' +
+                '<td style="text-align:center;">' + fila.nro_matriculados + '</td>' +
+                '</tr> </tbody>';
+                
+              }
+  
+              html+='<tfoot><tr style="border: 2px solid #332D2D;"><th> </th><th>TOTAL GENERAL</th><th style="text-align:center;">' + matriculados_femenino_total + '</th><th style="text-align:center;">' +  matriculados_masculino_total + '</th><th style="text-align:center;">' + matriculados_total + '</tr></tfoot>';
             }
 
-            html+='<tfoot><tr style="border: 2px solid #332D2D;"><th> </th><th>TOTAL GENERAL</th><th style="text-align:center;">' + matriculados_femenino_total + '</th><th style="text-align:center;">' +  matriculados_masculino_total + '</th><th style="text-align:center;">' + matriculados_total + '</tr></tfoot>';
+
+            //Por Sede
+            else if(response.tipo_matriculados == 2){
+              
+              html+='<thead><tr><th style="text-align:center;">#</th><th>Dependencia Académica</th><th style="text-align:center;">  Trujillo  </th><th style="text-align:center;">Jequetepeque</th><th style="text-align:center;">Huamachuco</th><th style="text-align:center;">S. de Chuco</th><th style="text-align:center;">TOTAL MATRICULADOS</th></tr></thead>';
+              
+              var matriculados = response.matriculados;
+              var matriculados_total = 0;
+              var matriculados_trujillo_total = 0;
+              var matriculados_valleJequetepeque_total = 0;
+              var matriculados_huamachuco_total = 0;
+              var matriculados_santiagoDeChuco_total = 0;
+              
+              for (var i = 0; i < matriculados.length; i++) {
+                var fila = matriculados[i];
+                var idx = i+1;           
+              
+                matriculados_trujillo_total += fila.trujillo;
+                matriculados_valleJequetepeque_total += fila.valle_jequetepeque;
+                matriculados_huamachuco_total += fila.huamachuco;
+                matriculados_santiagoDeChuco_total += fila.santiago_de_chuco;
+                matriculados_total += fila.nro_matriculados;
+              
+                html += '<tbody> <tr>' +
+                '<td style="text-align:center;">' + idx + '</td>' +
+                '<td>' + fila.dep_nombre + '</td>' + 
+                '<td style="text-align:center;">' + fila.trujillo + '</td>' +
+                '<td style="text-align:center;">' + fila.valle_jequetepeque + '</td>' +
+                '<td style="text-align:center;">' + fila.huamachuco + '</td>' +
+                '<td style="text-align:center;">' + fila.santiago_de_chuco + '</td>' +
+                '<td style="text-align:center;">' + fila.nro_matriculados + '</td>' +
+                '</tr> </tbody>';
+              
+              }
+              
+              html+='<tfoot><tr style="border: 2px solid #332D2D;"><th> </th><th>TOTAL GENERAL</th><th style="text-align:center;">' + matriculados_trujillo_total + '</th><th style="text-align:center;">' +  matriculados_valleJequetepeque_total + '</th><th style="text-align:center;">' +  matriculados_huamachuco_total + '</th><th style="text-align:center;">' +  matriculados_santiagoDeChuco_total + '</th><th style="text-align:center;">' + matriculados_total + '</tr></tfoot>';
+            
+            }
+
+
+            //Por Vez
+            else if(response.tipo_matriculados == 3){
+              
+              html+='<thead><tr><th>#</th><th>Escuela Profesional</th><th style="text-align:center;">1ra Vez</th><th style="text-align:center;">2da Vez</th><th style="text-align:center;">3ra Vez</th><th style="text-align:center;">4ta Vez</th><th style="text-align:center;">TOTAL MATRICULADOS</th></tr></thead>';
+              
+              var matriculados = response.matriculados;
+              var matriculados_total = 0;
+              var matriculados_vez_1_total = 0;
+              var matriculados_vez_2_total = 0;
+              var matriculados_vez_3_total = 0;
+              var matriculados_vez_4_total = 0;
+              
+              for (var i = 0; i < matriculados.length; i++) {
+                var fila = matriculados[i];
+                var idx = i+1;
+                matriculados_total += fila.nro_matriculados;
+                matriculados_vez_1_total += fila.vez_1;
+                matriculados_vez_2_total += fila.vez_2;
+                matriculados_vez_3_total += fila.vez_3;
+                matriculados_vez_4_total += fila.vez_4;
+                html += '<tbody> <tr>' +
+                '<td>' + idx + '</td>' +
+                '<td>' + fila.dep_nombre + '</td>' + 
+                '<td style="text-align:center;">' + fila.vez_1 + '</td>' +
+                '<td style="text-align:center;">' + fila.vez_2 + '</td>' +
+                '<td style="text-align:center;">' + fila.vez_3 + '</td>' +
+                '<td style="text-align:center;">' + fila.vez_4 + '</td>' +
+                '<td style="text-align:center;">' + fila.nro_matriculados + '</td>' +
+                '</tr> </tbody>';
+                
+              }
+              
+              html+='<tfoot><tr style="border: 2px solid #332D2D;"><th> </th><th>TOTAL GENERAL</th><th style="text-align:center;">' + matriculados_vez_1_total + '</th><th style="text-align:center;">' +  matriculados_vez_2_total + '</th><th style="text-align:center;">' + matriculados_vez_3_total + '</th><th style="text-align:center;">' +  matriculados_vez_4_total + '</th><th style="text-align:center;">' + matriculados_total + '</tr></tfoot>';
+            }
+            
 
             $('#tablaMatriculados').html(html);
 
@@ -1227,7 +1334,7 @@
 
           $('#tablaGraduados_Titulados').html(html);
 
-          $("#accordion_panel_2").css("max-height", "1500px");
+          $("#accordion_panel_2").css("max-height", "2400px");
       } catch (e) {
         console.log(e);
       }
@@ -1305,7 +1412,7 @@
   });
 
 
-  // REPORTES - Consolidado
+  // ************************ REPORTES - Consolidado ****************************
   $('#btnBuscarMatriculados_Consolidado').on('click', function(){
   $.ajax({
     url: "/statitics/reportes/matriculas_consolidado/" + $('#semestre_matriculasConsolidado').val() + "/" + $('#tipo_matriculasConsolidado').val(),
@@ -1394,6 +1501,45 @@
 
             html+='<tfoot><tr style="border: 2px solid #332D2D;"><th> </th><th>TOTAL GENERAL</th><th style="text-align:center;">' + matriculados_trujillo_total + '</th><th style="text-align:center;">' +  matriculados_valleJequetepeque_total + '</th><th style="text-align:center;">' +  matriculados_huamachuco_total + '</th><th style="text-align:center;">' +  matriculados_santiagoDeChuco_total + '</th><th style="text-align:center;">' + matriculados_total + '</tr></tfoot>';
           }
+
+
+          // Por Vez de Matrícula
+
+          else if(response.tipo_consolidado_Matriculados == 3){
+
+            html+='<thead><tr><th>#</th><th>Dependencia Académica</th><th style="text-align:center;">1ra Vez</th><th style="text-align:center;">2da Vez</th><th style="text-align:center;">3ra Vez</th><th style="text-align:center;">4ta Vez</th><th style="text-align:center;">TOTAL MATRICULADOS</th></tr></thead>';
+              
+              var matriculados = response.matriculados;
+              var matriculados_total = 0;
+              var matriculados_vez_1_total = 0;
+              var matriculados_vez_2_total = 0;
+              var matriculados_vez_3_total = 0;
+              var matriculados_vez_4_total = 0;
+              
+              for (var i = 0; i < matriculados.length; i++) {
+                var fila = matriculados[i];
+                var idx = i+1;
+                matriculados_total += fila.nro_matriculados_consolidado;
+                matriculados_vez_1_total += fila.vez_1;
+                matriculados_vez_2_total += fila.vez_2;
+                matriculados_vez_3_total += fila.vez_3;
+                matriculados_vez_4_total += fila.vez_4;
+                html += '<tbody> <tr>' +
+                '<td>' + idx + '</td>' +
+                '<td>' + fila.dep_nombre + '</td>' + 
+                '<td style="text-align:center;">' + fila.vez_1 + '</td>' +
+                '<td style="text-align:center;">' + fila.vez_2 + '</td>' +
+                '<td style="text-align:center;">' + fila.vez_3 + '</td>' +
+                '<td style="text-align:center;">' + fila.vez_4 + '</td>' +
+                '<td style="text-align:center;">' + fila.nro_matriculados_consolidado + '</td>' +
+                '</tr> </tbody>';
+                
+              }
+              
+              html+='<tfoot><tr style="border: 2px solid #332D2D;"><th> </th><th>TOTAL GENERAL</th><th style="text-align:center;">' + matriculados_vez_1_total + '</th><th style="text-align:center;">' +  matriculados_vez_2_total + '</th><th style="text-align:center;">' + matriculados_vez_3_total + '</th><th style="text-align:center;">' +  matriculados_vez_4_total + '</th><th style="text-align:center;">' + matriculados_total + '</tr></tfoot>';
+          
+          }
+
           
 
           $('#tablaMatriculados_Consolidado').html(html);

@@ -103,3 +103,12 @@
 </div>
 </div>
 @endsection
+
+@section('scripts')
+<script>
+  // ID CAPTCHAS
+var widgetId2 = grecaptcha.render(document.getElementById('captcha_2'), {
+  'sitekey' : '6LcgHFopAAAAAM4FPzXfUmKB_Cn_pU9c8CPfCQHU'
+});
+</script>
+@endsection

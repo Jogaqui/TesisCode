@@ -1,8 +1,6 @@
 
-// ID CAPTCHAS
-var widgetId1 = grecaptcha.render(document.getElementById('captcha_1'), {
-  'sitekey' : '6LcgHFopAAAAAM4FPzXfUmKB_Cn_pU9c8CPfCQHU'
-});
+// id de los widget de captcha
+var widget1;
 
 // variables de los combos de la consulta Alumno_Egresado
 var tipobusqueda_AlumnoEgresado = document.getElementById("tipobusqueda_AlumnoEgresado");
@@ -39,8 +37,7 @@ tipobusqueda_AlumnoEgresado.addEventListener("change",()=>{
       case '4':
         $('#input_AlumnoEgresado').attr('placeholder','NOMBRES');
         let icono_nombres_alu_egre = document.getElementById("icono_input_alumno_egresado");
-        icono_nombres_alu_egre.claskk
-        sName = '';
+        icono_nombres_alu_egre.className = '';
         icono_nombres_alu_egre.classList.add("nav-icon", "fas", "fa-user");
   
           break;
@@ -72,20 +69,23 @@ var pages = 0;
 var page = null;
 var currentPage = 0;
 var page_size = 20;
+var checkCaptcha_AlumnoEgresado = false;
 
-// ******************************* AJAX ***************************************
+// ******************************* Comienzo: AJAX ***************************************
 $('#btnBuscar_AlumnoEgresado').on('click', function(){
 
 var consulta1 = $('#input_AlumnoEgresado').val();
 var comboUnidad = $('#unidad_AlumnoEgresado').val();
 var comboTipoBusqueda = $('#tipobusqueda_AlumnoEgresado').val();
 
-var regex1 = /^[a-zA-Z0-9áéíóúÁÉÍÓÚüÜñÑ\s]+$/;
+//var regex1 = /^[a-zA-Z0-9áéíóúÁÉÍÓÚüÜñÑ\s]+$/;
+
+var regex1 = /^(?!.*(select|insert|update|delete|from|where|drop|create|alter))[a-zA-Z0-9áéíóúÁÉÍÓÚüÜñÑ\s]+$/i;
 
 // Cumple con el regex1
 if(regex1.test(consulta1)){
 
-if(comboUnidad!=0 && comboTipoBusqueda!=0 && consulta1!=null){
+if(comboUnidad!=0 && comboTipoBusqueda!=0 && checkCaptcha_AlumnoEgresado==true && consulta1!=null){
 $.ajax({
   url: "/statitics/consultas/alumno_egresado/" + $('#unidad_AlumnoEgresado').val() + "/" + $('#tipobusqueda_AlumnoEgresado').val() + "/" + $('#input_AlumnoEgresado').val() ,
   type: 'GET',
@@ -109,48 +109,68 @@ $.ajax({
     const tablaConsulta_AlumnoEgresado = document.getElementById("tablaConsulta_AlumnoEgresado");
     tablaConsulta_AlumnoEgresado.classList.remove("d-none");
 
-    
-    $("#accordion_panel_7 ").css("max-height", "1920px");
+    // response = tiene resultados
+    if(alumnos.length > 0){
 
-    
-    pages = paginate(alumnos, page_size);
-    let pageLi = "";
-    let nlimit = pages.length - 2;
+      //console.log("hola alumnos");
 
-    pages.forEach((element, index) => {
-        if (index == 0){
-          pageLi += '<li onclick="pageChange(' + index + ')" id="page_' + index + '" class="page-item list-item active"><a class="page-link" href="javascript:void(0)">' + (index+1) + '</a></li>';
-        }
-        else if(index > 0 && index < 8){
-          pageLi += '<li onclick="pageChange(' + index + ')" id="page_' + index + '" class="page-item list-item"><a class="page-link" href="javascript:void(0)">' + (index+1) + '</a></li>';
-        }
-        else if(index == 8){
-          pageLi += '<li onclick="" class="page-item list-item"><a class="page-link" href="javascript:void(0)">' + '...' + '</a></li>';
-        }
-        else if(index == 9){
-          
-          pageLi += '<li onclick="pageChange(' + nlimit + ')" id="page_' + nlimit + '" class="page-item list-item"><a class="page-link" href="javascript:void(0)">' + (nlimit+1) + '</a></li>';
-          nlimit = nlimit + 1;
-        }
-        else if(index == 10){
-          pageLi += '<li onclick="pageChange(' + nlimit + ')" id="page_' + nlimit + '" class="page-item list-item"><a class="page-link" href="javascript:void(0)">' + (nlimit+1) + '</a></li>';
-        }
-           
+      $("#accordion_panel_7 ").css("max-height", "1920px");
+  
+      pages = paginate(alumnos, page_size);
+      let pageLi = "";
+      let nlimit = pages.length - 2;
+  
+      pages.forEach((element, index) => {
+          if (index == 0){
+            pageLi += '<li onclick="pageChange(' + index + ')" id="page_' + index + '" class="page-item list-item active"><a class="page-link" href="javascript:void(0)">' + (index+1) + '</a></li>';
+          }
+          else if(index > 0 && index < 8){
+            pageLi += '<li onclick="pageChange(' + index + ')" id="page_' + index + '" class="page-item list-item"><a class="page-link" href="javascript:void(0)">' + (index+1) + '</a></li>';
+          }
+          else if(index == 8){
+            pageLi += '<li onclick="" class="page-item list-item"><a class="page-link" href="javascript:void(0)">' + '...' + '</a></li>';
+          }
+          else if(index == 9){
             
-    });
-    $(".page-list").after(pageLi);
-    
+            pageLi += '<li onclick="pageChange(' + nlimit + ')" id="page_' + nlimit + '" class="page-item list-item"><a class="page-link" href="javascript:void(0)">' + (nlimit+1) + '</a></li>';
+            nlimit = nlimit + 1;
+          }
+          else if(index == 10){
+            pageLi += '<li onclick="pageChange(' + nlimit + ')" id="page_' + nlimit + '" class="page-item list-item"><a class="page-link" href="javascript:void(0)">' + (nlimit+1) + '</a></li>';
+          }
+             
+              
+      });
+      $(".page-list").after(pageLi);
+      
+  
+      page = pages[currentPage];
+  
+      let nroItem = currentPage*page_size + 1;
+  
+      printRows(page, nroItem);
+  
 
-    page = pages[currentPage];
+    }
 
-    let nroItem = currentPage*page_size + 1;
+    // response = null
+    else{
+      let msg_html = 'No se encontraron resultados';
 
-    printRows(page, nroItem);
+      html = '<div class="alert alert-warning" role="alert">'+
+       msg_html +
+       '</div>';
+       
+      $(".page-data").html("");
+      $(".page-data").html(html);
 
-    
+    }
+
     // Resetear captcha
-    
-    grecaptcha.reset(widgetId1);
+    grecaptcha.reset(widget1);
+    checkCaptcha_AlumnoEgresado = false;
+
+    //Fin - consulta success
     
   },
   error: function(jqXHR, exception) { // if error occured
@@ -181,28 +201,38 @@ $.ajax({
     $(".page-data").html(html);
 
     spinner_Off_BotonesBuscarLimpiar();
+    // Get a reference to the button element - disabled
+    const btnBuscar_AlumnoEgresado = document.getElementById("btnBuscar_AlumnoEgresado");
+    btnBuscar_AlumnoEgresado.disabled = true;
 
   },
   complete: function(){
-
     spinner_Off_BotonesBuscarLimpiar();
 
     // Get a reference to the button element - disabled
     const btnBuscar_AlumnoEgresado = document.getElementById("btnBuscar_AlumnoEgresado");
     btnBuscar_AlumnoEgresado.disabled = true;
+
   },
 });
 
 }
 else{
   // La consulta TIENE CAMPOS VACÍOS
-  var msg_html = 'Ingrese los datos requeridos para la consulta. Campo vacío';
+  var msg_html = 'Ingrese o complete los datos necesarios para la consulta.';
   html = '<div class="alert alert-danger" role="alert">'+
        msg_html +
       '</div>';
 
     $(".page-data").html("");
     $(".page-data").html(html);
+
+    // Resetear captcha
+    grecaptcha.reset(widget1);
+    
+    const btnBuscar_AlumnoEgresado = document.getElementById("btnBuscar_AlumnoEgresado");
+    btnBuscar_AlumnoEgresado.disabled = true;
+
 }
 
 } // fin del IF de REGEX
@@ -216,13 +246,18 @@ else {
 
     $(".page-data").html("");
     $(".page-data").html(html);
+
+    // Resetear captcha
+    grecaptcha.reset(widget1);
+
+    const btnBuscar_AlumnoEgresado = document.getElementById("btnBuscar_AlumnoEgresado");
+    btnBuscar_AlumnoEgresado.disabled = true;
 }
 
 
 
-
-
-});
+}); 
+// ******************************* Fin: AJAX ***************************************
 
 
 function nextPage() {
@@ -279,8 +314,15 @@ function paginate(arr, size) {
 }
 
 
+function onloadCaptcha_Statitics(){
+  widget1 = grecaptcha.render( document.getElementById('captcha_1'), {
+    'sitekey' : '6LcgHFopAAAAAM4FPzXfUmKB_Cn_pU9c8CPfCQHU'
+  });
+}
 
 function validarCaptcha_AlumnoEgresado(token){
+
+  checkCaptcha_AlumnoEgresado = true;
 
   const btnBuscar_AlumnoEgresado = document.getElementById("btnBuscar_AlumnoEgresado");
   btnBuscar_AlumnoEgresado.disabled = false;
@@ -292,7 +334,7 @@ function validarCaptcha_AlumnoEgresado(token){
 
 
 
-// FUNCIONES SPINNER BOTONES LIMPIAR - BUSCAR
+//    FUNCIONES SPINNER BOTONES LIMPIAR - BUSCAR
 function spinner_On_BotonesBuscarLimpiar(){
   $('#btnBuscar_AlumnoEgresado').addClass("button--loading");
   
@@ -304,7 +346,6 @@ function spinner_On_BotonesBuscarLimpiar(){
     btnLimpiar_AlumnoEgresado.disabled = true;
   
 }
-
 
 function spinner_Off_BotonesBuscarLimpiar(){
   $('#btnBuscar_AlumnoEgresado').removeClass("button--loading");

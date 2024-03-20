@@ -12,7 +12,7 @@ class UnidadController extends Controller
     public function index(Request $request)
     {
         $unidad = Unidad::get();
-        return view('tablas.unidades.index', compact('unidad'));
+        return view('tablas.Unidades.index', compact('unidad'));
     }
 
     public function create() 

@@ -73,7 +73,7 @@
   <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script> --}}
   {{-- <script id="botmanWidget" src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/chat.js'></script> --}}
 
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <script src="https://www.google.com/recaptcha/api.js?onload=onloadCaptcha_Statitics&render=explicit" async defer></script>
 
   <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
   <script src="{{ asset('css/bootstrap4/popper.js') }}"></script>

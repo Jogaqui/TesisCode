@@ -24,11 +24,10 @@
 		<div class="hero_slider_container">
 			<div class="hero_slider owl-carousel">
 				
-				<!-- Hero Slide - Navideño -->
+				{{-- <!-- Hero Slide - Navideño -->
 				<div class="hero_slide">
-					<div class="hero_slide_background" style="background-image:url(images/background_unt_7.jpg)"></div>
-
-				</div>
+					<div class="hero_slide_background" style="background-image:url(images/background_unt_9.jpg)"></div>
+				</div> --}}
 				
 				<!-- Hero Slide -->
 				<div class="hero_slide">
@@ -40,11 +39,16 @@
 					</div>
 				</div>
 				
-				<!-- Hero Slide - Navideño -->
+				<!-- Hero Slide -->
 				<div class="hero_slide">
-					<div class="hero_slide_background" style="background-image:url(images/background_unt_7.jpg)"></div>
-
+					<div class="hero_slide_background" style="background-image:url(images/background_unt_tramites.jpg)"></div>
+					<div class="hero_slide_container d-flex flex-column align-items-center justify-content-center">
+						<div class="hero_slide_content text-center">
+							<h1 data-animation-in="fadeInUp" data-animation-out="animate-out fadeOut" style="color: rgb(240, 244, 244)">Gestionando  <span>nuevos</span>  desafíos...!!!</h1>
+						</div>
+					</div>
 				</div>
+
 
 			</div>
 
@@ -152,7 +156,8 @@
 
 					<div class="register_section d-flex flex-column align-items-center justify-content-center">
 						<div class="register_content text-center">
-							<h1 class="register_title">Unidad de Registro Académico <span>Universidad Nacional de Trujillo</span></h1>
+							<h1 class="register_title row">Unidad de Registros Académicos</h1>
+							<h1 class="register_title"><span>Universidad Nacional de Trujillo</span></h1>
 							<p class="register_text">Dependencia Técnica, enfocada en la gestión y apoyo a los procesos administrativos y académicos del estudiante. Ofreciendo servicios de calidad a las diferentes áreas interdepartamentales de nuestra Universidad, basada en el cumplimiento a los mejores estándares y la evolución integral de la dirección.</p>
 							<div class="button button_1 register_button mx-auto trans_200"><a href="{{ url('aboutus') }}">Conócenos</a></div>
 						</div>
