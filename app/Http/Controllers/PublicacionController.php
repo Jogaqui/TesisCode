@@ -95,6 +95,8 @@ class PublicacionController extends Controller
             $publicacion->resumen=$request->resumen;
             $publicacion->texto=$request->texto;
 
+            $publicacion->post_link=$request->ruta_pagina;
+
             $publicacion->vistas=0;
             $publicacion->estado=1;
             $publicacion->save();
@@ -199,6 +201,8 @@ class PublicacionController extends Controller
                 //$publicacion->titulo=$request->titulo;
                 $publicacion->resumen=$request->resumen;
                 $publicacion->texto=$request->texto;
+                
+                $publicacion->post_link=$request->ruta_pagina;
               
                 $etiquetas=$request->etiquetas;
                 $publicacion_etiqueta=Publicacion_Etiqueta::where('idPublicacion',$id)->delete();

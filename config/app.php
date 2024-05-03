@@ -15,6 +15,9 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
+    // CUSTOMIZADOS
+    'ura_community_telegram_link' => env('URA_COMMUNITY_TELEGRAM_LINK', '#'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment

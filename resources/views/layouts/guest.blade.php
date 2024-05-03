@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>URA-A | Sitio Web</title>
+  <title>URA | Sitio Web</title>
 
   <link rel="icon" href="{{ asset('images/logo-icon.png') }}">
 
@@ -16,6 +16,8 @@
   <link href="plugins/fontawesome-free-5.0.1/css/fontawesome-all.css" rel="stylesheet" type="text/css">
 
   <link rel="stylesheet" type="text/css" href="{{ asset('css/spinner.css') }}">
+
+  <link rel="stylesheet" type="text/css" href="{{ asset('css/general.css') }}">
 
   <!-- Chatbot -->
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/assets/css/chat.min.css">
@@ -56,6 +58,14 @@
 
   </div>
 
+  <!-- Telegram bubble - FIXED -->
+  <div>
+    <div class="chatBtn jump">
+      <a href = {{ config('app.ura_community_telegram_link') }} target="_blank">
+        <img src="{{ asset("images/telegram_icon1.png")}}" alt=""> 
+      </a>
+    </div>
+  </div>
 
 
   <!-- Chatbot -->
@@ -75,6 +85,11 @@
 
   <script src="https://www.google.com/recaptcha/api.js?onload=onloadCaptcha_Statitics&render=explicit" async defer></script>
 
+  
+  <script src="https://www.google.com/recaptcha/api.js?onload=onloadCaptcha_FormularioDirecciones&render=explicit" async defer></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
   <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
   <script src="{{ asset('css/bootstrap4/popper.js') }}"></script>
   <script src="{{ asset('css/bootstrap4/bootstrap.min.js') }}"></script>
@@ -90,6 +105,7 @@
   <script src="{{ asset('js/custom.js') }}"></script>
   <script src="{{ asset('js/elements_custom.js') }}"></script>
   <script src="{{ asset('js/statitics.js') }}"></script>
+
   @yield('scripts')
 
 </body>

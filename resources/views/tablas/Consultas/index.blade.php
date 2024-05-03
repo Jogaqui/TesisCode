@@ -13,16 +13,16 @@
 
         </div>
           <!-- /.card-header -->
-        <div class="card-body">
+        <div class="card-body table-responsive">
             <table id="example1" class="table table-bordered table-striped">
               <thead>
               <tr>
-                <th>Código</th>
+                <th style="text-align: center">#</th>     
+                <th>Estado</th>
                 <th>Nombre</th>
-                <th>Correo</th>
                 <th>Fecha</th>
                 <th>Unidad</th>
-                <th>Estado</th>
+                <th style="text-align: center">ID Consulta</th>
                 <th>Opciones</th>
               </tr>
               </thead>
@@ -30,20 +30,23 @@
 
               @foreach($consulta as $item)
                 <tr>
-                    <td>{{$item->idConsulta}}</td>
+                    <td style="text-align: center">{{$loop->index+1}}</td>
+                   
+                    <td>
+                      @if($item->estado==1)
+                        <p style="background-color: red; color: white; border-radius: 10px; padding:2px; text-align:center;">PENDIENTE</p>
+                      @else
+                        <p style="background-color: black; color: white; border-radius: 10px; padding:2px; text-align:center;">RESUELTO</p>
+                      @endif
+                    </td>
                     <td>{{$item->nombre}}</td>
-                    <td>{{$item->correo}}</td>
                     <td>{{$item->fecha}}</td>
                     <td>{{$item->unidad->descripcion}}</td>
-                      @if ($item->estado==1)
-                        <td>Pendiente</td>
-                      @else
-                        <td>Resuelto</td>
-                      @endif
+                    <td style="text-align: center">{{$item->idConsulta}}</td>
                     <td>
-                      <a href="{{route('consulta.show',$item->idConsulta)}}" class="btn btn-success btn-sm"><i class="fas fa-eye"></i> Mensaje</a>
+                      <a href="{{route('consulta.show',$item->idConsulta)}}" class="btn btn-warning btn-sm"><i class="fas fa-eye"></i> Ver Consulta</a>
                       @if ($item->estado==1)
-                      <a href="{{route('consulta.edit',$item->idConsulta)}}" class="btn btn-danger btn-sm"><i class="far fa-folder"></i> Resolver</a>
+                      <a href="{{route('consulta.edit',$item->idConsulta)}}" class="btn btn-success btn-sm"><i class="fas fa-edit"></i> Resolver</a>
                       @endif
                     </td>
                 </tr>
@@ -73,12 +76,12 @@
               </tbody>
               <tfoot>
               <tr>
-                <th>Código</th>
+                <th style="text-align: center">#</th>     
+                <th>Estado</th>
                 <th>Nombre</th>
-                <th>Correo</th>
                 <th>Fecha</th>
                 <th>Unidad</th>
-                <th>Estado</th>
+                <th style="text-align: center">ID Consulta</th>
                 <th>Opciones</th>
               </tr>
               </tfoot>

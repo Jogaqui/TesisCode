@@ -16,6 +16,6 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'usu_nombres','usu_apepaterno','usu_apematerno','usu_email' ,'usu_login','password','usu_estado'
+        'usu_nombres','usu_apepaterno','usu_apematerno','usu_email' ,'usu_login','password','usu_estado','remember_token'
     ];
 }

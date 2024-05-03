@@ -52,7 +52,7 @@ class ContactController extends Controller
             $consulta->estado='1';
             $consulta->save();
             DB::commit();
-            return redirect()->route('contact.index')->with('datos', 'Registro Nuevo Guardado!!');
+            return redirect()->route('contact.index')->with('mensaje_consulta_guardada', 'Consulta enviada con éxito.');
             
         }catch(Exception $e){
             DB::rollback();

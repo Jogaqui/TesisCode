@@ -34,7 +34,7 @@ Route::group(['middleware' => 'auth'], function () {
   Route::post('register', 'Auth\RegisterController@register');
 });
 
-//WEB
+// VISTAS WEB
 Route::resource('/welcome', WelcomeController::class);
 Route::get('/news/etiqueta/{posts}', 'NewsController@showByTag')->name('news.showByTag');
 Route::resource('/procedure', ProcedureController::class);
@@ -45,6 +45,16 @@ Route::resource('/contact', ContactController::class);
 Route::resource('/question', QuestionController::class);
 Route::resource('/statitics', StatiticsController::class);
 Route::resource('/normativas', NormativasController::class);
+
+
+
+Route::resource('/formulario_direcciones', FormularioDireccionesController::class);
+Route::get('formulario_direcciones/AlumnobyCodigo/{codigo}', 'FormularioDireccionesController@getAlumnobyCodigo');
+
+Route::get('/provincias/{departamento}', 'UbigeoDepartamentoController@provincias');
+Route::get('/distritos/{provincia}', 'UbigeoProvinciaController@distritos');
+
+
 
 //Reportes Estadísticas
 //Route::get('/statitics/reportes/matriculas_sga/{sede}/{semestre}/{dependencia}', 'StatiticsController@getNroAlumnosMatriculadosByEscuela_SGA');
@@ -66,6 +76,8 @@ Route::get('/statitics/reportes/egresados_consolidado/{semestre}', 'StatiticsCon
 Route::get('/statitics/milestones/matriculadosByAnio', 'StatiticsController@getMatriculadosTotalesByAnio');
 
 Route::get('/statitics/consultas/alumno_egresado/{unidad}/{tipo_busqueda}/{input_alumno_egresado}', 'StatiticsController@getAlumnoEgresado_Consulta');
+
+Route::get('/statitics/consultas/primeros_puestos/{sede}/{semestre}/{escuela}/{ciclo}', 'StatiticsController@getPrimerosPuestos_Consulta');
 
 
 //APP
@@ -122,6 +134,12 @@ Route::group(['middleware' => 'auth'], function () {
        return redirect()->route('manual.index')->with('datos', 'C');
    })->name('cancelarHis');
 
+   //Multimedia
+   Route::resource('multimedia', 'MultimediaController');
+   Route::get(('cancelarMultimedia'), function(){
+       return redirect()->route('multimedia.index')->with('datos', 'C');
+   })->name('cancelarMultimedia');
+   
    //Pregunta
    Route::resource('pregunta', 'PreguntaController');
    Route::get(('cancelarPreg'), function(){

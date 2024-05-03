@@ -5,7 +5,7 @@
     
     <form method="POST" action="{{route('tramite.store')}}" enctype="multipart/form-data" >
         @csrf
-        <div class="card text-white bg-secondary mb-3" style="max-width: 40rem;">
+        <div class="card text-white bg-dark mb-3" style="max-width: 50rem; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;">
             <div class="card-header"><h1 style="font-weight: bold;text-align:center">Crear Trámite</h1></div>
 
             <div class="card-body">
@@ -54,7 +54,7 @@
                 <div class="form-group">
                     <label for="idIcono" style="float:left">Ícono</label>
                     <select class="form-control @error('idIcono') is-invalid @enderror" id="idIcono" name="idIcono" required>
-                        <option value="">Seleccionar icono</option>
+                        <option value="" disabled selected>Seleccionar icono</option>
                         @foreach($icono as $itemicono)
                             <option value="{{$itemicono->idIcono}}" >{{$itemicono->nombre}}</option>
                         @endforeach

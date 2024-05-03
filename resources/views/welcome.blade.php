@@ -58,6 +58,7 @@
 
 	</div>
 
+	<!-- Tramites principales -->
 	<div class="hero_boxes">
 		<div class="hero_boxes_inner">
 			<div class="container ">
@@ -143,6 +144,64 @@
 		</div>		
 	</div>
 
+	<!-- Multimedia -->
+
+	<div id="tutorials" class="testimonials page_section">
+		<!-- <div class="testimonials_background" style="background-image:url(images/testimonials_background.jpg)"></div> -->
+		<div class="testimonials_background_container prlx_parent">
+			<div class="testimonials_background prlx" style="background-image:url(images/slider_background.jpg)"></div>
+		</div>
+		<div class="container">
+
+			<div class="row">
+				<div class="col">
+					<div class="section_title text-center">
+						<h1>Multimedia</h1>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-lg-10 offset-lg-1">
+					
+					<div class="testimonials_slider_container">
+
+						<!-- Multimedia Slider -->
+						<div class="owl-carousel owl-theme testimonials_slider_2">
+							@foreach ($multimedias as $multimedia)
+								<!-- Multimedia Item -->
+								<div class="owl-item">
+									<div class="testimonials_item text-center">
+										<div class="container container_iframe" style="width: 640px; height: 400px;">
+											<iframe class="responsive_iframe" width="100%" height="100%" src="{{$multimedia->ruta}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+										</div>
+										
+	
+										<div class="testimonial_user">
+											
+											<div class="testimonial_name">{{$multimedia->titulo}}</div>
+											<div class="testimonial_title">{{$multimedia->resumen}}</div>
+										</div>
+									</div>
+								</div>
+							@endforeach
+							
+						</div>
+
+						<div class="multimedia_slider_left multimedia_slider_nav trans_200">
+							<img class="rotated_180"  style="width: 65% !important;" src="{{ asset("images/next-button2.png")}}" alt="">
+						</div>
+						<div class="multimedia_slider_right multimedia_slider_nav trans_200">
+							<img style="width: 65% !important;" src="{{ asset("images/next-button2.png")}}" alt="">
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+
 	<!-- Register -->
 
 	<div class="register">
@@ -156,7 +215,7 @@
 
 					<div class="register_section d-flex flex-column align-items-center justify-content-center">
 						<div class="register_content text-center">
-							<h1 class="register_title row">Unidad de Registros Académicos</h1>
+							<h1 class="register_title row justify-content-center">Unidad de Registros Académicos</h1>
 							<h1 class="register_title"><span>Universidad Nacional de Trujillo</span></h1>
 							<p class="register_text">Dependencia Técnica, enfocada en la gestión y apoyo a los procesos administrativos y académicos del estudiante. Ofreciendo servicios de calidad a las diferentes áreas interdepartamentales de nuestra Universidad, basada en el cumplimiento a los mejores estándares y la evolución integral de la dirección.</p>
 							<div class="button button_1 register_button mx-auto trans_200"><a href="{{ url('aboutus') }}">Conócenos</a></div>
@@ -243,9 +302,17 @@
 					<div class="icon_container d-flex flex-column justify-content-end">
 						<img src="images/blackboard.svg" alt="">
 					</div>
+					<a href="{{url('statitics')}}"><h3>Elaboración de Reportes</h3></a>
+					<p>Análisis de información de las distintas bases de datos académicas para generar distintos Reportes Estadísticos para las distintas áreas y dependencias académicas.</p>
+				</div>
+
+				{{-- <div class="col-lg-4 service_item text-left d-flex flex-column align-items-start justify-content-start">
+					<div class="icon_container d-flex flex-column justify-content-end">
+						<img src="images/blackboard.svg" alt="">
+					</div>
 					<h3>Capacitación Tecnológica</h3>
 					<p>Mantener actualizados a los usuarios en el uso de las herramientas informáticas accesibles para la gestión integral de sus trámites, así como en los distintos procesos académicos.</p>
-				</div>
+				</div> --}}
 
 				<div class="col-lg-4 service_item text-left d-flex flex-column align-items-start justify-content-start">
 					<div class="icon_container d-flex flex-column justify-content-end">
@@ -404,4 +471,10 @@
 
 </div>
 
+@endsection
+
+@section('scripts')
+<script>
+	
+</script>
 @endsection

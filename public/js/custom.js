@@ -47,6 +47,8 @@ $(document).ready(function()
 	initSvg();
 	initHamburger();
 	initTestimonialsSlider();
+	initTestimonialsSlider2();
+	initProcedureSlider();
 	initParallax();
 
 	/* 
@@ -160,6 +162,29 @@ $(document).ready(function()
 					owl.trigger('next.owl.carousel');
 				});
 			}
+
+			// MULTIMEDIA - Handle Custom Navigation
+			if($('.multimedia_slider_left').length)
+			{
+				var owlPrev = $('.multimedia_slider_left');
+				var owl_multimedia = $('.testimonials_slider_2');
+				owlPrev.on('click', function()
+				{
+					owl_multimedia.trigger('prev.owl.carousel');
+				});
+			}
+
+			if($('.multimedia_slider_right').length)
+			{
+				var owlNext = $('.multimedia_slider_right');
+				var owl_multimedia = $('.testimonials_slider_2');
+				owlNext.on('click', function()
+				{
+					owl_multimedia.trigger('next.owl.carousel');
+				});
+			}
+
+		
 		}	
 	}
 
@@ -282,6 +307,50 @@ $(document).ready(function()
 		}
 	}
 
+	
+	function initTestimonialsSlider2()
+	{
+		if($('.testimonials_slider_2').length)
+		{
+			var owl1 = $('.testimonials_slider_2');
+
+			owl1.owlCarousel(
+				{
+					items:1,
+					loop:true,
+					smartSpeed:1000
+					
+				}
+			);
+		}
+	}
+
+	function initProcedureSlider()
+	{
+		if($('.procedure_slider_multimedia').length)
+		{
+			var owl1 = $('.procedure_slider_multimedia');
+
+			owl1.owlCarousel({
+				items:1,
+				merge:true,
+				loop:true,
+				margin:10,
+				video:true,
+				lazyLoad:true,
+				center:true,
+				responsive:{
+					480:{
+						items:2
+					},
+					600:{
+						items:4
+					}
+				}
+			});
+		}
+	}
+
 	/* 
 
 	7. Initialize Parallax
@@ -327,6 +396,8 @@ $(document).ready(function()
 	}
 });
 
+
+// CUSTOMIZADOS
 $(document).on("scroll", function() {
 	var pageTop = $(document).scrollTop();
 	var pageBottom = pageTop + $(window).height();

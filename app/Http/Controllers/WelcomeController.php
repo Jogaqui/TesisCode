@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Publicacion;
 use App\Etiqueta;
 use App\Contactanos;
+use App\Multimedia;
 use App\Publicacion_Etiqueta;
 use App\Unidad;
 use App\Tramite;
@@ -26,7 +27,8 @@ class WelcomeController extends Controller
       $etiquetas = Etiqueta::all();
       $info = Contactanos::where('estado',1)->first();
       $tramites = Tramite::join('iconos', 'iconos.idIcono', 'tramites.idIcono')->limit(3)->get();
-      return view('welcome') -> with(compact('publicaciones', 'unidades', 'top', 'etiquetas', 'info', 'mejoresPublicaciones','tramites'));
+      $multimedias = Multimedia::where('principal', 1)->where('estado', 1)->get();
+      return view('welcome') -> with(compact('publicaciones', 'unidades', 'top', 'etiquetas', 'info', 'mejoresPublicaciones','tramites', 'multimedias'));
     }
 
     /**

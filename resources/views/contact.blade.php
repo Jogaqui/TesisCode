@@ -56,7 +56,7 @@
 
       <div class="col-lg-4">
         <div class="about">
-          <div class="about_title">Unidad de Registro Académico - Administrativo</div>
+          <div class="about_title">Unidad de Registros Académicos</div>
 
           <div class="contact_info">
             <ul>
@@ -107,6 +107,19 @@
 @section('scripts')
 <script>
   // ID CAPTCHAS
+// Verifica si hay mensajes en la sesión
+    @if (session('mensaje_consulta_guardada'))
+      // Muestra SweetAlert con el mensaje de exito de datos
+      Swal.fire({
+        title: '¡Correcto!',
+        text: '{{ session('mensaje_consulta_guardada') }}',
+        icon: 'success',
+        timerProgressBar: true,
+        showConfirmButton: false,
+        timer:3000
+      });
+    @endif
+
 var widgetId2 = grecaptcha.render(document.getElementById('captcha_2'), {
   'sitekey' : '6LcgHFopAAAAAM4FPzXfUmKB_Cn_pU9c8CPfCQHU'
 });

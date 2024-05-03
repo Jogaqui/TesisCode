@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Contactanos;
 use App\Manual;
 use App\Tramite;
+use App\Multimedia;
+use App\URAA_Tipo_tramite;
 use App\URAA_TipoUsuario;
 
 class ProcedureController extends Controller
@@ -30,12 +32,26 @@ class ProcedureController extends Controller
         $array_manuales_idTipo_usu[$i] = $idTipo_usuario_manuales[$i]->idTipo_usuario;
       }
       $tipos_usuario = URAA_TipoUsuario::whereIn('idTipo_usuario',$array_manuales_idTipo_usu)->where('tipo_usuario.estado',1)->get();
-
       foreach ($tipos_usuario as $key => $tipo_usuario) {
         $tipo_usuario->manuales = Manual::where('estado',1)->where('manuales.idTipo_usuario',$tipo_usuario->idTipo_usuario)->get();
       }      
+
+      //multimedia
+      $idTipo_tramite_multimedias= Multimedia::select('multimedia.idTipo_tramite')->where('idTipo_multimedia',1)->where('estado',1)->groupBy('multimedia.idTipo_tramite')->get();
+    
+      $array_multimedias_tipoTramite = collect();
       
-      return view('procedure') -> with(compact('info', 'tramites','tipos_usuario'));
+      for($i=0;$i<count($idTipo_tramite_multimedias);$i++)
+      {
+        $array_multimedias_tipoTramite[$i] = $idTipo_tramite_multimedias[$i]->idTipo_tramite;
+      }
+      $tipos_tramite = URAA_Tipo_tramite::whereIn('idTipo_tramite',$array_multimedias_tipoTramite)->get();
+      foreach ($tipos_tramite as $key => $tipo_tramite) {
+        $tipo_tramite->multimedias = Multimedia::where('estado',1)->where('multimedia.idTipo_tramite',$tipo_tramite->idTipo_tramite)->get();
+      } 
+      
+      //dd($tipos_tramite);
+      return view('procedure') -> with(compact('info', 'tramites','tipos_usuario','tipos_tramite'));
     }
 
     /**

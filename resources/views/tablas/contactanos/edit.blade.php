@@ -4,7 +4,7 @@
     <form method="POST" action="{{route('contactanos.update',$contactanos->idContacto)}}">
         @method('put')
         @csrf
-        <div class="card text-white bg-secondary mb-3" style="max-width: 40rem;">
+        <div class="card text-white bg-dark mb-3" style="max-width: 50rem; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;">
             <div class="card-header"><h1 style="font-weight: bold;text-align:center">Editar Contacto</h1></div>
             <div class="card-body">
                 <div class="form-group">

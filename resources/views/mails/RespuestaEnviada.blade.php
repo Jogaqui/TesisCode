@@ -504,14 +504,21 @@
 							<table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;">
                 <tr>
                   <div class="section_title">
-                    <h1>UNIDAD DE REGISTRO ACADÉMICO ADMINISTRATIVO</h1>
+                    <h1>UNIDAD DE REGISTROS ACADÉMICOS</h1>
                   </div>
                 </tr>
+								
+								<tr style="padding:18px; margin-top: 24px;">
+									<td align="center">
+										<img src="https://cdn.icon-icons.com/icons2/3151/PNG/512/communication_support_talk_conversation_folder_icon_192857.png" alt="bot_technical_support" width="200">
+									</td>
+								</tr>
 								<tr>
-									<td style="padding:36px 0 0 0;color:#153643;">
-										<h1 style="font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;">{{$consulta}}</h1>
-										<h5 style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">{{$respuesta}}<h5>
-										<p style="margin:48px 0 0 0 ;font-size:14px;line-height:24px;font-family:Arial,sans-serif">Recuerde que respondiendo este correo puede continuar con su consulta, NO ES NECESARIO volver a ingresar su re-consulta (consulta sobre el mismo tema) por el Sitio Web</p>
+									
+									<td style="padding:12px 0 0 0;color:#153643;">
+										<h4 style="font-size:18px;margin:0 0 20px 0;font-family:Arial,sans-serif;">{{$consulta}}</h1>
+										<h2 style="margin:0 0 12px 0;font-size:24px;line-height:24px;font-family:Arial,sans-serif;">Respuesta: {{$respuesta}}<h5>
+										<p style="margin:48px 0 0 0 ;font-size:14px;line-height:24px;font-family:Arial,sans-serif">*Recuerda que respondiendo este correo puede continuar con su consulta, NO ES NECESARIO volver a ingresar otra nueva consulta (sobre el mismo tema) por el URA | Sitio Web</p>
 									</td>
 								</tr>
 							</table>
@@ -523,21 +530,26 @@
 								<tr>
 									<td style="padding:0;width:60%;" align="left">
 										<p style="margin:0;font-size:15px;font-weight: 600;line-height:16px;font-family:Arial,sans-serif;color:black;">
-											Copyright &copy;<script>document.write(new Date().getFullYear());</script><br>Todos los derechos reservados
+											Copyright &copy; {{ substr($anio_string, 0, 4) }}<br>URA, UNT. Todos los derechos reservados
 										</p>
 									</td>
 									<td style="padding:0;width:40%;" align="right">
 										<table role="presentation" style="border-collapse:collapse;border:0;border-spacing:0;">
 											<tr>
 												<td style="padding:0 0 0 10px;width:30px;">
-                          <a href="https://drt.unitru.edu.pe" target="_blank">
-														<img src="https://image.flaticon.com/icons/png/128/2807/2807258.png" alt="Logo Web" width="30">
+                          <a href="https://uraa.unitru.edu.pe/welcome" target="_blank">
+														<img src="https://upload.wikimedia.org/wikipedia/commons/6/6e/Universidad_Nacional_de_Trujillo_-_Per%C3%BA_vector_logo.png" alt="Logo Web" width="30">
                           </a>
 												</td>
 												<td style="padding:0 0 0 10px; width:30px;">
-                          <a href="https://www.facebook.com/ort.unt" target="_blank">
+                          <a href="https://www.facebook.com/urauntoficial" target="_blank">
 														<img src="https://cdn.icon-icons.com/icons2/2428/PNG/512/facebook_black_logo_icon_147136.png" alt="Logo Facebook" width="30">
                           </a>
+												</td>
+												<td style="padding:0 0 0 10px; width:30px;">
+													<a href="https://t.me/urauntoficial" target="_blank">
+														<img src="https://cdn.icon-icons.com/icons2/2429/PNG/512/telegram_logo_icon_147228.png" alt="Logo Telegram" width="30">
+													</a>
 												</td>
 											</tr>
 										</table>

@@ -1,7 +1,6 @@
 @extends('layouts.guest')
 @section('styles')
 <link rel="stylesheet" type="text/css" href="{{ asset('css/news_post_styles.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('css/news_post_responsive.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('css/main_styles.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('css/responsive.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('css/elements_styles.css') }}">

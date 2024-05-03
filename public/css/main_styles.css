@@ -292,7 +292,7 @@ section
 	-o-transform: translateX(-50%);
 	transform: translateX(-50%);
 	width: 1300px;
-	height: 92px;
+	height: 90px;
 	background: #FFFFFF;
 	z-index: 10;
 	-webkit-transition: all 200ms ease;
@@ -335,6 +335,7 @@ section
 {
 	display: inline-block;
 	padding-left: 26px;
+	
 }
 .logo span
 {
@@ -731,6 +732,35 @@ section
 5.2 Hero Slider Navigation
 *********************************/
 
+.multimedia_slider_nav
+{
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	top: 35%;
+	-webkit-transform: translateY(-50%);
+	-moz-transform: translateY(-50%);
+	-ms-transform: translateY(-50%);
+	-o-transform: translateY(-50%);
+	transform: translateY(calc(-50% + 30px));
+	width: 64px;
+	height: 64px;
+	background: transparent;
+	z-index: 9;
+	cursor: pointer;
+}
+
+.multimedia_slider_nav:hover img
+{
+	opacity: 0.5;
+}
+
 .hero_slider_nav
 {
 	display: -webkit-box;
@@ -754,6 +784,8 @@ section
 	z-index: 9;
 	cursor: pointer;
 }
+
+
 .hero_slider_nav:hover
 {
 	background: #ffb606;
@@ -781,6 +813,16 @@ section
 {
 	right: 4.32%;
 }
+
+.multimedia_slider_left
+{
+	left: 4.32%;
+}
+.multimedia_slider_right
+{
+	right: 4.32%;
+}
+
 
 /*********************************
 6. Hero Boxes
@@ -811,6 +853,7 @@ section
 .hero_box:hover
 {
 	background: #ffb606;
+
 }
 .hero_box img
 {
@@ -1214,6 +1257,12 @@ input:last-of-type
 	width: 100%;
 	background: #1a1a1a;
 }
+
+.testimonials_2
+{
+	width: 100%;
+	background: rgb(238, 235, 223)
+} 
 .testimonials_background_container
 {
 	position: absolute;
@@ -1244,7 +1293,8 @@ input:last-of-type
 .testimonials_item
 {
 	width: 100%;
-	padding-bottom: 75px;
+	padding-bottom: 36px;
+	
 }
 .quote
 {
@@ -1312,6 +1362,33 @@ input:last-of-type
 	border: none;
 	background: #ffb606 !important;
 }
+
+.testimonials_slider_2 .owl-dots
+{
+	display: -webkit-box !important;
+	display: -moz-box !important;
+	display: -ms-flexbox !important;
+	display: -webkit-flex !important;
+	display: flex !important;
+	flex-direction: row !important;
+	justify-content: center;
+	align-items: center;
+}
+.testimonials_slider_2 .owl-dot span
+{
+	width: 8px !important;
+	height: 8px !important;
+	border: solid 2px #FFFFFF;
+	background: transparent !important;
+}
+.testimonials_slider_2 .owl-dot.active span
+{
+	width: 16px !important;
+	height: 16px !important;
+	border: none;
+	background: #ffb606 !important;
+}
+
 
 /*********************************
 14. Events
@@ -2212,6 +2289,12 @@ X. Customizados
 	  transform: rotate(365deg);
 	}
  }
+
+ .rotated_180 {
+	/* idéntico a rotateZ(45deg); */
+	transform: rotate(180deg);
+
+  }
 
 
 /*********************************

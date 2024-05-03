@@ -481,7 +481,7 @@
                   </div>
                   
   
-                  <div class="d-flex" style="margin-top: 32px;">
+                  <div class="d-flex table-responsive" style="margin-top: 32px;">
                     <table class="table table-bordered" style=" color:black !important;" width="90%" cellspacing="0" id="tablaMatriculados">
                      
                     </table> 
@@ -545,7 +545,7 @@
                   </div>
 
   
-                  <div class="d-flex" style="margin-top: 32px;">
+                  <div class="d-flex table-responsive" style="margin-top: 32px;">
                     <table class="table table-bordered" style=" color:black !important;" width="90%" cellspacing="0" id="tablaGraduados_Titulados">
                      
                     </table> 
@@ -602,7 +602,7 @@
                   </div>
                   
                   
-                  <div class="d-flex" style="margin-top: 32px;">
+                  <div class="d-flex table-responsive" style="margin-top: 32px;">
                     <table class="table table-bordered" style=" color:black !important;" width="90%" cellspacing="0" id="tablaEgresados">
                      
                     </table> 
@@ -673,7 +673,7 @@
                     </button>
                   </div>
   
-                  <div class="d-flex" style="margin-top: 32px;">
+                  <div class="d-flex table-responsive" style="margin-top: 32px;">
                     <table class="table table-bordered" style=" color:black !important;" width="90%" cellspacing="0" id="tablaMatriculados_Consolidado">
                      
                     </table> 
@@ -715,7 +715,7 @@
                     </button>
                   </div>
   
-                  <div class="d-flex" style="margin-top: 32px; margin-bottom: 32px;">
+                  <div class="d-flex table-responsive" style="margin-top: 32px; margin-bottom: 32px;">
                     <table class="table table-bordered" style=" color:black !important;" width="90%" cellspacing="0" id="tablaGraduados_Titulados_Consolidado">
                      
                     </table> 
@@ -748,7 +748,7 @@
                     </button>
                   </div>
   
-                  <div class="d-flex" style="margin-top: 32px;">
+                  <div class="d-flex table-responsive" style="margin-top: 32px;">
                     <table class="table table-bordered" style=" color:black !important;" width="90%" cellspacing="0" id="tablaEgresados_Consolidado">
                      
                     </table> 
@@ -883,7 +883,7 @@
                       
                       <hr>
       
-                      <div class="d-flex" style="margin-top: 24px;" id="contenedor_tablaConsulta_AlumnoEgresado">
+                      <div class="d-flex table-responsive" style="margin-top: 24px;" id="contenedor_tablaConsulta_AlumnoEgresado">
                         <table class="table table-bordered table-hover" style=" color:black !important; background: white !important" width="90%" cellspacing="0" id="tablaConsulta_AlumnoEgresado" bordercolor="#000000">
                           <thead>
                             <tr class="table-info">
@@ -929,6 +929,75 @@
                     </div>
                   </div>
       
+                  <!-- Primeros puestos -->
+                  <div class="accordion_container">
+                    <div class="accordion d-flex flex-row align-items-center"  style="color: #393d42 !important;">PRIMEROS PUESTOS</div>
+                    <div id="accordion_panel_8" class="accordion_panel" style="background-color: #eeeeee;"> 
+
+                      <br>
+                      <h3>Sede:</h3>
+                      <select class=" combo_reportes input_field search_form_name @error('sede_primeros_puestos') is-invalid @enderror" id="sede_primeros_puestos" name="sede_primeros_puestos" required="required" >
+                        <option value="" disabled selected>Seleccionar la sede...</option>
+                        
+                        @foreach($sedes_URAA_Website as $itemsede)
+                          <option value="{{$itemsede['idSede']}}">
+                            {{$itemsede['nombre']}}
+                          </option>
+                        @endforeach
+                        <option value="99"> - Todas las Sedes - </option>
+    
+                      </select>
+      
+                      <br>
+                      <h3>Semestre:</h3>
+                      <select class=" combo_reportes input_field search_form_name @error('semestre_primeros_puestos') is-invalid @enderror" id="semestre_primeros_puestos" name="semestre_primeros_puestos" required="required" >
+                        <option value="" disabled selected>Seleccionar el semestre...</option>
+                        @foreach($semestres_URAA_Website_primerosPuestos as $itemsemestre)
+                          <option value="{{$itemsemestre['idPeriodo']}}">
+                            {{$itemsemestre['denominacion']}}
+                          </option>
+                        @endforeach
+                      </select>
+      
+                      <br>
+                      <h3>Escuela:</h3>
+                      <select class="combo_reportes input_field search_form_name @error('escuela_primeros_puestos') is-invalid @enderror" id="escuela_primeros_puestos" name="escuela_primeros_puestos" required="required" >
+                        <option value="" disabled selected>Seleccionar la escuela...</option>
+                        @foreach($escuelas_URAA_Website as $itemescuela)
+                          <option value="{{$itemescuela['idEscuela']}}">
+                            
+                            {{$itemescuela['nombre']}}
+                          </option>
+                        @endforeach
+                      </select>
+
+                      <br>
+                      <h3>Ciclo:</h3>
+                      <select class="combo_reportes input_field search_form_name @error('ciclo_primeros_puestos') is-invalid @enderror" id="ciclo_primeros_puestos" name="ciclo_primeros_puestos" required="required" >
+                        <option value="" disabled selected>Seleccionar el ciclo...</option>
+
+                      </select>
+                      
+
+                      <div class="justify-content-center">
+                        <button class="btn btn-dark btn-block py-2 mb-4" style="margin-top: 16px; background-color:black !important;" type="button" id="btnBuscarPrimerosPuestos">
+                          <i class="button__icon nav-icon fas fa-search"></i>
+                          <span class="button__text">BUSCAR REPORTE</span>
+                      
+                        </button>
+                      </div>
+                      
+                      <hr>
+      
+                      <div class="d-flex table-responsive" style="margin-top: 32px;">
+                        <table class="table table-bordered table-hover" style=" color:black !important; background: white !important; margin-bottom: 32px !important;" width="90%" cellspacing="0" id="tablaPrimerosPuestos" bordercolor="#000000">
+                         
+                        </table> 
+                      </div>     
+   
+                      
+                    </div>
+                  </div>
     
                 </div>
               </div>
@@ -995,96 +1064,29 @@
 @section('scripts')
 
 <script>
-  // $('#btnBuscarMatriculados_SGA').on('click', function(){
-  //   $.ajax({
-  //     url: "/statitics/reportes/matriculas_sga/" + $('#sede').val() + "/" + $('#semestre').val() + "/" + $('#dependencia').val(),
-  //     type: 'GET',
-  //     success: function (response) {
-  //       console.log(response)
-  //       try {
-  //           var html = '';
-         
-  //           html+='<thead><tr><th>#</th><th>Escuela Profesional</th><th style="text-align:center;">Femenino</th><th style="text-align:center;">Masculino</th><th style="text-align:center;">TOTAL MATRICULADOS</th></tr></thead>';
+  
+  $(document).ready(function() { 
+      const Toast = Swal.mixin({
+      toast: true,
+      position: "top-start",
+      showConfirmButton: false,
+      timer: 3600,
+      timerProgressBar: true,
+      background: "#E4FFFC",
+      didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+      }
+    });
+    Toast.fire({
+      icon: "info",
+      title: "Recuerda ver nuestros ultimos Reportes Estadisticos y Consultas &copy;"
+    });
 
-  //           var matriculados = response.matriculados;
-  //           var matriculados_total = 0;
-  //           var matriculados_femenino_total = 0;
-  //           var matriculados_masculino_total = 0;
-
-  //           for (var i = 0; i < matriculados.length; i++) {
-  //             var fila = matriculados[i];
-  //             var idx = i+1;
-  //             matriculados_total += fila.nro_matriculados;
-  //             matriculados_femenino_total += fila.femenino;
-  //             matriculados_masculino_total += fila.masculino;
-  //             html += '<tbody> <tr>' +
-  //             '<td>' + idx + '</td>' +
-  //             '<td>' + fila.dep_nombre + '</td>' + 
-  //             '<td style="text-align:center;">' + fila.femenino + '</td>' +
-  //             '<td style="text-align:center;">' + fila.masculino + '</td>' +
-  //             '<td style="text-align:center;">' + fila.nro_matriculados + '</td>' +
-  //             '</tr> </tbody>';
-              
-  //           }
-
-  //           html+='<tfoot><tr style="border: 2px solid #332D2D;"><th> </th><th>TOTAL GENERAL</th><th style="text-align:center;">' + matriculados_femenino_total + '</th><th style="text-align:center;">' +  matriculados_masculino_total + '</th><th style="text-align:center;">' + matriculados_total + '</tr></tfoot>';
-
-  //           $('#tablaMatriculados_SGA').html(html);
-
-  //           $("#accordion_panel_1").css("max-height", "1500px");
-  //       } catch (e) {
-  //         console.log(e);
-  //       }
-  //     }
-  //   });
-  // });
-
-  // $('#btnBuscarMatriculados_SUV').on('click', function(){
-  // $.ajax({
-  //   url: "/statitics/reportes/matriculas_suv/" + $('#sede_SUV').val() + "/" + $('#semestre_SUV').val() + "/" + $('#dependencia_SUV').val(),
-  //   type: 'GET',
-  //   success: function (response) {
-  //     console.log(response)
-  //     try {
-  //         var html = '';
-       
-  //         html+='<thead><tr><th>#</th><th>Escuela Profesional</th><th style="text-align:center;">Femenino</th><th style="text-align:center;">Masculino</th><th style="text-align:center;">TOTAL MATRICULADOS</th></tr></thead>';
-
-  //         var matriculados = response.matriculados;
-  //         var matriculados_total = 0;
-  //         var matriculados_femenino_total = 0;
-  //         var matriculados_masculino_total = 0;
-
-  //         for (var i = 0; i < matriculados.length; i++) {
-  //           var fila = matriculados[i];
-  //           var idx = i+1;
-            
-  //           matriculados_total += fila.nro_matriculados;
-  //           matriculados_femenino_total += fila.femenino;
-  //           matriculados_masculino_total += fila.masculino;
-  //           html += '<tbody> <tr>' +
-  //           '<td>' + idx + '</td>' +
-  //           '<td>' + fila.estr_descripcion+ '</td>' + 
-  //           '<td style="text-align:center;">' + fila.femenino + '</td>' +
-  //           '<td style="text-align:center;">' + fila.masculino + '</td>' +
-  //           '<td style="text-align:center;">' + fila.nro_matriculados + '</td>' +
-  //           '</tr> </tbody>';
-            
-  //         }
-
-  //        html+='<tfoot><tr style="border: 2px solid #332D2D;"><th> </th><th>TOTAL GENERAL</th><th style="text-align:center;">' + matriculados_femenino_total + '</th><th style="text-align:center;">' +  matriculados_masculino_total + '</th><th style="text-align:center;">' + matriculados_total + '</tr></tfoot>';
-
-  //         $('#tablaMatriculados_SUV').html(html);
-
-  //         $("#accordion_panel_2").css("max-height", "1500px");
-  //     } catch (e) {
-  //       console.log(e);
-  //     }
-  //   }
-  // });
-  // });
-
-
+   });
+  
+  
+  //
   // MILESTONES - MATRICULAS
   $('#btnVerMatriculas').on('click', function(){
     $.ajax({
@@ -1686,9 +1688,90 @@
   });
   });
 
+   //  ***************************** CONSULTAS  ************************************
+  $('#btnBuscarPrimerosPuestos').on('click', function(){
+  $.ajax({
+    url: "/statitics/consultas/primeros_puestos/" + $('#sede_primeros_puestos').val() + "/" + $('#semestre_primeros_puestos').val() + "/" + $('#escuela_primeros_puestos').val() + "/" + $('#ciclo_primeros_puestos').val(),
+    type: 'GET',
 
-  //  ******************************************* CONSULTAS  *******************************************
+    beforeSend: function(){
+        $('#btnBuscarPrimerosPuestos').addClass("button--loading");
 
+        // Get a reference to the button element - disabled
+        const btnBuscar_PrimerosPuestos = document.getElementById("btnBuscarPrimerosPuestos");
+        btnBuscar_PrimerosPuestos.disabled = true;
+        
+    },
+    success: function (response) {
+      console.log(response)
+      try {
+
+          var escuela = response.escuela;
+          var semestre_academico = response.semestre;
+
+          var html = '';
+          html+='<caption>Reporte URA '+ semestre_academico + '. Primeros puestos Escuela Profesional de '+ escuela + '.</caption>';
+
+          html+='<thead><tr class="table-primary"><th style="text-align:center;">Orden de Mérito</th><th style="text-align:center;">Código</th><th style="text-align:center;">Nombres completos</th><th style="text-align:center;">Promedio Ponderado</th></tr></thead>';
+
+          var primeros_puestos = response.primeros_puestos;
+          console.log(primeros_puestos);
+
+          html+= '<tbody>';
+
+          for (var i = 0; i < primeros_puestos.length; i++) {
+            var fila = primeros_puestos[i];           
+            if(fila.orden_merito == 1){
+              html += '<tr style="align-items:center;">' +
+              '<td class="table-warning" style="text-align:center;"><img src="{{ asset("images/gold_medal.png") }}" width="24" alt="">' + 
+                fila.orden_merito + '°</td>' +
+              '<td style="text-align:center;">' + fila.nro_matricula + '</td>' +
+              '<td>' + fila.nombres + '</td>' + 
+              '<td style="text-align:center;">' + fila.promedio_ponderado + '</td>' +
+              '</tr> </tbody>';
+            }
+            else if(fila.orden_merito == 2){
+              html += '<tbody> <tr style="align-items:center;">' +
+              '<td class="table-active" style="text-align:center;"><img src="{{ asset("images/silver_medal.png") }}" width="24" alt="">' + 
+                fila.orden_merito + '°</td>' +
+              '<td style="text-align:center;">' + fila.nro_matricula + '</td>' +
+              '<td>' + fila.nombres + '</td>' + 
+              '<td style="text-align:center;">' + fila.promedio_ponderado + '</td>' +
+              '</tr> </tbody>';
+            }
+            else{
+            html += '<tbody> <tr style="align-items:center;">' +
+              '<td style="text-align:center;">' + fila.orden_merito + '°</td>' +
+              '<td style="text-align:center;">' + fila.nro_matricula + '</td>' +
+              '<td>' + fila.nombres + '</td>' + 
+              '<td style="text-align:center;">' + fila.promedio_ponderado + '</td>' +
+              '</tr>';
+            }
+          }
+
+          html+= '</tbody>';
+
+          $('#tablaPrimerosPuestos').html(html);
+
+          $("#accordion_panel_8").css("max-height", "1800px");
+      } catch (e) {
+        console.log(e);
+      }
+    },
+
+    complete: function(){
+        $('#btnBuscarPrimerosPuestos').removeClass("button--loading");
+    
+        // Get a reference to the button element - enabled
+        const btnBuscar_PrimerosPuestos = document.getElementById("btnBuscarPrimerosPuestos");
+        btnBuscar_PrimerosPuestos.disabled = false;
+    },
+    
+    
+  });
+  });
+
+ 
   // BUSCAR ALUMNO-EGRESADO
   // $('#btnBuscar_AlumnoEgresado').on('click', function(){
   //   $.ajax({
@@ -1805,3 +1888,4 @@ $(document).ready(function(){
 
 </script>
 @endsection
+

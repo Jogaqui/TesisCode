@@ -1,7 +1,6 @@
 @extends('layouts.guest')
 @section('styles')
 <link rel="stylesheet" type="text/css" href="{{ asset('css/news_post_styles.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('css/news_post_responsive.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('css/main_styles.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('css/responsive.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('css/elements_styles.css') }}">
@@ -29,7 +28,7 @@
 
       <div class="col-lg-8">
 
-        <div class="news_post_container">
+        <div class="news_posts">
           <!-- News Post -->
           <div class="news_post">
             <div class="news_post_image">
@@ -72,9 +71,15 @@
 
             <p class="news_post_text" style="margin-top: 40px;"> </p>
 
-            @if ($post -> archivo)
+            @if ($post->archivo)
             <div class="news_post_button text-center trans_200">
-              <a href="{{$post -> archivo}}" target="_blank">Descargar archivo adjunto</a>
+              <a href="{{$post->archivo}}" target="_blank">Descargar archivo adjunto</a>
+            </div>
+            @endif
+
+            @if ($post->post_link)
+            <div class="news_post_button text-center trans_200" style="background: #1a1a1a !important;">
+              <a href="{{$post->post_link}}" target="_blank" style="color: white !important;">Ir a la Página</a>
             </div>
             @endif
           </div>
@@ -90,6 +95,7 @@
           @include('layouts.web.sidebar')
         </div>
       </div>
+      
     </div>
   </div>
 </div>

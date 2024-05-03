@@ -17,7 +17,9 @@ class ConsultaController extends Controller
      */
     public function index()
     {
-        $consulta=Consulta::get();
+        $consulta=Consulta::orderBy('estado','DESC')->orderBy('fecha','DESC')->get();
+        //return dd($consulta);
+
         $trabajador=DB::table('consultas as c')
         ->join('unidades as u','c.idUnidad','=','u.idUnidad')->where('c.estado','1')->select('*')->get();
         return view('tablas.Consultas.index',compact('consulta'));
@@ -93,14 +95,17 @@ class ConsultaController extends Controller
     public function update(Request $request, $id)
     {
       $consulta = Consulta::findOrFail($id);
+      $consulta->estado = 0;
+      $consulta->save();
+
       $respuesta = $request->respuesta;
-      config(['mail.mailers.smtp.username' => Auth::user()->email]);
+      config(['mail.mailers.smtp.username' => Auth::user()->usu_email]);
       config(['mail.mailers.smtp.password' => $request->password]);
       // dd(config('mail.mailers.smtp'));
       // return view('mails.RespuestaEnviada', compact('consulta'), compact('respuesta'));
       DB::beginTransaction();
       try{
-        dispatch(new EmailRespuestaJob(Auth::user()->email, $consulta->correo, $consulta->idConsulta, $consulta->mensaje, $request->respuesta));
+        dispatch(new EmailRespuestaJob(Auth::user()->usu_email, $consulta->correo, $consulta->idConsulta, $consulta->mensaje, $request->respuesta));
         // $consulta->estado = 0;
         // $consulta->update();
         DB::commit();

@@ -1,12 +1,13 @@
 
 // id de los widget de captcha
 var widget1;
+var widget2;
 
 // variables de los combos de la consulta Alumno_Egresado
 var tipobusqueda_AlumnoEgresado = document.getElementById("tipobusqueda_AlumnoEgresado");
 var unidad_AlumnoEgresado = document.getElementById("unidad_AlumnoEgresado");
 
-//METODO QUE DETECTA CAMBIOS
+//METODO QUE DETECTA CAMBIOS - combo tipobusqueda_AlumnoEgresado
 tipobusqueda_AlumnoEgresado.addEventListener("change",()=>{
   $("#accordion_panel_7 ").css("max-height", "1600px");
     
@@ -45,23 +46,8 @@ tipobusqueda_AlumnoEgresado.addEventListener("change",()=>{
       default:
           break;
     }
-  
-    //     ACTIVAR EL BOTON BUSCAR
-    
-    // let valorSeleccionado_2 = unidad_AlumnoEgresado.options[unidad_AlumnoEgresado.selectedIndex].value;
-
-    // if(valorSeleccionado_2 != 0){
-    //   const btnBuscar_AlumnoEgresado = document.getElementById("btnBuscar_AlumnoEgresado");
-    //   btnBuscar_AlumnoEgresado.disabled = false;
-  
-    //   const btnLimpiar_AlumnoEgresado = document.getElementById("btnLimpiar_AlumnoEgresado");
-    //   btnLimpiar_AlumnoEgresado.disabled = false;
-    // }
     
 });
-
-
-
 
 // ************************************** PAGINATION / CONSULTA ALUMNO - EGRESADO *******************************************************
 var alumnos = null;
@@ -205,6 +191,10 @@ $.ajax({
     const btnBuscar_AlumnoEgresado = document.getElementById("btnBuscar_AlumnoEgresado");
     btnBuscar_AlumnoEgresado.disabled = true;
 
+    //
+    // Resetear captcha
+    grecaptcha.reset(widget1);
+    
   },
   complete: function(){
     spinner_Off_BotonesBuscarLimpiar();
@@ -259,7 +249,6 @@ else {
 }); 
 // ******************************* Fin: AJAX ***************************************
 
-
 function nextPage() {
     if (pages.length - 1 > currentPage)
       page = currentPage + 1;
@@ -313,9 +302,15 @@ function paginate(arr, size) {
     }, []);
 }
 
-
+// ----------------------------- GOOGLE CAPTCHA --------------------------------
 function onloadCaptcha_Statitics(){
   widget1 = grecaptcha.render( document.getElementById('captcha_1'), {
+    'sitekey' : '6LcgHFopAAAAAM4FPzXfUmKB_Cn_pU9c8CPfCQHU'
+  });
+}
+
+function onloadCaptcha_FormularioDirecciones(){
+  widget2 = grecaptcha.render( document.getElementById('captcha_2'), {
     'sitekey' : '6LcgHFopAAAAAM4FPzXfUmKB_Cn_pU9c8CPfCQHU'
   });
 }
@@ -331,10 +326,9 @@ function validarCaptcha_AlumnoEgresado(token){
   btnLimpiar_AlumnoEgresado.disabled = false;
 
 }
+// ------------------------------ FIN CAPTCHA ----------------------------------
 
-
-
-//    FUNCIONES SPINNER BOTONES LIMPIAR - BUSCAR
+// FUNCIONES SPINNER BOTONES LIMPIAR - BUSCAR (consulta AlumnoEgresado)
 function spinner_On_BotonesBuscarLimpiar(){
   $('#btnBuscar_AlumnoEgresado').addClass("button--loading");
   
@@ -360,23 +354,83 @@ function spinner_Off_BotonesBuscarLimpiar(){
 }
 
 
+//METODO QUE DETECTA CAMBIOS - combo semestre_primerosPuestos
+document.getElementById('semestre_primeros_puestos').addEventListener("change",()=>{
+  
+  var html = '';
+  html+='<option value="" disabled selected>Seleccionar el ciclo ...</option>';
 
+  let valor_combo_semestre_primerosPuestos = $('#semestre_primeros_puestos').val();
+  let valor_combo_escuela_primerosPuestos = $('#escuela_primeros_puestos').val();
+  let val_ciclo = 0;
+  let limit_ciclo = 10;
 
+  // Valida el limite de ciclo
+  if(valor_combo_escuela_primerosPuestos == 10 || valor_combo_escuela_primerosPuestos == 17 || valor_combo_escuela_primerosPuestos == 18){
+      limit_ciclo = 12;
+  }
+  else if(valor_combo_escuela_primerosPuestos == 35){
+      limit_ciclo = 14;
+  }
 
+  // Valida la paridad de ciclo
+  for (var i = 1; i <= limit_ciclo; i+=2) {
+    if(valor_combo_semestre_primerosPuestos % 4 == 1)
+    {
+      val_ciclo = i;
+    }
+    else{
+      val_ciclo = i+1;
+    }
 
+    html+='<option value="' + val_ciclo + '">' + val_ciclo + '°</option>';
+  }
 
+  $('#ciclo_primeros_puestos').html("");
+  $('#ciclo_primeros_puestos').html(html);
+  
+    
+});
 
+//METODO QUE DETECTA CAMBIOS - combo escuela_primerosPuestos
+document.getElementById('escuela_primeros_puestos').addEventListener("change",()=>{
+  
+  var html = '';
+  html+='<option value="" disabled selected>Seleccionar el ciclo ...</option>';
 
+  let valor_combo_semestre_primerosPuestos = $('#semestre_primeros_puestos').val();
+  let valor_combo_escuela_primerosPuestos = $('#escuela_primeros_puestos').val();
+  let val_ciclo = 0;
+  let limit_ciclo = 10;
 
+  // Valida el limite de ciclo
+  if(valor_combo_escuela_primerosPuestos == 10 || valor_combo_escuela_primerosPuestos == 17 || valor_combo_escuela_primerosPuestos == 18){
+      limit_ciclo = 12;
+  }
+  else if(valor_combo_escuela_primerosPuestos == 35){
+      limit_ciclo = 14;
+  }
 
+  // Valida la paridad de ciclo
+  for (var i = 1; i <= limit_ciclo; i+=2) {
+    if(valor_combo_semestre_primerosPuestos % 4 == 1)
+    {
+      val_ciclo = i;
+    }
+    else{
+      val_ciclo = i+1;
+    }
 
+    html+='<option value="' + val_ciclo + '">' + val_ciclo + '°</option>';
+  }
 
+  $('#ciclo_primeros_puestos').html("");
+  $('#ciclo_primeros_puestos').html(html);
+  
+    
+});
 
-
-
-
-
-//
+// *COMENTARIOS - CONSULTAS ANTIGUAS
 // EX CONSULTA REACTIVA COMBO-INPUT
 //cada vez que el valor del select cambia
 // var tipobusqueda_AlumnoEgresado = document.getElementById("tipobusqueda_AlumnoEgresado");

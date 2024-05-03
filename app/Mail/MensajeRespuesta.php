@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use Carbon\Carbon;
 
 class MensajeRespuesta extends Mailable
 {
@@ -32,7 +33,10 @@ class MensajeRespuesta extends Mailable
      */
     public function build()
     {
-      $subject = 'RESPUESTA A LA CONSULTA N° '.$this->nro_consulta;
-      return  $this->from($this->emisor, 'UNIDAD DE REGISTRO ACADÉMICO ADMINISTRATIVO')->subject($subject)->view('mails.RespuestaEnviada');
+      $anio_string = Carbon::now();
+      $anio_string = $anio_string->format('Y-m-d');
+
+      $subject = 'URA - RESPUESTA CONSULTA N° '.$this->nro_consulta;
+      return  $this->from($this->emisor, 'UNIDAD DE REGISTROS ACADÉMICOS (URA)')->subject($subject)->view('mails.RespuestaEnviada', compact('anio_string'));
     }
 }

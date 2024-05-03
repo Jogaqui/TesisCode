@@ -41,7 +41,7 @@
   <!-- dropzonejs -->
   <link rel="stylesheet" href="/adminlte/plugins/dropzone/min/dropzone.min.css">
 
-
+ 
 
   
 </head>
@@ -52,11 +52,14 @@
 <div class="wrapper">
 
   <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand" style="background: rgb(3, 15, 54)">
+  <nav class="main-header navbar navbar-expand" style="background: rgb(19, 19, 19)">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button" style="color: white"><i class="fas fa-bars"></i></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="\home" style="color: white"><i class="fas fa-home"></i></a>
       </li>
     </ul>
 
@@ -69,7 +72,7 @@
         </a>
         <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           <!-- User image -->
-          <li class="user-header" style="background: rgb(3, 15, 54);color: white; padding-bottom: 20px; height: auto !important;">
+          <li class="user-header" style="background: #ffc02e;color: black; padding-bottom: 20px; height: auto !important;">
             <img src="{{asset('images/icono-user-genNeutro.png')}}" class="img-circle elevation-2" alt="User Image">
 
             <p>
@@ -99,11 +102,11 @@
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4" style="background: rgb(3, 15, 54)">
+  <aside class="main-sidebar sidebar-dark-primary elevation-4" style="background: rgb(19, 19, 19)">
     <!-- Brand Logo -->
-    <a href="/home" class="brand-link" style="background: rgb(3, 15, 54)">
+    <a href="/home" class="brand-link" style="background: rgb(19, 19, 19)">
       <img src="/adminlte/dist/img/unt1.jpg" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-bold">URA-Intranet</span>
+      <span class="brand-text font-weight-bold" style="color: #ffc02e !important;">URA-Intranet</span>
     </a>
 
     <!-- Sidebar -->
@@ -211,6 +214,15 @@
               <i class="nav-icon fas fa-book"></i>
               <p>
                 Manuales
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="{{route('multimedia.index')}}" class="nav-link {{ Request::routeIs('multimedia.index','multimedia.create','multimedia.edit') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-video"></i>
+              <p>
+                Multimedia
               </p>
             </a>
           </li>
@@ -379,6 +391,8 @@
 <script src="/adminlte/plugins/bs-stepper/js/bs-stepper.min.js"></script>
 <!-- dropzonejs -->
 <script src="/adminlte/plugins/dropzone/min/dropzone.min.js"></script>
+
+@yield('scripts')
 
 <script>
     $(function () {

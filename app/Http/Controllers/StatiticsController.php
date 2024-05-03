@@ -16,6 +16,7 @@ use App\Facultad;
 use App\Escuela;
 use App\Periodo;
 use App\Sede;
+use App\Alumno_Ponderado;
 use App\DIPLOMASAPP_Graduado;
 use App\DIPLOMASAPP_Facultad;
 use App\DIPLOMASAPP_Graduado_duplicado;
@@ -183,11 +184,21 @@ class StatiticsController extends Controller
 
        //$facultades_DiplomasApp = DIPLOMASAPP_Facultad::where('Nom_facultad','LIKE','FACULTAD%')->get();
 
+       // ------------------------ DATOS MAESTROS -------------------------------------
+       //FACULTADES
        $facultades_URAA_Website = Facultad::where('estado', '1')->get();
 
-       $semestres_URAA_Website = Periodo::where('estado', '1')->orderBy('denominacion','desc')->get();
+       //ESCUELAS
+       $escuelas_URAA_Website = Escuela::where('estado', '1')->get();
 
+       //SEMESTRES
+       $semestres_URAA_Website = Periodo::where('estado', '1')->orderBy('denominacion','desc')->get();
+       $semestres_URAA_Website_primerosPuestos = Periodo::where('anio','2023')->whereIn('tipo_anio',['I','II'])->where('estado', '1')->orderBy('denominacion','asc')->get();
+
+       //SEDES
        $sedes_URAA_Website = Sede::where('estado', '1')->get();
+
+       // ------------------------------------------------------------------------------
 
 
        // ULTIMO AÑO - TABLA SEMESTRE ACADEMICO URAA-Tramites
@@ -236,7 +247,9 @@ class StatiticsController extends Controller
         'facultades_SUV',
         //'facultades_DiplomasApp',
         'facultades_URAA_Website',
+        'escuelas_URAA_Website',
         'semestres_URAA_Website',
+        'semestres_URAA_Website_primerosPuestos',
         'sedes_URAA_Website',
         'semestres_consolidado',
         'anios_grados_titulos',
@@ -1817,17 +1830,24 @@ class StatiticsController extends Controller
       try{
 
         $egresados = collect();
-        $semestre_query = Periodo::where('idPeriodo',$semestre)->where('estado',1)->first();
+        
         $sede_query = Sede::where('idSede',$sede)->where('estado',1)->first();
         $facultad_query = Facultad::where('idFacultad',$dependencia)->where('estado',1)->first();
+        $semestre_query = Periodo::where('idPeriodo',$semestre)->where('estado',1)->first();
+
 
         // -------------- SGA -------------
-        $subq_SGA = SGA_Matricula::select('sga_matricula.pfl_id')->groupBy('sga_matricula.pfl_id')->having(DB::raw('MAX(sga_matricula.ani_id)'), '=', $semestre_query->idSGA_PREG);
+        // $subq_SGA = SGA_Matricula::select('sga_matricula.pfl_id')
+        //                           ->groupBy('sga_matricula.pfl_id')
+        //                           ->having(DB::raw('MAX(sga_matricula.ani_id)'), '>=', $semestre_query->idSGA_PREG)
+        //                           ->having(DB::raw('MAX(sga_matricula.ani_id)'), '<=', $semestre_SGA_maximo);
+
+        $subq_SGA = SGA_Matricula::select('sga_matricula.pfl_id', DB::raw('MAX(sga_matricula.mat_id)'))->groupBy('sga_matricula.pfl_id');
         
         $query_Egresados_SGA =  SGA_Perfil::select('escuela.dep_id','escuela.dep_nombre',
-        DB::raw('COUNT(CASE WHEN persona.per_sexo = "F" THEN 1 END) AS femenino'),
-        DB::raw('COUNT(CASE WHEN persona.per_sexo = "M" THEN 1 END) AS masculino'),
-        DB::raw('COUNT(escuela.dep_id) AS nro_egresados'))
+        DB::raw('COUNT(DISTINCT CASE WHEN persona.per_sexo = "F" THEN perfil.pfl_id END) AS femenino'),
+        DB::raw('COUNT(DISTINCT CASE WHEN persona.per_sexo = "M" THEN perfil.pfl_id END) AS masculino'),
+        DB::raw('COUNT(DISTINCT perfil.pfl_id) AS nro_egresados'))
         ->joinSub($subq_SGA, 'subq_SGA', 
               function($join){
                 $join->on('subq_SGA.pfl_id', '=', 'perfil.pfl_id');
@@ -1847,17 +1867,18 @@ class StatiticsController extends Controller
         ->get();
       
         
-      
         // -------------- SUV -------------
-        $subq_SUV = SUV_Matricula::select('matricula.idalumno')->groupBy('matricula.idalumno')->having(DB::raw('MAX(matricula.mat_periodo)'), '=', $semestre_query->idSUV_PREG);
+        // $subq_SUV = SUV_Matricula::select('matricula.idalumno')->groupBy('matricula.idalumno')->having(DB::raw('MAX(matricula.mat_periodo)'), '=', $semestre_query->idSUV_PREG);
+
+        $subq_SUV = SUV_Matricula::select('matricula.idalumno', DB::raw('MAX(matricula.idmatricula)'))->groupBy('matricula.idalumno');
 
         $query_Egresados_SUV=  SUV_Matricula::select(
           'patrimonio.estructura.idestructura',
           'patrimonio.estructura.estr_descripcion', 
           'matriculas.curricula.curr_mencion',
-        DB::raw('COUNT(*) AS nro_egresados'),
-        DB::raw("COUNT(CASE WHEN sistema.persona.per_sexo = '0' THEN 1 END) AS femenino"),
-        DB::raw("COUNT(CASE WHEN sistema.persona.per_sexo = '1' THEN 1 END) AS masculino"))
+        DB::raw('COUNT(DISTINCT matriculas.alumno.idalumno) AS nro_egresados'),
+        DB::raw("COUNT(DISTINCT CASE WHEN sistema.persona.per_sexo = '0' THEN matriculas.alumno.idalumno END) AS femenino"),
+        DB::raw("COUNT(DISTINCT CASE WHEN sistema.persona.per_sexo = '1' THEN matriculas.alumno.idalumno END) AS masculino"))
         ->joinSub($subq_SUV, 'subq_SUV', 
               function($join){
                  $join->on('subq_SUV.idalumno', '=', 'matricula.idalumno');
@@ -1966,12 +1987,12 @@ class StatiticsController extends Controller
         $semestre_query = Periodo::where('idPeriodo',$semestre)->where('estado',1)->first();
 
         // -------------- SGA -------------
-        $subq_SGA = SGA_Matricula::select('sga_matricula.pfl_id')->groupBy('sga_matricula.pfl_id')->having(DB::raw('MAX(sga_matricula.ani_id)'), '=', $semestre_query->idSGA_PREG);
+        $subq_SGA = SGA_Matricula::select('sga_matricula.pfl_id', DB::raw('MAX(sga_matricula.mat_id)'))->groupBy('sga_matricula.pfl_id');
 
         $query_Egresados_SGA =  SGA_Perfil::select('facultad.dep_id','facultad.dep_nombre',
-            DB::raw('COUNT(CASE WHEN persona.per_sexo = "F" THEN 1 END) AS femenino'),
-            DB::raw('COUNT(CASE WHEN persona.per_sexo = "M" THEN 1 END) AS masculino'),
-            DB::raw('COUNT(facultad.dep_id) AS nro_egresados'))
+            DB::raw('COUNT(DISTINCT CASE WHEN persona.per_sexo = "F" THEN perfil.pfl_id END) AS femenino'),
+            DB::raw('COUNT(DISTINCT CASE WHEN persona.per_sexo = "M" THEN perfil.pfl_id END) AS masculino'),
+            DB::raw('COUNT(DISTINCT perfil.pfl_id) AS nro_egresados'))
             ->joinSub($subq_SGA, 'subq_SGA', 
               function($join){
                 $join->on('subq_SGA.pfl_id', '=', 'perfil.pfl_id');
@@ -1992,14 +2013,14 @@ class StatiticsController extends Controller
         
 
         // -------------- SUV -------------
-        $subq_SUV = SUV_Matricula::select('matricula.idalumno')->groupBy('matricula.idalumno')->having(DB::raw('MAX(matricula.mat_periodo)'), '=', $semestre_query->idSUV_PREG);
+        $subq_SUV = SUV_Matricula::select('matricula.idalumno', DB::raw('MAX(matricula.idmatricula)'))->groupBy('matricula.idalumno');
 
         $query_Egresados_SUV=  SUV_Matricula::select(
           'facultad.idestructura',
           'facultad.estr_descripcion', 
-            DB::raw('COUNT(*) AS nro_egresados'),
-            DB::raw("COUNT(CASE WHEN sistema.persona.per_sexo = '0' THEN 1 END) AS femenino"),
-            DB::raw("COUNT(CASE WHEN sistema.persona.per_sexo = '1' THEN 1 END) AS masculino"))
+            DB::raw('COUNT(DISTINCT matriculas.alumno.idalumno) AS nro_egresados'),
+            DB::raw("COUNT(DISTINCT CASE WHEN sistema.persona.per_sexo = '0' THEN matriculas.alumno.idalumno END) AS femenino"),
+            DB::raw("COUNT(DISTINCT CASE WHEN sistema.persona.per_sexo = '1' THEN matriculas.alumno.idalumno END) AS masculino"))
             ->joinSub($subq_SUV, 'subq_SUV', 
               function($join){
                  $join->on('subq_SUV.idalumno', '=', 'matricula.idalumno');
@@ -2090,7 +2111,7 @@ class StatiticsController extends Controller
      
     }
 
-    // Egresados - Consolidado
+    // AlumnoEgresado - Consulta
     public function getAlumnoEgresado_Consulta($unidad, $tipo_busqueda, $input_alumno_egresado)
     {
       DB::beginTransaction();
@@ -2147,6 +2168,7 @@ class StatiticsController extends Controller
                 ->orderBy('persona.per_apepaterno','asc')
                 ->get();
 
+                // llenado array alumnos SGA
                 foreach ($alumnos_SGA as $key => $alumnoSGA){
 
                   $alumnos->push(
@@ -2159,20 +2181,21 @@ class StatiticsController extends Controller
                     ]); 
         
                 }
-        
+
+                // llenado array alumnos SUV
                 foreach ($alumnos_SUV as $key => $alumnoSUV){
-        
+      
                   $alumnos->push(
                     ['codigo' => ($alumnoSUV->idalumno),
                     'dni' => ($alumnoSUV->per_dni),
                     'escuela' => ($alumnoSUV->estr_descripcion),
-                    'nombreCompleto' => ($alumnoSUV->per_apepaterno.' '.$alumnoSUV->per_apematerno.' - '.$alumnoSGA->per_nombres),
+                    'nombreCompleto' => ($alumnoSUV->per_apepaterno.' '.$alumnoSUV->per_apematerno.' - '.$alumnoSUV->per_nombres),
                     'condicion' => ($alumnoSUV->alu_estado == 6 ? "EGRESADO" : "ALUMNO"),
                     
                     ]); 
         
                 }
-                
+                       
 
         }
         elseif($unidad == 3){
@@ -2225,6 +2248,56 @@ class StatiticsController extends Controller
      
     }
 
+    // PrimerosPuestos - Consulta
+    public function getPrimerosPuestos_Consulta($sede, $semestre, $escuela, $ciclo)
+    {
+      DB::beginTransaction();
+      try{
+        
+        $primeros_puestos = collect();
+
+        $query_val_escuela = Escuela::where('estado',1)->where('idEscuela',$escuela)->first();
+        $val_escuela = $query_val_escuela->nombre;
+
+        $query_val_semestre = Periodo::where('estado',1)->where('idPeriodo',$semestre)->first();
+        $val_semestre = $query_val_semestre->denominacion;
+
+
+        $query_primeros_puestos=Alumno_Ponderado::where('estado', 1)
+              ->where('idPeriodo', $semestre)
+              ->where('idEscuela', $escuela)
+              ->where('ap_ciclo', $ciclo)
+              ->where(function($query) use ($sede)
+              {
+                if ($sede != 99) {
+                  $query->where('idSede',$sede); //Eligieron Sede
+                }  
+              })
+              ->orderBy('ap_orden_merito','asc')
+              ->get();
+
+        //return dd($query_primeros_puestos);
+
+        foreach($query_primeros_puestos as $key => $item_query){
+          $primeros_puestos->push(
+            ['orden_merito' => ($item_query->ap_orden_merito),
+             'nro_matricula' => ($item_query->ap_nro_matricula),
+             'nombres' => ($item_query->ap_nombres),
+             'promedio_ponderado' => (strval($item_query->ap_promedio_ponderado)),
+             'escuela' => ($item_query->idEscuela)
+              ]);
+        }
+        
+        return response()->json(['primeros_puestos' => $primeros_puestos, 'semestre' => $val_semestre, 'escuela' => $val_escuela]);
+        DB::commit();
+        
+      }catch(Exception $e){
+       
+        return response()->json(['primeros_puestos' => $e->getMessage()]);
+        DB::rollback();
+      }
+     
+    }
 
 
 

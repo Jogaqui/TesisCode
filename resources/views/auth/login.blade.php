@@ -49,8 +49,8 @@
         <div class="register_section d-flex flex-column align-items-center justify-content-center">
           <div class="register_content text-center">
             <p class="register_text"> <br><br> </p>
-            <h1 class="register_title"> {{ __('Login') }} al sistema <span>intranet</span> de la Unidad de Registro Académico</h1>
-            <p class="register_text"> Sistema gestor de contenido de la Unidad de Registro Académico (URAA) orientado a los <span style="color: black">Administrativos</span> de la dependencia, para acceder ingrese sus credenciales otorgadas por el administrador de este sitio web. </p><br><br>
+            <h1 class="register_title"> {{ __('Login') }} al sistema <span>intranet</span> de la Unidad de Registros Académicos</h1>
+            <p class="register_text"> Sistema gestor de contenido de la Unidad de Registros Académicos (URA) orientado a los <span style="color: black">Administrativos</span> de la Dependencia, para acceder ingrese sus credenciales otorgadas por el administrador de este sitio web. </p><br><br>
             <h1 class="register_title"><span>Muchas Gracias.</span></h1>
           </div>
         </div>

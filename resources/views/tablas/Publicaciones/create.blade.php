@@ -4,7 +4,7 @@
 <div class="container" align="center">
     <form method="POST" action="{{route('publicacion.store')}}" enctype="multipart/form-data">
         @csrf
-        <div class="card text-white bg-secondary mb-3" style="max-width: 40rem;">
+        <div class="card text-white bg-dark mb-3" style="max-width: 50rem; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;">
             <div class="card-header"><h1 style="font-weight: bold;text-align:center">Crear Publicación</h1></div>
             <div class="card-body">
 
@@ -59,17 +59,6 @@
                     @enderror
                 </div>   --}}
                 
-                <div class="form-group">
-                    <label for="archivo" style="float: left">Archivo</label><br><br>
-                    <input accept=".pdf, .doc, .docx" type="file"  id="archivo" name="archivo">
-                    <!-- <input type="text" class="form-control @error('archivo') is-invalid @enderror" id="imagen" name="imagen"> -->
-                    @error('archivo')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-                </div>
-
                 <div class="form-group">        
                     <label style="float: left">Etiquetas</label><br>
                     <div class="select2-purple">
@@ -79,8 +68,31 @@
                             @endforeach
                         </select>
                     </div> 
-                 
                 </div>
+
+                <div class="form-group">
+                    <label for="ruta_pagina" style="float: left">Ruta (opcional)</label>
+                    <input type="text" class="form-control @error('ruta_pagina') is-invalid @enderror" id="ruta_pagina" name="ruta_pagina" >
+                    @error('ruta_pagina')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="archivo" style="float: left">Archivo (opcional)</label><br><br>
+                    <input accept=".pdf, .doc, .docx" type="file"  id="archivo" name="archivo">
+                    <!-- <input type="text" class="form-control @error('archivo') is-invalid @enderror" id="imagen" name="imagen"> -->
+                    @error('archivo')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+
+
+               
             </div>
             <div class="card-footer" style="text-align:center">
                 <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>Grabar</button>

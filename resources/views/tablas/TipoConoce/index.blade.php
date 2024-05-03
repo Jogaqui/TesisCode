@@ -3,7 +3,7 @@
 @section('contenido')
 
 <div class="container-fluid">
-    <h3 style="position:relative; opacity: 1 !important;">NUESTROS TIPOS DE GENERALIDADES</h3>
+    <h3 style="position:relative; opacity: 1 !important;">GESTIÓN DE TIPOS DE GENERALIDADES</h3>
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">Listado de generalidades</h3>
@@ -15,7 +15,7 @@
             <h3 class="card-title" style="font-size: 15px;">Hasta el momento hay: '<b style="color: blue;"> @php echo $tipoconoce->count(); @endphp</b>' generalidades registradas.</h3>
         </div>
           <!-- /.card-header -->
-        <div class="card-body">
+        <div class="card-body table-responsive">
             <table id="example1" class="table table-bordered table-striped">
               <thead>
               <tr>

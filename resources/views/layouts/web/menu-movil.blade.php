@@ -32,7 +32,9 @@
                 <!-- <li class="main_nav_item"><a href="{{ url('register') }}">Registrar</a></li> -->
                 @endif
             @endauth
-          @endif
+        @endif
+
+        <li id="formulario_direcciones" class="menu_item menu_mm"><a href="{{ url('formulario_direcciones') }}">Formulario</a></li>
       </ul>
 
       <!-- Menu Social -->
@@ -42,12 +44,14 @@
           {{-- <li class="menu_social_item menu_mm"><a href="#"><i class="fab fa-pinterest"></i></a></li> --}}
           <li class="menu_social_item menu_mm"><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
           <li class="menu_social_item menu_mm"><a href="#"><i class="fab fa-instagram"></i></a></li>
-          <li class="menu_social_item menu_mm"><a href="https://www.facebook.com/ort.unt"><i class="fab fa-facebook-f"></i></a></li>
+          <li class="menu_social_item menu_mm"><a href="https://www.facebook.com/urauntoficial"><i class="fab fa-facebook-f"></i></a></li>
           {{-- <li class="menu_social_item menu_mm"><a href="#"><i class="fab fa-twitter"></i></a></li> --}}
         </ul>
       </div>
 
-      <div class="menu_copyright menu_mm">Colorlib All rights reserved</div>
+      <div class="menu_copyright menu_mm">
+        <span> &copy; <script>document.write(new Date().getFullYear());</script> Unidad de Registros Académicos, UNT. Todos los derechos reservados</span>
+      </div>
     </div>
 
   </div>

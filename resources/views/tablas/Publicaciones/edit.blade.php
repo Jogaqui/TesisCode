@@ -5,7 +5,7 @@
     <form method="POST" action="{{route('publicacion.update',$publicacion->idPublicacion)}}" enctype="multipart/form-data">
         @method('put')
         @csrf
-        <div class="card text-white bg-secondary mb-3" style="max-width: 40rem;">
+        <div class="card text-white bg-dark mb-3" style="max-width: 50rem; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;">
             <div class="card-header"><h1 style="font-weight: bold;text-align:center">Editar Publicación</h1></div>
             <div class="card-body">
 
@@ -76,6 +76,15 @@
                     </div>
                 </div>
 
+                <div class="form-group">
+                    <label for="ruta_pagina" style="float: left">Ruta (opcional)</label>
+                    <input type="text" class="form-control @error('ruta_pagina') is-invalid @enderror" id="ruta_pagina" name="ruta_pagina"  value="{{$publicacion->post_link}}" required>
+                    @error('ruta_pagina')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
 
                 <div class="form-group">
                     <label for="imagen" style="float: left">Imagen</label><br><br>

@@ -56,6 +56,7 @@
               @endauth
             @endif
 
+            <li class="footer_list_item"><a href="{{ url('formulario_direcciones') }}">Formulario</a></li>
           
            
           </ul>
@@ -97,7 +98,7 @@
   <div class="footer_bar d-flex flex-column flex-sm-row align-items-center">
     <div class="footer_copyright">
       <span><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-        Copyright &copy;<script>document.write(new Date().getFullYear());</script> Todos los derechos reservados
+        &copy; <script>document.write(new Date().getFullYear());</script> Unidad de Registros Académicos, UNT. Todos los derechos reservados
         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
       </span>
     </div>
@@ -106,7 +107,7 @@
         <!-- <li class="menu_social_item"><a href="#"><i class="fab fa-pinterest"></i></a></li> -->
         <!-- <li class="menu_social_item"><a href="#"><i class="fab fa-linkedin-in"></i></a></li> -->
         <!-- <li class="menu_social_item"><a href="#"><i class="fab fa-instagram"></i></a></li> -->
-        <li class="menu_social_item"><a href="https://www.facebook.com/ort.unt" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+        <li class="menu_social_item"><a href="https://www.facebook.com/urauntoficial" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
         <!-- <li class="menu_social_item"><a href="#"><i class="fab fa-twitter"></i></a></li> -->
       </ul>
     </div>

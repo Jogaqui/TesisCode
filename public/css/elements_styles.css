@@ -277,7 +277,7 @@ section
 	-o-transform: translateX(-50%);
 	transform: translateX(-50%);
 	width: 1300px;
-	height: 92px;
+	height: 86px;
 	background: #FFFFFF;
 	z-index: 10;
 	-webkit-transition: all 200ms ease;
@@ -320,6 +320,7 @@ section
 {
 	display: inline-block;
 	padding-left: 26px;
+
 }
 .logo span
 {
