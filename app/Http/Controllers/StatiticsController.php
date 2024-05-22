@@ -2039,7 +2039,18 @@ class StatiticsController extends Controller
             ->groupBy('facultad.idestructura', 'facultad.estr_descripcion')
             ->get();
 
-          //dd($query_Egresados_SGA, $query_Egresados_SUV);
+          // ACUMULADOS
+          $acumulado_egresados_SGA = 0;
+          $acumulado_egresados_SUV = 0;
+          foreach ($query_Egresados_SGA as $key => $item_1){
+              $acumulado_egresados_SGA += $item_1->nro_egresados;
+            }
+            
+          foreach ($query_Egresados_SUV as $key => $item_2){
+              $acumulado_egresados_SUV += $item_2->nro_egresados;
+            }
+          //
+          //dd($acumulado_egresados_SGA, $acumulado_egresados_SUV);
 
          
          //************** VALIDACION URAA + DIPLOMAS APP ***************
