@@ -6,18 +6,18 @@
 
   <title>URA | Sitio Web</title>
 
-  <link rel="icon" href="{{ asset('images/logo-icon.png') }}">
+  <link rel="icon" href="{{ asset('/images/logo-icon.png') }}">
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
 
   <!-- Styles -->
-  <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap4/bootstrap.min.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ asset('/css/bootstrap4/bootstrap.min.css') }}">
   <link href="plugins/fontawesome-free-5.0.1/css/fontawesome-all.css" rel="stylesheet" type="text/css">
 
   <link rel="stylesheet" type="text/css" href="{{ asset('css/spinner.css') }}">
 
-  <link rel="stylesheet" type="text/css" href="{{ asset('css/general.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ asset('/css/general.css') }}">
 
   <!-- Chatbot -->
   {{-- <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/assets/css/chat.min.css"> --}}
