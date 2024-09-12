@@ -20,7 +20,7 @@
   <link rel="stylesheet" type="text/css" href="{{ asset('css/general.css') }}">
 
   <!-- Chatbot -->
-  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/assets/css/chat.min.css">
+  {{-- <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/assets/css/chat.min.css"> --}}
 
   @yield('styles')
 
@@ -29,7 +29,7 @@
 <body>
 
    <!-- Spinner -->
-  <div class="loader-section-spinner">
+  {{-- <div class="loader-section-spinner">
     <div class="col ">
       <div class="row justify-content-center">
         <img src="{{ asset('images/logo-icon.png') }}" style="width: 120px; margin-bottom:18px;" alt="UNT logo">
@@ -38,9 +38,9 @@
       <div class="row justify-content-center">
         <span class="loader-spinner"></span>
       </div>
-      
+
     </div>
-  </div>
+  </div> --}}
 
   <div class="super_container">
     <!-- Header -->
@@ -54,25 +54,25 @@
 
 
     <!-- Footer -->
-    @include('layouts.web.footer')
+    {{-- @include('layouts.web.footer') --}}
 
   </div>
 
   <!-- Telegram bubble - FIXED -->
-  <div>
+  {{-- <div>
     <div class="chatBtn jump">
       <a href = {{ config('app.ura_community_telegram_link') }} target="_blank">
-        <img src="{{ asset("images/telegram_icon1.png")}}" alt=""> 
+        <img src="{{ asset("images/telegram_icon1.png")}}" alt="">
       </a>
     </div>
-  </div>
+  </div> --}}
 
 
   <!-- Chatbot -->
   {{-- <script>
     var botmanWidget = {
         aboutText:'URA-A | Sitio web',
-        introMessage: 'Hola 🙂, Bienvenido al Sitio Web de la Unidad de Registros Académicos (URAA)', 
+        introMessage: 'Hola 🙂, Bienvenido al Sitio Web de la Unidad de Registros Académicos (URAA)',
         placeholderText: 'Escribe una pregunta...',
         mainColor: '#ffb606',
         bubbleBackground:'#ffb606',
@@ -85,7 +85,7 @@
 
   <script src="https://www.google.com/recaptcha/api.js?onload=onloadCaptcha_Statitics&render=explicit" async defer></script>
 
-  
+
   <script src="https://www.google.com/recaptcha/api.js?onload=onloadCaptcha_FormularioDirecciones&render=explicit" async defer></script>
 
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

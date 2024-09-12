@@ -15,7 +15,7 @@
 
 
 <div class="super_container">
-	
+
 	<!-- Home -->
 
 	<div class="home">
@@ -23,12 +23,12 @@
 		<!-- Hero Slider -->
 		<div class="hero_slider_container">
 			<div class="hero_slider owl-carousel">
-				
+
 				{{-- <!-- Hero Slide - Navideño -->
 				<div class="hero_slide">
 					<div class="hero_slide_background" style="background-image:url(images/background_unt_9.jpg)"></div>
 				</div> --}}
-				
+
 				<!-- Hero Slide -->
 				<div class="hero_slide">
 					<div class="hero_slide_background" style="background-image:url(images/slider_background.jpg)"></div>
@@ -38,7 +38,7 @@
 						</div>
 					</div>
 				</div>
-				
+
 				<!-- Hero Slide -->
 				<div class="hero_slide">
 					<div class="hero_slide_background" style="background-image:url(images/background_unt_tramites.jpg)"></div>
@@ -67,7 +67,7 @@
 					@foreach ($tramites as $proc)
 
 						<div class="col-lg-4 hero_box_col">
-					
+
 							<div class="hero_box d-flex flex-row align-items-center justify-content-start">
 								<a href="{{url('procedure')}}#tramites">
 									<img src="images/{{$proc->nombre}}.svg" class="svg" alt="">
@@ -81,12 +81,12 @@
 									<a href="{{url('procedure')}}#tramites" class="hero_box_link">Ver información</a>
 								</div>
 							</div>
-									
+
 						</div>
-					
+
 					@endforeach
 
-				
+
 
 				</div>
 			</div>
@@ -126,7 +126,7 @@
 									<div class="row course_author_name">{{$post->creador}}</div>
 									<div class="row" style="padding-top:4px; padding-bottom:10px; padding-left: 20px;"><span>{{$post->creador_puesto}}</span></div>
 								</div>
-								
+
 								<div class="course_price d-flex flex-column align-items-center justify-content-center">
 									<span>
 										<div>{{date('d', strtotime($post->fecha))}}</div>
@@ -136,15 +136,15 @@
 							</div>
 						</div>
 					</div>
-				@endforeach 
+				@endforeach
 			</div>
 
-			
-			
-		</div>		
+
+
+		</div>
 	</div>
 
-	<!-- Multimedia -->
+	{{-- <!-- Multimedia -->
 
 	<div id="tutorials" class="testimonials page_section">
 		<!-- <div class="testimonials_background" style="background-image:url(images/testimonials_background.jpg)"></div> -->
@@ -163,7 +163,7 @@
 
 			<div class="row">
 				<div class="col-lg-10 offset-lg-1">
-					
+
 					<div class="testimonials_slider_container">
 
 						<!-- Multimedia Slider -->
@@ -175,17 +175,17 @@
 										<div class="container container_iframe" style="width: 640px; height: 400px;">
 											<iframe class="responsive_iframe" width="100%" height="100%" src="{{$multimedia->ruta}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 										</div>
-										
-	
+
+
 										<div class="testimonial_user">
-											
+
 											<div class="testimonial_name">{{$multimedia->titulo}}</div>
 											<div class="testimonial_title">{{$multimedia->resumen}}</div>
 										</div>
 									</div>
 								</div>
 							@endforeach
-							
+
 						</div>
 
 						<div class="multimedia_slider_left multimedia_slider_nav trans_200">
@@ -199,18 +199,18 @@
 			</div>
 
 		</div>
-	</div>
+	</div> --}}
 
 
 	<!-- Register -->
-
+{{--
 	<div class="register">
 
 		<div class="container-fluid">
-			
+
 			<div class="row row-eq-height">
 				<div class="col-lg-6 nopadding">
-					
+
 					<!-- Register -->
 
 					<div class="register_section d-flex flex-column align-items-center justify-content-center">
@@ -225,7 +225,7 @@
 				</div>
 
 				<div class="col-lg-6 nopadding">
-					
+
 					<!-- Search -->
 
 					<div class="search_section d-flex flex-column align-items-center justify-content-center">
@@ -244,25 +244,25 @@
 									@endforeach
 								</select>
 								@error('idUnidad')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
-								
+
 
 								<input id="pregunta_welcome" class="input_field search_form_name" type="text" placeholder="Pregunta" required="required" data-error="Course name is required.">
-							
+
 
 								<button id="search_submit_button" type="submit" class="search_submit_button trans_200" value="Submit">Consultar pregunta</button>
 							</form>
-						</div> 
+						</div>
 					</div>
 
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> --}}
 
 	<!-- Services -->
-
+{{--
 	<div class="services page_section">
-		
+
 		<div class="container tag_fade_in">
 			<div class="row">
 				<div class="col">
@@ -306,14 +306,6 @@
 					<p>Análisis de información de las distintas bases de datos académicas para generar distintos Reportes Estadísticos para las distintas áreas y dependencias académicas.</p>
 				</div>
 
-				{{-- <div class="col-lg-4 service_item text-left d-flex flex-column align-items-start justify-content-start">
-					<div class="icon_container d-flex flex-column justify-content-end">
-						<img src="images/blackboard.svg" alt="">
-					</div>
-					<h3>Capacitación Tecnológica</h3>
-					<p>Mantener actualizados a los usuarios en el uso de las herramientas informáticas accesibles para la gestión integral de sus trámites, así como en los distintos procesos académicos.</p>
-				</div> --}}
-
 				<div class="col-lg-4 service_item text-left d-flex flex-column align-items-start justify-content-start">
 					<div class="icon_container d-flex flex-column justify-content-end">
 						<img src="images/icons-calendar.png" style="color: #ffb606;" alt="">
@@ -332,12 +324,11 @@
 
 			</div>
 		</div>
-	</div>
+	</div> --}}
 
 	<!-- Testimonios -->
-
+{{--
 	<div class="testimonials page_section">
-		<!-- <div class="testimonials_background" style="background-image:url(images/testimonials_background.jpg)"></div> -->
 		<div class="testimonials_background_container prlx_parent">
 			<div class="testimonials_background prlx" style="background-image:url(images/background_unt_testimonios.jpg)"></div>
 		</div>
@@ -353,21 +344,18 @@
 
 			<div class="row">
 				<div class="col-lg-10 offset-lg-1">
-					
+
 					<div class="testimonials_slider_container">
 
 						<!-- Testimonials Slider -->
 						<div class="owl-carousel owl-theme testimonials_slider">
-							
+
 							<!-- Testimonials Item -->
 							<div class="owl-item">
 								<div class="testimonials_item text-center">
 									<div class="quote">“</div>
 									<p class="testimonials_text">Una Dependencia orgánica de la Universidad Nacional de Trujillo que cumple con sus propuestas y busca la mejora continua en los procesos acádemicos llevándolos a la excelencia, teniendo como principales valores la responsabilidad, compromiso. innovación y el trabajo en equipo.</p>
 									<div class="testimonial_user">
-										{{-- <div class="testimonial_image mx-auto">
-											<img src="images/background_unt_1.jpg" alt="">
-										</div> --}}
 										<div class="testimonial_name">VICTOR VERGARA AZABACHE</div>
 										<div class="testimonial_title">Jefe de Registro Académico</div>
 									</div>
@@ -380,28 +368,12 @@
 									<div class="quote">“</div>
 									<p class="testimonials_text">Atención al público eficiente e integral, promoviendo la ejecución de la normatividad académico enfocada en las necesidades de los estudiantes, así como teniendo como principal enfoque la innovación tecnológica para el fortalecimiento de la calidad educativa.</p>
 									<div class="testimonial_user">
-										
+
 										<div class="testimonial_name">CARLOS LÁZARO ARROYO</div>
 										<div class="testimonial_title">Director de Procesos Académicos</div>
 									</div>
 								</div>
 							</div>
-
-							{{-- <!-- Testimonials Item -->
-							<div class="owl-item">
-								<div class="testimonials_item text-center">
-									<div class="quote">“</div>
-									<p class="testimonials_text">In aliquam, augue a gravida rutrum, ante nisl fermentum nulla, vitae tempor nisl ligula vel nunc. Proin quis mi malesuada, finibus tortor fermentum.In aliquam, augue a gravida rutrum, ante nisl fermentum nulla, vitae tempor nisl ligula vel nunc. Proin quis mi malesuada, finibus tortor fermentum.</p>
-									<div class="testimonial_user">
-										<div class="testimonial_image mx-auto">
-											<img src="images/testimonials_user.jpg" alt="">
-										</div>
-										<div class="testimonial_name">james cooper</div>
-										<div class="testimonial_title">Graduate Student</div>
-									</div>
-								</div>
-							</div> --}}
-
 						</div>
 
 					</div>
@@ -409,13 +381,13 @@
 			</div>
 
 		</div>
-	</div>
+	</div> --}}
 
 	<!-- Events -->
-
+{{--
 	<div class="events page_section">
 		<div class="container tag_fade_in">
-			
+
 			<div class="row">
 				<div class="col">
 					<div class="section_title text-center">
@@ -423,10 +395,10 @@
 					</div>
 				</div>
 			</div>
-			
+
 			<div class="event_items tag_fade_in">
 
-				
+
 
 				<!-- Event Item -->
 
@@ -456,18 +428,18 @@
 									</div>
 								</div>
 
-							</div>	
+							</div>
 						</div>
 					</div>
-				@endforeach 
-			
+				@endforeach
+
 
 			</div>
-				
-		</div>
-	</div>
 
-	
+		</div>
+	</div> --}}
+
+
 
 </div>
 
@@ -475,6 +447,6 @@
 
 @section('scripts')
 <script>
-	
+
 </script>
 @endsection
