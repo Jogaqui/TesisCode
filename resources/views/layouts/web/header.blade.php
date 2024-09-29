@@ -20,7 +20,7 @@
 
           <li id="aboutus" class="main_nav_item"><a href="">Nosotros</a></li>
 
-          <li id="unit" class="main_nav_item"><a href="">Subunidades</a></li>
+          <li id="unit" class="main_nav_item"><a href="{{ url('unit') }}">Subunidades</a></li>
 
           <li id="procedure" class="main_nav_item"><a href="">Trámites</a></li>
 

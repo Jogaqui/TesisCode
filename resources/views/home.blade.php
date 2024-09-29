@@ -2,14 +2,14 @@
 
 @section('contenido')
 <div class="container" >
-    <div class="row justify-content-center" style="position:relative; opacity: 1 !important;  margin-bottom: 12px;">
-       
+    <div class="row justify-content-center mt-8" style="position:relative; opacity: 1 !important;  margin-bottom: 12px;">
+
         <h4 style="text-align: center;font-size:28px;color: black;">BIENVENIDO AL SISTEMA INTRANET DE LA UNIDAD DE REGISTROS ACADÉMICOS &copy</h4>
-      
+
     </div>
 
     <br>
-    <div class="row justify-content-center" style="margin-top: 12px;">
+    {{-- <div class="row justify-content-center" style="margin-top: 12px;">
       <div class="col-12">
 
         <div class="row justify-content-center mb-4">
@@ -27,8 +27,8 @@
               Ver info <i class="fas fa-arrow-circle-right"></i>
             </a>
           </div>
-          
-         
+
+
 
            <!-- Manuales -->
            <div class="col-12 col-sm-2 small-box bg-gradient-warning mx-2">
@@ -57,8 +57,8 @@
               Ver info <i class="fas fa-arrow-circle-right"></i>
             </a>
           </div>
-       
-          
+
+
            <!-- FAQ -->
            <div class="col-12 col-sm-2 small-box bg-gradient-secondary mx-2">
              <div class="inner">
@@ -77,7 +77,7 @@
             </div>
 
             </div>
-           
+
         </div>
 
         <div class="row justify-content-center">
@@ -100,7 +100,7 @@
               </a>
             </div>
           </div>
-          
+
           <!-- Consultas -->
           <div class="col-12 col-lg-4 info-box bg-gradient-danger mx-2">
             <span class="info-box-icon"><i class="fas fa-book-reader"></i></span>
@@ -119,33 +119,33 @@
               </a>
             </div>
           </div>
-           
-           
+
+
 
         </div>
-          
-    
+
+
       </div>
 
-       
-        
-    </div>
+
+
+    </div> --}}
 
      <!------ FOOTER ------->
      <div class="row " style="
-     position:relative; 
+     position:relative;
      margin-top: 120px;
-     justify-content: center; 
+     justify-content: center;
      opacity: 1 !important;">
         <span><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
           &copy; <script>document.write(new Date().getFullYear());</script> Unidad de Registros Académicos, UNT. Todos los derechos reservados
           <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
         </span>
     </div>
-  
+
 
 </div>
-    
+
 @endsection
 
 

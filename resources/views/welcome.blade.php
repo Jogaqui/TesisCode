@@ -69,16 +69,16 @@
 						<div class="col-lg-4 hero_box_col">
 
 							<div class="hero_box d-flex flex-row align-items-center justify-content-start">
-								<a href="{{url('procedure')}}#tramites">
+								<a href="#">
 									<img src="images/{{$proc->nombre}}.svg" class="svg" alt="">
 								</a>
 								<div class="hero_box_content">
-									<a href="{{url('procedure')}}#tramites">
+									<a href="#">
 										<h2 class="hero_box_title">
 											{{$proc->titulo_abrev}}
 										</h2>
 									</a>
-									<a href="{{url('procedure')}}#tramites" class="hero_box_link">Ver información</a>
+									<a href="#" class="hero_box_link">Ver información</a>
 								</div>
 							</div>
 
@@ -95,7 +95,7 @@
 
 	<!-- News -->
 
-	<div class="popular page_section">
+	{{-- <div class="popular page_section">
 		<div class="container tag_fade_in">
 			<div class="row">
 				<div class="col">
@@ -142,7 +142,7 @@
 
 
 		</div>
-	</div>
+	</div> --}}
 
 	{{-- <!-- Multimedia -->
 
@@ -203,7 +203,7 @@
 
 
 	<!-- Register -->
-{{--
+
 	<div class="register">
 
 		<div class="container-fluid">
@@ -218,7 +218,7 @@
 							<h1 class="register_title row justify-content-center">Unidad de Registros Académicos</h1>
 							<h1 class="register_title"><span>Universidad Nacional de Trujillo</span></h1>
 							<p class="register_text">Dependencia Técnica, enfocada en la gestión y apoyo a los procesos administrativos y académicos del estudiante. Ofreciendo servicios de calidad a las diferentes áreas interdepartamentales de nuestra Universidad, basada en el cumplimiento a los mejores estándares y la evolución integral de la dirección.</p>
-							<div class="button button_1 register_button mx-auto trans_200"><a href="{{ url('aboutus') }}">Conócenos</a></div>
+							<div class="button button_1 register_button mx-auto trans_200"><a href="#">Conócenos</a></div>
 						</div>
 					</div>
 
@@ -257,10 +257,10 @@
 				</div>
 			</div>
 		</div>
-	</div> --}}
+	</div>
 
 	<!-- Services -->
-{{--
+
 	<div class="services page_section">
 
 		<div class="container tag_fade_in">
@@ -324,10 +324,10 @@
 
 			</div>
 		</div>
-	</div> --}}
+	</div>
 
 	<!-- Testimonios -->
-{{--
+
 	<div class="testimonials page_section">
 		<div class="testimonials_background_container prlx_parent">
 			<div class="testimonials_background prlx" style="background-image:url(images/background_unt_testimonios.jpg)"></div>
@@ -381,7 +381,7 @@
 			</div>
 
 		</div>
-	</div> --}}
+	</div>
 
 	<!-- Events -->
 {{--

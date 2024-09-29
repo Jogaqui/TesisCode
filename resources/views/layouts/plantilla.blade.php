@@ -41,13 +41,13 @@
   <!-- dropzonejs -->
   <link rel="stylesheet" href="/adminlte/plugins/dropzone/min/dropzone.min.css">
 
- 
 
-  
+
+
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
 
-  
+
 <!-- Site wrapper -->
 <div class="wrapper">
 
@@ -85,7 +85,7 @@
             </p>
           </li>
           <!-- Menu Body -->
-          
+
           <!-- Menu Footer-->
           <li class="user-footer">
             <a href="/welcome" class="btn btn-default btn-flat float-left">Página Web</a>
@@ -130,7 +130,7 @@
               COMPONENTES
             </p>
           </a>
-       
+
         </ul>
       </nav>
 
@@ -147,7 +147,7 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
+          {{-- <li class="nav-item">
             <a href="{{route('tipoconoce.index')}}" class="nav-link {{ Request::routeIs('tipoconoce.index','tipoconoce.create','tipoconoce.edit','tipoconoce.show','conocenos.create','conocenos.edit') ? 'active' : '' }}">
               <i class="nav-icon fab fa-audible"></i>
               <p>
@@ -180,7 +180,7 @@
                 Normativas
               </p>
             </a>
-          </li>
+          </li> --}}
 
           <li class="nav-item">
             <a href="{{route('trabajador.index')}}" class="nav-link {{ Request::routeIs('trabajador.index','trabajador.create','trabajador.edit') ? 'active' : '' }}">
@@ -199,8 +199,8 @@
               </p>
             </a>
           </li> --}}
-          
-          <li class="nav-item">
+
+          {{-- <li class="nav-item">
             <a href="{{route('tramite.index')}}" class="nav-link {{ Request::routeIs('tramite.index','tramite.create','tramite.edit') ? 'active' : '' }}">
               <i class="nav-icon fas fa-edit"></i>
               <p>
@@ -244,7 +244,7 @@
               </p>
             </a>
           </li>
-          
+
           <li class="nav-item">
             <a href="{{route('contactanos.index')}}" class="nav-link {{ Request::routeIs('contactanos.index','contactanos.create','contactanos.edit') ? 'active' : '' }}">
               <i class="nav-icon fas fa-at"></i>
@@ -252,9 +252,9 @@
                 Contacto
               </p>
             </a>
-          </li>
-          
-        
+          </li> --}}
+
+
 
           {{-- <li class="nav-item">
             <a href="{{route('icono.index')}}" class="nav-link {{ Request::routeIs('icono.index','icono.create','icono.edit') ? 'active' : '' }}">
@@ -265,7 +265,7 @@
             </a>
           </li> --}}
 
-          
+
 
           {{-- <li class="nav-item">
             <a href="{{route('portada.index')}}" class="nav-link {{ Request::routeIs('portada.index','portada.show') ? 'active' : '' }}">
@@ -276,13 +276,13 @@
             </a>
           </li> --}}
 
-          
+
         </ul>
       </nav>
 
 
 
-      
+
       <!-- Encabezado Sidebar Menu -->
       <nav class="mt-4"  style="margin-left: 0.25rem">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -291,7 +291,7 @@
               ACCESOS
             </p>
           </a>
-       
+
         </ul>
       </nav>
 
@@ -307,8 +307,8 @@
                 Usuarios (BETA)
               </p>
             </a>
-          </li>   
-          
+          </li>
+
         </ul>
       </nav>
 
