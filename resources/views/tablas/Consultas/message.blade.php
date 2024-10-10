@@ -30,7 +30,6 @@
                     </div>
                 </div>
 
-                <br>
                 <label for="texto" style="float: left; color: #ffb606">Mensaje</label>
                 <textarea disabled rows="5" class="form-control @error('texto') is-invalid @enderror" id="Mensaje" name="Mensaje">{{$consulta->mensaje}}</textarea>
                 @error('Mensaje')
@@ -38,10 +37,18 @@
                     <strong>{{ $message }}</strong>
                 </span>
                 @enderror
+
+                <label for="texto" style="float: left; color: #ffb606">Respuesta</label>
+                <textarea disabled rows="3" class="form-control @error('texto') is-invalid @enderror" id="respuesta" name="respuesta">{{$consulta->respuesta}}</textarea>
+                @error('respuesta')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
             </div> 
         </div>     
         <div class="card-footer" style="text-align:center">
-            <a style="float:right" href="{{route('consulta.index')}}" class="btn btn-danger"><i class="fas fa-ban"></i> Regresar</a>
+            <a style="float:right" href="{{route('consulta.index')}}" class="btn btn-danger"><i class="	fas fa-arrow-left"></i> Regresar</a>
         </div>
     </div>
 </div>

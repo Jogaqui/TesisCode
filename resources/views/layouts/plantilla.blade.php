@@ -76,7 +76,23 @@
             <img src="{{asset('images/icono-user-genNeutro.png')}}" class="img-circle elevation-2" alt="User Image">
 
             <p>
-              {{ Auth::user()->usu_nombreCompleto }} - Administrador
+              @php
+                $id_rol = Auth::user()->usu_rol;
+                $rol_nombre = '';
+                switch ($id_rol) {
+                  case 1:
+                    $rol_nombre = 'ADMINISTRADOR';
+                    break;
+
+                  case 2:
+                    $rol_nombre = 'SECRETARIA(O)';
+                    break;
+                  default:
+                    # code...
+                    break;
+                }
+              @endphp
+              {{ Auth::user()->usu_nombreCompleto }} - {{$rol_nombre}}
               <small>@php
                 $fecha = Auth::user()->created_at;
                 $date = strtotime($fecha);
@@ -139,22 +155,35 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item">
-            <a href="{{route('unidad.index')}}" class="nav-link {{ Request::routeIs('unidad.index','unidad.create','unidad.edit') ? 'active' : '' }}">
-              <i class="nav-icon far fa-id-badge"></i>
-              <p>
-                Unidades
-              </p>
-            </a>
-          </li>
-          {{-- <li class="nav-item">
-            <a href="{{route('tipoconoce.index')}}" class="nav-link {{ Request::routeIs('tipoconoce.index','tipoconoce.create','tipoconoce.edit','tipoconoce.show','conocenos.create','conocenos.edit') ? 'active' : '' }}">
-              <i class="nav-icon fab fa-audible"></i>
-              <p>
-                Tipos de Generalidades
-              </p>
-            </a>
-          </li>
+          @if( Auth::user()->usu_rol == 1)
+            <li class="nav-item">
+              <a href="{{route('unidad.index')}}" class="nav-link {{ Request::routeIs('unidad.index','unidad.create','unidad.edit') ? 'active' : '' }}">
+                <i class="nav-icon far fa-id-badge"></i>
+                <p>
+                  Unidades
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{route('tipoconoce.index')}}" class="nav-link {{ Request::routeIs('tipoconoce.index','tipoconoce.create','tipoconoce.edit','tipoconoce.show','conocenos.create','conocenos.edit') ? 'active' : '' }}">
+                <i class="nav-icon fab fa-audible"></i>
+                <p>
+                  Tipos de Generalidades
+                </p>
+              </a>
+            </li>
+
+
+            <li class="nav-item">
+              <a href="{{route('etiqueta.index')}}" class="nav-link {{ Request::routeIs('etiqueta.index','etiqueta.create','etiqueta.edit') ? 'active' : '' }}">
+                <i class="nav-icon fab fa-buffer"></i>
+                <p>
+                  Etiquetas
+                </p>
+              </a>
+            </li>
+          @endif
+{{--
           <li class="nav-item">
             <a href="{{route('publicacion.index')}}" class="nav-link {{ Request::routeIs('publicacion.index','publicacion.delet','publicacion.create','publicacion.edit') ? 'active' : '' }}">
               <i class="nav-icon fas fa-chart-line"></i>
@@ -162,17 +191,8 @@
                 Publicaciones
               </p>
             </a>
-          </li>
-
-          <li class="nav-item">
-            <a href="{{route('etiqueta.index')}}" class="nav-link {{ Request::routeIs('etiqueta.index','etiqueta.create','etiqueta.edit') ? 'active' : '' }}">
-              <i class="nav-icon fab fa-buffer"></i>
-              <p>
-                Etiquetas
-              </p>
-            </a>
-          </li>
-
+          </li> --}}
+{{--
           <li class="nav-item">
             <a href="{{route('norma.index')}}" class="nav-link {{ Request::routeIs('norma.index','norma.create','norma.edit') ? 'active' : '' }}">
               <i class="nav-icon fas fa-envelope-open-text"></i>
@@ -200,7 +220,7 @@
             </a>
           </li> --}}
 
-          {{-- <li class="nav-item">
+          <li class="nav-item">
             <a href="{{route('tramite.index')}}" class="nav-link {{ Request::routeIs('tramite.index','tramite.create','tramite.edit') ? 'active' : '' }}">
               <i class="nav-icon fas fa-edit"></i>
               <p>
@@ -217,7 +237,7 @@
               </p>
             </a>
           </li>
-
+{{--
           <li class="nav-item">
             <a href="{{route('multimedia.index')}}" class="nav-link {{ Request::routeIs('multimedia.index','multimedia.create','multimedia.edit') ? 'active' : '' }}">
               <i class="nav-icon fas fa-video"></i>
@@ -225,7 +245,7 @@
                 Multimedia
               </p>
             </a>
-          </li>
+          </li> --}}
 
           <li class="nav-item">
             <a href="{{route('pregunta.index')}}" class="nav-link {{ Request::routeIs('question.index','question.show') ? 'active' : '' }}">
@@ -252,7 +272,7 @@
                 Contacto
               </p>
             </a>
-          </li> --}}
+          </li>
 
 
 
@@ -283,35 +303,36 @@
 
 
 
-      <!-- Encabezado Sidebar Menu -->
-      <nav class="mt-4"  style="margin-left: 0.25rem">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <a href="" class="nav-link">
-            <p style="color: #7a7a7a; font-weight: bold">
-              ACCESOS
-            </p>
-          </a>
-
-        </ul>
-      </nav>
-
-      <!-- Sidebar Menu -->
-      <nav class="mt-1">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-          <li class="nav-item">
-            <a href="{{route('usuario.index')}}" class="nav-link {{ Request::routeIs('usuario.index','usuario.create','usuario.edit') ? 'active' : '' }}">
-              <i class="nav-icon far fa-user-circle"></i>
-              <p>
-                Usuarios (BETA)
+      <!-- Roles Sidebar Menu -->
+      @if( Auth::user()->usu_rol   == 1)
+        <nav class="mt-4"  style="margin-left: 0.25rem">
+          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <a href="" class="nav-link">
+              <p style="color: #7a7a7a; font-weight: bold">
+                ACCESOS
               </p>
             </a>
-          </li>
 
-        </ul>
-      </nav>
+          </ul>
+        </nav>
 
+        <!-- Sidebar Menu -->
+        <nav class="mt-1">
+          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <!-- Add icons to the links using the .nav-icon class
+                 with font-awesome or any other icon font library -->
+            <li class="nav-item">
+              <a href="{{route('usuario.index')}}" class="nav-link {{ Request::routeIs('usuario.index','usuario.create','usuario.edit') ? 'active' : '' }}">
+                <i class="nav-icon far fa-user-circle"></i>
+                <p>
+                  Usuarios
+                </p>
+              </a>
+            </li>
+
+          </ul>
+        </nav>
+      @endif
       <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
@@ -438,6 +459,18 @@ var table = $('#example1').DataTable({
         Swal.fire({
         title: '¡Actualizado!',
         text: 'Su registro ha sido actualizado correctamente.',
+        icon: 'success',
+        showConfirmButton: false,
+        footer: '<a href="javascript:location.reload()" class="btn btn-primary">Ok</a>',
+        timer: 1500
+      })
+    </script>
+
+    @elseif (session('datos') == 'SEND')
+    <script>
+        Swal.fire({
+        title: '¡Enviado!',
+        text: 'La respuesta ha sido enviada al correo exitosamente.',
         icon: 'success',
         showConfirmButton: false,
         footer: '<a href="javascript:location.reload()" class="btn btn-primary">Ok</a>',

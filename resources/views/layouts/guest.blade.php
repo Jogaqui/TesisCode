@@ -6,21 +6,21 @@
 
   <title>URA | Sitio Web</title>
 
-  <link rel="icon" href="{{ asset('/images/logo-icon.png') }}">
+  <link rel="icon" href="{{ asset('images/logo-icon.png') }}">
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
 
   <!-- Styles -->
-  <link rel="stylesheet" type="text/css" href="{{ asset('/css/bootstrap4/bootstrap.min.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap4/bootstrap.min.css') }}">
   <link href="plugins/fontawesome-free-5.0.1/css/fontawesome-all.css" rel="stylesheet" type="text/css">
 
-  <link rel="stylesheet" type="text/css" href="{{ asset('/css/spinner.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ asset('css/spinner.css') }}">
 
-  <link rel="stylesheet" type="text/css" href="{{ asset('/css/general.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ asset('css/general.css') }}">
 
   <!-- Chatbot -->
-  {{-- <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/assets/css/chat.min.css"> --}}
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/assets/css/chat.min.css">
 
   @yield('styles')
 
@@ -29,7 +29,7 @@
 <body>
 
    <!-- Spinner -->
-  {{-- <div class="loader-section-spinner">
+  <div class="loader-section-spinner">
     <div class="col ">
       <div class="row justify-content-center">
         <img src="{{ asset('images/logo-icon.png') }}" style="width: 120px; margin-bottom:18px;" alt="UNT logo">
@@ -40,7 +40,7 @@
       </div>
 
     </div>
-  </div> --}}
+  </div>
 
   <div class="super_container">
     <!-- Header -->
@@ -68,19 +68,23 @@
   </div> --}}
 
 
-  <!-- Chatbot -->
-  {{-- <script>
+  {{-- <!-- Chatbot -->
+  <script>
     var botmanWidget = {
-        aboutText:'URA-A | Sitio web',
+        aboutText:'URA | Sitio web',
         introMessage: 'Hola 🙂, Bienvenido al Sitio Web de la Unidad de Registros Académicos (URAA)',
         placeholderText: 'Escribe una pregunta...',
         mainColor: '#ffb606',
         bubbleBackground:'#ffb606',
         bubbleAvatarUrl: 'images/chatbot-1-logo.png',
-        title: 'URA-A | Chatbot'
+        title: 'URA | Chatbot'
     };
   </script>
+
+
   <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script> --}}
+
+  {{-- GENERA UNA CAJA DE TEXTO DE MAS --}}
   {{-- <script id="botmanWidget" src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/chat.js'></script> --}}
 
   <script src="https://www.google.com/recaptcha/api.js?onload=onloadCaptcha_Statitics&render=explicit" async defer></script>

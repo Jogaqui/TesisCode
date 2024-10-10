@@ -94,22 +94,25 @@ class ConsultaController extends Controller
      */
     public function update(Request $request, $id)
     {
-      $consulta = Consulta::findOrFail($id);
-      $consulta->estado = 0;
-      $consulta->save();
-
-      $respuesta = $request->respuesta;
-      config(['mail.mailers.smtp.username' => Auth::user()->usu_email]);
-      config(['mail.mailers.smtp.password' => $request->password]);
-      // dd(config('mail.mailers.smtp'));
-      // return view('mails.RespuestaEnviada', compact('consulta'), compact('respuesta'));
+      
       DB::beginTransaction();
       try{
+        $consulta = Consulta::findOrFail($id);
+        $consulta->respuesta = $request->respuesta;
+        $consulta->estado = 0;
+        $consulta->save();
+
+        $respuesta = $request->respuesta;
+        config(['mail.mailers.smtp.username' => Auth::user()->usu_email]);
+        config(['mail.mailers.smtp.password' => $request->password]);
+        // dd(config('mail.mailers.smtp'));
+        // return view('mails.RespuestaEnviada', compact('consulta'), compact('respuesta'));
+
         dispatch(new EmailRespuestaJob(Auth::user()->usu_email, $consulta->correo, $consulta->idConsulta, $consulta->mensaje, $request->respuesta));
         // $consulta->estado = 0;
         // $consulta->update();
         DB::commit();
-        return redirect()->route('consulta.index')->with('datos','T');
+        return redirect()->route('consulta.index')->with('datos','SEND');
       } catch(Exception $e){
         DB::rollback();
         return redirect()->route('consulta.index')->with('datos','C');
