@@ -183,7 +183,7 @@
               </a>
             </li>
           @endif
-{{--
+
           <li class="nav-item">
             <a href="{{route('publicacion.index')}}" class="nav-link {{ Request::routeIs('publicacion.index','publicacion.delet','publicacion.create','publicacion.edit') ? 'active' : '' }}">
               <i class="nav-icon fas fa-chart-line"></i>
@@ -191,8 +191,8 @@
                 Publicaciones
               </p>
             </a>
-          </li> --}}
-{{--
+          </li>
+
           <li class="nav-item">
             <a href="{{route('norma.index')}}" class="nav-link {{ Request::routeIs('norma.index','norma.create','norma.edit') ? 'active' : '' }}">
               <i class="nav-icon fas fa-envelope-open-text"></i>
@@ -200,7 +200,7 @@
                 Normativas
               </p>
             </a>
-          </li> --}}
+          </li>
 
           <li class="nav-item">
             <a href="{{route('trabajador.index')}}" class="nav-link {{ Request::routeIs('trabajador.index','trabajador.create','trabajador.edit') ? 'active' : '' }}">
@@ -237,7 +237,7 @@
               </p>
             </a>
           </li>
-{{--
+
           <li class="nav-item">
             <a href="{{route('multimedia.index')}}" class="nav-link {{ Request::routeIs('multimedia.index','multimedia.create','multimedia.edit') ? 'active' : '' }}">
               <i class="nav-icon fas fa-video"></i>
@@ -245,7 +245,7 @@
                 Multimedia
               </p>
             </a>
-          </li> --}}
+          </li>
 
           <li class="nav-item">
             <a href="{{route('pregunta.index')}}" class="nav-link {{ Request::routeIs('question.index','question.show') ? 'active' : '' }}">

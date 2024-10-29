@@ -16,20 +16,20 @@
       <div class="main_nav">
         <ul class="main_nav_list">
 
-          <li id="inicio" class="main_nav_item"><a href="">Inicio</a></li>
+          <li id="inicio" class="main_nav_item"><a href="{{ url('welcome') }}">Inicio</a></li>
 
-          <li id="aboutus" class="main_nav_item"><a href="">Nosotros</a></li>
+          <li id="aboutus" class="main_nav_item"><a href="{{ url('aboutus') }}">Nosotros</a></li>
 
           <li id="unit" class="main_nav_item"><a href="{{ url('unit') }}">Subunidades</a></li>
 
-          <li id="procedure" class="main_nav_item"><a href="">Trámites</a></li>
+          <li id="procedure" class="main_nav_item"><a href="{{ url('procedure') }}">Trámites</a></li>
 
-          <li id="statitics" class="main_nav_item"><a href="">Estadísticas</a></li>
+          <li id="statitics" class="main_nav_item"><a href="#">Estadísticas</a></li>
 
-          <li id="news" class="main_nav_item"><a href="">Noticias</a></li>
+          <li id="news" class="main_nav_item"><a href="{{ url('news') }}">Noticias</a></li>
 
 
-          <li id="contact" class="main_nav_item"><a href="">Contacto</a></li>
+          <li id="contact" class="main_nav_item"><a href="#">Contacto</a></li>
 
         </ul>
       </div>

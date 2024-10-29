@@ -95,7 +95,7 @@
 
 	<!-- News -->
 
-	{{-- <div class="popular page_section">
+	<div class="popular page_section">
 		<div class="container tag_fade_in">
 			<div class="row">
 				<div class="col">
@@ -142,9 +142,9 @@
 
 
 		</div>
-	</div> --}}
+	</div>
 
-	{{-- <!-- Multimedia -->
+	<!-- Multimedia -->
 
 	<div id="tutorials" class="testimonials page_section">
 		<!-- <div class="testimonials_background" style="background-image:url(images/testimonials_background.jpg)"></div> -->
@@ -199,7 +199,7 @@
 			</div>
 
 		</div>
-	</div> --}}
+	</div>
 
 
 	<!-- Register -->

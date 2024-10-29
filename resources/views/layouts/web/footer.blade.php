@@ -16,7 +16,7 @@
             <span>Unidad de registros<br>académicos</span>
           </div>
         </div>
-        
+
         <p class="footer_about_text">Dependencia orgánica de la Universidad Nacional de Trujillo en la Dirección de Procesos Académicos</p>
 
       </div>
@@ -30,10 +30,11 @@
             <li class="footer_list_item"><a href="{{ url('aboutus') }}">Nosotros</a></li>
             <li class="footer_list_item"><a href="{{ url('unit') }}">Subunidades</a></li>
             <li class="footer_list_item"><a href="{{ url('procedure') }}">Trámites</a></li>
-            <li class="footer_list_item"><a href="{{ url('statitics') }}">Estadísticas</a></li>
-            
+            {{-- <li class="footer_list_item"><a href="{{ url('statitics') }}">Estadísticas</a></li> --}}
+            <li class="footer_list_item"><a href="#">Estadísticas</a></li>
+
             <li class="footer_list_item"><a href="{{ url('news') }}">Noticias</a></li>
-            
+
             <li class="footer_list_item"><a href="{{ url('contact') }}">Contacto</a></li>
           </ul>
         </div>
@@ -57,8 +58,8 @@
             @endif
 
             <li class="footer_list_item"><a href="{{ url('formulario_direcciones') }}">Formulario</a></li>
-          
-           
+
+
           </ul>
         </div>
       </div>
