@@ -68,6 +68,15 @@
   </div> --}}
 
 
+    <!-- Telegram bubble - FIXED -->
+  <div>
+    <div class="chatBtn jump">
+      <a href = "https://prmh9x1b-8501.brs.devtunnels.ms/" target="_blank">
+        <img src="{{ asset("images/chatbot-1-logo.png")}}" alt="">
+      </a>
+    </div>
+  </div>
+
   {{-- <!-- Chatbot -->
   <script>
     var botmanWidget = {
