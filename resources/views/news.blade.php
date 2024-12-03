@@ -20,7 +20,7 @@
         <div class="hero_slide_background" style="background-image:url(images/courses_background_2.jpg)"></div>
         <div class="hero_slide_container d-flex flex-column align-items-center justify-content-center" style="height:100%">
           <div class="hero_slide_content text-center" style="padding-top: 60px">
-             <h1 data-animation-in="fadeInUp" data-animation-out="animate-out fadeOut"><span>Noticias</span></h1> 
+             <h1 data-animation-in="fadeInUp" data-animation-out="animate-out fadeOut"><span>Noticias</span></h1>
           </div>
         </div>
       </div>
@@ -29,11 +29,11 @@
         <div class="hero_slide_background" style="background-image:url(images/courses_background_2.jpg)"></div>
         <div class="hero_slide_container d-flex flex-column align-items-center justify-content-center" style="height:100%">
           <div class="hero_slide_content text-center" style="padding-top: 60px">
-             <h1 data-animation-in="fadeInUp" data-animation-out="animate-out fadeOut"><span>Noticias</span></h1> 
+             <h1 data-animation-in="fadeInUp" data-animation-out="animate-out fadeOut"><span>Noticias</span></h1>
           </div>
         </div>
       </div>
-    
+
     </div>
 
     {{-- <div class="hero_slider_left hero_slider_nav trans_200"><span class="trans_200"><<</span></div>
@@ -89,7 +89,7 @@
               <a href="{{$post -> archivo}}" target="_blank">Descargar archivo adjunto</a>
             </div>
             @endif
-            
+
           </div>
           @endforeach
         </div>
@@ -119,4 +119,14 @@
   </div>
 </div>
 
+@endsection
+
+@section('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Obtener la hora actual
+        const ahora = new Date();
+        console.log('Hora actual:', ahora.toLocaleTimeString());
+    });
+</script>
 @endsection

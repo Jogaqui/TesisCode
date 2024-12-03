@@ -11,7 +11,7 @@
             <a href="{{route('publicacion.create')}}" class="btn btn-success" style="float:right;"><i class="fas fa-plus"></i> Nuevo Registro</a>
             <br><br>
             @php
-            
+
             @endphp
             <h3 class="card-title" style="font-size: 15px;">Hasta el momento hay: '<b style="color: blue;"> @php echo $publicacion->count();@endphp</b>' publicaciones registradas.</h3>
 
@@ -31,7 +31,7 @@
               </thead>
               <tbody>
 
-              @foreach($publicacion as $item) 
+              @foreach($publicacion as $item)
                 <tr>
                     <td style="text-align: center">{{$loop->index+1}}</td>
                     <td>{{$item->titulo}}</td>
@@ -54,14 +54,14 @@
                         <div class="modal-header" style="background: red">
                             @if ($item->estado == 1)
                                 <h3 style="color: white">Desactivación</h3>
-                            @else 
+                            @else
                                 <h3 style="color: white">Activación</h3>
                             @endif
                         </div>
                         <div class="modal-body">
                             @if ($item->estado == 1)
                                 <h5>¿Desea desactivar el registro de {{$item->titulo}}?</h5>
-                            @else 
+                            @else
                             <h5>¿Desea activar el registro de {{$item->titulo}}?</h5>
                             @endif
                         </div>
@@ -74,13 +74,13 @@
                                     <button type="submit" class="btn btn-danger"><i class="fas fa-times"></i> Desactivar</button>
                                 @else
                                     <button type="submit" class="btn btn-danger"><i class="fas fa-check"></i> Activar</button>
-                                @endif 
+                                @endif
                             </form>
                         </div>
                     </div>
                 </div>
             </div><!--fin modal-->
-              @endforeach  
+              @endforeach
 
               </tbody>
               <tfoot>
@@ -101,4 +101,14 @@
   </div>
   <!-- /.container-fluid -->
 
+@endsection
+
+@section('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Obtener la hora actual
+        const ahora = new Date();
+        console.log('Hora actual:', ahora.toLocaleTimeString());
+    });
+</script>
 @endsection

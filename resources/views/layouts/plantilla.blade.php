@@ -61,6 +61,9 @@
       <li class="nav-item">
         <a class="nav-link" href="\home" style="color: white"><i class="fas fa-home"></i></a>
       </li>
+    <li class="nav-item">
+      <a class="nav-link" href="\manual\SistemaTesis.html" target="blank" style="color: white"><i class="fas fa-question"></i></a>
+    </li>
     </ul>
 
     <!-- Right navbar links -->
@@ -612,7 +615,7 @@ var table = $('#example1').DataTable({
   })
   // BS-Stepper Init
   document.addEventListener('DOMContentLoaded', function () {
-    window.stepper = new Stepper(document.querySelector('.bs-stepper'))
+    window.stepper = new Stepper(document.querySelector('.bs-stepper'));
   });
 
   // DropzoneJS Demo Code Start
@@ -668,5 +671,6 @@ var table = $('#example1').DataTable({
   };
   // DropzoneJS Demo Code End
 </script>
+
 </body>
 </html>

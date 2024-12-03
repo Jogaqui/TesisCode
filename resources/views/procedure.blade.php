@@ -25,7 +25,7 @@
           <div class="hero_slide_background" style="background-image:url(images/search_background.jpg)"></div>
           <div class="hero_slide_container d-flex flex-column align-items-center justify-content-center" style="height:100%">
             <div class="hero_slide_content text-center" style="padding-top: 60px">
-               <h1 data-animation-in="fadeInUp" data-animation-out="animate-out fadeOut"><span>Trámites</span></h1> 
+               <h1 data-animation-in="fadeInUp" data-animation-out="animate-out fadeOut"><span>Trámites</span></h1>
             </div>
           </div>
         </div>
@@ -34,19 +34,19 @@
           <div class="hero_slide_background" style="background-image:url(images/search_background.jpg)"></div>
           <div class="hero_slide_container d-flex flex-column align-items-center justify-content-center" style="height:100%">
             <div class="hero_slide_content text-center" style="padding-top: 60px">
-               <h1 data-animation-in="fadeInUp" data-animation-out="animate-out fadeOut"><span>Trámites</span></h1> 
+               <h1 data-animation-in="fadeInUp" data-animation-out="animate-out fadeOut"><span>Trámites</span></h1>
             </div>
           </div>
         </div>
-      
+
       </div>
 
-     
+
     </div>
-  
+
   </div>
-  
- 
+
+
   {{-- <div class="home">
     <div class="home_background_container prlx_parent">
       <div class="home_background prlx" style="background-image:url(images/background_unt_3.jpg)"></div>
@@ -84,7 +84,7 @@
           <p>{{$proc -> descripcion}}</p>
           <div class="button button_color_1 text-center trans_200"><a target="_blank" href="https://tramites-uraa.unitru.edu.pe/message">Realizar Trámite</a></div>
           <div class="button button_line_1 text-center trans_200"><a target="_blank" href="/storage/manuales/{{$proc->ruta}}">Ver Manual</a></div>
-         
+
         </div>
         @endforeach
       </div>
@@ -96,40 +96,40 @@
 
     <!-- Div modo register para tramites -->
       <div class="register">
-    
+
         <div class="container-fluid">
-          
+
           <div class="row row-eq-height">
             <div class="col-lg-6 nopadding">
-              
+
               <!-- Register -->
-    
+
               <div class="register_section d-flex flex-column align-items-center justify-content-center">
                 <div class="register_content text-center">
                   <h1 class="register_title">Gestiona y realiza todos tus trámites en el <span>Sistema integrado de trámites URA</span>. Accede con tu cuenta y haz seguimiento a tus solicitudes desde cualquier dispositivo y donde quieras.</h1>
-                
+
                   <div class="button button_1 register_button mx-auto trans_200"><a href="https://tramites-uraa.unitru.edu.pe">Ir al sistema</a></div>
                 </div>
               </div>
-    
+
             </div>
-    
+
             <div class="col-lg-6 nopadding">
-              
+
               <!-- Search -->
-    
+
               <div class="search_section d-flex flex-column align-items-center justify-content-center">
                 <div class="search_background" style="background-image:url(images/search_background.jpg);"></div>
                 <div class="search_content text-center">
                   <img src="images/captura_uraa_login_smartphone-1.png" alt="Captura login URAA">
-                </div> 
+                </div>
               </div>
-    
+
             </div>
           </div>
         </div>
       </div>
-    
+
   </div>
 
    <!-- Tutoriales -->
@@ -158,11 +158,11 @@
           <div class="col">
             <h2 class="" style="color: #ffb606; font-family:'Courier New', Courier, monospace">&#9658 <u>{{$tipo_tramite->descripcion}}</u></h2>
           </div>
-          
+
         </div>
 
         <div class="col-lg-10 offset-lg-1">
-					
+
 					<div class="testimonials_slider_container">
 
 						<!-- Multimedia Slider -->
@@ -174,17 +174,17 @@
 										<div class="container container_iframe" style="width: 640px; height: 400px;">
 											<iframe class="responsive_iframe" width="100%" height="100%" src="{{$item->ruta}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 										</div>
-										
-	
+
+
 										<div class="testimonial_user">
-											
+
 											<div class="testimonial_name">{{$item->titulo}}</div>
 											<div class="testimonial_title">{{$item->descripcion}}</div>
 										</div>
 									</div>
 								</div>
 							@endforeach
-							
+
 						</div>
 
 						<div class="multimedia_slider_left multimedia_slider_nav trans_200">
@@ -195,11 +195,11 @@
 						</div>
 					</div>
 				</div>
-        
+
         @endforeach
 
       </div>
-    
+
 
     </div>
   </div>
@@ -227,14 +227,14 @@
 						<div class="elements_accordions">
 
               <!-- TIPOS USUARIO MANUALES DINAMICO -->
-             
+
               @foreach ($tipos_usuario as $tipo_usu)
 							  <div class="accordion_container">
 								  <div class="accordion d-flex flex-row align-items-center">{{$tipo_usu->nombre}}</div>
 								  <div class="accordion_panel">
 
 									  <div id="tramites_secretaria" class="row tag_fade_in icon_boxes_container">
-                
+
                      @foreach ($tipo_usu->manuales as $item)
                         <div class="col-lg-4 icon_box text-left d-flex flex-column align-items-start justify-content-start">
                          <div class="icon_container d-flex flex-column justify-content-end">
@@ -244,9 +244,9 @@
                          <p style="margin-bottom: 20px">{{$item->descripcion}}</p>
                          <div class="button button_color_2 text-center trans_200"><a target="_blank" href="{{$item->ruta_manual}}">Ver Manual</a></div>
                         </div>
-                        
+
                      @endforeach
-                    
+
                    </div>
 								  </div>
 							  </div>
@@ -259,12 +259,22 @@
 			</div>
 		</div>
     <hr>
-    
-      
-    
+
+
+
   </div>
 
 </div>
 
 
+@endsection
+
+@section('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Obtener la hora actual
+        const ahora = new Date();
+        console.log('Hora actual:', ahora.toLocaleTimeString());
+    });
+</script>
 @endsection
